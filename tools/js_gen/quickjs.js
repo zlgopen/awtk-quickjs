@@ -50,9 +50,9 @@ function isEnumString(obj) {
 
 const gQuickJSFuncArgs = `(
     JSContext *ctx, 
-    JSValueConst this_val,
+    jsvalue_const_t this_val,
     int argc, 
-    JSValueConst *argv
+    jsvalue_const_t *argv
   )`;
 
 class JerryscriptGenerator {
@@ -78,29 +78,29 @@ class JerryscriptGenerator {
       }
     } else {
       if (type.indexOf('char*') >= 0) {
-        result += `(${type})quickjs_get_utf8_string(ctx, argv[${index}]);\n`;
+        result += `(${type})jsvalue_get_utf8_string(ctx, argv[${index}]);\n`;
       } else if (type.indexOf('wchar_t*') >= 0) {
-        result += `(${type})quickjs_get_wstring(ctx, argv[${index}]);\n`;
+        result += `(${type})jsvalue_get_wstring(ctx, argv[${index}]);\n`;
       } else if (type.indexOf('void*') >= 0) {
         if (name !== 'ctx') {
-          result += `(${type})quickjs_get_pointer(ctx, argv[${index}], "${type}");\n`;
+          result += `(${type})jsvalue_get_pointer(ctx, argv[${index}], "${type}");\n`;
         } else {
           result += ' NULL;\n';
         }
       } else if (type.indexOf('*') >= 0) {
         const type_name = type.replace(/\*/g, '');
-        result += `(${type})quickjs_get_pointer(ctx, argv[${index}], "${type}");\n`;
+        result += `(${type})jsvalue_get_pointer(ctx, argv[${index}], "${type}");\n`;
       } else if (type.indexOf('float') >= 0 || type.indexOf('double') >= 0) {
-        result += `(${type})quickjs_get_number_value(ctx, argv[${index}]);\n`;
+        result += `(${type})jsvalue_get_number_value(ctx, argv[${index}]);\n`;
       } else if (type.indexOf('int') >= 0 || type.indexOf('xy_t') >= 0 || type.indexOf('wh_t') >= 0 
         || type.indexOf('ret_t') >= 0) {
-        result += `(${type})quickjs_get_int_value(ctx, argv[${index}]);\n`;
+        result += `(${type})jsvalue_get_int_value(ctx, argv[${index}]);\n`;
       } else if (type.indexOf('bool_t') >= 0) {
-        result += `(${type})quickjs_get_boolean_value(ctx, argv[${index}]);\n`;
+        result += `(${type})jsvalue_get_boolean_value(ctx, argv[${index}]);\n`;
       } else if (type.indexOf('func_t') >= 0 || type.indexOf('visit_t') >= 0) {
-        result += `(${type})quickjs_get_pointer(ctx, argv[${index}], "${type}");\n`;
+        result += `(${type})jsvalue_get_pointer(ctx, argv[${index}], "${type}");\n`;
       } else {
-        result += `(${type})quickjs_get_number_value(ctx, argv[${index}]);\n`;
+        result += `(${type})jsvalue_get_number_value(ctx, argv[${index}]);\n`;
       }
     }
 
@@ -124,16 +124,16 @@ class JerryscriptGenerator {
   genReturnData(deconstructor, type, name) {
     let result = '\n';
     if (type.indexOf('char*') >= 0) {
-      result += `  jret = quickjs_create_string(ctx, ${name});\n`;
+      result += `  jret = jsvalue_create_string(ctx, ${name});\n`;
     } else if (type.indexOf('wchar_t*') >= 0) {
-      result += `  jret = quickjs_create_string_from_wstring(ctx, ${name});\n`;
+      result += `  jret = jsvalue_create_string_from_wstring(ctx, ${name});\n`;
     } else if (type.indexOf('*') >= 0) {
       const typeName = type.replace(/\*/g, "");
       let m = deconstructor;
       if(m) {
-        result += `  jret = quickjs_create_object(ctx, ${name}, "${type}", (tk_destroy_t)${m.name});\n`;
+        result += `  jret = jsvalue_create_object(ctx, ${name}, "${type}", (tk_destroy_t)${m.name});\n`;
       } else {
-        result += `  jret = quickjs_create_pointer(ctx, ${name}, "${type}");\n`;
+        result += `  jret = jsvalue_create_pointer(ctx, ${name}, "${type}");\n`;
       }
     } else if (type.indexOf('int') >= 0 || type.indexOf('ret_t') >= 0 
       || type.indexOf('xy_t') >= 0 || type.indexOf('wh_t') >= 0) {
@@ -215,8 +215,8 @@ class JerryscriptGenerator {
     if (!isCustom(m)) {
       let nr = m.params.length;
 
-      result += `JSValue wrap_${name}` + gQuickJSFuncArgs + ' {\n';
-      result += '  JSValue jret = JS_NULL;\n';
+      result += `jsvalue_t wrap_${name}` + gQuickJSFuncArgs + ' {\n';
+      result += '  jsvalue_t jret = JS_NULL;\n';
       result += `  if(argc >= ${nr}) {\n`;
       result += this.genParamsDecl(m);
       result += this.genCallMethod(cls, m);
@@ -254,9 +254,9 @@ class JerryscriptGenerator {
     if (cls.consts) {
       cls.consts.forEach(iter => {
         const name = iter.name;
-        result += `JSValue get_${name}` + gQuickJSFuncArgs + ' {\n';
+        result += `jsvalue_t get_${name}` + gQuickJSFuncArgs + ' {\n';
         if (isConstString) {
-          result += `  return quickjs_create_string(ctx, ${name});\n`;
+          result += `  return jsvalue_create_string(ctx, ${name});\n`;
         } else {
           result += `  return JS_NewInt32(ctx, ${name});\n`;
         }
@@ -265,7 +265,7 @@ class JerryscriptGenerator {
     }
 
     result += `ret_t ${cls.name}_init(JSContext *ctx) {\n`;
-    result += `  JSValue global_obj = JS_GetGlobalObject(ctx);\n`;
+    result += `  jsvalue_t global_obj = JS_GetGlobalObject(ctx);\n`;
     if (cls.methods) {
       cls.methods.forEach(iter => {
         const name = iter.name;
@@ -300,7 +300,7 @@ class JerryscriptGenerator {
       });
     }
 
-    result += '\n JS_FreeValue(ctx, global_obj);\n';
+    result += '\n jsvalue_unref(ctx, global_obj);\n';
     result += '\n return RET_OK;\n';
     result += '}\n\n';
 
@@ -322,7 +322,7 @@ class JerryscriptGenerator {
     const name = p.name;
     const funcName = this.getSetPropertyFuncName(cls, p);
 
-    result += `JSValue wrap_${funcName}` + gQuickJSFuncArgs + ' {\n';
+    result += `jsvalue_t wrap_${funcName}` + gQuickJSFuncArgs + ' {\n';
     result += this.genParamDecl(0, cls.name + '*', 'obj');
     result += this.genParamDecl(1, type, name);
     result += `  obj->${name} = ${name};\n`;
@@ -338,8 +338,8 @@ class JerryscriptGenerator {
     const name = p.name;
     const funcName = this.getGetPropertyFuncName(cls, p);
 
-    result += `JSValue wrap_${funcName}` + gQuickJSFuncArgs + ' {\n';
-    result += '  JSValue jret = JS_NULL;\n';
+    result += `jsvalue_t wrap_${funcName}` + gQuickJSFuncArgs + ' {\n';
+    result += '  jsvalue_t jret = JS_NULL;\n';
     result += this.genParamDecl(0, cls.name + '*', 'obj');
     result += this.genReturnData(null, type, `obj->${name}`);
     result += '  return jret;\n';
