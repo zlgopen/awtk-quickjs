@@ -1,0 +1,16 @@
+:%s/local/var/g
+:%s/\<end\>/}/g
+:%s/:/./g
+:%s/\.\./+/g
+:%s/nil/null/g
+:%s/set_name/setName/g
+:%s/application_init/applicationInit/g
+:%s/set_children_layout_params/setChildrenLayoutParams/g
+:%s/set_rotation/setRotation/g
+:%s/set_text/setText/g
+:%s/set_scale/setScale/g
+:%s/use_style/useStyle/g
+:%s/set_self_layout_params/setSelfLayoutParams/g
+:%s/_\([a-z]\)/\U\1/g
+:wq
+

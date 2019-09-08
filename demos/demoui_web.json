@@ -1,0 +1,7 @@
+{
+  "name":"demouijs",
+  "version":"1.0",
+  "app_type":"js",
+  "assets" : "../../awtk/demos/assets",
+  "sources":["demoui.js"]
+}

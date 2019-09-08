@@ -1,0 +1,13 @@
+import os
+import copy
+
+BIN_DIR=os.environ['BIN_DIR'];
+LIB_DIR=os.environ['LIB_DIR'];
+
+sources= ["cutils.c",	"libbf.c", "libregexp.c", "libunicode.c", "quickjs.c"]
+
+env=DefaultEnvironment().Clone()
+
+env['CCFLAGS'] = env['CCFLAGS'] + ' -DCONFIG_VERSION="\\\"2019-09-01\\\"" '
+
+env.Library(os.path.join(LIB_DIR, 'quickjs'), sources)
