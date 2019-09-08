@@ -157,6 +157,8 @@ ret_t global_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "tk_is_pointer_pressed",
                     JS_NewCFunction(ctx, wrap_tk_is_pointer_pressed, "tk_is_pointer_pressed", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -204,6 +206,8 @@ ret_t bitmap_flag_t_init(JSContext* ctx) {
   JS_SetPropertyStr(
       ctx, global_obj, "BITMAP_FLAG_PREMULTI_ALPHA",
       JS_NewCFunction(ctx, get_BITMAP_FLAG_PREMULTI_ALPHA, "BITMAP_FLAG_PREMULTI_ALPHA", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -324,6 +328,8 @@ ret_t bitmap_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "bitmap_t_get_prop_name",
                     JS_NewCFunction(ctx, wrap_bitmap_t_get_prop_name, "bitmap_t_get_prop_name", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -438,6 +444,8 @@ ret_t image_draw_type_t_init(JSContext* ctx) {
   JS_SetPropertyStr(
       ctx, global_obj, "IMAGE_DRAW_PATCH3_Y_SCALE_X",
       JS_NewCFunction(ctx, get_IMAGE_DRAW_PATCH3_Y_SCALE_X, "IMAGE_DRAW_PATCH3_Y_SCALE_X", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -872,6 +880,8 @@ ret_t canvas_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "canvas_t_get_prop_oy",
                     JS_NewCFunction(ctx, wrap_canvas_t_get_prop_oy, "canvas_t_get_prop_oy", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -893,6 +903,8 @@ ret_t clip_board_data_type_t_init(JSContext* ctx) {
   JS_SetPropertyStr(
       ctx, global_obj, "CLIP_BOARD_DATA_TYPE_TEXT",
       JS_NewCFunction(ctx, get_CLIP_BOARD_DATA_TYPE_TEXT, "CLIP_BOARD_DATA_TYPE_TEXT", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -929,6 +941,8 @@ ret_t clip_board_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_clip_board_set_text, "clip_board_set_text", 1));
   JS_SetPropertyStr(ctx, global_obj, "clip_board_get_text",
                     JS_NewCFunction(ctx, wrap_clip_board_get_text, "clip_board_get_text", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -1335,6 +1349,8 @@ ret_t event_type_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "EVT_USER_START",
                     JS_NewCFunction(ctx, get_EVT_USER_START, "EVT_USER_START", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -1360,6 +1376,8 @@ ret_t font_manager_t_init(JSContext* ctx) {
       ctx, global_obj, "font_manager_unload_font",
       JS_NewCFunction(ctx, wrap_font_manager_unload_font, "font_manager_unload_font", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -1384,6 +1402,8 @@ ret_t glyph_format_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "GLYPH_FMT_RGBA",
                     JS_NewCFunction(ctx, get_GLYPH_FMT_RGBA, "GLYPH_FMT_RGBA", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -1405,6 +1425,8 @@ ret_t idle_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_idle_add, "idle_add", 1));
   JS_SetPropertyStr(ctx, global_obj, "idle_remove",
                     JS_NewCFunction(ctx, wrap_idle_remove, "idle_remove", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -1443,6 +1465,8 @@ ret_t image_manager_t_init(JSContext* ctx) {
   JS_SetPropertyStr(
       ctx, global_obj, "image_manager_get_bitmap",
       JS_NewCFunction(ctx, wrap_image_manager_get_bitmap, "image_manager_get_bitmap", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -1510,6 +1534,8 @@ ret_t input_type_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "INPUT_CUSTOM",
                     JS_NewCFunction(ctx, get_INPUT_CUSTOM, "INPUT_CUSTOM", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -1563,6 +1589,8 @@ ret_t input_method_t_init(JSContext* ctx) {
       JS_NewCFunction(ctx, wrap_input_method_dispatch_key, "input_method_dispatch_key", 1));
   JS_SetPropertyStr(ctx, global_obj, "input_method",
                     JS_NewCFunction(ctx, wrap_input_method, "input_method", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -2104,6 +2132,8 @@ ret_t key_code_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "TK_KEY_RIGHTBRACE",
                     JS_NewCFunction(ctx, get_TK_KEY_RIGHTBRACE, "TK_KEY_RIGHTBRACE", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -2177,6 +2207,8 @@ ret_t locale_info_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_locale_info_on, "locale_info_on", 1));
   JS_SetPropertyStr(ctx, global_obj, "locale_info_off",
                     JS_NewCFunction(ctx, wrap_locale_info_off, "locale_info_off", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -2403,6 +2435,8 @@ ret_t style_id_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "STYLE_ID_ROUND_RADIUS",
                     JS_NewCFunction(ctx, get_STYLE_ID_ROUND_RADIUS, "STYLE_ID_ROUND_RADIUS", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -2508,6 +2542,8 @@ ret_t style_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "style_is_mutable",
                     JS_NewCFunction(ctx, wrap_style_is_mutable, "style_is_mutable", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -2525,6 +2561,8 @@ JSValue wrap_theme(JSContext* ctx, JSValueConst this_val, int argc, JSValueConst
 ret_t theme_t_init(JSContext* ctx) {
   JSValue global_obj = JS_GetGlobalObject(ctx);
   JS_SetPropertyStr(ctx, global_obj, "theme", JS_NewCFunction(ctx, wrap_theme, "theme", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -2577,6 +2615,8 @@ ret_t timer_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "timer_modify",
                     JS_NewCFunction(ctx, wrap_timer_modify, "timer_modify", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -2607,6 +2647,8 @@ ret_t align_v_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "ALIGN_V_BOTTOM",
                     JS_NewCFunction(ctx, get_ALIGN_V_BOTTOM, "ALIGN_V_BOTTOM", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -2636,6 +2678,8 @@ ret_t align_h_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, get_ALIGN_H_LEFT, "ALIGN_H_LEFT", 1));
   JS_SetPropertyStr(ctx, global_obj, "ALIGN_H_RIGHT",
                     JS_NewCFunction(ctx, get_ALIGN_H_RIGHT, "ALIGN_H_RIGHT", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -3511,6 +3555,8 @@ ret_t vgcanvas_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_vgcanvas_t_get_prop_text_baseline,
                                     "vgcanvas_t_get_prop_text_baseline", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -3586,6 +3632,8 @@ ret_t bitmap_format_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, get_BITMAP_FMT_GRAY, "BITMAP_FMT_GRAY", 1));
   JS_SetPropertyStr(ctx, global_obj, "BITMAP_FMT_MONO",
                     JS_NewCFunction(ctx, get_BITMAP_FMT_MONO, "BITMAP_FMT_MONO", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -4393,6 +4441,8 @@ ret_t widget_prop_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, get_WIDGET_PROP_MOVE_FOCUS_PREV_KEY,
                                     "WIDGET_PROP_MOVE_FOCUS_PREV_KEY", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -4780,6 +4830,8 @@ ret_t widget_type_t_init(JSContext* ctx) {
       ctx, global_obj, "WIDGET_TYPE_CALIBRATION_WIN",
       JS_NewCFunction(ctx, get_WIDGET_TYPE_CALIBRATION_WIN, "WIDGET_TYPE_CALIBRATION_WIN", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -4813,6 +4865,8 @@ ret_t window_stage_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "WINDOW_STAGE_CLOSED",
                     JS_NewCFunction(ctx, get_WINDOW_STAGE_CLOSED, "WINDOW_STAGE_CLOSED", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -4840,6 +4894,8 @@ ret_t window_closable_t_init(JSContext* ctx) {
   JS_SetPropertyStr(
       ctx, global_obj, "WINDOW_CLOSABLE_CONFIRM",
       JS_NewCFunction(ctx, get_WINDOW_CLOSABLE_CONFIRM, "WINDOW_CLOSABLE_CONFIRM", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -4993,6 +5049,8 @@ ret_t widget_state_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "WIDGET_STATE_FOCUSED_OF_ACTIVE",
                     JS_NewCFunction(ctx, get_WIDGET_STATE_FOCUSED_OF_ACTIVE,
                                     "WIDGET_STATE_FOCUSED_OF_ACTIVE", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -6188,6 +6246,8 @@ ret_t widget_t_init(JSContext* ctx) {
       ctx, global_obj, "widget_t_get_prop_floating",
       JS_NewCFunction(ctx, wrap_widget_t_get_prop_floating, "widget_t_get_prop_floating", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -6255,6 +6315,8 @@ ret_t assets_manager_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "assets_manager_unref",
                     JS_NewCFunction(ctx, wrap_assets_manager_unref, "assets_manager_unref", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -6315,6 +6377,8 @@ ret_t asset_type_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, get_ASSET_TYPE_SCRIPT, "ASSET_TYPE_SCRIPT", 1));
   JS_SetPropertyStr(ctx, global_obj, "ASSET_TYPE_DATA",
                     JS_NewCFunction(ctx, get_ASSET_TYPE_DATA, "ASSET_TYPE_DATA", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -6393,6 +6457,8 @@ ret_t asset_info_t_init(JSContext* ctx) {
   JS_SetPropertyStr(
       ctx, global_obj, "asset_info_t_get_prop_name",
       JS_NewCFunction(ctx, wrap_asset_info_t_get_prop_name, "asset_info_t_get_prop_name", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -6520,6 +6586,8 @@ ret_t color_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "color_t_get_prop_color",
                     JS_NewCFunction(ctx, wrap_color_t_get_prop_color, "color_t_get_prop_color", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -6622,6 +6690,8 @@ ret_t date_time_t_init(JSContext* ctx) {
   JS_SetPropertyStr(
       ctx, global_obj, "date_time_t_get_prop_year",
       JS_NewCFunction(ctx, wrap_date_time_t_get_prop_year, "date_time_t_get_prop_year", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -6747,6 +6817,8 @@ ret_t emitter_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "emitter_cast",
                     JS_NewCFunction(ctx, wrap_emitter_cast, "emitter_cast", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -6795,6 +6867,8 @@ ret_t event_base_type_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, get_EVT_PROPS_CHANGED, "EVT_PROPS_CHANGED", 1));
   JS_SetPropertyStr(ctx, global_obj, "EVT_DESTROY",
                     JS_NewCFunction(ctx, get_EVT_DESTROY, "EVT_DESTROY", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -6864,6 +6938,8 @@ ret_t event_t_init(JSContext* ctx) {
   JS_SetPropertyStr(
       ctx, global_obj, "event_t_get_prop_target",
       JS_NewCFunction(ctx, wrap_event_t_get_prop_target, "event_t_get_prop_target", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -6959,11 +7035,15 @@ ret_t named_value_t_init(JSContext* ctx) {
       ctx, global_obj, "named_value_t_get_prop_name",
       JS_NewCFunction(ctx, wrap_named_value_t_get_prop_name, "named_value_t_get_prop_name", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
 ret_t point_t_init(JSContext* ctx) {
   JSValue global_obj = JS_GetGlobalObject(ctx);
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -7064,6 +7144,8 @@ ret_t rect_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "rect_t_get_prop_h",
                     JS_NewCFunction(ctx, wrap_rect_t_get_prop_h, "rect_t_get_prop_h", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -7095,6 +7177,8 @@ ret_t time_now_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_time_now_s, "time_now_s", 1));
   JS_SetPropertyStr(ctx, global_obj, "time_now_ms",
                     JS_NewCFunction(ctx, wrap_time_now_ms, "time_now_ms", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -7196,6 +7280,8 @@ ret_t ret_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, get_RET_ITEMS_CHANGED, "RET_ITEMS_CHANGED", 1));
   JS_SetPropertyStr(ctx, global_obj, "RET_BAD_PARAMS",
                     JS_NewCFunction(ctx, get_RET_BAD_PARAMS, "RET_BAD_PARAMS", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -7308,6 +7394,8 @@ ret_t value_type_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, get_VALUE_TYPE_WSTRING, "VALUE_TYPE_WSTRING", 1));
   JS_SetPropertyStr(ctx, global_obj, "VALUE_TYPE_OBJECT",
                     JS_NewCFunction(ctx, get_VALUE_TYPE_OBJECT, "VALUE_TYPE_OBJECT", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -7807,6 +7895,8 @@ ret_t value_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "value_cast",
                     JS_NewCFunction(ctx, wrap_value_cast, "value_cast", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -8175,6 +8265,8 @@ ret_t slide_indicator_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_slide_indicator_t_get_prop_indicated_target,
                                     "slide_indicator_t_get_prop_indicated_target", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -8345,6 +8437,8 @@ ret_t slide_view_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "slide_view_t_get_prop_anim_hint",
                     JS_NewCFunction(ctx, wrap_slide_view_t_get_prop_anim_hint,
                                     "slide_view_t_get_prop_anim_hint", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -8545,6 +8639,8 @@ ret_t slider_t_init(JSContext* ctx) {
       ctx, global_obj, "slider_t_get_prop_bar_size",
       JS_NewCFunction(ctx, wrap_slider_t_get_prop_bar_size, "slider_t_get_prop_bar_size", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -8621,6 +8717,8 @@ ret_t switch_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "switch_t_get_prop_max_xoffset_ratio",
                     JS_NewCFunction(ctx, wrap_switch_t_get_prop_max_xoffset_ratio,
                                     "switch_t_get_prop_max_xoffset_ratio", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -8885,6 +8983,8 @@ ret_t text_selector_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_text_selector_t_get_prop_options,
                                     "text_selector_t_get_prop_options", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -8952,6 +9052,8 @@ ret_t digit_clock_t_init(JSContext* ctx) {
   JS_SetPropertyStr(
       ctx, global_obj, "digit_clock_t_get_prop_format",
       JS_NewCFunction(ctx, wrap_digit_clock_t_get_prop_format, "digit_clock_t_get_prop_format", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -9225,6 +9327,8 @@ ret_t time_clock_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_time_clock_t_get_prop_second_image,
                                     "time_clock_t_get_prop_second_image", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -9401,6 +9505,8 @@ ret_t key_event_t_init(JSContext* ctx) {
       ctx, global_obj, "key_event_t_get_prop_capslock",
       JS_NewCFunction(ctx, wrap_key_event_t_get_prop_capslock, "key_event_t_get_prop_capslock", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -9438,6 +9544,8 @@ ret_t row_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_row_create, "row_create", 1));
   JS_SetPropertyStr(ctx, global_obj, "row_cast",
                     JS_NewCFunction(ctx, wrap_row_cast, "row_cast", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -9565,6 +9673,8 @@ ret_t progress_bar_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_progress_bar_t_get_prop_show_text,
                                     "progress_bar_t_get_prop_show_text", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -9661,6 +9771,8 @@ ret_t popup_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_popup_t_get_prop_close_when_click_outside,
                                     "popup_t_get_prop_close_when_click_outside", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -9744,6 +9856,8 @@ ret_t pages_t_init(JSContext* ctx) {
       ctx, global_obj, "pages_t_get_prop_active",
       JS_NewCFunction(ctx, wrap_pages_t_get_prop_active, "pages_t_get_prop_active", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -9781,6 +9895,8 @@ ret_t overlay_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_overlay_create, "overlay_create", 1));
   JS_SetPropertyStr(ctx, global_obj, "overlay_cast",
                     JS_NewCFunction(ctx, wrap_overlay_cast, "overlay_cast", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -9867,6 +9983,8 @@ ret_t label_t_init(JSContext* ctx) {
       ctx, global_obj, "label_t_get_prop_length",
       JS_NewCFunction(ctx, wrap_label_t_get_prop_length, "label_t_get_prop_length", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -9905,6 +10023,8 @@ ret_t group_box_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "group_box_cast",
                     JS_NewCFunction(ctx, wrap_group_box_cast, "group_box_cast", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -9936,6 +10056,8 @@ ret_t paint_event_t_init(JSContext* ctx) {
   JS_SetPropertyStr(
       ctx, global_obj, "paint_event_t_get_prop_c",
       JS_NewCFunction(ctx, wrap_paint_event_t_get_prop_c, "paint_event_t_get_prop_c", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -9975,6 +10097,8 @@ ret_t view_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "view_cast",
                     JS_NewCFunction(ctx, wrap_view_cast, "view_cast", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -10007,6 +10131,8 @@ ret_t window_event_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "window_event_t_get_prop_window",
                     JS_NewCFunction(ctx, wrap_window_event_t_get_prop_window,
                                     "window_event_t_get_prop_window", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -10254,6 +10380,8 @@ ret_t image_base_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "image_base_t_get_prop_selected",
                     JS_NewCFunction(ctx, wrap_image_base_t_get_prop_selected,
                                     "image_base_t_get_prop_selected", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -10508,6 +10636,8 @@ ret_t dialog_t_init(JSContext* ctx) {
       ctx, global_obj, "dialog_t_get_prop_highlight",
       JS_NewCFunction(ctx, wrap_dialog_t_get_prop_highlight, "dialog_t_get_prop_highlight", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -10576,6 +10706,8 @@ ret_t wheel_event_t_init(JSContext* ctx) {
       ctx, global_obj, "wheel_event_t_get_prop_shift",
       JS_NewCFunction(ctx, wrap_wheel_event_t_get_prop_shift, "wheel_event_t_get_prop_shift", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -10609,6 +10741,8 @@ ret_t orientation_event_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "orientation_event_t_get_prop_orientation",
                     JS_NewCFunction(ctx, wrap_orientation_event_t_get_prop_orientation,
                                     "orientation_event_t_get_prop_orientation", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -10739,6 +10873,8 @@ ret_t pointer_event_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_pointer_event_t_get_prop_shift,
                                     "pointer_event_t_get_prop_shift", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -10782,6 +10918,8 @@ ret_t window_base_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "window_base_t_get_prop_closable",
                     JS_NewCFunction(ctx, wrap_window_base_t_get_prop_closable,
                                     "window_base_t_get_prop_closable", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -10996,6 +11134,8 @@ ret_t window_manager_t_init(JSContext* ctx) {
       ctx, global_obj, "window_manager_back_to_home",
       JS_NewCFunction(ctx, wrap_window_manager_back_to_home, "window_manager_back_to_home", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -11123,6 +11263,8 @@ ret_t window_t_init(JSContext* ctx) {
       ctx, global_obj, "window_t_get_prop_fullscreen",
       JS_NewCFunction(ctx, wrap_window_t_get_prop_fullscreen, "window_t_get_prop_fullscreen", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -11162,6 +11304,8 @@ ret_t canvas_widget_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_canvas_widget_create, "canvas_widget_create", 1));
   JS_SetPropertyStr(ctx, global_obj, "canvas_widget_cast",
                     JS_NewCFunction(ctx, wrap_canvas_widget_cast, "canvas_widget_cast", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -11209,6 +11353,8 @@ ret_t prop_change_event_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "prop_change_event_t_get_prop_value",
                     JS_NewCFunction(ctx, wrap_prop_change_event_t_get_prop_value,
                                     "prop_change_event_t_get_prop_value", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -11279,6 +11425,8 @@ ret_t color_picker_t_init(JSContext* ctx) {
       ctx, global_obj, "color_picker_t_get_prop_value",
       JS_NewCFunction(ctx, wrap_color_picker_t_get_prop_value, "color_picker_t_get_prop_value", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -11317,6 +11465,8 @@ ret_t grid_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "grid_cast",
                     JS_NewCFunction(ctx, wrap_grid_cast, "grid_cast", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -11354,6 +11504,8 @@ ret_t grid_item_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_grid_item_create, "grid_item_create", 1));
   JS_SetPropertyStr(ctx, global_obj, "grid_item_cast",
                     JS_NewCFunction(ctx, wrap_grid_item_cast, "grid_item_cast", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -11696,6 +11848,8 @@ ret_t edit_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "edit_t_get_prop_tips",
                     JS_NewCFunction(ctx, wrap_edit_t_get_prop_tips, "edit_t_get_prop_tips", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -11734,6 +11888,8 @@ ret_t tab_control_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_tab_control_create, "tab_control_create", 1));
   JS_SetPropertyStr(ctx, global_obj, "tab_control_cast",
                     JS_NewCFunction(ctx, wrap_tab_control_cast, "tab_control_cast", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -11835,6 +11991,8 @@ ret_t style_mutable_t_init(JSContext* ctx) {
   JS_SetPropertyStr(
       ctx, global_obj, "style_mutable_t_get_prop_name",
       JS_NewCFunction(ctx, wrap_style_mutable_t_get_prop_name, "style_mutable_t_get_prop_name", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -11962,6 +12120,8 @@ ret_t tab_button_t_init(JSContext* ctx) {
       ctx, global_obj, "tab_button_t_get_prop_icon",
       JS_NewCFunction(ctx, wrap_tab_button_t_get_prop_icon, "tab_button_t_get_prop_icon", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -12066,6 +12226,8 @@ ret_t dragger_t_init(JSContext* ctx) {
   JS_SetPropertyStr(
       ctx, global_obj, "dragger_t_get_prop_y_max",
       JS_NewCFunction(ctx, wrap_dragger_t_get_prop_y_max, "dragger_t_get_prop_y_max", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -12568,6 +12730,8 @@ ret_t object_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "object_t_get_prop_name",
                     JS_NewCFunction(ctx, wrap_object_t_get_prop_name, "object_t_get_prop_name", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -12607,6 +12771,8 @@ ret_t dialog_title_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_dialog_title_create, "dialog_title_create", 1));
   JS_SetPropertyStr(ctx, global_obj, "dialog_title_cast",
                     JS_NewCFunction(ctx, wrap_dialog_title_cast, "dialog_title_cast", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -12751,6 +12917,8 @@ ret_t guage_pointer_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_guage_pointer_t_get_prop_anchor_y,
                                     "guage_pointer_t_get_prop_anchor_y", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -12843,6 +13011,8 @@ ret_t guage_t_init(JSContext* ctx) {
   JS_SetPropertyStr(
       ctx, global_obj, "guage_t_get_prop_draw_type",
       JS_NewCFunction(ctx, wrap_guage_t_get_prop_draw_type, "guage_t_get_prop_draw_type", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -13216,6 +13386,8 @@ ret_t image_animation_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_image_animation_t_get_prop_delay,
                                     "image_animation_t_get_prop_delay", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -13341,6 +13513,8 @@ ret_t image_value_t_init(JSContext* ctx) {
       ctx, global_obj, "image_value_t_get_prop_value",
       JS_NewCFunction(ctx, wrap_image_value_t_get_prop_value, "image_value_t_get_prop_value", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -13380,6 +13554,8 @@ ret_t dialog_client_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_dialog_client_create, "dialog_client_create", 1));
   JS_SetPropertyStr(ctx, global_obj, "dialog_client_cast",
                     JS_NewCFunction(ctx, wrap_dialog_client_cast, "dialog_client_cast", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -13487,6 +13663,8 @@ ret_t line_number_t_init(JSContext* ctx) {
       JS_NewCFunction(ctx, wrap_line_number_set_yoffset, "line_number_set_yoffset", 1));
   JS_SetPropertyStr(ctx, global_obj, "line_number_cast",
                     JS_NewCFunction(ctx, wrap_line_number_cast, "line_number_cast", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -13701,6 +13879,8 @@ ret_t mledit_t_init(JSContext* ctx) {
       ctx, global_obj, "mledit_t_get_prop_max_lines",
       JS_NewCFunction(ctx, wrap_mledit_t_get_prop_max_lines, "mledit_t_get_prop_max_lines", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -13801,6 +13981,8 @@ ret_t tab_button_group_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "tab_button_group_t_get_prop_scrollable",
                     JS_NewCFunction(ctx, wrap_tab_button_group_t_get_prop_scrollable,
                                     "tab_button_group_t_get_prop_scrollable", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -14053,6 +14235,8 @@ ret_t progress_circle_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_progress_circle_t_get_prop_show_text,
                                     "progress_circle_t_get_prop_show_text", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -14119,6 +14303,8 @@ ret_t rich_text_t_init(JSContext* ctx) {
   JS_SetPropertyStr(
       ctx, global_obj, "rich_text_t_get_prop_line_gap",
       JS_NewCFunction(ctx, wrap_rich_text_t_get_prop_line_gap, "rich_text_t_get_prop_line_gap", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -14402,6 +14588,8 @@ ret_t hscroll_label_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_hscroll_label_t_get_prop_text_w,
                                     "hscroll_label_t_get_prop_text_w", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -14439,6 +14627,8 @@ ret_t list_item_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_list_item_create, "list_item_create", 1));
   JS_SetPropertyStr(ctx, global_obj, "list_item_cast",
                     JS_NewCFunction(ctx, wrap_list_item_cast, "list_item_cast", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -14536,6 +14726,8 @@ ret_t list_view_h_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "list_view_h_t_get_prop_spacing",
                     JS_NewCFunction(ctx, wrap_list_view_h_t_get_prop_spacing,
                                     "list_view_h_t_get_prop_spacing", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -14661,6 +14853,8 @@ ret_t list_view_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "list_view_t_get_prop_auto_hide_scroll_bar",
                     JS_NewCFunction(ctx, wrap_list_view_t_get_prop_auto_hide_scroll_bar,
                                     "list_view_t_get_prop_auto_hide_scroll_bar", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -14904,6 +15098,8 @@ ret_t scroll_bar_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_scroll_bar_t_get_prop_animatable,
                                     "scroll_bar_t_get_prop_animatable", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -15118,6 +15314,8 @@ ret_t scroll_view_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_scroll_view_t_get_prop_yslidable,
                                     "scroll_view_t_get_prop_yslidable", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -15242,6 +15440,8 @@ ret_t slide_menu_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_slide_menu_t_get_prop_min_scale,
                                     "slide_menu_t_get_prop_min_scale", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -15279,6 +15479,8 @@ ret_t app_bar_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_app_bar_create, "app_bar_create", 1));
   JS_SetPropertyStr(ctx, global_obj, "app_bar_cast",
                     JS_NewCFunction(ctx, wrap_app_bar_cast, "app_bar_cast", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -15319,6 +15521,8 @@ ret_t button_group_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_button_group_create, "button_group_create", 1));
   JS_SetPropertyStr(ctx, global_obj, "button_group_cast",
                     JS_NewCFunction(ctx, wrap_button_group_cast, "button_group_cast", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -15415,6 +15619,8 @@ ret_t button_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_button_t_get_prop_enable_long_press,
                                     "button_t_get_prop_enable_long_press", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -15503,6 +15709,8 @@ ret_t check_button_t_init(JSContext* ctx) {
       ctx, global_obj, "check_button_t_get_prop_value",
       JS_NewCFunction(ctx, wrap_check_button_t_get_prop_value, "check_button_t_get_prop_value", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -15584,6 +15792,8 @@ ret_t color_tile_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_color_tile_t_get_prop_border_color,
                                     "color_tile_t_get_prop_border_color", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -15621,6 +15831,8 @@ ret_t column_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_column_create, "column_create", 1));
   JS_SetPropertyStr(ctx, global_obj, "column_cast",
                     JS_NewCFunction(ctx, wrap_column_cast, "column_cast", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -15719,6 +15931,8 @@ ret_t combo_box_item_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "combo_box_item_t_get_prop_checked",
                     JS_NewCFunction(ctx, wrap_combo_box_item_t_get_prop_checked,
                                     "combo_box_item_t_get_prop_checked", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -15955,6 +16169,8 @@ ret_t combo_box_t_init(JSContext* ctx) {
       ctx, global_obj, "combo_box_t_get_prop_options",
       JS_NewCFunction(ctx, wrap_combo_box_t_get_prop_options, "combo_box_t_get_prop_options", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -16023,11 +16239,15 @@ ret_t timer_info_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_timer_info_t_get_prop_user_changed_time,
                                     "timer_info_t_get_prop_user_changed_time", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
 ret_t window_manager_simple_t_init(JSContext* ctx) {
   JSValue global_obj = JS_GetGlobalObject(ctx);
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -16077,6 +16297,8 @@ ret_t object_default_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_object_default_t_get_prop_props_size,
                                     "object_default_t_get_prop_props_size", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -16121,11 +16343,15 @@ ret_t idle_info_t_init(JSContext* ctx) {
       ctx, global_obj, "idle_info_t_get_prop_id",
       JS_NewCFunction(ctx, wrap_idle_info_t_get_prop_id, "idle_info_t_get_prop_id", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
 ret_t window_manager_default_t_init(JSContext* ctx) {
   JSValue global_obj = JS_GetGlobalObject(ctx);
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -16193,6 +16419,8 @@ ret_t image_t_init(JSContext* ctx) {
       ctx, global_obj, "image_t_get_prop_draw_type",
       JS_NewCFunction(ctx, wrap_image_t_get_prop_draw_type, "image_t_get_prop_draw_type", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -16217,6 +16445,8 @@ ret_t combo_box_ex_t_init(JSContext* ctx) {
   JSValue global_obj = JS_GetGlobalObject(ctx);
   JS_SetPropertyStr(ctx, global_obj, "combo_box_ex_create",
                     JS_NewCFunction(ctx, wrap_combo_box_ex_create, "combo_box_ex_create", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -16256,6 +16486,8 @@ ret_t gif_image_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "gif_image_cast",
                     JS_NewCFunction(ctx, wrap_gif_image_cast, "gif_image_cast", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -16293,6 +16525,8 @@ ret_t svg_image_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_svg_image_create, "svg_image_create", 1));
   JS_SetPropertyStr(ctx, global_obj, "svg_image_cast",
                     JS_NewCFunction(ctx, wrap_svg_image_cast, "svg_image_cast", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }
@@ -16332,6 +16566,8 @@ ret_t spin_box_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "spin_box_cast",
                     JS_NewCFunction(ctx, wrap_spin_box_cast, "spin_box_cast", 1));
 
+  JS_FreeValue(ctx, global_obj);
+
   return RET_OK;
 }
 
@@ -16370,6 +16606,8 @@ ret_t system_bar_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_system_bar_create, "system_bar_create", 1));
   JS_SetPropertyStr(ctx, global_obj, "system_bar_cast",
                     JS_NewCFunction(ctx, wrap_system_bar_cast, "system_bar_cast", 1));
+
+  JS_FreeValue(ctx, global_obj);
 
   return RET_OK;
 }

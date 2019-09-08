@@ -300,6 +300,7 @@ class JerryscriptGenerator {
       });
     }
 
+    result += '\n JS_FreeValue(ctx, global_obj);\n';
     result += '\n return RET_OK;\n';
     result += '}\n\n';
 

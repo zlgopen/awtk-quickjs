@@ -25,8 +25,8 @@ os.environ['LIB_DIR'] = APP_LIB_DIR;
 APP_LIBS = ['assets']
 APP_LIBPATH = [APP_LIB_DIR]
 APP_CPPPATH = [QUICK_JS_DIR]
-APP_CFLAGS = '-DRES_ROOT=\"\\\"'+RES_ROOT+'\\\"\" -DPATH_MAX=256 '
-APP_CCFLAGS = '-DRES_ROOT=\"\\\"'+RES_ROOT+'\\\"\" -DPATH_MAX=256 '
+APP_CFLAGS = '-DRES_ROOT=\"\\\"'+RES_ROOT+'\\\"\" -DPATH_MAX=256 -DDUMP_LEAKS '
+APP_CCFLAGS = APP_CFLAGS
 
 if hasattr(awtk, 'CC'):
   DefaultEnvironment(

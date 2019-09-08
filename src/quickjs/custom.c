@@ -27,6 +27,7 @@ void* quickjs_get_pointer(JSContext* ctx, JSValue v, const char* type) {
 int32_t quickjs_get_int_value(JSContext* ctx, JSValue v) {
   int32_t ret = 0;
   JS_ToInt32(ctx, &ret, v);
+  JS_FreeValue(ctx, v);
 
   return ret;
 }
@@ -34,12 +35,17 @@ int32_t quickjs_get_int_value(JSContext* ctx, JSValue v) {
 double quickjs_get_number_value(JSContext* ctx, JSValue v) {
   double ret = 0;
   JS_ToFloat64(ctx, &ret, v);
+  JS_FreeValue(ctx, v);
 
   return ret;
 }
 
 bool_t quickjs_get_boolean_value(JSContext* ctx, JSValue v) {
-  return JS_ToBool(ctx, v);
+  bool_t ret = JS_ToBool(ctx, v);
+
+  JS_FreeValue(ctx, v);
+
+  return ret;
 }
 
 JSValue quickjs_create_string_from_wstring(JSContext* ctx, const wchar_t* wstr) {
@@ -114,6 +120,7 @@ static ret_t call_on_event(void* ctx, event_t* e) {
   argv[0] = quickjs_create_pointer(info->ctx, e, "event_t*");
   jret = JS_Call(jctx, info->func, JS_NULL, 1, argv);
   ret = (ret_t)quickjs_get_int_value(jctx, jret);
+  JS_FreeValue(jctx, argv[0]);
   JS_FreeValue(jctx, jret);
 
   return ret;
@@ -254,6 +261,7 @@ static ret_t call_visit(void* ctx, const void* data) {
   argv[0] = quickjs_create_pointer(info->ctx, data, NULL);
   jret = JS_Call(jctx, info->func, JS_NULL, 1, argv);
   ret = (ret_t)quickjs_get_int_value(jctx, jret);
+  JS_FreeValue(jctx, argv[0]);
   JS_FreeValue(jctx, jret);
 
   return ret;
