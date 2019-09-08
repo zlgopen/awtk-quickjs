@@ -27,15 +27,15 @@
 
 BEGIN_C_DECLS
 
-ret_t awtk_js_init(JSContext *ctx);
+ret_t awtk_js_init(JSContext* ctx);
 
-ret_t awtk_quickjs_init(JSContext *ctx);
-ret_t awtk_quickjs_deinit(JSContext *ctx);
-ret_t awtk_iotjs_quickjs_init(JSContext *ctx);
-ret_t awtk_quickjs_eval(JSContext *ctx, const char *filename);
-ret_t awtk_quickjs_eval_awtk_js(JSContext *ctx, const char *filename);
-ret_t awtk_quickjs_eval_script(JSContext *ctx, const char *filename,
-                               const char *script, uint32_t size);
+ret_t awtk_quickjs_init(JSContext* ctx);
+ret_t awtk_quickjs_deinit(JSContext* ctx);
+ret_t awtk_iotjs_quickjs_init(JSContext* ctx);
+ret_t awtk_quickjs_eval(JSContext* ctx, const char* filename);
+ret_t awtk_quickjs_eval_awtk_js(JSContext* ctx, const char* filename);
+ret_t awtk_quickjs_eval_script(JSContext* ctx, const char* filename, const char* script,
+                               uint32_t size);
 
 END_C_DECLS
 

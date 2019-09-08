@@ -4,7 +4,7 @@ import copy
 BIN_DIR=os.environ['BIN_DIR'];
 LIB_DIR=os.environ['LIB_DIR'];
 
-sources= ["cutils.c",	"libbf.c", "libregexp.c", "libunicode.c", "quickjs.c"]
+sources= ["cutils.c",	"libbf.c", "libregexp.c", "libunicode.c", "quickjs.c", "quickjs-libc.c"]
 
 env=DefaultEnvironment().Clone()
 
