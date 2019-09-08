@@ -114,8 +114,6 @@ class JerryscriptGenerator {
     if (returnType != 'void') {
       result = this.genParamDecl(-1, returnType, 'ret');
     }
-    
-    result += '  JSValue jret;\n';
     m.params.forEach((iter, index) => {
       result += this.genParamDecl(index, iter.type, iter.name);
     })
@@ -208,8 +206,6 @@ class JerryscriptGenerator {
       }
     }
 
-    result += '  return jret;\n';
-
     return result;
   }
 
@@ -217,9 +213,15 @@ class JerryscriptGenerator {
     let result = '';
     const name = m.name;
     if (!isCustom(m)) {
+      let nr = m.params.length;
+
       result += `JSValue wrap_${name}` + gQuickJSFuncArgs + ' {\n';
+      result += '  JSValue jret = JS_NULL;\n';
+      result += `  if(argc >= ${nr}) {\n`;
       result += this.genParamsDecl(m);
       result += this.genCallMethod(cls, m);
+      result += '  }\n';
+      result += '  return jret;\n';
       result += '}\n\n'
     }
 
@@ -336,7 +338,7 @@ class JerryscriptGenerator {
     const funcName = this.getGetPropertyFuncName(cls, p);
 
     result += `JSValue wrap_${funcName}` + gQuickJSFuncArgs + ' {\n';
-    result += '  JSValue jret;\n';
+    result += '  JSValue jret = JS_NULL;\n';
     result += this.genParamDecl(0, cls.name + '*', 'obj');
     result += this.genReturnData(null, type, `obj->${name}`);
     result += '  return jret;\n';

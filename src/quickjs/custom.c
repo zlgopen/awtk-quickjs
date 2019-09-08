@@ -65,7 +65,7 @@ JSValue quickjs_create_pointer(JSContext *ctx, const void *ptr,
                                const char *type) {
   JSValue jret = JS_NewObject(ctx);
 
-  JS_SetOpaque(jret, ptr);
+  JS_SetOpaque(jret, (void*)ptr);
 
   return jret;
 }
@@ -82,7 +82,7 @@ JSValue quickjs_create_object(JSContext *ctx, const void *ptr, const char *type,
                               tk_destroy_t destroy) {
   JSValue jret = JS_NewObject(ctx);
 
-  JS_SetOpaque(jret, ptr);
+  JS_SetOpaque(jret, (void*)ptr);
   /*FIXME: how to call destroy when the jret is destroied ?*/
 
   return jret;
