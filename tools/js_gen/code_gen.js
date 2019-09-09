@@ -53,7 +53,7 @@ class CodeGen {
   isEnumString(obj) {
     return obj.annotation && obj.annotation.string === true;
   }
-  
+
   isNormalMethod(m) {
     return !this.isCast(m) && !this.isStatic(m) && !this.isConstructor(m);
   }
@@ -83,7 +83,7 @@ class CodeGen {
   getParentClassName(cls) {
     return this.getClassName(this.getClassInfo(cls.parent));
   }
-  
+
   filterScriptableJson(ojson) {
     let json = ojson.filter(this.isScriptable);
 
@@ -102,8 +102,7 @@ class CodeGen {
     return json;
   }
 
-  genJsonAll(ojson) {
-  }
+  genJsonAll(ojson) {}
 
   genAll(filename) {
     this.json = JSON.parse(fs.readFileSync(filename).toString());
