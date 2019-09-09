@@ -56,6 +56,10 @@ static inline jsvalue_t jsvalue_create_int(JSContext* ctx, uint32_t ret) {
   return JS_NewInt32(ctx, ret);
 }
 
+static inline jsvalue_t jsvalue_create_bool(JSContext* ctx, bool_t ret) {
+  return JS_NewBool(ctx, ret);
+}
+
 static inline jsvalue_t jsvalue_create_number(JSContext* ctx, double ret) {
   return JS_NewFloat64(ctx, ret);
 }
@@ -70,5 +74,4 @@ static inline jsvalue_t jsvalue_create_object(JSContext* ctx, const void* ptr, c
   return jret;
 }
 
-#endif/*JS_ENGINE_H*/
-
+#endif /*JS_ENGINE_H*/

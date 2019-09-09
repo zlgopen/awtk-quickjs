@@ -1,63 +1,18 @@
 const fs = require('fs')
+const CodeGen = require('./code_gen.js')
 
-function isScriptable(obj) {
-  return obj.annotation && obj.annotation.scriptable;
-}
+class QuickJSGenerator extends CodeGen {
+  constructor() {
+    super();
+  }
 
-function isFake(obj) {
-  return obj.annotation && obj.annotation.fake;
-}
-
-function isStatic(obj) {
-  return obj.annotation && obj.annotation.static;
-}
-
-function isReadable(obj) {
-  return obj.annotation && obj.annotation.readable;
-}
-
-function isWritable(obj) {
-  return obj.annotation && obj.annotation.writable;
-}
-
-function isPrivate(obj) {
-  return obj.annotation && obj.annotation.private;
-}
-
-function isCustom(obj) {
-  return obj.annotation && obj.annotation.scriptable == 'custom';
-}
-
-function isConstructor(obj) {
-  return obj.annotation && obj.annotation.constructor === true;
-}
-
-function isGcConstructor(obj) {
-  return obj.annotation && (obj.annotation.constructor === true && obj.annotation.gc);
-}
-
-function isGcDeconstructor(obj) {
-  return obj.annotation && (obj.annotation.deconstructor === true && obj.annotation.gc);
-}
-
-function isCast(obj) {
-  return obj.annotation && obj.annotation.cast
-}
-
-function isEnumString(obj) {
-  return obj.annotation && obj.annotation.string === true;
-}
-
-const gQuickJSFuncArgs = `(
+  genFuncArgs() {
+    return `(
     JSContext *ctx, 
     jsvalue_const_t this_val,
     int argc, 
     jsvalue_const_t *argv
   )`;
-
-class QuickJSGenerator {
-  constructor() {
-    this.result = '';
   }
 
   genJavascriptIncludes() {
@@ -137,11 +92,11 @@ class QuickJSGenerator {
       }
     } else if (type.indexOf('int') >= 0 || type.indexOf('ret_t') >= 0 
       || type.indexOf('xy_t') >= 0 || type.indexOf('wh_t') >= 0) {
-      result += `  jret = JS_NewInt32(ctx, ${name});\n`;
+      result += `  jret = jsvalue_create_int(ctx, ${name});\n`;
     } else if (type.indexOf('bool_t') >= 0) {
-      result += `  jret = JS_NewBool(ctx, ${name});\n`;
+      result += `  jret = jsvalue_create_bool(ctx, ${name});\n`;
     } else {
-      result += `  jret = JS_NewFloat64(ctx, ${name});\n`;
+      result += `  jret = jsvalue_create_number(ctx, ${name});\n`;
     }
 
     return result;
@@ -151,7 +106,7 @@ class QuickJSGenerator {
     let result = '';
 
     if (type.indexOf('char*') >= 0) {
-      result += `  JS_FreeCString(ctx, ${name});\n`;
+      result += `  jsvalue_free_str(ctx, ${name});\n`;
     } else if (type.indexOf('wchar_t*') >= 0) {
       result += `  TKMEM_FREE(ctx, ${name});\n`;
     }
@@ -172,7 +127,7 @@ class QuickJSGenerator {
   getGcDeconstructor(cls) {
     let gcDeconstructor = null;
     cls.methods.forEach(m => {
-      if(isGcDeconstructor(m)) {
+      if(this.isGcDeconstructor(m)) {
         gcDeconstructor = m;
       }  
     }); 
@@ -195,8 +150,8 @@ class QuickJSGenerator {
     result += this.freeParams(m);
 
     if (ret_type != 'void') {
-      if (isConstructor(m) || isCast(m)) {
-        if(isGcConstructor(m)) {
+      if (this.isConstructor(m) || this.isCast(m)) {
+        if(this.isGcConstructor(m)) {
           result += this.genReturnData(this.getGcDeconstructor(cls), `${cls.name}*`, 'ret');
         } else {
           result += this.genReturnData(null, `${cls.name}*`, 'ret');
@@ -212,10 +167,10 @@ class QuickJSGenerator {
   genFuncImpl(cls, m) {
     let result = '';
     const name = m.name;
-    if (!isCustom(m)) {
+    if (!this.isCustom(m)) {
       let nr = m.params.length;
 
-      result += `jsvalue_t wrap_${name}` + gQuickJSFuncArgs + ' {\n';
+      result += `jsvalue_t wrap_${name}` + this.genFuncArgs() + ' {\n';
       result += '  jsvalue_t jret = JS_NULL;\n';
       result += `  if(argc >= ${nr}) {\n`;
       result += this.genParamsDecl(m);
@@ -228,12 +183,25 @@ class QuickJSGenerator {
     return result;
   }
 
+  genGetGlobalObject() {
+    return `  jsvalue_t global_obj = JS_GetGlobalObject(ctx);\n`;
+  }
+  
+  genFreeGlobalObject() {
+    return '\n jsvalue_unref(ctx, global_obj);\n';
+  }
+
+  genRegFunc(prefix, name) {
+     return `  JS_SetPropertyStr(ctx, global_obj, "${name}",
+                      JS_NewCFunction(ctx, ${prefix}_${name}, "${name}", 1));\n`;
+  }
+
   genOneClass(cls) {
     let result = '';
-    let isConstString = isEnumString(cls);
+    let isConstString = this.isEnumString(cls);
     if (cls.methods) {
       cls.methods.forEach(iter => {
-        if(!isGcDeconstructor(iter)) {
+        if(!this.isGcDeconstructor(iter)) {
           result += this.genFuncImpl(cls, iter);
         }
       });
@@ -241,11 +209,11 @@ class QuickJSGenerator {
 
     if (cls.properties) {
       cls.properties.forEach((p) => {
-        if (isWritable(p)) {
+        if (this.isWritable(p)) {
           result += this.genSetProperty(cls, p);
         }
 
-        if (isReadable(p)) {
+        if (this.isReadable(p)) {
           result += this.genGetProperty(cls, p);
         }
       });
@@ -254,40 +222,37 @@ class QuickJSGenerator {
     if (cls.consts) {
       cls.consts.forEach(iter => {
         const name = iter.name;
-        result += `jsvalue_t get_${name}` + gQuickJSFuncArgs + ' {\n';
+        result += `jsvalue_t get_${name}` + this.genFuncArgs() + ' {\n';
         if (isConstString) {
           result += `  return jsvalue_create_string(ctx, ${name});\n`;
         } else {
-          result += `  return JS_NewInt32(ctx, ${name});\n`;
+          result += `  return jsvalue_create_int(ctx, ${name});\n`;
         }
         result += '}\n\n'
       });
     }
 
     result += `ret_t ${cls.name}_init(JSContext *ctx) {\n`;
-    result += `  jsvalue_t global_obj = JS_GetGlobalObject(ctx);\n`;
+    result += this.genGetGlobalObject();
     if (cls.methods) {
       cls.methods.forEach(iter => {
         const name = iter.name;
-        if(!isGcDeconstructor(iter)) {
-          result += `  JS_SetPropertyStr(ctx, global_obj, "${name}",
-                      JS_NewCFunction(ctx, wrap_${name}, "${name}", 1));\n`;
+        if(!this.isGcDeconstructor(iter)) {
+          result += this.genRegFunc('wrap', name);
         }
       });
     }
 
     if (cls.properties) {
       cls.properties.forEach((p) => {
-        if (isWritable(p)) {
+        if (this.isWritable(p)) {
           const name = this.getSetPropertyFuncName(cls, p);
-          result += `  JS_SetPropertyStr(ctx, global_obj, "${name}",
-                      JS_NewCFunction(ctx, wrap_${name}, "${name}", 1));\n`;
+          result += this.genRegFunc('wrap', name);
         }
 
-        if (isReadable(p)) {
+        if (this.isReadable(p)) {
           const name = this.getGetPropertyFuncName(cls, p);
-          result += `  JS_SetPropertyStr(ctx, global_obj, "${name}",
-                      JS_NewCFunction(ctx, wrap_${name}, "${name}", 1));\n`;
+          result += this.genRegFunc('wrap', name);
         }
       });
     }
@@ -295,12 +260,11 @@ class QuickJSGenerator {
     if (cls.consts) {
       cls.consts.forEach(iter => {
         const name = iter.name;
-        result += `  JS_SetPropertyStr(ctx, global_obj, "${name}",
-                      JS_NewCFunction(ctx, get_${name}, "${name}", 1));\n`;
+        result += this.genRegFunc('get', name);
       });
     }
 
-    result += '\n jsvalue_unref(ctx, global_obj);\n';
+    result += this.genFreeGlobalObject();
     result += '\n return RET_OK;\n';
     result += '}\n\n';
 
@@ -322,11 +286,11 @@ class QuickJSGenerator {
     const name = p.name;
     const funcName = this.getSetPropertyFuncName(cls, p);
 
-    result += `jsvalue_t wrap_${funcName}` + gQuickJSFuncArgs + ' {\n';
+    result += `jsvalue_t wrap_${funcName}` + this.genFuncArgs() + ' {\n';
     result += this.genParamDecl(0, cls.name + '*', 'obj');
     result += this.genParamDecl(1, type, name);
     result += `  obj->${name} = ${name};\n`;
-    result += '  return JS_NewInt32(ctx, RET_OK);\n'
+    result += '  return jsvalue_create_int(ctx, RET_OK);\n'
     result += '};\n\n'
 
     return result;
@@ -338,7 +302,7 @@ class QuickJSGenerator {
     const name = p.name;
     const funcName = this.getGetPropertyFuncName(cls, p);
 
-    result += `jsvalue_t wrap_${funcName}` + gQuickJSFuncArgs + ' {\n';
+    result += `jsvalue_t wrap_${funcName}` + this.genFuncArgs() + ' {\n';
     result += '  jsvalue_t jret = JS_NULL;\n';
     result += this.genParamDecl(0, cls.name + '*', 'obj');
     result += this.genReturnData(null, type, `obj->${name}`);
@@ -393,24 +357,6 @@ class QuickJSGenerator {
     return result;
   }
 
-  filterScriptableJson(ojson) {
-    let json = ojson.filter(isScriptable);
-
-    json.forEach(iter => {
-      if (iter.methods && iter.methods.length) {
-        iter.methods = iter.methods.filter(isScriptable);
-      }
-
-      if (iter.properties && iter.properties.length) {
-        iter.properties = iter.properties.filter(isScriptable);
-      }
-    })
-
-    fs.writeFileSync('filter.json', JSON.stringify(json, null, '  '));
-
-    return json;
-  }
-
   genJsonAll(ojson) {
     let json = this.filterScriptableJson(ojson);
     let result = this.genIncludes(json);
@@ -422,14 +368,6 @@ class QuickJSGenerator {
     result += this.genInit(json);
 
     this.result = result;
-  }
-
-  genAll(filename) {
-    this.genJsonAll(JSON.parse(fs.readFileSync(filename).toString()));
-  }
-
-  saveResult(filename) {
-    fs.writeFileSync(filename, this.result);
   }
 
   static gen() {

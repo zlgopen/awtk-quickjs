@@ -1,6 +1,19 @@
 const fs = require('fs');
 
 class CodeGen {
+  CodeGen() {
+    this.result = '';
+  }
+
+  isGcConstructor(obj) {
+    return obj.annotation && (obj.annotation.constructor === true && obj.annotation.gc);
+  }
+
+  isGcDeconstructor(obj) {
+    return obj.annotation && (obj.annotation.deconstructor === true && obj.annotation.gc);
+  }
+
+
   isScriptable(obj) {
     return obj.annotation && obj.annotation.scriptable;
   }
