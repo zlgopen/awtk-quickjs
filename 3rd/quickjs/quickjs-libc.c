@@ -46,6 +46,8 @@
 #include <sys/ioctl.h>
 #if defined(__APPLE__)
 typedef sig_t sighandler_t;
+#else
+typedef sig_t sighandler_t;
 #endif
 #endif
 
