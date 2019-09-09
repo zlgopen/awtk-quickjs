@@ -55,7 +55,7 @@ const gQuickJSFuncArgs = `(
     jsvalue_const_t *argv
   )`;
 
-class JerryscriptGenerator {
+class QuickJSGenerator {
   constructor() {
     this.result = '';
   }
@@ -433,7 +433,7 @@ class JerryscriptGenerator {
   }
 
   static gen() {
-    const gen = new JerryscriptGenerator();
+    const gen = new QuickJSGenerator();
     const input = '../../../awtk/tools/idl_gen/idl.json';
     const output = '../../src/quickjs/tk_quickjs.c';
 
@@ -442,4 +442,4 @@ class JerryscriptGenerator {
   }
 }
 
-JerryscriptGenerator.gen();
+QuickJSGenerator.gen();

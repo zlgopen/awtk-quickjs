@@ -1,54 +1,9 @@
 const fs = require('fs')
+const CodeGen = require('./code_gen.js')
 
-function isScriptable(obj) {
-  return obj.annotation && obj.annotation.scriptable;
-}
-
-function isFake(obj) {
-  return obj.annotation && obj.annotation.fake;
-}
-
-function isStatic(obj) {
-  return obj.annotation && obj.annotation.static;
-}
-
-function isReadable(obj) {
-  return obj.annotation && obj.annotation.readable;
-}
-
-function isWritable(obj) {
-  return obj.annotation && obj.annotation.writable;
-}
-
-function isPrivate(obj) {
-  return obj.annotation && obj.annotation.private;
-}
-
-function isCustom(obj) {
-  return obj.annotation && obj.annotation.scriptable == 'custom';
-}
-
-function isConstructor(obj) {
-  return obj.annotation && obj.annotation.constructor === true;
-}
-
-function isCast(obj) {
-  return obj.annotation && obj.annotation.cast
-}
-
-function isEnumString(obj) {
-  return obj.annotation && obj.annotation.string === true;
-}
-
-const gJerryScriptFuncArgs = `(
-    const jerry_value_t func_obj_val, 
-    const jerry_value_t this_p, 
-    const jerry_value_t args_p[], 
-    const jerry_length_t args_cnt
-  )`;
-
-class JerryscriptGenerator {
+class TypescriptGenerator extends CodeGen {
   constructor() {
+    super()
     this.result = '';
   }
 
@@ -63,32 +18,13 @@ class JerryscriptGenerator {
     });
 
     let newName = 'T' + name;
-    //console.log(`:%s/\\<${name}\\>/${newName}/g`); 
     return newName;
-  }
-
-  getClassInfo(name) {
-    const json = this.json;
-
-    for (let i = 0; i < json.length; i++) {
-      let iter = json[i];
-      if (iter.type === 'class' && iter.name === name) {
-        return iter;
-      }
-    }
-
-    return null;
-  }
-
-  isClassName(name) {
-    name = name.replace("*", "").replace("const ", "").replace(" ", "");
-    return this.getClassInfo(name) !== null;
   }
 
   genCallMethod(cls, m) {
     let returnType = null;
     let result = `${m.name}${this.genCallParamList(m)}`;
-    if (isCast(m) || isConstructor(m)) {
+    if (this.isCast(m) || this.isConstructor(m)) {
       returnType = cls.name;
     } else {
       returnType = m.return.type.replace(/\*/g, "");
@@ -144,7 +80,7 @@ class JerryscriptGenerator {
 
   genParamList(m) {
     let result = '';
-    let isNormalMethod = !isCast(m) && !isStatic(m) && !isConstructor(m);
+    let isNormalMethod = this.isNormalMethod(m);
 
     m.params.forEach((iter, index) => {
       if (index == 0) {
@@ -164,7 +100,7 @@ class JerryscriptGenerator {
 
   genCallParamList(m) {
     let result = '';
-    let isNormalMethod = !isCast(m) && !isStatic(m) && !isConstructor(m);
+    let isNormalMethod = this.isNormalMethod(m);
 
     m.params.forEach((iter, index) => {
       const name = iter.name;
@@ -173,7 +109,7 @@ class JerryscriptGenerator {
         if (isNormalMethod) {
           result += 'this.nativeObj';
           return;
-        } else if (isCast(m)) {
+        } else if (this.isCast(m)) {
           result += `${name} ? (${name}.nativeObj || ${name}) : null`;
           return;
         }
@@ -197,7 +133,7 @@ class JerryscriptGenerator {
     let result = '';
     const name = this.toFuncName(cls.name, m.alias || m.name);
 
-    if (isConstructor(m) || isCast(m) || isStatic(m)) {
+    if (this.isConstructor(m) || this.isCast(m) || this.isStatic(m)) {
       result += ' static'
     }
 
@@ -206,14 +142,6 @@ class JerryscriptGenerator {
     result += ' }\n\n'
 
     return result;
-  }
-
-  getClassName(cls) {
-    return cls.alias || cls.name;
-  }
-
-  getParentClassName(cls) {
-    return this.getClassName(this.getClassInfo(cls.parent));
   }
 
   genOneClass(cls) {
@@ -244,11 +172,11 @@ class JerryscriptGenerator {
 
     if (cls.properties) {
       cls.properties.forEach((p) => {
-        if (isWritable(p)) {
+        if (this.isWritable(p)) {
           result += this.genSetProperty(cls, p);
         }
 
-        if (isReadable(p)) {
+        if (this.isReadable(p)) {
           result += this.genGetProperty(cls, p);
         }
       });
@@ -327,24 +255,6 @@ class JerryscriptGenerator {
     }
   }
 
-  filterScriptableJson(ojson) {
-    let json = ojson.filter(isScriptable);
-
-    json.forEach(iter => {
-      if (iter.methods && iter.methods.length) {
-        iter.methods = iter.methods.filter(isScriptable);
-      }
-
-      if (iter.properties && iter.properties.length) {
-        iter.properties = iter.properties.filter(isScriptable);
-      }
-    })
-
-    fs.writeFileSync('filter.json', JSON.stringify(json, null, '  '));
-
-    return json;
-  }
-
   genFuncsDecl(json) {
     let result = '';
 
@@ -357,12 +267,12 @@ class JerryscriptGenerator {
 
       if (cls.properties) {
         cls.properties.forEach(p => {
-          if (isReadable(p)) {
+          if (this.isReadable(p)) {
             const funcName = this.getGetPropertyFuncName(cls, p);
             result += `declare function ${funcName}(nativeObj);\n`;
           }
 
-          if (isWritable(p)) {
+          if (this.isWritable(p)) {
             const funcName = this.getSetPropertyFuncName(cls, p);
             result += `declare function ${funcName}(nativeObj, value);\n`;
           }
@@ -403,16 +313,8 @@ if(this['console'] === undefined) {
     this.result = result;
   }
 
-  genAll(filename) {
-    this.genJsonAll(JSON.parse(fs.readFileSync(filename).toString()));
-  }
-
-  saveResult(filename) {
-    fs.writeFileSync(filename, this.result);
-  }
-
   static gen() {
-    const gen = new JerryscriptGenerator();
+    const gen = new TypescriptGenerator();
     const input = '../../../awtk/tools/idl_gen/idl.json';
     const output = '../../src/awtk.ts';
 
@@ -421,4 +323,4 @@ if(this['console'] === undefined) {
   }
 }
 
-JerryscriptGenerator.gen();
+TypescriptGenerator.gen();
