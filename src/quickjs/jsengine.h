@@ -7,6 +7,10 @@ typedef JSValue jsvalue_const_t;
 #define jsvalue_ref(ctx, v) JS_DupValue(ctx, v)
 #define jsvalue_unref(ctx, v) JS_FreeValue(ctx, v)
 #define jsvalue_free_str(ctx, v) JS_FreeCString(ctx, v)
+#define jsfunc_call(ctx, func, this_value, argc, argv) JS_Call(ctx, func, this_value, argc, argv)
+#define JSFUNC_DECL(func_name) jsvalue_t func_name(\
+  JSContext* ctx, jsvalue_const_t this_val, int argc,jsvalue_const_t* argv) {
+
 
 static inline char* jsvalue_get_utf8_string(JSContext* ctx, jsvalue_t v) {
   return (char*)JS_ToCString(ctx, v);

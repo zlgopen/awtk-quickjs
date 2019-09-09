@@ -57,7 +57,7 @@ static ret_t call_on_event(void* ctx, event_t* e) {
   JSContext* jctx = info->ctx;
 
   argv[0] = jsvalue_create_pointer(info->ctx, e, "event_t*");
-  jret = JS_Call(jctx, info->func, JS_NULL, 1, argv);
+  jret = jsfunc_call(jctx, info->func, JS_NULL, 1, argv);
   ret = (ret_t)jsvalue_get_int_value(jctx, jret);
   jsvalue_unref(jctx, argv[0]);
   jsvalue_unref(jctx, jret);
@@ -90,8 +90,7 @@ static ret_t emitter_item_on_destroy(void* data) {
   return RET_OK;
 }
 
-jsvalue_t wrap_widget_on(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                         jsvalue_const_t* argv) {
+JSFUNC_DECL(wrap_widget_on) 
   ret_t ret = RET_FAIL;
 
   if (argc >= 3) {
@@ -106,15 +105,13 @@ jsvalue_t wrap_widget_on(JSContext* ctx, jsvalue_const_t this_val, int argc,
   return jsvalue_create_int(ctx, ret);
 }
 
-jsvalue_t wrap_emitter_on(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                          jsvalue_const_t* argv) {
+JSFUNC_DECL(wrap_emitter_on) 
   ret_t ret = RET_OK;
 
   return jsvalue_create_int(ctx, ret);
 }
 
-jsvalue_t wrap_locale_info_on(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                              jsvalue_const_t* argv) {
+JSFUNC_DECL(wrap_locale_info_on)
   ret_t ret = RET_OK;
 
   return jsvalue_create_int(ctx, ret);
@@ -136,15 +133,14 @@ static ret_t call_on_timer(const timer_info_t* timer) {
   JSContext* jctx = info->ctx;
 
   argv[0] = JS_NULL;
-  jret = JS_Call(jctx, info->func, JS_NULL, 1, argv);
+  jret = jsfunc_call(jctx, info->func, JS_NULL, 1, argv);
   ret = (ret_t)jsvalue_get_int_value(jctx, jret);
   jsvalue_unref(jctx, jret);
 
   return ret;
 }
 
-jsvalue_t wrap_timer_add(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                         jsvalue_const_t* argv) {
+JSFUNC_DECL(wrap_timer_add) 
   uint32_t ret = TK_INVALID_ID;
 
   if (argc >= 2) {
@@ -174,14 +170,14 @@ static ret_t call_on_idle(const idle_info_t* idle) {
   JSContext* jctx = info->ctx;
 
   argv[0] = JS_NULL;
-  jret = JS_Call(jctx, info->func, JS_NULL, 1, argv);
+  jret = jsfunc_call(jctx, info->func, JS_NULL, 1, argv);
   ret = (ret_t)jsvalue_get_int_value(jctx, jret);
   jsvalue_unref(jctx, jret);
 
   return ret;
 }
 
-jsvalue_t wrap_idle_add(JSContext* ctx, jsvalue_const_t this_val, int argc, jsvalue_const_t* argv) {
+JSFUNC_DECL(wrap_idle_add) 
   uint32_t ret = TK_INVALID_ID;
 
   if (argc >= 1) {
@@ -202,7 +198,7 @@ static ret_t call_visit(void* ctx, const void* data) {
   JSContext* jctx = info->ctx;
 
   argv[0] = jsvalue_create_pointer(info->ctx, data, NULL);
-  jret = JS_Call(jctx, info->func, JS_NULL, 1, argv);
+  jret = jsfunc_call(jctx, info->func, JS_NULL, 1, argv);
   ret = (ret_t)jsvalue_get_int_value(jctx, jret);
   jsvalue_unref(jctx, argv[0]);
   jsvalue_unref(jctx, jret);
@@ -210,15 +206,13 @@ static ret_t call_visit(void* ctx, const void* data) {
   return ret;
 }
 
-jsvalue_t wrap_object_foreach_prop(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                   jsvalue_const_t* argv) {
+JSFUNC_DECL(wrap_object_foreach_prop) 
   ret_t ret = RET_OK;
 
   return jsvalue_create_int(ctx, ret);
 }
 
-jsvalue_t wrap_widget_foreach(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                              jsvalue_const_t* argv) {
+JSFUNC_DECL(wrap_widget_foreach) 
   ret_t ret = RET_FAIL;
 
   if (argc >= 2) {
