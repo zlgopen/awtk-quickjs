@@ -120,7 +120,7 @@ int main(int argc, char* argv[]) {
 #endif /*WITH_QUICKJS_LIBC*/
   JS_SetPropertyStr(ctx, global_obj, "gc", JS_NewCFunction(ctx, js_gc, "gc", 1));
 
-  return_value_if_fail(awtk_quickjs_eval_awtk_js(ctx, "src/awtk.js") == RET_OK, 0);
+  return_value_if_fail(awtk_quickjs_eval_awtk_js(ctx, "src/js/awtk.js") == RET_OK, 0);
   return_value_if_fail(awtk_quickjs_eval(ctx, script_file) == RET_OK, 0);
 
   idle_add(quickjs_on_idle, ctx);

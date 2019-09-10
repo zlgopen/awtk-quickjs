@@ -90,31 +90,31 @@ static ret_t emitter_item_on_destroy(void* data) {
   return RET_OK;
 }
 
-JSFUNC_DECL(wrap_widget_on) 
-  ret_t ret = RET_FAIL;
+JSFUNC_DECL(wrap_widget_on)
+ret_t ret = RET_FAIL;
 
-  if (argc >= 3) {
-    widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
-    uint32_t type = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
-    async_callback_info_t* info = async_callback_info_create(ctx, jsvalue_ref(ctx, argv[2]));
+if (argc >= 3) {
+  widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
+  uint32_t type = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
+  async_callback_info_t* info = async_callback_info_create(ctx, jsvalue_ref(ctx, argv[2]));
 
-    ret = widget_on(widget, type, call_on_event, info);
-    emitter_set_on_destroy(widget->emitter, ret, emitter_item_on_destroy, NULL);
-  }
-
-  return jsvalue_create_int(ctx, ret);
+  ret = widget_on(widget, type, call_on_event, info);
+  emitter_set_on_destroy(widget->emitter, ret, emitter_item_on_destroy, NULL);
 }
 
-JSFUNC_DECL(wrap_emitter_on) 
-  ret_t ret = RET_OK;
+return jsvalue_create_int(ctx, ret);
+}
 
-  return jsvalue_create_int(ctx, ret);
+JSFUNC_DECL(wrap_emitter_on)
+ret_t ret = RET_OK;
+
+return jsvalue_create_int(ctx, ret);
 }
 
 JSFUNC_DECL(wrap_locale_info_on)
-  ret_t ret = RET_OK;
+ret_t ret = RET_OK;
 
-  return jsvalue_create_int(ctx, ret);
+return jsvalue_create_int(ctx, ret);
 }
 
 static ret_t timer_info_on_destroy(void* data) {
@@ -140,18 +140,18 @@ static ret_t call_on_timer(const timer_info_t* timer) {
   return ret;
 }
 
-JSFUNC_DECL(wrap_timer_add) 
-  uint32_t ret = TK_INVALID_ID;
+JSFUNC_DECL(wrap_timer_add)
+uint32_t ret = TK_INVALID_ID;
 
-  if (argc >= 2) {
-    async_callback_info_t* info = async_callback_info_create(ctx, jsvalue_ref(ctx, argv[0]));
-    uint32_t duration = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
+if (argc >= 2) {
+  async_callback_info_t* info = async_callback_info_create(ctx, jsvalue_ref(ctx, argv[0]));
+  uint32_t duration = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
 
-    ret = timer_add(call_on_timer, info, duration);
-    timer_set_on_destroy(ret, timer_info_on_destroy, NULL);
-  }
+  ret = timer_add(call_on_timer, info, duration);
+  timer_set_on_destroy(ret, timer_info_on_destroy, NULL);
+}
 
-  return jsvalue_create_int(ctx, ret);
+return jsvalue_create_int(ctx, ret);
 }
 
 static ret_t idle_info_on_destroy(void* data) {
@@ -177,17 +177,17 @@ static ret_t call_on_idle(const idle_info_t* idle) {
   return ret;
 }
 
-JSFUNC_DECL(wrap_idle_add) 
-  uint32_t ret = TK_INVALID_ID;
+JSFUNC_DECL(wrap_idle_add)
+uint32_t ret = TK_INVALID_ID;
 
-  if (argc >= 1) {
-    async_callback_info_t* info = async_callback_info_create(ctx, jsvalue_ref(ctx, argv[0]));
+if (argc >= 1) {
+  async_callback_info_t* info = async_callback_info_create(ctx, jsvalue_ref(ctx, argv[0]));
 
-    ret = idle_add(call_on_idle, info);
-    idle_set_on_destroy(ret, idle_info_on_destroy, NULL);
-  }
+  ret = idle_add(call_on_idle, info);
+  idle_set_on_destroy(ret, idle_info_on_destroy, NULL);
+}
 
-  return jsvalue_create_int(ctx, ret);
+return jsvalue_create_int(ctx, ret);
 }
 
 static ret_t call_visit(void* ctx, const void* data) {
@@ -206,22 +206,22 @@ static ret_t call_visit(void* ctx, const void* data) {
   return ret;
 }
 
-JSFUNC_DECL(wrap_object_foreach_prop) 
-  ret_t ret = RET_OK;
+JSFUNC_DECL(wrap_object_foreach_prop)
+ret_t ret = RET_OK;
 
-  return jsvalue_create_int(ctx, ret);
+return jsvalue_create_int(ctx, ret);
 }
 
-JSFUNC_DECL(wrap_widget_foreach) 
-  ret_t ret = RET_FAIL;
+JSFUNC_DECL(wrap_widget_foreach)
+ret_t ret = RET_FAIL;
 
-  if (argc >= 2) {
-    sync_callback_info_t info;
-    widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
-    jsvalue_t func = jsvalue_ref(ctx, argv[1]);
-    ret = widget_foreach(widget, call_visit, sync_callback_info_init(&info, ctx, func));
-    jsvalue_unref(ctx, func);
-  }
+if (argc >= 2) {
+  sync_callback_info_t info;
+  widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
+  jsvalue_t func = jsvalue_ref(ctx, argv[1]);
+  ret = widget_foreach(widget, call_visit, sync_callback_info_init(&info, ctx, func));
+  jsvalue_unref(ctx, func);
+}
 
-  return jsvalue_create_int(ctx, ret);
+return jsvalue_create_int(ctx, ret);
 }
