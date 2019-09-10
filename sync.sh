@@ -1,4 +1,6 @@
 #!/bin/bash
 
-cd tools/js_gen; node index.js; node quickjs.js; cd -
-cd src; tsc; cd -
+cp -vf ../awtk-binding/tools/code_gen/js/output/tk_quickjs.c src/c
+cp -vf ../awtk-binding/tools/code_gen/js/output/awtk.js* src/js
+cp -vf ../awtk-binding/share/js/custom.c src/c
+cp -vf ../awtk-binding/demos/js/* demos/

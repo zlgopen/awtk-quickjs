@@ -56,5 +56,5 @@ else:
     OS_SUBSYSTEM_WINDOWS=awtk.OS_SUBSYSTEM_WINDOWS)
 
 
-SConscript(['3rd/quickjs/SConscript', 'src/quickjs/SConscript']);
+SConscript(['3rd/quickjs/SConscript', 'src/SConscript']);
 
