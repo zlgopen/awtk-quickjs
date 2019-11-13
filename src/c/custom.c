@@ -105,9 +105,32 @@ if (argc >= 3) {
 return jsvalue_create_int(ctx, ret);
 }
 
+JSFUNC_DECL(wrap_widget_on_with_tag)
+ret_t ret = RET_FAIL;
+
+if (argc >= 4) {
+  widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
+  uint32_t type = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
+  async_callback_info_t* info = async_callback_info_create(ctx, jsvalue_ref(ctx, argv[2]));
+  uint32_t tag = (uint32_t)jsvalue_get_int_value(ctx, argv[3]);
+
+  ret = widget_on_with_tag(widget, type, call_on_event, info, tag);
+  emitter_set_on_destroy(widget->emitter, ret, emitter_item_on_destroy, NULL);
+}
+
+return jsvalue_create_int(ctx, ret);
+}
+
 JSFUNC_DECL(wrap_emitter_on)
 ret_t ret = RET_OK;
+/*TODO*/
 
+return jsvalue_create_int(ctx, ret);
+}
+
+JSFUNC_DECL(wrap_emitter_on_with_tag)
+ret_t ret = RET_OK;
+/*TODO*/
 return jsvalue_create_int(ctx, ret);
 }
 
