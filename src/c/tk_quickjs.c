@@ -4475,6 +4475,15 @@ jsvalue_t get_TK_KEY_BACK(
   return jsvalue_create_int(ctx, TK_KEY_BACK);
 }
 
+jsvalue_t get_TK_KEY_CANCEL(
+    JSContext *ctx, 
+    jsvalue_const_t this_val,
+    int argc, 
+    jsvalue_const_t *argv
+  ) {
+  return jsvalue_create_int(ctx, TK_KEY_CANCEL);
+}
+
 ret_t key_code_t_init(JSContext *ctx) {
   jsvalue_t global_obj = JS_GetGlobalObject(ctx);
   JS_SetPropertyStr(ctx, global_obj, "TK_KEY_RETURN",
@@ -4737,6 +4746,8 @@ ret_t key_code_t_init(JSContext *ctx) {
                       JS_NewCFunction(ctx, get_TK_KEY_COMMAND, "TK_KEY_COMMAND", 1));
   JS_SetPropertyStr(ctx, global_obj, "TK_KEY_BACK",
                       JS_NewCFunction(ctx, get_TK_KEY_BACK, "TK_KEY_BACK", 1));
+  JS_SetPropertyStr(ctx, global_obj, "TK_KEY_CANCEL",
+                      JS_NewCFunction(ctx, get_TK_KEY_CANCEL, "TK_KEY_CANCEL", 1));
 
  jsvalue_unref(ctx, global_obj);
 
@@ -7369,6 +7380,15 @@ jsvalue_t get_WIDGET_PROP_AUTO_FIX(
   return jsvalue_create_string(ctx, WIDGET_PROP_AUTO_FIX);
 }
 
+jsvalue_t get_WIDGET_PROP_SELECT_NONE_WHEN_FOCUSED(
+    JSContext *ctx, 
+    jsvalue_const_t this_val,
+    int argc, 
+    jsvalue_const_t *argv
+  ) {
+  return jsvalue_create_string(ctx, WIDGET_PROP_SELECT_NONE_WHEN_FOCUSED);
+}
+
 jsvalue_t get_WIDGET_PROP_X_MIN(
     JSContext *ctx, 
     jsvalue_const_t this_val,
@@ -7412,6 +7432,15 @@ jsvalue_t get_WIDGET_PROP_MAX(
     jsvalue_const_t *argv
   ) {
   return jsvalue_create_string(ctx, WIDGET_PROP_MAX);
+}
+
+jsvalue_t get_WIDGET_PROP_GRAB_KEYS(
+    JSContext *ctx, 
+    jsvalue_const_t this_val,
+    int argc, 
+    jsvalue_const_t *argv
+  ) {
+  return jsvalue_create_string(ctx, WIDGET_PROP_GRAB_KEYS);
 }
 
 jsvalue_t get_WIDGET_PROP_ROW(
@@ -7855,6 +7884,15 @@ jsvalue_t get_WIDGET_PROP_WITH_FOCUS_STATE(
   return jsvalue_create_string(ctx, WIDGET_PROP_WITH_FOCUS_STATE);
 }
 
+jsvalue_t get_WIDGET_PROP_MOVE_FOCUS_PREV_KEY(
+    JSContext *ctx, 
+    jsvalue_const_t this_val,
+    int argc, 
+    jsvalue_const_t *argv
+  ) {
+  return jsvalue_create_string(ctx, WIDGET_PROP_MOVE_FOCUS_PREV_KEY);
+}
+
 jsvalue_t get_WIDGET_PROP_MOVE_FOCUS_NEXT_KEY(
     JSContext *ctx, 
     jsvalue_const_t this_val,
@@ -7864,13 +7902,40 @@ jsvalue_t get_WIDGET_PROP_MOVE_FOCUS_NEXT_KEY(
   return jsvalue_create_string(ctx, WIDGET_PROP_MOVE_FOCUS_NEXT_KEY);
 }
 
-jsvalue_t get_WIDGET_PROP_MOVE_FOCUS_PREV_KEY(
+jsvalue_t get_WIDGET_PROP_MOVE_FOCUS_UP_KEY(
     JSContext *ctx, 
     jsvalue_const_t this_val,
     int argc, 
     jsvalue_const_t *argv
   ) {
-  return jsvalue_create_string(ctx, WIDGET_PROP_MOVE_FOCUS_PREV_KEY);
+  return jsvalue_create_string(ctx, WIDGET_PROP_MOVE_FOCUS_UP_KEY);
+}
+
+jsvalue_t get_WIDGET_PROP_MOVE_FOCUS_DOWN_KEY(
+    JSContext *ctx, 
+    jsvalue_const_t this_val,
+    int argc, 
+    jsvalue_const_t *argv
+  ) {
+  return jsvalue_create_string(ctx, WIDGET_PROP_MOVE_FOCUS_DOWN_KEY);
+}
+
+jsvalue_t get_WIDGET_PROP_MOVE_FOCUS_LEFT_KEY(
+    JSContext *ctx, 
+    jsvalue_const_t this_val,
+    int argc, 
+    jsvalue_const_t *argv
+  ) {
+  return jsvalue_create_string(ctx, WIDGET_PROP_MOVE_FOCUS_LEFT_KEY);
+}
+
+jsvalue_t get_WIDGET_PROP_MOVE_FOCUS_RIGHT_KEY(
+    JSContext *ctx, 
+    jsvalue_const_t this_val,
+    int argc, 
+    jsvalue_const_t *argv
+  ) {
+  return jsvalue_create_string(ctx, WIDGET_PROP_MOVE_FOCUS_RIGHT_KEY);
 }
 
 ret_t widget_prop_t_init(JSContext *ctx) {
@@ -7997,6 +8062,8 @@ ret_t widget_prop_t_init(JSContext *ctx) {
                       JS_NewCFunction(ctx, get_WIDGET_PROP_LOOP, "WIDGET_PROP_LOOP", 1));
   JS_SetPropertyStr(ctx, global_obj, "WIDGET_PROP_AUTO_FIX",
                       JS_NewCFunction(ctx, get_WIDGET_PROP_AUTO_FIX, "WIDGET_PROP_AUTO_FIX", 1));
+  JS_SetPropertyStr(ctx, global_obj, "WIDGET_PROP_SELECT_NONE_WHEN_FOCUSED",
+                      JS_NewCFunction(ctx, get_WIDGET_PROP_SELECT_NONE_WHEN_FOCUSED, "WIDGET_PROP_SELECT_NONE_WHEN_FOCUSED", 1));
   JS_SetPropertyStr(ctx, global_obj, "WIDGET_PROP_X_MIN",
                       JS_NewCFunction(ctx, get_WIDGET_PROP_X_MIN, "WIDGET_PROP_X_MIN", 1));
   JS_SetPropertyStr(ctx, global_obj, "WIDGET_PROP_X_MAX",
@@ -8007,6 +8074,8 @@ ret_t widget_prop_t_init(JSContext *ctx) {
                       JS_NewCFunction(ctx, get_WIDGET_PROP_Y_MAX, "WIDGET_PROP_Y_MAX", 1));
   JS_SetPropertyStr(ctx, global_obj, "WIDGET_PROP_MAX",
                       JS_NewCFunction(ctx, get_WIDGET_PROP_MAX, "WIDGET_PROP_MAX", 1));
+  JS_SetPropertyStr(ctx, global_obj, "WIDGET_PROP_GRAB_KEYS",
+                      JS_NewCFunction(ctx, get_WIDGET_PROP_GRAB_KEYS, "WIDGET_PROP_GRAB_KEYS", 1));
   JS_SetPropertyStr(ctx, global_obj, "WIDGET_PROP_ROW",
                       JS_NewCFunction(ctx, get_WIDGET_PROP_ROW, "WIDGET_PROP_ROW", 1));
   JS_SetPropertyStr(ctx, global_obj, "WIDGET_PROP_STATE_FOR_STYLE",
@@ -8105,10 +8174,18 @@ ret_t widget_prop_t_init(JSContext *ctx) {
                       JS_NewCFunction(ctx, get_WIDGET_PROP_FOCUSABLE, "WIDGET_PROP_FOCUSABLE", 1));
   JS_SetPropertyStr(ctx, global_obj, "WIDGET_PROP_WITH_FOCUS_STATE",
                       JS_NewCFunction(ctx, get_WIDGET_PROP_WITH_FOCUS_STATE, "WIDGET_PROP_WITH_FOCUS_STATE", 1));
-  JS_SetPropertyStr(ctx, global_obj, "WIDGET_PROP_MOVE_FOCUS_NEXT_KEY",
-                      JS_NewCFunction(ctx, get_WIDGET_PROP_MOVE_FOCUS_NEXT_KEY, "WIDGET_PROP_MOVE_FOCUS_NEXT_KEY", 1));
   JS_SetPropertyStr(ctx, global_obj, "WIDGET_PROP_MOVE_FOCUS_PREV_KEY",
                       JS_NewCFunction(ctx, get_WIDGET_PROP_MOVE_FOCUS_PREV_KEY, "WIDGET_PROP_MOVE_FOCUS_PREV_KEY", 1));
+  JS_SetPropertyStr(ctx, global_obj, "WIDGET_PROP_MOVE_FOCUS_NEXT_KEY",
+                      JS_NewCFunction(ctx, get_WIDGET_PROP_MOVE_FOCUS_NEXT_KEY, "WIDGET_PROP_MOVE_FOCUS_NEXT_KEY", 1));
+  JS_SetPropertyStr(ctx, global_obj, "WIDGET_PROP_MOVE_FOCUS_UP_KEY",
+                      JS_NewCFunction(ctx, get_WIDGET_PROP_MOVE_FOCUS_UP_KEY, "WIDGET_PROP_MOVE_FOCUS_UP_KEY", 1));
+  JS_SetPropertyStr(ctx, global_obj, "WIDGET_PROP_MOVE_FOCUS_DOWN_KEY",
+                      JS_NewCFunction(ctx, get_WIDGET_PROP_MOVE_FOCUS_DOWN_KEY, "WIDGET_PROP_MOVE_FOCUS_DOWN_KEY", 1));
+  JS_SetPropertyStr(ctx, global_obj, "WIDGET_PROP_MOVE_FOCUS_LEFT_KEY",
+                      JS_NewCFunction(ctx, get_WIDGET_PROP_MOVE_FOCUS_LEFT_KEY, "WIDGET_PROP_MOVE_FOCUS_LEFT_KEY", 1));
+  JS_SetPropertyStr(ctx, global_obj, "WIDGET_PROP_MOVE_FOCUS_RIGHT_KEY",
+                      JS_NewCFunction(ctx, get_WIDGET_PROP_MOVE_FOCUS_RIGHT_KEY, "WIDGET_PROP_MOVE_FOCUS_RIGHT_KEY", 1));
 
  jsvalue_unref(ctx, global_obj);
 
@@ -11029,6 +11106,22 @@ ret_t rect_t_init(JSContext *ctx) {
                       JS_NewCFunction(ctx, wrap_rect_t_get_prop_w, "rect_t_get_prop_w", 1));
   JS_SetPropertyStr(ctx, global_obj, "rect_t_get_prop_h",
                       JS_NewCFunction(ctx, wrap_rect_t_get_prop_h, "rect_t_get_prop_h", 1));
+
+ jsvalue_unref(ctx, global_obj);
+
+ return RET_OK;
+}
+
+ret_t pointf_t_init(JSContext *ctx) {
+  jsvalue_t global_obj = JS_GetGlobalObject(ctx);
+
+ jsvalue_unref(ctx, global_obj);
+
+ return RET_OK;
+}
+
+ret_t point_t_init(JSContext *ctx) {
+  jsvalue_t global_obj = JS_GetGlobalObject(ctx);
 
  jsvalue_unref(ctx, global_obj);
 
@@ -24248,6 +24341,24 @@ jsvalue_t wrap_edit_set_auto_fix(
   return jret;
 }
 
+jsvalue_t wrap_edit_set_select_none_when_focused(
+    JSContext *ctx, 
+    jsvalue_const_t this_val,
+    int argc, 
+    jsvalue_const_t *argv
+  ) {
+  jsvalue_t jret = JS_NULL;
+  if(argc >= 2) {
+  ret_t ret = 0;
+  widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
+  bool_t select_none_when_focused = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
+  ret = (ret_t)edit_set_select_none_when_focused(widget, select_none_when_focused);
+
+  jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
 jsvalue_t wrap_edit_set_input_type(
     JSContext *ctx, 
     jsvalue_const_t this_val,
@@ -24378,6 +24489,19 @@ jsvalue_t wrap_edit_t_get_prop_auto_fix(
   return jret;
 }
 
+jsvalue_t wrap_edit_t_get_prop_select_none_when_focused(
+    JSContext *ctx, 
+    jsvalue_const_t this_val,
+    int argc, 
+    jsvalue_const_t *argv
+  ) {
+  jsvalue_t jret = JS_NULL;
+  edit_t* obj = (edit_t*)jsvalue_get_pointer(ctx, argv[0], "edit_t*");
+
+  jret = jsvalue_create_bool(ctx, obj->select_none_when_focused);
+  return jret;
+}
+
 jsvalue_t wrap_edit_t_get_prop_tips(
     JSContext *ctx, 
     jsvalue_const_t this_val,
@@ -24467,6 +24591,8 @@ ret_t edit_t_init(JSContext *ctx) {
                       JS_NewCFunction(ctx, wrap_edit_set_readonly, "edit_set_readonly", 1));
   JS_SetPropertyStr(ctx, global_obj, "edit_set_auto_fix",
                       JS_NewCFunction(ctx, wrap_edit_set_auto_fix, "edit_set_auto_fix", 1));
+  JS_SetPropertyStr(ctx, global_obj, "edit_set_select_none_when_focused",
+                      JS_NewCFunction(ctx, wrap_edit_set_select_none_when_focused, "edit_set_select_none_when_focused", 1));
   JS_SetPropertyStr(ctx, global_obj, "edit_set_input_type",
                       JS_NewCFunction(ctx, wrap_edit_set_input_type, "edit_set_input_type", 1));
   JS_SetPropertyStr(ctx, global_obj, "edit_set_input_tips",
@@ -24483,6 +24609,8 @@ ret_t edit_t_init(JSContext *ctx) {
                       JS_NewCFunction(ctx, wrap_edit_t_get_prop_password_visible, "edit_t_get_prop_password_visible", 1));
   JS_SetPropertyStr(ctx, global_obj, "edit_t_get_prop_auto_fix",
                       JS_NewCFunction(ctx, wrap_edit_t_get_prop_auto_fix, "edit_t_get_prop_auto_fix", 1));
+  JS_SetPropertyStr(ctx, global_obj, "edit_t_get_prop_select_none_when_focused",
+                      JS_NewCFunction(ctx, wrap_edit_t_get_prop_select_none_when_focused, "edit_t_get_prop_select_none_when_focused", 1));
   JS_SetPropertyStr(ctx, global_obj, "edit_t_get_prop_tips",
                       JS_NewCFunction(ctx, wrap_edit_t_get_prop_tips, "edit_t_get_prop_tips", 1));
   JS_SetPropertyStr(ctx, global_obj, "edit_t_get_prop_input_type",
@@ -25246,6 +25374,8 @@ ret_t awtk_js_init(JSContext *ctx) {
   timer_manager_t_init(ctx);
   time_now_t_init(ctx);
   rect_t_init(ctx);
+  pointf_t_init(ctx);
+  point_t_init(ctx);
   path_t_init(ctx);
   named_value_t_init(ctx);
   MIME_TYPE_init(ctx);
