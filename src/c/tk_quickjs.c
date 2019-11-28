@@ -949,6 +949,26 @@ jsvalue_t wrap_canvas_draw_image(
   return jret;
 }
 
+jsvalue_t wrap_canvas_draw_image_ex(
+    JSContext *ctx, 
+    jsvalue_const_t this_val,
+    int argc, 
+    jsvalue_const_t *argv
+  ) {
+  jsvalue_t jret = JS_NULL;
+  if(argc >= 4) {
+  ret_t ret = 0;
+  canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
+  bitmap_t* img = (bitmap_t*)jsvalue_get_pointer(ctx, argv[1], "bitmap_t*");
+  image_draw_type_t draw_type = (image_draw_type_t)jsvalue_get_number_value(ctx, argv[2]);
+  rect_t* dst = (rect_t*)jsvalue_get_pointer(ctx, argv[3], "rect_t*");
+  ret = (ret_t)canvas_draw_image_ex(c, img, draw_type, dst);
+
+  jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
 jsvalue_t wrap_canvas_get_vgcanvas(
     JSContext *ctx, 
     jsvalue_const_t this_val,
@@ -1026,6 +1046,45 @@ jsvalue_t wrap_canvas_t_get_prop_oy(
   return jret;
 }
 
+jsvalue_t wrap_canvas_t_get_prop_font_name(
+    JSContext *ctx, 
+    jsvalue_const_t this_val,
+    int argc, 
+    jsvalue_const_t *argv
+  ) {
+  jsvalue_t jret = JS_NULL;
+  canvas_t* obj = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
+
+  jret = jsvalue_create_string(ctx, obj->font_name);
+  return jret;
+}
+
+jsvalue_t wrap_canvas_t_get_prop_font_size(
+    JSContext *ctx, 
+    jsvalue_const_t this_val,
+    int argc, 
+    jsvalue_const_t *argv
+  ) {
+  jsvalue_t jret = JS_NULL;
+  canvas_t* obj = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
+
+  jret = jsvalue_create_int(ctx, obj->font_size);
+  return jret;
+}
+
+jsvalue_t wrap_canvas_t_get_prop_global_alpha(
+    JSContext *ctx, 
+    jsvalue_const_t this_val,
+    int argc, 
+    jsvalue_const_t *argv
+  ) {
+  jsvalue_t jret = JS_NULL;
+  canvas_t* obj = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
+
+  jret = jsvalue_create_int(ctx, obj->global_alpha);
+  return jret;
+}
+
 ret_t canvas_t_init(JSContext *ctx) {
   jsvalue_t global_obj = JS_GetGlobalObject(ctx);
   JS_SetPropertyStr(ctx, global_obj, "canvas_get_width",
@@ -1070,6 +1129,8 @@ ret_t canvas_t_init(JSContext *ctx) {
                       JS_NewCFunction(ctx, wrap_canvas_draw_icon, "canvas_draw_icon", 1));
   JS_SetPropertyStr(ctx, global_obj, "canvas_draw_image",
                       JS_NewCFunction(ctx, wrap_canvas_draw_image, "canvas_draw_image", 1));
+  JS_SetPropertyStr(ctx, global_obj, "canvas_draw_image_ex",
+                      JS_NewCFunction(ctx, wrap_canvas_draw_image_ex, "canvas_draw_image_ex", 1));
   JS_SetPropertyStr(ctx, global_obj, "canvas_get_vgcanvas",
                       JS_NewCFunction(ctx, wrap_canvas_get_vgcanvas, "canvas_get_vgcanvas", 1));
   JS_SetPropertyStr(ctx, global_obj, "canvas_cast",
@@ -1080,6 +1141,12 @@ ret_t canvas_t_init(JSContext *ctx) {
                       JS_NewCFunction(ctx, wrap_canvas_t_get_prop_ox, "canvas_t_get_prop_ox", 1));
   JS_SetPropertyStr(ctx, global_obj, "canvas_t_get_prop_oy",
                       JS_NewCFunction(ctx, wrap_canvas_t_get_prop_oy, "canvas_t_get_prop_oy", 1));
+  JS_SetPropertyStr(ctx, global_obj, "canvas_t_get_prop_font_name",
+                      JS_NewCFunction(ctx, wrap_canvas_t_get_prop_font_name, "canvas_t_get_prop_font_name", 1));
+  JS_SetPropertyStr(ctx, global_obj, "canvas_t_get_prop_font_size",
+                      JS_NewCFunction(ctx, wrap_canvas_t_get_prop_font_size, "canvas_t_get_prop_font_size", 1));
+  JS_SetPropertyStr(ctx, global_obj, "canvas_t_get_prop_global_alpha",
+                      JS_NewCFunction(ctx, wrap_canvas_t_get_prop_global_alpha, "canvas_t_get_prop_global_alpha", 1));
 
  jsvalue_unref(ctx, global_obj);
 
