@@ -13,12 +13,12 @@ function onClick(evt) {
   label.setText('AWTK is cool!');
 
   ok.on(TEventType.CLICK, function(evt) { 
-    dlg.quit(1);
+    dlg.quit(TDialogQuitCode.OK);
     return TRet.OK;
   })
 
   cancel.on(TEventType.CLICK, function(evt) { 
-    dlg.quit(2);
+    dlg.quit(TDialogQuitCode.CANCEL);
     return TRet.OK;
   })
 
@@ -38,14 +38,14 @@ function applicationInit() {
   btn.setText("Show Info");
   btn.setSelfLayoutParams("center", "middle", "50%", "30");
   btn.on(TEventType.CLICK, function() {
-    TDialog.info("Work is done!");
+    TDialog.info('Info', 'Work is done!');
   });
   
   btn = TButton.create(win, 0, 0, 0, 0);
   btn.setText("Show Confirm");
   btn.setSelfLayoutParams("center", "middle:60", "50%", "30");
   btn.on(TEventType.CLICK, function() {
-    TDialog.info("Are you sure to quit?");
+    TDialog.confirm('Confirm', 'Are you sure to quit?');
   });
 
   win.layout();

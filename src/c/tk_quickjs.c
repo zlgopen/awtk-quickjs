@@ -9677,25 +9677,6 @@ jsvalue_t wrap_widget_pause_animator(
   return jret;
 }
 
-jsvalue_t wrap_widget_find_animator(
-    JSContext *ctx, 
-    jsvalue_const_t this_val,
-    int argc, 
-    jsvalue_const_t *argv
-  ) {
-  jsvalue_t jret = JS_NULL;
-  if(argc >= 2) {
-  widget_animator_t* ret = NULL;
-  widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
-  char* name = (char*)jsvalue_get_utf8_string(ctx, argv[1]);
-  ret = (widget_animator_t*)widget_find_animator(widget, name);
-  jsvalue_free_str(ctx, name);
-
-  jret = jsvalue_create_pointer(ctx, ret, "widget_animator_t*");
-  }
-  return jret;
-}
-
 jsvalue_t wrap_widget_stop_animator(
     JSContext *ctx, 
     jsvalue_const_t this_val,
@@ -10267,6 +10248,23 @@ jsvalue_t wrap_widget_destroy(
   return jret;
 }
 
+jsvalue_t wrap_widget_unref(
+    JSContext *ctx, 
+    jsvalue_const_t this_val,
+    int argc, 
+    jsvalue_const_t *argv
+  ) {
+  jsvalue_t jret = JS_NULL;
+  if(argc >= 1) {
+  ret_t ret = 0;
+  widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
+  ret = (ret_t)widget_unref(widget);
+
+  jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
 jsvalue_t wrap_widget_layout(
     JSContext *ctx, 
     jsvalue_const_t this_val,
@@ -10697,8 +10695,6 @@ ret_t widget_t_init(JSContext *ctx) {
                       JS_NewCFunction(ctx, wrap_widget_set_animator_time_scale, "widget_set_animator_time_scale", 1));
   JS_SetPropertyStr(ctx, global_obj, "widget_pause_animator",
                       JS_NewCFunction(ctx, wrap_widget_pause_animator, "widget_pause_animator", 1));
-  JS_SetPropertyStr(ctx, global_obj, "widget_find_animator",
-                      JS_NewCFunction(ctx, wrap_widget_find_animator, "widget_find_animator", 1));
   JS_SetPropertyStr(ctx, global_obj, "widget_stop_animator",
                       JS_NewCFunction(ctx, wrap_widget_stop_animator, "widget_stop_animator", 1));
   JS_SetPropertyStr(ctx, global_obj, "widget_destroy_animator",
@@ -10767,6 +10763,8 @@ ret_t widget_t_init(JSContext *ctx) {
                       JS_NewCFunction(ctx, wrap_widget_cast, "widget_cast", 1));
   JS_SetPropertyStr(ctx, global_obj, "widget_destroy",
                       JS_NewCFunction(ctx, wrap_widget_destroy, "widget_destroy", 1));
+  JS_SetPropertyStr(ctx, global_obj, "widget_unref",
+                      JS_NewCFunction(ctx, wrap_widget_unref, "widget_unref", 1));
   JS_SetPropertyStr(ctx, global_obj, "widget_layout",
                       JS_NewCFunction(ctx, wrap_widget_layout, "widget_layout", 1));
   JS_SetPropertyStr(ctx, global_obj, "widget_set_self_layout",
