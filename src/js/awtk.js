@@ -127,13 +127,13 @@ var TCanvas = /** @class */ (function () {
         return canvas_get_height(this.nativeObj);
     };
     TCanvas.prototype.getClipRect = function (r) {
-        return canvas_get_clip_rect(this.nativeObj, r ? r.nativeObj : null);
+        return canvas_get_clip_rect(this.nativeObj, r != null ? (r.nativeObj || r) : null);
     };
     TCanvas.prototype.setClipRect = function (r) {
-        return canvas_set_clip_rect(this.nativeObj, r ? r.nativeObj : null);
+        return canvas_set_clip_rect(this.nativeObj, r != null ? (r.nativeObj || r) : null);
     };
     TCanvas.prototype.setClipRectEx = function (r, translate) {
-        return canvas_set_clip_rect_ex(this.nativeObj, r ? r.nativeObj : null, translate);
+        return canvas_set_clip_rect_ex(this.nativeObj, r != null ? (r.nativeObj || r) : null, translate);
     };
     TCanvas.prototype.setFillColor = function (color) {
         return canvas_set_fill_color_str(this.nativeObj, color);
@@ -175,22 +175,22 @@ var TCanvas = /** @class */ (function () {
         return canvas_draw_utf8(this.nativeObj, str, x, y);
     };
     TCanvas.prototype.drawTextInRect = function (str, r) {
-        return canvas_draw_utf8_in_rect(this.nativeObj, str, r ? r.nativeObj : null);
+        return canvas_draw_utf8_in_rect(this.nativeObj, str, r != null ? (r.nativeObj || r) : null);
     };
     TCanvas.prototype.drawIcon = function (img, cx, cy) {
-        return canvas_draw_icon(this.nativeObj, img ? img.nativeObj : null, cx, cy);
+        return canvas_draw_icon(this.nativeObj, img != null ? (img.nativeObj || img) : null, cx, cy);
     };
     TCanvas.prototype.drawImage = function (img, src, dst) {
-        return canvas_draw_image(this.nativeObj, img ? img.nativeObj : null, src ? src.nativeObj : null, dst ? dst.nativeObj : null);
+        return canvas_draw_image(this.nativeObj, img != null ? (img.nativeObj || img) : null, src != null ? (src.nativeObj || src) : null, dst != null ? (dst.nativeObj || dst) : null);
     };
     TCanvas.prototype.drawImageEx = function (img, draw_type, dst) {
-        return canvas_draw_image_ex(this.nativeObj, img ? img.nativeObj : null, draw_type, dst ? dst.nativeObj : null);
+        return canvas_draw_image_ex(this.nativeObj, img != null ? (img.nativeObj || img) : null, draw_type, dst != null ? (dst.nativeObj || dst) : null);
     };
     TCanvas.prototype.getVgcanvas = function () {
         return new TVgcanvas(canvas_get_vgcanvas(this.nativeObj));
     };
     TCanvas.cast = function (c) {
-        return new TCanvas(canvas_cast(c ? (c.nativeObj || c) : null));
+        return new TCanvas(canvas_cast(c != null ? (c.nativeObj || c) : null));
     };
     TCanvas.prototype.reset = function () {
         return canvas_reset(this.nativeObj);
@@ -418,19 +418,13 @@ var TValue = /** @class */ (function () {
     TValue.prototype.setFloat = function (value) {
         return new TValue(value_set_float(this.nativeObj, value));
     };
-    TValue.prototype.float = function () {
-        return value_float(this.nativeObj);
-    };
-    TValue.prototype.setFloat32 = function (value) {
-        return new TValue(value_set_float32(this.nativeObj, value));
-    };
     TValue.prototype.float32 = function () {
         return value_float32(this.nativeObj);
     };
-    TValue.prototype.setDouble = function (value) {
+    TValue.prototype.setFloat64 = function (value) {
         return new TValue(value_set_double(this.nativeObj, value));
     };
-    TValue.prototype.double = function () {
+    TValue.prototype.float64 = function () {
         return value_double(this.nativeObj);
     };
     TValue.prototype.setStr = function (value) {
@@ -442,14 +436,11 @@ var TValue = /** @class */ (function () {
     TValue.prototype.isNull = function () {
         return value_is_null(this.nativeObj);
     };
-    TValue.prototype.int = function () {
-        return value_int(this.nativeObj);
-    };
     TValue.prototype.setInt = function (value) {
         return new TValue(value_set_int(this.nativeObj, value));
     };
     TValue.prototype.setObject = function (value) {
-        return new TValue(value_set_object(this.nativeObj, value ? value.nativeObj : null));
+        return new TValue(value_set_object(this.nativeObj, value != null ? (value.nativeObj || value) : null));
     };
     TValue.prototype.object = function () {
         return new TObject(value_object(this.nativeObj));
@@ -470,7 +461,7 @@ var TValue = /** @class */ (function () {
         return value_reset(this.nativeObj);
     };
     TValue.cast = function (value) {
-        return new TValue(value_cast(value ? (value.nativeObj || value) : null));
+        return new TValue(value_cast(value != null ? (value.nativeObj || value) : null));
     };
     return TValue;
 }());
@@ -482,7 +473,7 @@ var TImageManager = /** @class */ (function () {
         return new TImageManager(image_manager());
     };
     TImageManager.prototype.getBitmap = function (name, image) {
-        return image_manager_get_bitmap(this.nativeObj, name, image ? image.nativeObj : null);
+        return image_manager_get_bitmap(this.nativeObj, name, image != null ? (image.nativeObj || image) : null);
     };
     return TImageManager;
 }());
@@ -737,7 +728,7 @@ var TStyle = /** @class */ (function () {
         this.nativeObj = nativeObj;
     }
     TStyle.prototype.notifyWidgetStateChanged = function (widget) {
-        return style_notify_widget_state_changed(this.nativeObj, widget ? widget.nativeObj : null);
+        return style_notify_widget_state_changed(this.nativeObj, widget != null ? (widget.nativeObj || widget) : null);
     };
     TStyle.prototype.isValid = function () {
         return style_is_valid(this.nativeObj);
@@ -749,7 +740,7 @@ var TStyle = /** @class */ (function () {
         return style_get_str(this.nativeObj, name, defval);
     };
     TStyle.prototype.set = function (state, name, value) {
-        return style_set(this.nativeObj, state, name, value ? value.nativeObj : null);
+        return style_set(this.nativeObj, state, name, value != null ? (value.nativeObj || value) : null);
     };
     TStyle.prototype.isMutable = function () {
         return style_is_mutable(this.nativeObj);
@@ -829,7 +820,7 @@ var TVgcanvas = /** @class */ (function () {
         this.nativeObj = nativeObj;
     }
     TVgcanvas.cast = function (vg) {
-        return new TVgcanvas(vgcanvas_cast(vg ? (vg.nativeObj || vg) : null));
+        return new TVgcanvas(vgcanvas_cast(vg != null ? (vg.nativeObj || vg) : null));
     };
     TVgcanvas.prototype.flush = function () {
         return vgcanvas_flush(this.nativeObj);
@@ -895,7 +886,7 @@ var TVgcanvas = /** @class */ (function () {
         return vgcanvas_stroke(this.nativeObj);
     };
     TVgcanvas.prototype.paint = function (stroke, img) {
-        return vgcanvas_paint(this.nativeObj, stroke, img ? img.nativeObj : null);
+        return vgcanvas_paint(this.nativeObj, stroke, img != null ? (img.nativeObj || img) : null);
     };
     TVgcanvas.prototype.setFont = function (font) {
         return vgcanvas_set_font(this.nativeObj, font);
@@ -916,10 +907,10 @@ var TVgcanvas = /** @class */ (function () {
         return vgcanvas_measure_text(this.nativeObj, text);
     };
     TVgcanvas.prototype.drawImage = function (img, sx, sy, sw, sh, dx, dy, dw, dh) {
-        return vgcanvas_draw_image(this.nativeObj, img ? img.nativeObj : null, sx, sy, sw, sh, dx, dy, dw, dh);
+        return vgcanvas_draw_image(this.nativeObj, img != null ? (img.nativeObj || img) : null, sx, sy, sw, sh, dx, dy, dw, dh);
     };
     TVgcanvas.prototype.drawIcon = function (img, sx, sy, sw, sh, dx, dy, dw, dh) {
-        return vgcanvas_draw_icon(this.nativeObj, img ? img.nativeObj : null, sx, sy, sw, sh, dx, dy, dw, dh);
+        return vgcanvas_draw_icon(this.nativeObj, img != null ? (img.nativeObj || img) : null, sx, sy, sw, sh, dx, dy, dw, dh);
     };
     TVgcanvas.prototype.setAntialias = function (value) {
         return vgcanvas_set_antialias(this.nativeObj, value);
@@ -1385,7 +1376,7 @@ var TWidget = /** @class */ (function () {
         return widget_off(this.nativeObj, id);
     };
     TWidget.prototype.invalidateForce = function (r) {
-        return widget_invalidate_force(this.nativeObj, r ? r.nativeObj : null);
+        return widget_invalidate_force(this.nativeObj, r != null ? (r.nativeObj || r) : null);
     };
     TWidget.prototype.setPropStr = function (name, v) {
         return widget_set_prop_str(this.nativeObj, name, v);
@@ -1430,13 +1421,13 @@ var TWidget = /** @class */ (function () {
         return widget_get_type(this.nativeObj);
     };
     TWidget.prototype.clone = function (parent) {
-        return new TWidget(widget_clone(this.nativeObj, parent ? parent.nativeObj : null));
+        return new TWidget(widget_clone(this.nativeObj, parent != null ? (parent.nativeObj || parent) : null));
     };
     TWidget.prototype.equal = function (other) {
-        return widget_equal(this.nativeObj, other ? other.nativeObj : null);
+        return widget_equal(this.nativeObj, other != null ? (other.nativeObj || other) : null);
     };
     TWidget.cast = function (widget) {
-        return new TWidget(widget_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TWidget(widget_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     TWidget.prototype.destroy = function () {
         return widget_destroy(this.nativeObj);
@@ -1638,7 +1629,7 @@ var TRect = /** @class */ (function () {
         return new TRect(rect_set(this.nativeObj, x, y, w, h));
     };
     TRect.cast = function (rect) {
-        return new TRect(rect_cast(rect ? (rect.nativeObj || rect) : null));
+        return new TRect(rect_cast(rect != null ? (rect.nativeObj || rect) : null));
     };
     TRect.prototype.destroy = function () {
         return rect_destroy(this.nativeObj);
@@ -1699,13 +1690,13 @@ var TNamedValue = /** @class */ (function () {
         return new TNamedValue(named_value_create());
     };
     TNamedValue.cast = function (nv) {
-        return new TNamedValue(named_value_cast(nv ? (nv.nativeObj || nv) : null));
+        return new TNamedValue(named_value_cast(nv != null ? (nv.nativeObj || nv) : null));
     };
     TNamedValue.prototype.setName = function (name) {
         return named_value_set_name(this.nativeObj, name);
     };
     TNamedValue.prototype.setValue = function (value) {
-        return named_value_set_value(this.nativeObj, value ? value.nativeObj : null);
+        return named_value_set_value(this.nativeObj, value != null ? (value.nativeObj || value) : null);
     };
     TNamedValue.prototype.getValue = function () {
         return new TValue(named_value_get_value(this.nativeObj));
@@ -1854,7 +1845,7 @@ var TEvent = /** @class */ (function () {
         this.nativeObj = nativeObj;
     }
     TEvent.cast = function (event) {
-        return new TEvent(event_cast(event ? (event.nativeObj || event) : null));
+        return new TEvent(event_cast(event != null ? (event.nativeObj || event) : null));
     };
     TEvent.create = function (type, target) {
         return new TEvent(event_create(type, target));
@@ -1905,7 +1896,7 @@ var TEmitter = /** @class */ (function () {
         return new TEmitter(emitter_create());
     };
     TEmitter.prototype.dispatch = function (e) {
-        return emitter_dispatch(this.nativeObj, e ? e.nativeObj : null);
+        return emitter_dispatch(this.nativeObj, e != null ? (e.nativeObj || e) : null);
     };
     TEmitter.prototype.dispatchSimpleEvent = function (type) {
         return emitter_dispatch_simple_event(this.nativeObj, type);
@@ -1932,7 +1923,7 @@ var TEmitter = /** @class */ (function () {
         return emitter_destroy(this.nativeObj);
     };
     TEmitter.cast = function (emitter) {
-        return new TEmitter(emitter_cast(emitter ? (emitter.nativeObj || emitter) : null));
+        return new TEmitter(emitter_cast(emitter != null ? (emitter.nativeObj || emitter) : null));
     };
     return TEmitter;
 }());
@@ -2051,7 +2042,7 @@ var TColor = /** @class */ (function () {
         return color_a(this.nativeObj);
     };
     TColor.cast = function (color) {
-        return new TColor(color_cast(color ? (color.nativeObj || color) : null));
+        return new TColor(color_cast(color != null ? (color.nativeObj || color) : null));
     };
     TColor.prototype.destroy = function () {
         return color_destroy(this.nativeObj);
@@ -2140,7 +2131,7 @@ var TAssetsManager = /** @class */ (function () {
         return new TAssetInfo(assets_manager_ref(this.nativeObj, type, name));
     };
     TAssetsManager.prototype.unref = function (info) {
-        return assets_manager_unref(this.nativeObj, info ? info.nativeObj : null);
+        return assets_manager_unref(this.nativeObj, info != null ? (info.nativeObj || info) : null);
     };
     return TAssetsManager;
 }());
@@ -2150,7 +2141,7 @@ var TColorComponent = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TColorComponent.cast = function (widget) {
-        return new TColorComponent(color_component_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TColorComponent(color_component_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     return TColorComponent;
 }(TWidget));
@@ -2160,10 +2151,10 @@ var TTimeClock = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TTimeClock.create = function (parent, x, y, w, h) {
-        return new TTimeClock(time_clock_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TTimeClock(time_clock_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TTimeClock.cast = function (widget) {
-        return new TTimeClock(time_clock_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TTimeClock(time_clock_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     TTimeClock.prototype.setHour = function (hour) {
         return time_clock_set_hour(this.nativeObj, hour);
@@ -2304,10 +2295,10 @@ var TTextSelector = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TTextSelector.create = function (parent, x, y, w, h) {
-        return new TTextSelector(text_selector_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TTextSelector(text_selector_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TTextSelector.cast = function (widget) {
-        return new TTextSelector(text_selector_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TTextSelector(text_selector_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     TTextSelector.prototype.resetOptions = function () {
         return text_selector_reset_options(this.nativeObj);
@@ -2330,7 +2321,7 @@ var TTextSelector = /** @class */ (function (_super) {
     TTextSelector.prototype.setValue = function (value) {
         return text_selector_set_value(this.nativeObj, value);
     };
-    TTextSelector.prototype.getText = function () {
+    TTextSelector.prototype.getTextValue = function () {
         return text_selector_get_text(this.nativeObj);
     };
     TTextSelector.prototype.setText = function (text) {
@@ -2371,13 +2362,13 @@ var TSwitch = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TSwitch.create = function (parent, x, y, w, h) {
-        return new TSwitch(switch_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TSwitch(switch_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TSwitch.prototype.setValue = function (value) {
         return switch_set_value(this.nativeObj, value);
     };
     TSwitch.cast = function (widget) {
-        return new TSwitch(switch_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TSwitch(switch_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     Object.defineProperty(TSwitch.prototype, "value", {
         get: function () {
@@ -2401,7 +2392,7 @@ var TPropChangeEvent = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TPropChangeEvent.cast = function (event) {
-        return new TPropChangeEvent(prop_change_event_cast(event ? (event.nativeObj || event) : null));
+        return new TPropChangeEvent(prop_change_event_cast(event != null ? (event.nativeObj || event) : null));
     };
     Object.defineProperty(TPropChangeEvent.prototype, "name", {
         get: function () {
@@ -2412,7 +2403,7 @@ var TPropChangeEvent = /** @class */ (function (_super) {
     });
     Object.defineProperty(TPropChangeEvent.prototype, "value", {
         get: function () {
-            return prop_change_event_t_get_prop_value(this.nativeObj);
+            return new TValue(prop_change_event_t_get_prop_value(this.nativeObj));
         },
         enumerable: true,
         configurable: true
@@ -2425,7 +2416,7 @@ var TProgressEvent = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TProgressEvent.cast = function (event) {
-        return new TProgressEvent(progress_event_cast(event ? (event.nativeObj || event) : null));
+        return new TProgressEvent(progress_event_cast(event != null ? (event.nativeObj || event) : null));
     };
     Object.defineProperty(TProgressEvent.prototype, "percent", {
         get: function () {
@@ -2442,13 +2433,13 @@ var TDialog = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TDialog.create = function (parent, x, y, w, h) {
-        return new TDialog(dialog_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TDialog(dialog_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TDialog.createSimple = function (parent, x, y, w, h) {
-        return new TDialog(dialog_create_simple(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TDialog(dialog_create_simple(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TDialog.cast = function (widget) {
-        return new TDialog(dialog_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TDialog(dialog_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     TDialog.prototype.getTitle = function () {
         return new TWidget(dialog_get_title(this.nativeObj));
@@ -2501,10 +2492,10 @@ var TSlideView = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TSlideView.create = function (parent, x, y, w, h) {
-        return new TSlideView(slide_view_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TSlideView(slide_view_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TSlideView.cast = function (widget) {
-        return new TSlideView(slide_view_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TSlideView(slide_view_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     TSlideView.prototype.setAutoPlay = function (auto_play) {
         return slide_view_set_auto_play(this.nativeObj, auto_play);
@@ -2557,16 +2548,16 @@ var TSlideIndicator = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TSlideIndicator.create = function (parent, x, y, w, h) {
-        return new TSlideIndicator(slide_indicator_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TSlideIndicator(slide_indicator_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TSlideIndicator.createLinear = function (parent, x, y, w, h) {
-        return new TSlideIndicator(slide_indicator_create_linear(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TSlideIndicator(slide_indicator_create_linear(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TSlideIndicator.createArc = function (parent, x, y, w, h) {
-        return new TSlideIndicator(slide_indicator_create_arc(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TSlideIndicator(slide_indicator_create_arc(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TSlideIndicator.cast = function (widget) {
-        return new TSlideIndicator(slide_indicator_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TSlideIndicator(slide_indicator_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     TSlideIndicator.prototype.setValue = function (value) {
         return slide_indicator_set_value(this.nativeObj, value);
@@ -2673,10 +2664,10 @@ var TSlideMenu = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TSlideMenu.create = function (parent, x, y, w, h) {
-        return new TSlideMenu(slide_menu_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TSlideMenu(slide_menu_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TSlideMenu.cast = function (widget) {
-        return new TSlideMenu(slide_menu_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TSlideMenu(slide_menu_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     TSlideMenu.prototype.setValue = function (value) {
         return slide_menu_set_value(this.nativeObj, value);
@@ -2716,10 +2707,10 @@ var TScrollView = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TScrollView.create = function (parent, x, y, w, h) {
-        return new TScrollView(scroll_view_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TScrollView(scroll_view_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TScrollView.cast = function (widget) {
-        return new TScrollView(scroll_view_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TScrollView(scroll_view_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     TScrollView.prototype.setVirtualW = function (w) {
         return scroll_view_set_virtual_w(this.nativeObj, w);
@@ -2792,16 +2783,16 @@ var TScrollBar = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TScrollBar.create = function (parent, x, y, w, h) {
-        return new TScrollBar(scroll_bar_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TScrollBar(scroll_bar_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TScrollBar.cast = function (widget) {
-        return new TScrollBar(scroll_bar_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TScrollBar(scroll_bar_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     TScrollBar.createMobile = function (parent, x, y, w, h) {
-        return new TScrollBar(scroll_bar_create_mobile(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TScrollBar(scroll_bar_create_mobile(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TScrollBar.createDesktop = function (parent, x, y, w, h) {
-        return new TScrollBar(scroll_bar_create_desktop(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TScrollBar(scroll_bar_create_desktop(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TScrollBar.prototype.setParams = function (virtual_size, row) {
         return scroll_bar_set_params(this.nativeObj, virtual_size, row);
@@ -2860,10 +2851,10 @@ var TView = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TView.create = function (parent, x, y, w, h) {
-        return new TView(view_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TView(view_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TView.cast = function (widget) {
-        return new TView(view_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TView(view_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     return TView;
 }(TWidget));
@@ -2873,7 +2864,7 @@ var TListView = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TListView.create = function (parent, x, y, w, h) {
-        return new TListView(list_view_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TListView(list_view_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TListView.prototype.setItemHeight = function (item_height) {
         return list_view_set_item_height(this.nativeObj, item_height);
@@ -2885,7 +2876,7 @@ var TListView = /** @class */ (function (_super) {
         return list_view_set_auto_hide_scroll_bar(this.nativeObj, auto_hide_scroll_bar);
     };
     TListView.cast = function (widget) {
-        return new TListView(list_view_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TListView(list_view_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     Object.defineProperty(TListView.prototype, "itemHeight", {
         get: function () {
@@ -2916,7 +2907,7 @@ var TListViewH = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TListViewH.create = function (parent, x, y, w, h) {
-        return new TListViewH(list_view_h_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TListViewH(list_view_h_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TListViewH.prototype.setItemWidth = function (item_width) {
         return list_view_h_set_item_width(this.nativeObj, item_width);
@@ -2925,7 +2916,7 @@ var TListViewH = /** @class */ (function (_super) {
         return list_view_h_set_spacing(this.nativeObj, spacing);
     };
     TListViewH.cast = function (widget) {
-        return new TListViewH(list_view_h_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TListViewH(list_view_h_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     Object.defineProperty(TListViewH.prototype, "itemWidth", {
         get: function () {
@@ -2949,10 +2940,10 @@ var TTabControl = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TTabControl.create = function (parent, x, y, w, h) {
-        return new TTabControl(tab_control_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TTabControl(tab_control_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TTabControl.cast = function (widget) {
-        return new TTabControl(tab_control_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TTabControl(tab_control_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     return TTabControl;
 }(TWidget));
@@ -2962,10 +2953,10 @@ var TTabButton = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TTabButton.create = function (parent, x, y, w, h) {
-        return new TTabButton(tab_button_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TTabButton(tab_button_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TTabButton.cast = function (widget) {
-        return new TTabButton(tab_button_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TTabButton(tab_button_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     TTabButton.prototype.setValue = function (value) {
         return tab_button_set_value(this.nativeObj, value);
@@ -3005,10 +2996,10 @@ var TListItem = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TListItem.create = function (parent, x, y, w, h) {
-        return new TListItem(list_item_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TListItem(list_item_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TListItem.cast = function (widget) {
-        return new TListItem(list_item_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TListItem(list_item_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     return TListItem;
 }(TWidget));
@@ -3018,7 +3009,7 @@ var THscrollLabel = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     THscrollLabel.create = function (parent, x, y, w, h) {
-        return new THscrollLabel(hscroll_label_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new THscrollLabel(hscroll_label_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     THscrollLabel.prototype.setLull = function (lull) {
         return hscroll_label_set_lull(this.nativeObj, lull);
@@ -3051,7 +3042,7 @@ var THscrollLabel = /** @class */ (function (_super) {
         return hscroll_label_stop(this.nativeObj);
     };
     THscrollLabel.cast = function (widget) {
-        return new THscrollLabel(hscroll_label_cast(widget ? (widget.nativeObj || widget) : null));
+        return new THscrollLabel(hscroll_label_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     Object.defineProperty(THscrollLabel.prototype, "onlyFocus", {
         get: function () {
@@ -3124,13 +3115,13 @@ var TRichText = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TRichText.create = function (parent, x, y, w, h) {
-        return new TRichText(rich_text_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TRichText(rich_text_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TRichText.prototype.setText = function (text) {
         return rich_text_set_text(this.nativeObj, text);
     };
     TRichText.cast = function (widget) {
-        return new TRichText(rich_text_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TRichText(rich_text_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     Object.defineProperty(TRichText.prototype, "lineGap", {
         get: function () {
@@ -3147,10 +3138,10 @@ var TProgressCircle = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TProgressCircle.create = function (parent, x, y, w, h) {
-        return new TProgressCircle(progress_circle_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TProgressCircle(progress_circle_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TProgressCircle.cast = function (widget) {
-        return new TProgressCircle(progress_circle_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TProgressCircle(progress_circle_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     TProgressCircle.prototype.setValue = function (value) {
         return progress_circle_set_value(this.nativeObj, value);
@@ -3230,7 +3221,7 @@ var TTabButtonGroup = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TTabButtonGroup.create = function (parent, x, y, w, h) {
-        return new TTabButtonGroup(tab_button_group_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TTabButtonGroup(tab_button_group_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TTabButtonGroup.prototype.setCompact = function (compact) {
         return tab_button_group_set_compact(this.nativeObj, compact);
@@ -3239,7 +3230,7 @@ var TTabButtonGroup = /** @class */ (function (_super) {
         return tab_button_group_set_scrollable(this.nativeObj, scrollable);
     };
     TTabButtonGroup.cast = function (widget) {
-        return new TTabButtonGroup(tab_button_group_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TTabButtonGroup(tab_button_group_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     Object.defineProperty(TTabButtonGroup.prototype, "compact", {
         get: function () {
@@ -3263,7 +3254,7 @@ var TMledit = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TMledit.create = function (parent, x, y, w, h) {
-        return new TMledit(mledit_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TMledit(mledit_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TMledit.prototype.setReadonly = function (readonly) {
         return mledit_set_readonly(this.nativeObj, readonly);
@@ -3287,7 +3278,7 @@ var TMledit = /** @class */ (function (_super) {
         return mledit_set_scroll_line(this.nativeObj, scroll_line);
     };
     TMledit.cast = function (widget) {
-        return new TMledit(mledit_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TMledit(mledit_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     Object.defineProperty(TMledit.prototype, "readonly", {
         get: function () {
@@ -3332,10 +3323,10 @@ var TSlider = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TSlider.create = function (parent, x, y, w, h) {
-        return new TSlider(slider_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TSlider(slider_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TSlider.cast = function (widget) {
-        return new TSlider(slider_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TSlider(slider_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     TSlider.prototype.setValue = function (value) {
         return slider_set_value(this.nativeObj, value);
@@ -3405,10 +3396,10 @@ var TRow = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TRow.create = function (parent, x, y, w, h) {
-        return new TRow(row_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TRow(row_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TRow.cast = function (widget) {
-        return new TRow(row_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TRow(row_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     return TRow;
 }(TWidget));
@@ -3421,7 +3412,7 @@ var TObject = /** @class */ (function (_super) {
         return object_unref(this.nativeObj);
     };
     TObject.ref = function (obj) {
-        return new TObject(object_ref(obj ? obj.nativeObj : null));
+        return new TObject(object_ref(obj != null ? (obj.nativeObj || obj) : null));
     };
     TObject.prototype.getType = function () {
         return object_get_type(this.nativeObj);
@@ -3439,10 +3430,10 @@ var TObject = /** @class */ (function (_super) {
         return object_set_name(this.nativeObj, name);
     };
     TObject.prototype.compare = function (other) {
-        return object_compare(this.nativeObj, other ? other.nativeObj : null);
+        return object_compare(this.nativeObj, other != null ? (other.nativeObj || other) : null);
     };
     TObject.prototype.getProp = function (name, v) {
-        return object_get_prop(this.nativeObj, name, v ? v.nativeObj : null);
+        return object_get_prop(this.nativeObj, name, v != null ? (v.nativeObj || v) : null);
     };
     TObject.prototype.getPropStr = function (name) {
         return object_get_prop_str(this.nativeObj, name);
@@ -3466,7 +3457,7 @@ var TObject = /** @class */ (function (_super) {
         return object_remove_prop(this.nativeObj, name);
     };
     TObject.prototype.setProp = function (name, value) {
-        return object_set_prop(this.nativeObj, name, value ? value.nativeObj : null);
+        return object_set_prop(this.nativeObj, name, value != null ? (value.nativeObj || value) : null);
     };
     TObject.prototype.setPropStr = function (name, value) {
         return object_set_prop_str(this.nativeObj, name, value);
@@ -3475,7 +3466,7 @@ var TObject = /** @class */ (function (_super) {
         return object_set_prop_pointer(this.nativeObj, name, value);
     };
     TObject.prototype.setPropObject = function (name, value) {
-        return object_set_prop_object(this.nativeObj, name, value ? value.nativeObj : null);
+        return object_set_prop_object(this.nativeObj, name, value != null ? (value.nativeObj || value) : null);
     };
     TObject.prototype.setPropInt = function (name, value) {
         return object_set_prop_int(this.nativeObj, name, value);
@@ -3487,7 +3478,7 @@ var TObject = /** @class */ (function (_super) {
         return object_set_prop_float(this.nativeObj, name, value);
     };
     TObject.prototype.copyProp = function (src, name) {
-        return object_copy_prop(this.nativeObj, src ? src.nativeObj : null, name);
+        return object_copy_prop(this.nativeObj, src != null ? (src.nativeObj || src) : null, name);
     };
     TObject.prototype.foreachProp = function (on_prop, ctx) {
         return object_foreach_prop(this.nativeObj, on_prop, ctx);
@@ -3496,7 +3487,7 @@ var TObject = /** @class */ (function (_super) {
         return object_has_prop(this.nativeObj, name);
     };
     TObject.prototype.eval = function (expr, v) {
-        return object_eval(this.nativeObj, expr, v ? v.nativeObj : null);
+        return object_eval(this.nativeObj, expr, v != null ? (v.nativeObj || v) : null);
     };
     TObject.prototype.canExec = function (name, args) {
         return object_can_exec(this.nativeObj, name, args);
@@ -3547,10 +3538,10 @@ var TProgressBar = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TProgressBar.create = function (parent, x, y, w, h) {
-        return new TProgressBar(progress_bar_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TProgressBar(progress_bar_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TProgressBar.cast = function (widget) {
-        return new TProgressBar(progress_bar_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TProgressBar(progress_bar_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     TProgressBar.prototype.setValue = function (value) {
         return progress_bar_set_value(this.nativeObj, value);
@@ -3603,7 +3594,7 @@ var TLineNumber = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TLineNumber.create = function (parent, x, y, w, h) {
-        return new TLineNumber(line_number_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TLineNumber(line_number_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TLineNumber.prototype.setTopMargin = function (top_margin) {
         return line_number_set_top_margin(this.nativeObj, top_margin);
@@ -3618,7 +3609,7 @@ var TLineNumber = /** @class */ (function (_super) {
         return line_number_set_yoffset(this.nativeObj, yoffset);
     };
     TLineNumber.cast = function (widget) {
-        return new TLineNumber(line_number_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TLineNumber(line_number_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     return TLineNumber;
 }(TWidget));
@@ -3628,10 +3619,10 @@ var TKeyboard = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TKeyboard.create = function (parent, x, y, w, h) {
-        return new TKeyboard(keyboard_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TKeyboard(keyboard_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TKeyboard.cast = function (widget) {
-        return new TKeyboard(keyboard_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TKeyboard(keyboard_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     return TKeyboard;
 }(TWidget));
@@ -3641,7 +3632,7 @@ var TImageValue = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TImageValue.create = function (parent, x, y, w, h) {
-        return new TImageValue(image_value_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TImageValue(image_value_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TImageValue.prototype.setImage = function (image) {
         return image_value_set_image(this.nativeObj, image);
@@ -3653,7 +3644,7 @@ var TImageValue = /** @class */ (function (_super) {
         return image_value_set_value(this.nativeObj, value);
     };
     TImageValue.cast = function (widget) {
-        return new TImageValue(image_value_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TImageValue(image_value_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     Object.defineProperty(TImageValue.prototype, "image", {
         get: function () {
@@ -3684,7 +3675,7 @@ var TImageAnimation = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TImageAnimation.create = function (parent, x, y, w, h) {
-        return new TImageAnimation(image_animation_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TImageAnimation(image_animation_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TImageAnimation.prototype.setLoop = function (loop) {
         return image_animation_set_loop(this.nativeObj, loop);
@@ -3726,7 +3717,7 @@ var TImageAnimation = /** @class */ (function (_super) {
         return image_animation_set_unload_after_paint(this.nativeObj, unload_after_paint);
     };
     TImageAnimation.cast = function (widget) {
-        return new TImageAnimation(image_animation_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TImageAnimation(image_animation_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     Object.defineProperty(TImageAnimation.prototype, "image", {
         get: function () {
@@ -3806,10 +3797,10 @@ var TGuage = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TGuage.create = function (parent, x, y, w, h) {
-        return new TGuage(guage_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TGuage(guage_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TGuage.cast = function (widget) {
-        return new TGuage(guage_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TGuage(guage_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     TGuage.prototype.setImage = function (name) {
         return guage_set_image(this.nativeObj, name);
@@ -3839,10 +3830,10 @@ var TGuagePointer = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TGuagePointer.create = function (parent, x, y, w, h) {
-        return new TGuagePointer(guage_pointer_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TGuagePointer(guage_pointer_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TGuagePointer.cast = function (widget) {
-        return new TGuagePointer(guage_pointer_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TGuagePointer(guage_pointer_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     TGuagePointer.prototype.setAngle = function (angle) {
         return guage_pointer_set_angle(this.nativeObj, angle);
@@ -3889,10 +3880,10 @@ var TPopup = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TPopup.create = function (parent, x, y, w, h) {
-        return new TPopup(popup_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TPopup(popup_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TPopup.cast = function (widget) {
-        return new TPopup(popup_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TPopup(popup_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     TPopup.prototype.setCloseWhenClick = function (close_when_click) {
         return popup_set_close_when_click(this.nativeObj, close_when_click);
@@ -3922,10 +3913,10 @@ var TDraggable = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TDraggable.create = function (parent, x, y, w, h) {
-        return new TDraggable(draggable_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TDraggable(draggable_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TDraggable.cast = function (widget) {
-        return new TDraggable(draggable_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TDraggable(draggable_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     TDraggable.prototype.setTop = function (top) {
         return draggable_set_top(this.nativeObj, top);
@@ -4005,10 +3996,10 @@ var TPages = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TPages.create = function (parent, x, y, w, h) {
-        return new TPages(pages_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TPages(pages_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TPages.cast = function (widget) {
-        return new TPages(pages_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TPages(pages_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     TPages.prototype.setActive = function (index) {
         return pages_set_active(this.nativeObj, index);
@@ -4031,13 +4022,13 @@ var TColorPicker = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TColorPicker.create = function (parent, x, y, w, h) {
-        return new TColorPicker(color_picker_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TColorPicker(color_picker_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TColorPicker.prototype.setColor = function (color) {
         return color_picker_set_color(this.nativeObj, color);
     };
     TColorPicker.cast = function (widget) {
-        return new TColorPicker(color_picker_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TColorPicker(color_picker_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     Object.defineProperty(TColorPicker.prototype, "value", {
         get: function () {
@@ -4054,10 +4045,10 @@ var TCanvasWidget = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TCanvasWidget.create = function (parent, x, y, w, h) {
-        return new TCanvasWidget(canvas_widget_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TCanvasWidget(canvas_widget_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TCanvasWidget.cast = function (widget) {
-        return new TCanvasWidget(canvas_widget_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TCanvasWidget(canvas_widget_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     return TCanvasWidget;
 }(TWidget));
@@ -4067,10 +4058,10 @@ var TOverlay = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TOverlay.create = function (parent, x, y, w, h) {
-        return new TOverlay(overlay_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TOverlay(overlay_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TOverlay.cast = function (widget) {
-        return new TOverlay(overlay_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TOverlay(overlay_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     return TOverlay;
 }(TWidget));
@@ -4080,7 +4071,7 @@ var TWindow = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TWindow.create = function (parent, x, y, w, h) {
-        return new TWindow(window_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TWindow(window_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TWindow.prototype.setFullscreen = function (fullscreen) {
         return window_set_fullscreen(this.nativeObj, fullscreen);
@@ -4089,7 +4080,7 @@ var TWindow = /** @class */ (function (_super) {
         return new TWindow(window_open(name));
     };
     TWindow.openAndClose = function (name, to_close) {
-        return new TWindow(window_open_and_close(name, to_close ? to_close.nativeObj : null));
+        return new TWindow(window_open_and_close(name, to_close != null ? (to_close.nativeObj || to_close) : null));
     };
     TWindow.prototype.close = function () {
         return window_close(this.nativeObj);
@@ -4098,7 +4089,7 @@ var TWindow = /** @class */ (function (_super) {
         return window_close_force(this.nativeObj);
     };
     TWindow.cast = function (widget) {
-        return new TWindow(window_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TWindow(window_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     Object.defineProperty(TWindow.prototype, "fullscreen", {
         get: function () {
@@ -4118,7 +4109,7 @@ var TWindowManager = /** @class */ (function (_super) {
         return new TWindowManager(window_manager());
     };
     TWindowManager.cast = function (widget) {
-        return new TWindowManager(window_manager_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TWindowManager(window_manager_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     TWindowManager.prototype.getTopMainWindow = function () {
         return new TWidget(window_manager_get_top_main_window(this.nativeObj));
@@ -4161,7 +4152,7 @@ var TWindowBase = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TWindowBase.cast = function (widget) {
-        return new TWindowBase(window_base_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TWindowBase(window_base_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     Object.defineProperty(TWindowBase.prototype, "theme", {
         get: function () {
@@ -4185,7 +4176,7 @@ var TLabel = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TLabel.create = function (parent, x, y, w, h) {
-        return new TLabel(label_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TLabel(label_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TLabel.prototype.setLength = function (length) {
         return label_set_length(this.nativeObj, length);
@@ -4194,7 +4185,7 @@ var TLabel = /** @class */ (function (_super) {
         return label_resize_to_content(this.nativeObj, min_w, max_w, min_h, max_h);
     };
     TLabel.cast = function (widget) {
-        return new TLabel(label_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TLabel(label_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     Object.defineProperty(TLabel.prototype, "length", {
         get: function () {
@@ -4210,9 +4201,6 @@ var TStyleMutable = /** @class */ (function (_super) {
     function TStyleMutable(nativeObj) {
         return _super.call(this, nativeObj) || this;
     }
-    TStyleMutable.prototype.getName = function () {
-        return style_mutable_get_name(this.nativeObj);
-    };
     TStyleMutable.prototype.setName = function (name) {
         return style_mutable_set_name(this.nativeObj, name);
     };
@@ -4220,10 +4208,10 @@ var TStyleMutable = /** @class */ (function (_super) {
         return style_mutable_set_int(this.nativeObj, state, name, val);
     };
     TStyleMutable.cast = function (s) {
-        return new TStyleMutable(style_mutable_cast(s ? (s.nativeObj || s) : null));
+        return new TStyleMutable(style_mutable_cast(s != null ? (s.nativeObj || s) : null));
     };
     TStyleMutable.create = function (widget, default_style) {
-        return new TStyleMutable(style_mutable_create(widget ? widget.nativeObj : null, default_style ? default_style.nativeObj : null));
+        return new TStyleMutable(style_mutable_create(widget != null ? (widget.nativeObj || widget) : null, default_style != null ? (default_style.nativeObj || default_style) : null));
     };
     Object.defineProperty(TStyleMutable.prototype, "name", {
         get: function () {
@@ -4240,10 +4228,10 @@ var TGroupBox = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TGroupBox.create = function (parent, x, y, w, h) {
-        return new TGroupBox(group_box_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TGroupBox(group_box_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TGroupBox.cast = function (widget) {
-        return new TGroupBox(group_box_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TGroupBox(group_box_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     return TGroupBox;
 }(TWidget));
@@ -4274,7 +4262,7 @@ var TImageBase = /** @class */ (function (_super) {
         return image_base_set_clickable(this.nativeObj, clickable);
     };
     TImageBase.cast = function (widget) {
-        return new TImageBase(image_base_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TImageBase(image_base_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     Object.defineProperty(TImageBase.prototype, "image", {
         get: function () {
@@ -4347,11 +4335,11 @@ var TWindowEvent = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TWindowEvent.cast = function (event) {
-        return new TWindowEvent(window_event_cast(event ? (event.nativeObj || event) : null));
+        return new TWindowEvent(window_event_cast(event != null ? (event.nativeObj || event) : null));
     };
     Object.defineProperty(TWindowEvent.prototype, "window", {
         get: function () {
-            return window_event_t_get_prop_window(this.nativeObj);
+            return new TWidget(window_event_t_get_prop_window(this.nativeObj));
         },
         enumerable: true,
         configurable: true
@@ -4364,11 +4352,11 @@ var TPaintEvent = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TPaintEvent.cast = function (event) {
-        return new TPaintEvent(paint_event_cast(event ? (event.nativeObj || event) : null));
+        return new TPaintEvent(paint_event_cast(event != null ? (event.nativeObj || event) : null));
     };
     Object.defineProperty(TPaintEvent.prototype, "c", {
         get: function () {
-            return paint_event_t_get_prop_c(this.nativeObj);
+            return new TCanvas(paint_event_t_get_prop_c(this.nativeObj));
         },
         enumerable: true,
         configurable: true
@@ -4381,7 +4369,7 @@ var TKeyEvent = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TKeyEvent.cast = function (event) {
-        return new TKeyEvent(key_event_cast(event ? (event.nativeObj || event) : null));
+        return new TKeyEvent(key_event_cast(event != null ? (event.nativeObj || event) : null));
     };
     Object.defineProperty(TKeyEvent.prototype, "key", {
         get: function () {
@@ -4482,7 +4470,7 @@ var TPointerEvent = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TPointerEvent.cast = function (event) {
-        return new TPointerEvent(pointer_event_cast(event ? (event.nativeObj || event) : null));
+        return new TPointerEvent(pointer_event_cast(event != null ? (event.nativeObj || event) : null));
     };
     Object.defineProperty(TPointerEvent.prototype, "x", {
         get: function () {
@@ -4555,7 +4543,7 @@ var TOrientationEvent = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TOrientationEvent.cast = function (event) {
-        return new TOrientationEvent(orientation_event_cast(event ? (event.nativeObj || event) : null));
+        return new TOrientationEvent(orientation_event_cast(event != null ? (event.nativeObj || event) : null));
     };
     Object.defineProperty(TOrientationEvent.prototype, "orientation", {
         get: function () {
@@ -4572,7 +4560,7 @@ var TWheelEvent = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TWheelEvent.cast = function (event) {
-        return new TWheelEvent(wheel_event_cast(event ? (event.nativeObj || event) : null));
+        return new TWheelEvent(wheel_event_cast(event != null ? (event.nativeObj || event) : null));
     };
     Object.defineProperty(TWheelEvent.prototype, "dy", {
         get: function () {
@@ -4610,10 +4598,10 @@ var TAppBar = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TAppBar.create = function (parent, x, y, w, h) {
-        return new TAppBar(app_bar_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TAppBar(app_bar_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TAppBar.cast = function (widget) {
-        return new TAppBar(app_bar_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TAppBar(app_bar_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     return TAppBar;
 }(TWidget));
@@ -4623,10 +4611,10 @@ var TButtonGroup = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TButtonGroup.create = function (parent, x, y, w, h) {
-        return new TButtonGroup(button_group_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TButtonGroup(button_group_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TButtonGroup.cast = function (widget) {
-        return new TButtonGroup(button_group_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TButtonGroup(button_group_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     return TButtonGroup;
 }(TWidget));
@@ -4636,10 +4624,10 @@ var TButton = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TButton.create = function (parent, x, y, w, h) {
-        return new TButton(button_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TButton(button_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TButton.cast = function (widget) {
-        return new TButton(button_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TButton(button_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     TButton.prototype.setRepeat = function (repeat) {
         return button_set_repeat(this.nativeObj, repeat);
@@ -4669,16 +4657,16 @@ var TCheckButton = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TCheckButton.create = function (parent, x, y, w, h) {
-        return new TCheckButton(check_button_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TCheckButton(check_button_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TCheckButton.createRadio = function (parent, x, y, w, h) {
-        return new TCheckButton(check_button_create_radio(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TCheckButton(check_button_create_radio(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TCheckButton.prototype.setValue = function (value) {
         return check_button_set_value(this.nativeObj, value);
     };
     TCheckButton.cast = function (widget) {
-        return new TCheckButton(check_button_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TCheckButton(check_button_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     Object.defineProperty(TCheckButton.prototype, "value", {
         get: function () {
@@ -4695,10 +4683,10 @@ var TColorTile = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TColorTile.create = function (parent, x, y, w, h) {
-        return new TColorTile(color_tile_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TColorTile(color_tile_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TColorTile.cast = function (widget) {
-        return new TColorTile(color_tile_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TColorTile(color_tile_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     TColorTile.prototype.setBgColor = function (color) {
         return color_tile_set_bg_color(this.nativeObj, color);
@@ -4725,10 +4713,10 @@ var TColumn = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TColumn.create = function (parent, x, y, w, h) {
-        return new TColumn(column_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TColumn(column_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TColumn.cast = function (widget) {
-        return new TColumn(column_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TColumn(column_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     return TColumn;
 }(TWidget));
@@ -4738,10 +4726,10 @@ var TComboBoxItem = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TComboBoxItem.create = function (parent, x, y, w, h) {
-        return new TComboBoxItem(combo_box_item_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TComboBoxItem(combo_box_item_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TComboBoxItem.cast = function (widget) {
-        return new TComboBoxItem(combo_box_item_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TComboBoxItem(combo_box_item_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     TComboBoxItem.prototype.setChecked = function (checked) {
         return combo_box_item_set_checked(this.nativeObj, checked);
@@ -4771,10 +4759,10 @@ var TComboBox = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TComboBox.create = function (parent, x, y, w, h) {
-        return new TComboBox(combo_box_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TComboBox(combo_box_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TComboBox.cast = function (widget) {
-        return new TComboBox(combo_box_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TComboBox(combo_box_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     TComboBox.prototype.setOpenWindow = function (open_window) {
         return combo_box_set_open_window(this.nativeObj, open_window);
@@ -4806,7 +4794,7 @@ var TComboBox = /** @class */ (function (_super) {
     TComboBox.prototype.getValue = function () {
         return combo_box_get_value(this.nativeObj);
     };
-    TComboBox.prototype.getText = function () {
+    TComboBox.prototype.getTextValue = function () {
         return combo_box_get_text(this.nativeObj);
     };
     Object.defineProperty(TComboBox.prototype, "openWindow", {
@@ -4859,10 +4847,10 @@ var TDialogClient = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TDialogClient.create = function (parent, x, y, w, h) {
-        return new TDialogClient(dialog_client_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TDialogClient(dialog_client_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TDialogClient.cast = function (widget) {
-        return new TDialogClient(dialog_client_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TDialogClient(dialog_client_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     return TDialogClient;
 }(TWidget));
@@ -4872,10 +4860,10 @@ var TDialogTitle = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TDialogTitle.create = function (parent, x, y, w, h) {
-        return new TDialogTitle(dialog_title_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TDialogTitle(dialog_title_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TDialogTitle.cast = function (widget) {
-        return new TDialogTitle(dialog_title_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TDialogTitle(dialog_title_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     return TDialogTitle;
 }(TWidget));
@@ -4885,10 +4873,10 @@ var TDigitClock = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TDigitClock.create = function (parent, x, y, w, h) {
-        return new TDigitClock(digit_clock_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TDigitClock(digit_clock_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TDigitClock.cast = function (widget) {
-        return new TDigitClock(digit_clock_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TDigitClock(digit_clock_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     TDigitClock.prototype.setFormat = function (format) {
         return digit_clock_set_format(this.nativeObj, format);
@@ -4908,10 +4896,10 @@ var TDragger = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TDragger.create = function (parent, x, y, w, h) {
-        return new TDragger(dragger_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TDragger(dragger_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TDragger.cast = function (widget) {
-        return new TDragger(dragger_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TDragger(dragger_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     TDragger.prototype.setRange = function (x_min, y_min, x_max, y_max) {
         return new TWidget(dragger_set_range(this.nativeObj, x_min, y_min, x_max, y_max));
@@ -4952,10 +4940,10 @@ var TEdit = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TEdit.create = function (parent, x, y, w, h) {
-        return new TEdit(edit_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TEdit(edit_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TEdit.cast = function (widget) {
-        return new TEdit(edit_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TEdit(edit_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     TEdit.prototype.getInt = function () {
         return edit_get_int(this.nativeObj);
@@ -5083,10 +5071,10 @@ var TGridItem = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TGridItem.create = function (parent, x, y, w, h) {
-        return new TGridItem(grid_item_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TGridItem(grid_item_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TGridItem.cast = function (widget) {
-        return new TGridItem(grid_item_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TGridItem(grid_item_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     return TGridItem;
 }(TWidget));
@@ -5096,10 +5084,10 @@ var TGrid = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TGrid.create = function (parent, x, y, w, h) {
-        return new TGrid(grid_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TGrid(grid_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TGrid.cast = function (widget) {
-        return new TGrid(grid_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TGrid(grid_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     return TGrid;
 }(TWidget));
@@ -5109,10 +5097,10 @@ var TSpinBox = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TSpinBox.create = function (parent, x, y, w, h) {
-        return new TSpinBox(spin_box_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TSpinBox(spin_box_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TSpinBox.cast = function (widget) {
-        return new TSpinBox(spin_box_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TSpinBox(spin_box_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     return TSpinBox;
 }(TEdit));
@@ -5122,7 +5110,7 @@ var TTimerInfo = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TTimerInfo.cast = function (timer) {
-        return new TTimerInfo(timer_info_cast(timer ? (timer.nativeObj || timer) : null));
+        return new TTimerInfo(timer_info_cast(timer != null ? (timer.nativeObj || timer) : null));
     };
     Object.defineProperty(TTimerInfo.prototype, "ctx", {
         get: function () {
@@ -5153,7 +5141,7 @@ var TComboBoxEx = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TComboBoxEx.create = function (parent, x, y, w, h) {
-        return new TComboBoxEx(combo_box_ex_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TComboBoxEx(combo_box_ex_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     return TComboBoxEx;
 }(TComboBox));
@@ -5163,10 +5151,10 @@ var TGifImage = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TGifImage.create = function (parent, x, y, w, h) {
-        return new TGifImage(gif_image_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TGifImage(gif_image_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TGifImage.cast = function (widget) {
-        return new TGifImage(gif_image_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TGifImage(gif_image_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     return TGifImage;
 }(TImageBase));
@@ -5222,13 +5210,13 @@ var TImage = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TImage.create = function (parent, x, y, w, h) {
-        return new TImage(image_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TImage(image_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TImage.prototype.setDrawType = function (draw_type) {
         return image_set_draw_type(this.nativeObj, draw_type);
     };
     TImage.cast = function (widget) {
-        return new TImage(image_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TImage(image_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     Object.defineProperty(TImage.prototype, "drawType", {
         get: function () {
@@ -5245,10 +5233,10 @@ var TSystemBar = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TSystemBar.create = function (parent, x, y, w, h) {
-        return new TSystemBar(system_bar_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TSystemBar(system_bar_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TSystemBar.cast = function (widget) {
-        return new TSystemBar(system_bar_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TSystemBar(system_bar_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     return TSystemBar;
 }(TWindowBase));
@@ -5265,7 +5253,7 @@ var TIdleInfo = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TIdleInfo.cast = function (idle) {
-        return new TIdleInfo(idle_info_cast(idle ? (idle.nativeObj || idle) : null));
+        return new TIdleInfo(idle_info_cast(idle != null ? (idle.nativeObj || idle) : null));
     };
     Object.defineProperty(TIdleInfo.prototype, "ctx", {
         get: function () {
@@ -5289,13 +5277,13 @@ var TSvgImage = /** @class */ (function (_super) {
         return _super.call(this, nativeObj) || this;
     }
     TSvgImage.create = function (parent, x, y, w, h) {
-        return new TSvgImage(svg_image_create(parent ? parent.nativeObj : null, x, y, w, h));
+        return new TSvgImage(svg_image_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     TSvgImage.prototype.setImage = function (name) {
         return svg_image_set_image(this.nativeObj, name);
     };
     TSvgImage.cast = function (widget) {
-        return new TSvgImage(svg_image_cast(widget ? (widget.nativeObj || widget) : null));
+        return new TSvgImage(svg_image_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     return TSvgImage;
 }(TImageBase));

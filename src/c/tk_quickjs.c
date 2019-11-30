@@ -2461,41 +2461,6 @@ jsvalue_t wrap_value_set_float(
   return jret;
 }
 
-jsvalue_t wrap_value_float(
-    JSContext *ctx, 
-    jsvalue_const_t this_val,
-    int argc, 
-    jsvalue_const_t *argv
-  ) {
-  jsvalue_t jret = JS_NULL;
-  if(argc >= 1) {
-  float_t ret = 0;
-  value_t* v = (value_t*)jsvalue_get_pointer(ctx, argv[0], "value_t*");
-  ret = (float_t)value_float(v);
-
-  jret = jsvalue_create_number(ctx, ret);
-  }
-  return jret;
-}
-
-jsvalue_t wrap_value_set_float32(
-    JSContext *ctx, 
-    jsvalue_const_t this_val,
-    int argc, 
-    jsvalue_const_t *argv
-  ) {
-  jsvalue_t jret = JS_NULL;
-  if(argc >= 2) {
-  value_t* ret = NULL;
-  value_t* v = (value_t*)jsvalue_get_pointer(ctx, argv[0], "value_t*");
-  float value = (float)jsvalue_get_number_value(ctx, argv[1]);
-  ret = (value_t*)value_set_float32(v, value);
-
-  jret = jsvalue_create_pointer(ctx, ret, "value_t*");
-  }
-  return jret;
-}
-
 jsvalue_t wrap_value_float32(
     JSContext *ctx, 
     jsvalue_const_t this_val,
@@ -2597,23 +2562,6 @@ jsvalue_t wrap_value_is_null(
   ret = (bool_t)value_is_null(value);
 
   jret = jsvalue_create_bool(ctx, ret);
-  }
-  return jret;
-}
-
-jsvalue_t wrap_value_int(
-    JSContext *ctx, 
-    jsvalue_const_t this_val,
-    int argc, 
-    jsvalue_const_t *argv
-  ) {
-  jsvalue_t jret = JS_NULL;
-  if(argc >= 1) {
-  int ret = 0;
-  value_t* v = (value_t*)jsvalue_get_pointer(ctx, argv[0], "value_t*");
-  ret = (int)value_int(v);
-
-  jret = jsvalue_create_int(ctx, ret);
   }
   return jret;
 }
@@ -2794,10 +2742,6 @@ ret_t value_t_init(JSContext *ctx) {
                       JS_NewCFunction(ctx, wrap_value_uint64, "value_uint64", 1));
   JS_SetPropertyStr(ctx, global_obj, "value_set_float",
                       JS_NewCFunction(ctx, wrap_value_set_float, "value_set_float", 1));
-  JS_SetPropertyStr(ctx, global_obj, "value_float",
-                      JS_NewCFunction(ctx, wrap_value_float, "value_float", 1));
-  JS_SetPropertyStr(ctx, global_obj, "value_set_float32",
-                      JS_NewCFunction(ctx, wrap_value_set_float32, "value_set_float32", 1));
   JS_SetPropertyStr(ctx, global_obj, "value_float32",
                       JS_NewCFunction(ctx, wrap_value_float32, "value_float32", 1));
   JS_SetPropertyStr(ctx, global_obj, "value_set_double",
@@ -2810,8 +2754,6 @@ ret_t value_t_init(JSContext *ctx) {
                       JS_NewCFunction(ctx, wrap_value_str, "value_str", 1));
   JS_SetPropertyStr(ctx, global_obj, "value_is_null",
                       JS_NewCFunction(ctx, wrap_value_is_null, "value_is_null", 1));
-  JS_SetPropertyStr(ctx, global_obj, "value_int",
-                      JS_NewCFunction(ctx, wrap_value_int, "value_int", 1));
   JS_SetPropertyStr(ctx, global_obj, "value_set_int",
                       JS_NewCFunction(ctx, wrap_value_set_int, "value_set_int", 1));
   JS_SetPropertyStr(ctx, global_obj, "value_set_object",
@@ -21845,23 +21787,6 @@ ret_t label_t_init(JSContext *ctx) {
  return RET_OK;
 }
 
-jsvalue_t wrap_style_mutable_get_name(
-    JSContext *ctx, 
-    jsvalue_const_t this_val,
-    int argc, 
-    jsvalue_const_t *argv
-  ) {
-  jsvalue_t jret = JS_NULL;
-  if(argc >= 1) {
-  const char* ret = NULL;
-  style_t* s = (style_t*)jsvalue_get_pointer(ctx, argv[0], "style_t*");
-  ret = (const char*)style_mutable_get_name(s);
-
-  jret = jsvalue_create_string(ctx, ret);
-  }
-  return jret;
-}
-
 jsvalue_t wrap_style_mutable_set_name(
     JSContext *ctx, 
     jsvalue_const_t this_val,
@@ -21953,8 +21878,6 @@ jsvalue_t wrap_style_mutable_t_get_prop_name(
 
 ret_t style_mutable_t_init(JSContext *ctx) {
   jsvalue_t global_obj = JS_GetGlobalObject(ctx);
-  JS_SetPropertyStr(ctx, global_obj, "style_mutable_get_name",
-                      JS_NewCFunction(ctx, wrap_style_mutable_get_name, "style_mutable_get_name", 1));
   JS_SetPropertyStr(ctx, global_obj, "style_mutable_set_name",
                       JS_NewCFunction(ctx, wrap_style_mutable_set_name, "style_mutable_set_name", 1));
   JS_SetPropertyStr(ctx, global_obj, "style_mutable_set_int",

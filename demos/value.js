@@ -4,7 +4,7 @@ function application_init() {
   var a = 100;
 
   v.setInt8(100);
-  console.log(v.int())
+  console.log(v.int32())
 
   v.setStr("hello");
   console.log(v.str());
