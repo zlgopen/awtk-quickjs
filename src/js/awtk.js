@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -439,9 +439,6 @@ var TValue = /** @class */ (function () {
     TValue.prototype.str = function () {
         return value_str(this.nativeObj);
     };
-    TValue.prototype.wstr = function () {
-        return value_wstr(this.nativeObj);
-    };
     TValue.prototype.isNull = function () {
         return value_is_null(this.nativeObj);
     };
@@ -462,24 +459,6 @@ var TValue = /** @class */ (function () {
     };
     TValue.prototype.token = function () {
         return value_token(this.nativeObj);
-    };
-    TValue.prototype.setSizedStr = function (str, size) {
-        return new TValue(value_set_sized_str(this.nativeObj, str, size));
-    };
-    TValue.prototype.sizedStr = function () {
-        return value_sized_str(this.nativeObj);
-    };
-    TValue.prototype.setBinaryData = function (value, size) {
-        return new TValue(value_set_binary_data(this.nativeObj, value, size));
-    };
-    TValue.prototype.binaryData = function () {
-        return value_binary_data(this.nativeObj);
-    };
-    TValue.prototype.setUbjson = function (value, size) {
-        return new TValue(value_set_ubjson(this.nativeObj, value, size));
-    };
-    TValue.prototype.ubjson = function () {
-        return value_ubjson(this.nativeObj);
     };
     TValue.create = function () {
         return new TValue(value_create());
@@ -1342,8 +1321,8 @@ var TWidget = /** @class */ (function () {
     TWidget.prototype.setTheme = function (name) {
         return widget_set_theme(this.nativeObj, name);
     };
-    TWidget.prototype.setCursor = function (cursor) {
-        return widget_set_cursor(this.nativeObj, cursor);
+    TWidget.prototype.setPointerCursor = function (cursor) {
+        return widget_set_pointer_cursor(this.nativeObj, cursor);
     };
     TWidget.prototype.setAnimation = function (animation) {
         return widget_set_animation(this.nativeObj, animation);
