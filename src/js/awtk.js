@@ -1348,6 +1348,27 @@ var TWidget = /** @class */ (function () {
     TWidget.prototype.setFocused = function (focused) {
         return widget_set_focused(this.nativeObj, focused);
     };
+    TWidget.prototype.setState = function (state) {
+        return widget_set_state(this.nativeObj, state);
+    };
+    TWidget.prototype.setOpacity = function (opacity) {
+        return widget_set_opacity(this.nativeObj, opacity);
+    };
+    TWidget.prototype.destroyChildren = function () {
+        return widget_destroy_children(this.nativeObj);
+    };
+    TWidget.prototype.addChild = function (child) {
+        return widget_add_child(this.nativeObj, child != null ? (child.nativeObj || child) : null);
+    };
+    TWidget.prototype.removeChild = function (child) {
+        return widget_remove_child(this.nativeObj, child != null ? (child.nativeObj || child) : null);
+    };
+    TWidget.prototype.insertChild = function (index, child) {
+        return widget_insert_child(this.nativeObj, index, child != null ? (child.nativeObj || child) : null);
+    };
+    TWidget.prototype.restack = function (index) {
+        return widget_restack(this.nativeObj, index);
+    };
     TWidget.prototype.child = function (name) {
         return new TWidget(widget_child(this.nativeObj, name));
     };
@@ -1569,6 +1590,13 @@ var TWidget = /** @class */ (function () {
     Object.defineProperty(TWidget.prototype, "floating", {
         get: function () {
             return widget_t_get_prop_floating(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TWidget.prototype, "parent", {
+        get: function () {
+            return new TWidget(widget_t_get_prop_parent(this.nativeObj));
         },
         enumerable: true,
         configurable: true
@@ -2681,6 +2709,9 @@ var TScrollView = /** @class */ (function (_super) {
     TScrollView.prototype.setOffset = function (xoffset, yoffset) {
         return scroll_view_set_offset(this.nativeObj, xoffset, yoffset);
     };
+    TScrollView.prototype.setSpeedScale = function (xspeed_scale, yspeed_scale) {
+        return scroll_view_set_speed_scale(this.nativeObj, xspeed_scale, yspeed_scale);
+    };
     TScrollView.prototype.scrollTo = function (xoffset_end, yoffset_end, duration) {
         return scroll_view_scroll_to(this.nativeObj, xoffset_end, yoffset_end, duration);
     };
@@ -2711,6 +2742,20 @@ var TScrollView = /** @class */ (function (_super) {
     Object.defineProperty(TScrollView.prototype, "yoffset", {
         get: function () {
             return scroll_view_t_get_prop_yoffset(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TScrollView.prototype, "xspeedScale", {
+        get: function () {
+            return scroll_view_t_get_prop_xspeed_scale(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TScrollView.prototype, "yspeedScale", {
+        get: function () {
+            return scroll_view_t_get_prop_yspeed_scale(this.nativeObj);
         },
         enumerable: true,
         configurable: true
@@ -4065,6 +4110,9 @@ var TWindowManager = /** @class */ (function (_super) {
     };
     TWindowManager.prototype.backToHome = function () {
         return window_manager_back_to_home(this.nativeObj);
+    };
+    TWindowManager.prototype.backTo = function (target) {
+        return window_manager_back_to(this.nativeObj, target);
     };
     return TWindowManager;
 }(TWidget));

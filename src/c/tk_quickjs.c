@@ -9589,6 +9589,133 @@ jsvalue_t wrap_widget_set_focused(
   return jret;
 }
 
+jsvalue_t wrap_widget_set_state(
+    JSContext *ctx, 
+    jsvalue_const_t this_val,
+    int argc, 
+    jsvalue_const_t *argv
+  ) {
+  jsvalue_t jret = JS_NULL;
+  if(argc >= 2) {
+  ret_t ret = 0;
+  widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
+  const char* state = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
+  ret = (ret_t)widget_set_state(widget, state);
+  jsvalue_free_str(ctx, state);
+
+  jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_widget_set_opacity(
+    JSContext *ctx, 
+    jsvalue_const_t this_val,
+    int argc, 
+    jsvalue_const_t *argv
+  ) {
+  jsvalue_t jret = JS_NULL;
+  if(argc >= 2) {
+  ret_t ret = 0;
+  widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
+  uint8_t opacity = (uint8_t)jsvalue_get_int_value(ctx, argv[1]);
+  ret = (ret_t)widget_set_opacity(widget, opacity);
+
+  jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_widget_destroy_children(
+    JSContext *ctx, 
+    jsvalue_const_t this_val,
+    int argc, 
+    jsvalue_const_t *argv
+  ) {
+  jsvalue_t jret = JS_NULL;
+  if(argc >= 1) {
+  ret_t ret = 0;
+  widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
+  ret = (ret_t)widget_destroy_children(widget);
+
+  jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_widget_add_child(
+    JSContext *ctx, 
+    jsvalue_const_t this_val,
+    int argc, 
+    jsvalue_const_t *argv
+  ) {
+  jsvalue_t jret = JS_NULL;
+  if(argc >= 2) {
+  ret_t ret = 0;
+  widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
+  widget_t* child = (widget_t*)jsvalue_get_pointer(ctx, argv[1], "widget_t*");
+  ret = (ret_t)widget_add_child(widget, child);
+
+  jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_widget_remove_child(
+    JSContext *ctx, 
+    jsvalue_const_t this_val,
+    int argc, 
+    jsvalue_const_t *argv
+  ) {
+  jsvalue_t jret = JS_NULL;
+  if(argc >= 2) {
+  ret_t ret = 0;
+  widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
+  widget_t* child = (widget_t*)jsvalue_get_pointer(ctx, argv[1], "widget_t*");
+  ret = (ret_t)widget_remove_child(widget, child);
+
+  jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_widget_insert_child(
+    JSContext *ctx, 
+    jsvalue_const_t this_val,
+    int argc, 
+    jsvalue_const_t *argv
+  ) {
+  jsvalue_t jret = JS_NULL;
+  if(argc >= 3) {
+  ret_t ret = 0;
+  widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
+  uint32_t index = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
+  widget_t* child = (widget_t*)jsvalue_get_pointer(ctx, argv[2], "widget_t*");
+  ret = (ret_t)widget_insert_child(widget, index, child);
+
+  jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_widget_restack(
+    JSContext *ctx, 
+    jsvalue_const_t this_val,
+    int argc, 
+    jsvalue_const_t *argv
+  ) {
+  jsvalue_t jret = JS_NULL;
+  if(argc >= 2) {
+  ret_t ret = 0;
+  widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
+  uint32_t index = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
+  ret = (ret_t)widget_restack(widget, index);
+
+  jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
 jsvalue_t wrap_widget_child(
     JSContext *ctx, 
     jsvalue_const_t this_val,
@@ -10451,6 +10578,19 @@ jsvalue_t wrap_widget_t_get_prop_floating(
   return jret;
 }
 
+jsvalue_t wrap_widget_t_get_prop_parent(
+    JSContext *ctx, 
+    jsvalue_const_t this_val,
+    int argc, 
+    jsvalue_const_t *argv
+  ) {
+  jsvalue_t jret = JS_NULL;
+  widget_t* obj = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
+
+  jret = jsvalue_create_pointer(ctx, obj->parent, "widget_t*");
+  return jret;
+}
+
 ret_t widget_t_init(JSContext *ctx) {
   jsvalue_t global_obj = JS_GetGlobalObject(ctx);
   JS_SetPropertyStr(ctx, global_obj, "widget_count_children",
@@ -10509,6 +10649,20 @@ ret_t widget_t_init(JSContext *ctx) {
                       JS_NewCFunction(ctx, wrap_widget_set_floating, "widget_set_floating", 1));
   JS_SetPropertyStr(ctx, global_obj, "widget_set_focused",
                       JS_NewCFunction(ctx, wrap_widget_set_focused, "widget_set_focused", 1));
+  JS_SetPropertyStr(ctx, global_obj, "widget_set_state",
+                      JS_NewCFunction(ctx, wrap_widget_set_state, "widget_set_state", 1));
+  JS_SetPropertyStr(ctx, global_obj, "widget_set_opacity",
+                      JS_NewCFunction(ctx, wrap_widget_set_opacity, "widget_set_opacity", 1));
+  JS_SetPropertyStr(ctx, global_obj, "widget_destroy_children",
+                      JS_NewCFunction(ctx, wrap_widget_destroy_children, "widget_destroy_children", 1));
+  JS_SetPropertyStr(ctx, global_obj, "widget_add_child",
+                      JS_NewCFunction(ctx, wrap_widget_add_child, "widget_add_child", 1));
+  JS_SetPropertyStr(ctx, global_obj, "widget_remove_child",
+                      JS_NewCFunction(ctx, wrap_widget_remove_child, "widget_remove_child", 1));
+  JS_SetPropertyStr(ctx, global_obj, "widget_insert_child",
+                      JS_NewCFunction(ctx, wrap_widget_insert_child, "widget_insert_child", 1));
+  JS_SetPropertyStr(ctx, global_obj, "widget_restack",
+                      JS_NewCFunction(ctx, wrap_widget_restack, "widget_restack", 1));
   JS_SetPropertyStr(ctx, global_obj, "widget_child",
                       JS_NewCFunction(ctx, wrap_widget_child, "widget_child", 1));
   JS_SetPropertyStr(ctx, global_obj, "widget_lookup",
@@ -10619,6 +10773,8 @@ ret_t widget_t_init(JSContext *ctx) {
                       JS_NewCFunction(ctx, wrap_widget_t_get_prop_with_focus_state, "widget_t_get_prop_with_focus_state", 1));
   JS_SetPropertyStr(ctx, global_obj, "widget_t_get_prop_floating",
                       JS_NewCFunction(ctx, wrap_widget_t_get_prop_floating, "widget_t_get_prop_floating", 1));
+  JS_SetPropertyStr(ctx, global_obj, "widget_t_get_prop_parent",
+                      JS_NewCFunction(ctx, wrap_widget_t_get_prop_parent, "widget_t_get_prop_parent", 1));
 
  jsvalue_unref(ctx, global_obj);
 
@@ -15652,6 +15808,25 @@ jsvalue_t wrap_scroll_view_set_offset(
   return jret;
 }
 
+jsvalue_t wrap_scroll_view_set_speed_scale(
+    JSContext *ctx, 
+    jsvalue_const_t this_val,
+    int argc, 
+    jsvalue_const_t *argv
+  ) {
+  jsvalue_t jret = JS_NULL;
+  if(argc >= 3) {
+  ret_t ret = 0;
+  widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
+  float_t xspeed_scale = (float_t)jsvalue_get_number_value(ctx, argv[1]);
+  float_t yspeed_scale = (float_t)jsvalue_get_number_value(ctx, argv[2]);
+  ret = (ret_t)scroll_view_set_speed_scale(widget, xspeed_scale, yspeed_scale);
+
+  jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
 jsvalue_t wrap_scroll_view_scroll_to(
     JSContext *ctx, 
     jsvalue_const_t this_val,
@@ -15744,6 +15919,32 @@ jsvalue_t wrap_scroll_view_t_get_prop_yoffset(
   return jret;
 }
 
+jsvalue_t wrap_scroll_view_t_get_prop_xspeed_scale(
+    JSContext *ctx, 
+    jsvalue_const_t this_val,
+    int argc, 
+    jsvalue_const_t *argv
+  ) {
+  jsvalue_t jret = JS_NULL;
+  scroll_view_t* obj = (scroll_view_t*)jsvalue_get_pointer(ctx, argv[0], "scroll_view_t*");
+
+  jret = jsvalue_create_number(ctx, obj->xspeed_scale);
+  return jret;
+}
+
+jsvalue_t wrap_scroll_view_t_get_prop_yspeed_scale(
+    JSContext *ctx, 
+    jsvalue_const_t this_val,
+    int argc, 
+    jsvalue_const_t *argv
+  ) {
+  jsvalue_t jret = JS_NULL;
+  scroll_view_t* obj = (scroll_view_t*)jsvalue_get_pointer(ctx, argv[0], "scroll_view_t*");
+
+  jret = jsvalue_create_number(ctx, obj->yspeed_scale);
+  return jret;
+}
+
 jsvalue_t wrap_scroll_view_t_get_prop_xslidable(
     JSContext *ctx, 
     jsvalue_const_t this_val,
@@ -15786,6 +15987,8 @@ ret_t scroll_view_t_init(JSContext *ctx) {
                       JS_NewCFunction(ctx, wrap_scroll_view_set_yslidable, "scroll_view_set_yslidable", 1));
   JS_SetPropertyStr(ctx, global_obj, "scroll_view_set_offset",
                       JS_NewCFunction(ctx, wrap_scroll_view_set_offset, "scroll_view_set_offset", 1));
+  JS_SetPropertyStr(ctx, global_obj, "scroll_view_set_speed_scale",
+                      JS_NewCFunction(ctx, wrap_scroll_view_set_speed_scale, "scroll_view_set_speed_scale", 1));
   JS_SetPropertyStr(ctx, global_obj, "scroll_view_scroll_to",
                       JS_NewCFunction(ctx, wrap_scroll_view_scroll_to, "scroll_view_scroll_to", 1));
   JS_SetPropertyStr(ctx, global_obj, "scroll_view_scroll_delta_to",
@@ -15798,6 +16001,10 @@ ret_t scroll_view_t_init(JSContext *ctx) {
                       JS_NewCFunction(ctx, wrap_scroll_view_t_get_prop_xoffset, "scroll_view_t_get_prop_xoffset", 1));
   JS_SetPropertyStr(ctx, global_obj, "scroll_view_t_get_prop_yoffset",
                       JS_NewCFunction(ctx, wrap_scroll_view_t_get_prop_yoffset, "scroll_view_t_get_prop_yoffset", 1));
+  JS_SetPropertyStr(ctx, global_obj, "scroll_view_t_get_prop_xspeed_scale",
+                      JS_NewCFunction(ctx, wrap_scroll_view_t_get_prop_xspeed_scale, "scroll_view_t_get_prop_xspeed_scale", 1));
+  JS_SetPropertyStr(ctx, global_obj, "scroll_view_t_get_prop_yspeed_scale",
+                      JS_NewCFunction(ctx, wrap_scroll_view_t_get_prop_yspeed_scale, "scroll_view_t_get_prop_yspeed_scale", 1));
   JS_SetPropertyStr(ctx, global_obj, "scroll_view_t_get_prop_xslidable",
                       JS_NewCFunction(ctx, wrap_scroll_view_t_get_prop_xslidable, "scroll_view_t_get_prop_xslidable", 1));
   JS_SetPropertyStr(ctx, global_obj, "scroll_view_t_get_prop_yslidable",
@@ -21158,6 +21365,25 @@ jsvalue_t wrap_window_manager_back_to_home(
   return jret;
 }
 
+jsvalue_t wrap_window_manager_back_to(
+    JSContext *ctx, 
+    jsvalue_const_t this_val,
+    int argc, 
+    jsvalue_const_t *argv
+  ) {
+  jsvalue_t jret = JS_NULL;
+  if(argc >= 2) {
+  ret_t ret = 0;
+  widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
+  const char* target = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
+  ret = (ret_t)window_manager_back_to(widget, target);
+  jsvalue_free_str(ctx, target);
+
+  jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
 ret_t window_manager_t_init(JSContext *ctx) {
   jsvalue_t global_obj = JS_GetGlobalObject(ctx);
   JS_SetPropertyStr(ctx, global_obj, "window_manager",
@@ -21186,6 +21412,8 @@ ret_t window_manager_t_init(JSContext *ctx) {
                       JS_NewCFunction(ctx, wrap_window_manager_back, "window_manager_back", 1));
   JS_SetPropertyStr(ctx, global_obj, "window_manager_back_to_home",
                       JS_NewCFunction(ctx, wrap_window_manager_back_to_home, "window_manager_back_to_home", 1));
+  JS_SetPropertyStr(ctx, global_obj, "window_manager_back_to",
+                      JS_NewCFunction(ctx, wrap_window_manager_back_to, "window_manager_back_to", 1));
 
  jsvalue_unref(ctx, global_obj);
 
