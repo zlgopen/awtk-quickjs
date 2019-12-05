@@ -26,7 +26,6 @@
 #include "tkc/types_def.h"
 #include "tkc/timer_manager.h"
 #include "tkc/time_now.h"
-#include "ext_widgets/ext_widgets.h"
 #include "tkc/rect.h"
 #include "tkc/path.h"
 #include "tkc/named_value.h"
@@ -4779,8 +4778,6 @@ ret_t locale_info_t_init(JSContext *ctx) {
                       JS_NewCFunction(ctx, wrap_locale_info_tr, "locale_info_tr", 1));
   JS_SetPropertyStr(ctx, global_obj, "locale_info_change",
                       JS_NewCFunction(ctx, wrap_locale_info_change, "locale_info_change", 1));
-  JS_SetPropertyStr(ctx, global_obj, "locale_info_on",
-                      JS_NewCFunction(ctx, wrap_locale_info_on, "locale_info_on", 1));
   JS_SetPropertyStr(ctx, global_obj, "locale_info_off",
                       JS_NewCFunction(ctx, wrap_locale_info_off, "locale_info_off", 1));
 
@@ -5476,6 +5473,47 @@ ret_t align_h_t_init(JSContext *ctx) {
                       JS_NewCFunction(ctx, get_ALIGN_H_LEFT, "ALIGN_H_LEFT", 1));
   JS_SetPropertyStr(ctx, global_obj, "ALIGN_H_RIGHT",
                       JS_NewCFunction(ctx, get_ALIGN_H_RIGHT, "ALIGN_H_RIGHT", 1));
+
+ jsvalue_unref(ctx, global_obj);
+
+ return RET_OK;
+}
+
+jsvalue_t get_APP_MOBILE(
+    JSContext *ctx, 
+    jsvalue_const_t this_val,
+    int argc, 
+    jsvalue_const_t *argv
+  ) {
+  return jsvalue_create_int(ctx, APP_MOBILE);
+}
+
+jsvalue_t get_APP_SIMULATOR(
+    JSContext *ctx, 
+    jsvalue_const_t this_val,
+    int argc, 
+    jsvalue_const_t *argv
+  ) {
+  return jsvalue_create_int(ctx, APP_SIMULATOR);
+}
+
+jsvalue_t get_APP_DESKTOP(
+    JSContext *ctx, 
+    jsvalue_const_t this_val,
+    int argc, 
+    jsvalue_const_t *argv
+  ) {
+  return jsvalue_create_int(ctx, APP_DESKTOP);
+}
+
+ret_t app_type_t_init(JSContext *ctx) {
+  jsvalue_t global_obj = JS_GetGlobalObject(ctx);
+  JS_SetPropertyStr(ctx, global_obj, "APP_MOBILE",
+                      JS_NewCFunction(ctx, get_APP_MOBILE, "APP_MOBILE", 1));
+  JS_SetPropertyStr(ctx, global_obj, "APP_SIMULATOR",
+                      JS_NewCFunction(ctx, get_APP_SIMULATOR, "APP_SIMULATOR", 1));
+  JS_SetPropertyStr(ctx, global_obj, "APP_DESKTOP",
+                      JS_NewCFunction(ctx, get_APP_DESKTOP, "APP_DESKTOP", 1));
 
  jsvalue_unref(ctx, global_obj);
 
@@ -10677,8 +10715,6 @@ ret_t widget_t_init(JSContext *ctx) {
                       JS_NewCFunction(ctx, wrap_widget_set_sensitive, "widget_set_sensitive", 1));
   JS_SetPropertyStr(ctx, global_obj, "widget_on",
                       JS_NewCFunction(ctx, wrap_widget_on, "widget_on", 1));
-  JS_SetPropertyStr(ctx, global_obj, "widget_on_with_tag",
-                      JS_NewCFunction(ctx, wrap_widget_on_with_tag, "widget_on_with_tag", 1));
   JS_SetPropertyStr(ctx, global_obj, "widget_off",
                       JS_NewCFunction(ctx, wrap_widget_off, "widget_off", 1));
   JS_SetPropertyStr(ctx, global_obj, "widget_invalidate_force",
@@ -11070,22 +11106,6 @@ ret_t time_now_t_init(JSContext *ctx) {
  jsvalue_unref(ctx, global_obj);
 
  return RET_OK;
-}
-
-jsvalue_t wrap_tk_ext_widgets_init(
-    JSContext *ctx, 
-    jsvalue_const_t this_val,
-    int argc, 
-    jsvalue_const_t *argv
-  ) {
-  jsvalue_t jret = JS_NULL;
-  if(argc >= 0) {
-  ret_t ret = 0;
-  ret = (ret_t)tk_ext_widgets_init();
-
-  jret = jsvalue_create_int(ctx, ret);
-  }
-  return jret;
 }
 
 jsvalue_t wrap_rect_create(
@@ -12908,8 +12928,6 @@ ret_t emitter_t_init(JSContext *ctx) {
                       JS_NewCFunction(ctx, wrap_emitter_dispatch_simple_event, "emitter_dispatch_simple_event", 1));
   JS_SetPropertyStr(ctx, global_obj, "emitter_on",
                       JS_NewCFunction(ctx, wrap_emitter_on, "emitter_on", 1));
-  JS_SetPropertyStr(ctx, global_obj, "emitter_on_with_tag",
-                      JS_NewCFunction(ctx, wrap_emitter_on_with_tag, "emitter_on_with_tag", 1));
   JS_SetPropertyStr(ctx, global_obj, "emitter_off",
                       JS_NewCFunction(ctx, wrap_emitter_off, "emitter_off", 1));
   JS_SetPropertyStr(ctx, global_obj, "emitter_enable",
@@ -19220,8 +19238,6 @@ ret_t object_t_init(JSContext *ctx) {
                       JS_NewCFunction(ctx, wrap_object_set_prop_float, "object_set_prop_float", 1));
   JS_SetPropertyStr(ctx, global_obj, "object_copy_prop",
                       JS_NewCFunction(ctx, wrap_object_copy_prop, "object_copy_prop", 1));
-  JS_SetPropertyStr(ctx, global_obj, "object_foreach_prop",
-                      JS_NewCFunction(ctx, wrap_object_foreach_prop, "object_foreach_prop", 1));
   JS_SetPropertyStr(ctx, global_obj, "object_has_prop",
                       JS_NewCFunction(ctx, wrap_object_has_prop, "object_has_prop", 1));
   JS_SetPropertyStr(ctx, global_obj, "object_eval",
@@ -25588,6 +25604,7 @@ ret_t awtk_js_init(JSContext *ctx) {
   timer_t_init(ctx);
   align_v_t_init(ctx);
   align_h_t_init(ctx);
+  app_type_t_init(ctx);
   bitmap_format_t_init(ctx);
   bitmap_flag_t_init(ctx);
   vgcanvas_t_init(ctx);

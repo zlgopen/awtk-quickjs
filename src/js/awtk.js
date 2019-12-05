@@ -679,9 +679,6 @@ var TLocaleInfo = /** @class */ (function () {
     TLocaleInfo.prototype.change = function (language, country) {
         return locale_info_change(this.nativeObj, language, country);
     };
-    TLocaleInfo.prototype.on = function (type, on_event, ctx) {
-        return locale_info_on(this.nativeObj, type, on_event, ctx);
-    };
     TLocaleInfo.prototype.off = function (id) {
         return locale_info_off(this.nativeObj, id);
     };
@@ -789,6 +786,13 @@ var TAlignH;
     TAlignH[TAlignH["LEFT"] = ALIGN_H_LEFT()] = "LEFT";
     TAlignH[TAlignH["RIGHT"] = ALIGN_H_RIGHT()] = "RIGHT";
 })(TAlignH || (TAlignH = {}));
+;
+var TAppType;
+(function (TAppType) {
+    TAppType[TAppType["MOBILE"] = APP_MOBILE()] = "MOBILE";
+    TAppType[TAppType["SIMULATOR"] = APP_SIMULATOR()] = "SIMULATOR";
+    TAppType[TAppType["DESKTOP"] = APP_DESKTOP()] = "DESKTOP";
+})(TAppType || (TAppType = {}));
 ;
 var TBitmapFormat;
 (function (TBitmapFormat) {
@@ -1390,9 +1394,6 @@ var TWidget = /** @class */ (function () {
     TWidget.prototype.on = function (type, on_event, ctx) {
         return widget_on(this.nativeObj, type, on_event, ctx);
     };
-    TWidget.prototype.onWithTag = function (type, on_event, ctx, tag) {
-        return widget_on_with_tag(this.nativeObj, type, on_event, ctx, tag);
-    };
     TWidget.prototype.off = function (id) {
         return widget_off(this.nativeObj, id);
     };
@@ -1931,9 +1932,6 @@ var TEmitter = /** @class */ (function () {
     };
     TEmitter.prototype.on = function (type, on_event, ctx) {
         return emitter_on(this.nativeObj, type, on_event, ctx);
-    };
-    TEmitter.prototype.onWithTag = function (type, on_event, ctx, tag) {
-        return emitter_on_with_tag(this.nativeObj, type, on_event, ctx, tag);
     };
     TEmitter.prototype.off = function (id) {
         return emitter_off(this.nativeObj, id);
@@ -3518,9 +3516,6 @@ var TObject = /** @class */ (function (_super) {
     };
     TObject.prototype.copyProp = function (src, name) {
         return object_copy_prop(this.nativeObj, src != null ? (src.nativeObj || src) : null, name);
-    };
-    TObject.prototype.foreachProp = function (on_prop, ctx) {
-        return object_foreach_prop(this.nativeObj, on_prop, ctx);
     };
     TObject.prototype.hasProp = function (name) {
         return object_has_prop(this.nativeObj, name);
