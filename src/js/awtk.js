@@ -227,6 +227,9 @@ var TCanvas = /** @class */ (function () {
         get: function () {
             return canvas_t_get_prop_global_alpha(this.nativeObj);
         },
+        set: function (v) {
+            this.setGlobalAlpha(v);
+        },
         enumerable: true,
         configurable: true
     });
@@ -986,12 +989,18 @@ var TVgcanvas = /** @class */ (function () {
         get: function () {
             return vgcanvas_t_get_prop_line_width(this.nativeObj);
         },
+        set: function (v) {
+            this.setLineWidth(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TVgcanvas.prototype, "globalAlpha", {
         get: function () {
             return vgcanvas_t_get_prop_global_alpha(this.nativeObj);
+        },
+        set: function (v) {
+            this.setGlobalAlpha(v);
         },
         enumerable: true,
         configurable: true
@@ -1000,12 +1009,18 @@ var TVgcanvas = /** @class */ (function () {
         get: function () {
             return vgcanvas_t_get_prop_miter_limit(this.nativeObj);
         },
+        set: function (v) {
+            this.setMiterLimit(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TVgcanvas.prototype, "lineCap", {
         get: function () {
             return vgcanvas_t_get_prop_line_cap(this.nativeObj);
+        },
+        set: function (v) {
+            this.setLineCap(v);
         },
         enumerable: true,
         configurable: true
@@ -1014,12 +1029,18 @@ var TVgcanvas = /** @class */ (function () {
         get: function () {
             return vgcanvas_t_get_prop_line_join(this.nativeObj);
         },
+        set: function (v) {
+            this.setLineJoin(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TVgcanvas.prototype, "font", {
         get: function () {
             return vgcanvas_t_get_prop_font(this.nativeObj);
+        },
+        set: function (v) {
+            this.setFont(v);
         },
         enumerable: true,
         configurable: true
@@ -1028,6 +1049,9 @@ var TVgcanvas = /** @class */ (function () {
         get: function () {
             return vgcanvas_t_get_prop_font_size(this.nativeObj);
         },
+        set: function (v) {
+            this.setFontSize(v);
+        },
         enumerable: true,
         configurable: true
     });
@@ -1035,12 +1059,18 @@ var TVgcanvas = /** @class */ (function () {
         get: function () {
             return vgcanvas_t_get_prop_text_align(this.nativeObj);
         },
+        set: function (v) {
+            this.setTextAlign(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TVgcanvas.prototype, "textBaseline", {
         get: function () {
             return vgcanvas_t_get_prop_text_baseline(this.nativeObj);
+        },
+        set: function (v) {
+            this.setTextBaseline(v);
         },
         enumerable: true,
         configurable: true
@@ -1518,12 +1548,18 @@ var TWidget = /** @class */ (function () {
         get: function () {
             return widget_t_get_prop_name(this.nativeObj);
         },
+        set: function (v) {
+            this.setName(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TWidget.prototype, "trText", {
         get: function () {
             return widget_t_get_prop_tr_text(this.nativeObj);
+        },
+        set: function (v) {
+            this.setTrText(v);
         },
         enumerable: true,
         configurable: true
@@ -1539,12 +1575,18 @@ var TWidget = /** @class */ (function () {
         get: function () {
             return widget_t_get_prop_animation(this.nativeObj);
         },
+        set: function (v) {
+            this.setAnimation(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TWidget.prototype, "enable", {
         get: function () {
             return widget_t_get_prop_enable(this.nativeObj);
+        },
+        set: function (v) {
+            this.setEnable(v);
         },
         enumerable: true,
         configurable: true
@@ -1553,6 +1595,9 @@ var TWidget = /** @class */ (function () {
         get: function () {
             return widget_t_get_prop_feedback(this.nativeObj);
         },
+        set: function (v) {
+            this.setFeedback(v);
+        },
         enumerable: true,
         configurable: true
     });
@@ -1560,8 +1605,8 @@ var TWidget = /** @class */ (function () {
         get: function () {
             return widget_t_get_prop_visible(this.nativeObj);
         },
-        set: function (value) {
-            widget_t_set_prop_visible(this.nativeObj, value);
+        set: function (v) {
+            widget_t_set_prop_visible(this.nativeObj, v);
         },
         enumerable: true,
         configurable: true
@@ -1570,8 +1615,8 @@ var TWidget = /** @class */ (function () {
         get: function () {
             return widget_t_get_prop_sensitive(this.nativeObj);
         },
-        set: function (value) {
-            widget_t_set_prop_sensitive(this.nativeObj, value);
+        set: function (v) {
+            widget_t_set_prop_sensitive(this.nativeObj, v);
         },
         enumerable: true,
         configurable: true
@@ -1580,8 +1625,8 @@ var TWidget = /** @class */ (function () {
         get: function () {
             return widget_t_get_prop_focusable(this.nativeObj);
         },
-        set: function (value) {
-            widget_t_set_prop_focusable(this.nativeObj, value);
+        set: function (v) {
+            widget_t_set_prop_focusable(this.nativeObj, v);
         },
         enumerable: true,
         configurable: true
@@ -1590,8 +1635,8 @@ var TWidget = /** @class */ (function () {
         get: function () {
             return widget_t_get_prop_with_focus_state(this.nativeObj);
         },
-        set: function (value) {
-            widget_t_set_prop_with_focus_state(this.nativeObj, value);
+        set: function (v) {
+            widget_t_set_prop_with_focus_state(this.nativeObj, v);
         },
         enumerable: true,
         configurable: true
@@ -1599,6 +1644,9 @@ var TWidget = /** @class */ (function () {
     Object.defineProperty(TWidget.prototype, "floating", {
         get: function () {
             return widget_t_get_prop_floating(this.nativeObj);
+        },
+        set: function (v) {
+            this.setFloating(v);
         },
         enumerable: true,
         configurable: true
@@ -1744,6 +1792,9 @@ var TNamedValue = /** @class */ (function () {
     Object.defineProperty(TNamedValue.prototype, "name", {
         get: function () {
             return named_value_t_get_prop_name(this.nativeObj);
+        },
+        set: function (v) {
+            this.setName(v);
         },
         enumerable: true,
         configurable: true
@@ -2073,8 +2124,8 @@ var TColor = /** @class */ (function () {
         get: function () {
             return color_t_get_prop_color(this.nativeObj);
         },
-        set: function (value) {
-            color_t_set_prop_color(this.nativeObj, value);
+        set: function (v) {
+            color_t_set_prop_color(this.nativeObj, v);
         },
         enumerable: true,
         configurable: true
@@ -2215,12 +2266,18 @@ var TTimeClock = /** @class */ (function (_super) {
         get: function () {
             return time_clock_t_get_prop_hour(this.nativeObj);
         },
+        set: function (v) {
+            this.setHour(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TTimeClock.prototype, "minute", {
         get: function () {
             return time_clock_t_get_prop_minute(this.nativeObj);
+        },
+        set: function (v) {
+            this.setMinute(v);
         },
         enumerable: true,
         configurable: true
@@ -2229,12 +2286,18 @@ var TTimeClock = /** @class */ (function (_super) {
         get: function () {
             return time_clock_t_get_prop_second(this.nativeObj);
         },
+        set: function (v) {
+            this.setSecond(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TTimeClock.prototype, "image", {
         get: function () {
             return time_clock_t_get_prop_image(this.nativeObj);
+        },
+        set: function (v) {
+            this.setImage(v);
         },
         enumerable: true,
         configurable: true
@@ -2243,12 +2306,18 @@ var TTimeClock = /** @class */ (function (_super) {
         get: function () {
             return time_clock_t_get_prop_bg_image(this.nativeObj);
         },
+        set: function (v) {
+            this.setBgImage(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TTimeClock.prototype, "hourImage", {
         get: function () {
             return time_clock_t_get_prop_hour_image(this.nativeObj);
+        },
+        set: function (v) {
+            this.setHourImage(v);
         },
         enumerable: true,
         configurable: true
@@ -2257,12 +2326,18 @@ var TTimeClock = /** @class */ (function (_super) {
         get: function () {
             return time_clock_t_get_prop_minute_image(this.nativeObj);
         },
+        set: function (v) {
+            this.setMinuteImage(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TTimeClock.prototype, "secondImage", {
         get: function () {
             return time_clock_t_get_prop_second_image(this.nativeObj);
+        },
+        set: function (v) {
+            this.setSecondImage(v);
         },
         enumerable: true,
         configurable: true
@@ -2359,6 +2434,9 @@ var TTextSelector = /** @class */ (function (_super) {
         get: function () {
             return text_selector_t_get_prop_visible_nr(this.nativeObj);
         },
+        set: function (v) {
+            this.setVisibleNr(v);
+        },
         enumerable: true,
         configurable: true
     });
@@ -2366,12 +2444,18 @@ var TTextSelector = /** @class */ (function (_super) {
         get: function () {
             return text_selector_t_get_prop_selected_index(this.nativeObj);
         },
+        set: function (v) {
+            this.setSelectedIndex(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TTextSelector.prototype, "options", {
         get: function () {
             return text_selector_t_get_prop_options(this.nativeObj);
+        },
+        set: function (v) {
+            this.setOptions(v);
         },
         enumerable: true,
         configurable: true
@@ -2395,6 +2479,9 @@ var TSwitch = /** @class */ (function (_super) {
     Object.defineProperty(TSwitch.prototype, "value", {
         get: function () {
             return switch_t_get_prop_value(this.nativeObj);
+        },
+        set: function (v) {
+            this.setValue(v);
         },
         enumerable: true,
         configurable: true
@@ -2492,12 +2579,18 @@ var TSlideView = /** @class */ (function (_super) {
         get: function () {
             return slide_view_t_get_prop_vertical(this.nativeObj);
         },
+        set: function (v) {
+            this.setVertical(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TSlideView.prototype, "autoPlay", {
         get: function () {
             return slide_view_t_get_prop_auto_play(this.nativeObj);
+        },
+        set: function (v) {
+            this.setAutoPlay(v);
         },
         enumerable: true,
         configurable: true
@@ -2506,12 +2599,18 @@ var TSlideView = /** @class */ (function (_super) {
         get: function () {
             return slide_view_t_get_prop_loop(this.nativeObj);
         },
+        set: function (v) {
+            this.setLoop(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TSlideView.prototype, "animHint", {
         get: function () {
             return slide_view_t_get_prop_anim_hint(this.nativeObj);
+        },
+        set: function (v) {
+            this.setAnimHint(v);
         },
         enumerable: true,
         configurable: true
@@ -2566,12 +2665,18 @@ var TSlideIndicator = /** @class */ (function (_super) {
         get: function () {
             return slide_indicator_t_get_prop_value(this.nativeObj);
         },
+        set: function (v) {
+            this.setValue(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TSlideIndicator.prototype, "max", {
         get: function () {
             return slide_indicator_t_get_prop_max(this.nativeObj);
+        },
+        set: function (v) {
+            this.setMax(v);
         },
         enumerable: true,
         configurable: true
@@ -2580,12 +2685,18 @@ var TSlideIndicator = /** @class */ (function (_super) {
         get: function () {
             return slide_indicator_t_get_prop_default_paint(this.nativeObj);
         },
+        set: function (v) {
+            this.setDefaultPaint(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TSlideIndicator.prototype, "autoHide", {
         get: function () {
             return slide_indicator_t_get_prop_auto_hide(this.nativeObj);
+        },
+        set: function (v) {
+            this.setAutoHide(v);
         },
         enumerable: true,
         configurable: true
@@ -2594,6 +2705,9 @@ var TSlideIndicator = /** @class */ (function (_super) {
         get: function () {
             return slide_indicator_t_get_prop_margin(this.nativeObj);
         },
+        set: function (v) {
+            this.setMargin(v);
+        },
         enumerable: true,
         configurable: true
     });
@@ -2601,12 +2715,18 @@ var TSlideIndicator = /** @class */ (function (_super) {
         get: function () {
             return slide_indicator_t_get_prop_spacing(this.nativeObj);
         },
+        set: function (v) {
+            this.setSpacing(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TSlideIndicator.prototype, "size", {
         get: function () {
             return slide_indicator_t_get_prop_size(this.nativeObj);
+        },
+        set: function (v) {
+            this.setSize(v);
         },
         enumerable: true,
         configurable: true
@@ -2628,6 +2748,9 @@ var TSlideIndicator = /** @class */ (function (_super) {
     Object.defineProperty(TSlideIndicator.prototype, "indicatedTarget", {
         get: function () {
             return slide_indicator_t_get_prop_indicated_target(this.nativeObj);
+        },
+        set: function (v) {
+            this.setIndicatedTarget(v);
         },
         enumerable: true,
         configurable: true
@@ -2658,6 +2781,9 @@ var TSlideMenu = /** @class */ (function (_super) {
         get: function () {
             return slide_menu_t_get_prop_value(this.nativeObj);
         },
+        set: function (v) {
+            this.setValue(v);
+        },
         enumerable: true,
         configurable: true
     });
@@ -2665,12 +2791,18 @@ var TSlideMenu = /** @class */ (function (_super) {
         get: function () {
             return slide_menu_t_get_prop_align_v(this.nativeObj);
         },
+        set: function (v) {
+            this.setAlignV(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TSlideMenu.prototype, "minScale", {
         get: function () {
             return slide_menu_t_get_prop_min_scale(this.nativeObj);
+        },
+        set: function (v) {
+            this.setMinScale(v);
         },
         enumerable: true,
         configurable: true
@@ -2716,12 +2848,18 @@ var TScrollView = /** @class */ (function (_super) {
         get: function () {
             return scroll_view_t_get_prop_virtual_w(this.nativeObj);
         },
+        set: function (v) {
+            this.setVirtualW(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TScrollView.prototype, "virtualH", {
         get: function () {
             return scroll_view_t_get_prop_virtual_h(this.nativeObj);
+        },
+        set: function (v) {
+            this.setVirtualH(v);
         },
         enumerable: true,
         configurable: true
@@ -2758,12 +2896,18 @@ var TScrollView = /** @class */ (function (_super) {
         get: function () {
             return scroll_view_t_get_prop_xslidable(this.nativeObj);
         },
+        set: function (v) {
+            this.setXslidable(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TScrollView.prototype, "yslidable", {
         get: function () {
             return scroll_view_t_get_prop_yslidable(this.nativeObj);
+        },
+        set: function (v) {
+            this.setYslidable(v);
         },
         enumerable: true,
         configurable: true
@@ -2818,6 +2962,9 @@ var TScrollBar = /** @class */ (function (_super) {
     Object.defineProperty(TScrollBar.prototype, "value", {
         get: function () {
             return scroll_bar_t_get_prop_value(this.nativeObj);
+        },
+        set: function (v) {
+            this.setValue(v);
         },
         enumerable: true,
         configurable: true
@@ -2875,6 +3022,9 @@ var TListView = /** @class */ (function (_super) {
         get: function () {
             return list_view_t_get_prop_item_height(this.nativeObj);
         },
+        set: function (v) {
+            this.setItemHeight(v);
+        },
         enumerable: true,
         configurable: true
     });
@@ -2882,12 +3032,18 @@ var TListView = /** @class */ (function (_super) {
         get: function () {
             return list_view_t_get_prop_default_item_height(this.nativeObj);
         },
+        set: function (v) {
+            this.setDefaultItemHeight(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TListView.prototype, "autoHideScrollBar", {
         get: function () {
             return list_view_t_get_prop_auto_hide_scroll_bar(this.nativeObj);
+        },
+        set: function (v) {
+            this.setAutoHideScrollBar(v);
         },
         enumerable: true,
         configurable: true
@@ -2915,12 +3071,18 @@ var TListViewH = /** @class */ (function (_super) {
         get: function () {
             return list_view_h_t_get_prop_item_width(this.nativeObj);
         },
+        set: function (v) {
+            this.setItemWidth(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TListViewH.prototype, "spacing", {
         get: function () {
             return list_view_h_t_get_prop_spacing(this.nativeObj);
+        },
+        set: function (v) {
+            this.setSpacing(v);
         },
         enumerable: true,
         configurable: true
@@ -2951,6 +3113,9 @@ var TTabButton = /** @class */ (function (_super) {
         get: function () {
             return tab_button_t_get_prop_value(this.nativeObj);
         },
+        set: function (v) {
+            this.setValue(v);
+        },
         enumerable: true,
         configurable: true
     });
@@ -2958,12 +3123,18 @@ var TTabButton = /** @class */ (function (_super) {
         get: function () {
             return tab_button_t_get_prop_active_icon(this.nativeObj);
         },
+        set: function (v) {
+            this.setActiveIcon(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TTabButton.prototype, "icon", {
         get: function () {
             return tab_button_t_get_prop_icon(this.nativeObj);
+        },
+        set: function (v) {
+            this.setIcon(v);
         },
         enumerable: true,
         configurable: true
@@ -2991,12 +3162,18 @@ var TTabButtonGroup = /** @class */ (function (_super) {
         get: function () {
             return tab_button_group_t_get_prop_compact(this.nativeObj);
         },
+        set: function (v) {
+            this.setCompact(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TTabButtonGroup.prototype, "scrollable", {
         get: function () {
             return tab_button_group_t_get_prop_scrollable(this.nativeObj);
+        },
+        set: function (v) {
+            this.setScrollable(v);
         },
         enumerable: true,
         configurable: true
@@ -3061,12 +3238,18 @@ var THscrollLabel = /** @class */ (function (_super) {
         get: function () {
             return hscroll_label_t_get_prop_only_focus(this.nativeObj);
         },
+        set: function (v) {
+            this.setOnlyFocus(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(THscrollLabel.prototype, "onlyParentFocus", {
         get: function () {
             return hscroll_label_t_get_prop_only_parent_focus(this.nativeObj);
+        },
+        set: function (v) {
+            this.setOnlyParentFocus(v);
         },
         enumerable: true,
         configurable: true
@@ -3075,12 +3258,18 @@ var THscrollLabel = /** @class */ (function (_super) {
         get: function () {
             return hscroll_label_t_get_prop_loop(this.nativeObj);
         },
+        set: function (v) {
+            this.setLoop(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(THscrollLabel.prototype, "yoyo", {
         get: function () {
             return hscroll_label_t_get_prop_yoyo(this.nativeObj);
+        },
+        set: function (v) {
+            this.setYoyo(v);
         },
         enumerable: true,
         configurable: true
@@ -3089,12 +3278,18 @@ var THscrollLabel = /** @class */ (function (_super) {
         get: function () {
             return hscroll_label_t_get_prop_ellipses(this.nativeObj);
         },
+        set: function (v) {
+            this.setEllipses(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(THscrollLabel.prototype, "lull", {
         get: function () {
             return hscroll_label_t_get_prop_lull(this.nativeObj);
+        },
+        set: function (v) {
+            this.setLull(v);
         },
         enumerable: true,
         configurable: true
@@ -3103,12 +3298,18 @@ var THscrollLabel = /** @class */ (function (_super) {
         get: function () {
             return hscroll_label_t_get_prop_duration(this.nativeObj);
         },
+        set: function (v) {
+            this.setDuration(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(THscrollLabel.prototype, "xoffset", {
         get: function () {
             return hscroll_label_t_get_prop_xoffset(this.nativeObj);
+        },
+        set: function (v) {
+            this.setXoffset(v);
         },
         enumerable: true,
         configurable: true
@@ -3181,12 +3382,18 @@ var TProgressCircle = /** @class */ (function (_super) {
         get: function () {
             return progress_circle_t_get_prop_value(this.nativeObj);
         },
+        set: function (v) {
+            this.setValue(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TProgressCircle.prototype, "max", {
         get: function () {
             return progress_circle_t_get_prop_max(this.nativeObj);
+        },
+        set: function (v) {
+            this.setMax(v);
         },
         enumerable: true,
         configurable: true
@@ -3195,12 +3402,18 @@ var TProgressCircle = /** @class */ (function (_super) {
         get: function () {
             return progress_circle_t_get_prop_start_angle(this.nativeObj);
         },
+        set: function (v) {
+            this.setStartAngle(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TProgressCircle.prototype, "lineWidth", {
         get: function () {
             return progress_circle_t_get_prop_line_width(this.nativeObj);
+        },
+        set: function (v) {
+            this.setLineWidth(v);
         },
         enumerable: true,
         configurable: true
@@ -3209,6 +3422,9 @@ var TProgressCircle = /** @class */ (function (_super) {
         get: function () {
             return progress_circle_t_get_prop_unit(this.nativeObj);
         },
+        set: function (v) {
+            this.setUnit(v);
+        },
         enumerable: true,
         configurable: true
     });
@@ -3216,12 +3432,18 @@ var TProgressCircle = /** @class */ (function (_super) {
         get: function () {
             return progress_circle_t_get_prop_counter_clock_wise(this.nativeObj);
         },
+        set: function (v) {
+            this.setCounterClockWise(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TProgressCircle.prototype, "showText", {
         get: function () {
             return progress_circle_t_get_prop_show_text(this.nativeObj);
+        },
+        set: function (v) {
+            this.setShowText(v);
         },
         enumerable: true,
         configurable: true
@@ -3261,12 +3483,18 @@ var TSlider = /** @class */ (function (_super) {
         get: function () {
             return slider_t_get_prop_value(this.nativeObj);
         },
+        set: function (v) {
+            this.setValue(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TSlider.prototype, "min", {
         get: function () {
             return slider_t_get_prop_min(this.nativeObj);
+        },
+        set: function (v) {
+            this.setMin(v);
         },
         enumerable: true,
         configurable: true
@@ -3275,12 +3503,18 @@ var TSlider = /** @class */ (function (_super) {
         get: function () {
             return slider_t_get_prop_max(this.nativeObj);
         },
+        set: function (v) {
+            this.setMax(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TSlider.prototype, "step", {
         get: function () {
             return slider_t_get_prop_step(this.nativeObj);
+        },
+        set: function (v) {
+            this.setStep(v);
         },
         enumerable: true,
         configurable: true
@@ -3289,12 +3523,18 @@ var TSlider = /** @class */ (function (_super) {
         get: function () {
             return slider_t_get_prop_vertical(this.nativeObj);
         },
+        set: function (v) {
+            this.setVertical(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TSlider.prototype, "barSize", {
         get: function () {
             return slider_t_get_prop_bar_size(this.nativeObj);
+        },
+        set: function (v) {
+            this.setBarSize(v);
         },
         enumerable: true,
         configurable: true
@@ -3337,6 +3577,9 @@ var TMledit = /** @class */ (function (_super) {
         get: function () {
             return mledit_t_get_prop_readonly(this.nativeObj);
         },
+        set: function (v) {
+            this.setReadonly(v);
+        },
         enumerable: true,
         configurable: true
     });
@@ -3351,6 +3594,9 @@ var TMledit = /** @class */ (function (_super) {
         get: function () {
             return mledit_t_get_prop_wrap_word(this.nativeObj);
         },
+        set: function (v) {
+            this.setWrapWord(v);
+        },
         enumerable: true,
         configurable: true
     });
@@ -3358,12 +3604,18 @@ var TMledit = /** @class */ (function (_super) {
         get: function () {
             return mledit_t_get_prop_max_lines(this.nativeObj);
         },
+        set: function (v) {
+            this.setMaxLines(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TMledit.prototype, "scrollLine", {
         get: function () {
             return mledit_t_get_prop_scroll_line(this.nativeObj);
+        },
+        set: function (v) {
+            this.setScrollLine(v);
         },
         enumerable: true,
         configurable: true
@@ -3413,12 +3665,18 @@ var TProgressBar = /** @class */ (function (_super) {
         get: function () {
             return progress_bar_t_get_prop_value(this.nativeObj);
         },
+        set: function (v) {
+            this.setValue(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TProgressBar.prototype, "max", {
         get: function () {
             return progress_bar_t_get_prop_max(this.nativeObj);
+        },
+        set: function (v) {
+            this.setMax(v);
         },
         enumerable: true,
         configurable: true
@@ -3427,12 +3685,18 @@ var TProgressBar = /** @class */ (function (_super) {
         get: function () {
             return progress_bar_t_get_prop_vertical(this.nativeObj);
         },
+        set: function (v) {
+            this.setVertical(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TProgressBar.prototype, "showText", {
         get: function () {
             return progress_bar_t_get_prop_show_text(this.nativeObj);
+        },
+        set: function (v) {
+            this.setShowText(v);
         },
         enumerable: true,
         configurable: true
@@ -3557,6 +3821,9 @@ var TObject = /** @class */ (function (_super) {
         get: function () {
             return object_t_get_prop_name(this.nativeObj);
         },
+        set: function (v) {
+            this.setName(v);
+        },
         enumerable: true,
         configurable: true
     });
@@ -3582,6 +3849,9 @@ var TPages = /** @class */ (function (_super) {
     Object.defineProperty(TPages.prototype, "active", {
         get: function () {
             return pages_t_get_prop_active(this.nativeObj);
+        },
+        set: function (v) {
+            this.setActive(v);
         },
         enumerable: true,
         configurable: true
@@ -3650,6 +3920,9 @@ var TImageValue = /** @class */ (function (_super) {
         get: function () {
             return image_value_t_get_prop_image(this.nativeObj);
         },
+        set: function (v) {
+            this.setImage(v);
+        },
         enumerable: true,
         configurable: true
     });
@@ -3657,12 +3930,18 @@ var TImageValue = /** @class */ (function (_super) {
         get: function () {
             return image_value_t_get_prop_format(this.nativeObj);
         },
+        set: function (v) {
+            this.setFormat(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TImageValue.prototype, "value", {
         get: function () {
             return image_value_t_get_prop_value(this.nativeObj);
+        },
+        set: function (v) {
+            this.setValue(v);
         },
         enumerable: true,
         configurable: true
@@ -3723,12 +4002,18 @@ var TImageAnimation = /** @class */ (function (_super) {
         get: function () {
             return image_animation_t_get_prop_image(this.nativeObj);
         },
+        set: function (v) {
+            this.setImage(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TImageAnimation.prototype, "sequence", {
         get: function () {
             return image_animation_t_get_prop_sequence(this.nativeObj);
+        },
+        set: function (v) {
+            this.setSequence(v);
         },
         enumerable: true,
         configurable: true
@@ -3751,12 +4036,18 @@ var TImageAnimation = /** @class */ (function (_super) {
         get: function () {
             return image_animation_t_get_prop_loop(this.nativeObj);
         },
+        set: function (v) {
+            this.setLoop(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TImageAnimation.prototype, "autoPlay", {
         get: function () {
             return image_animation_t_get_prop_auto_play(this.nativeObj);
+        },
+        set: function (v) {
+            this.setAutoPlay(v);
         },
         enumerable: true,
         configurable: true
@@ -3765,12 +4056,18 @@ var TImageAnimation = /** @class */ (function (_super) {
         get: function () {
             return image_animation_t_get_prop_unload_after_paint(this.nativeObj);
         },
+        set: function (v) {
+            this.setUnloadAfterPaint(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TImageAnimation.prototype, "format", {
         get: function () {
             return image_animation_t_get_prop_format(this.nativeObj);
+        },
+        set: function (v) {
+            this.setFormat(v);
         },
         enumerable: true,
         configurable: true
@@ -3779,12 +4076,18 @@ var TImageAnimation = /** @class */ (function (_super) {
         get: function () {
             return image_animation_t_get_prop_interval(this.nativeObj);
         },
+        set: function (v) {
+            this.setInterval(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TImageAnimation.prototype, "delay", {
         get: function () {
             return image_animation_t_get_prop_delay(this.nativeObj);
+        },
+        set: function (v) {
+            this.setDelay(v);
         },
         enumerable: true,
         configurable: true
@@ -3812,12 +4115,18 @@ var TGuage = /** @class */ (function (_super) {
         get: function () {
             return guage_t_get_prop_image(this.nativeObj);
         },
+        set: function (v) {
+            this.setImage(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TGuage.prototype, "drawType", {
         get: function () {
             return guage_t_get_prop_draw_type(this.nativeObj);
+        },
+        set: function (v) {
+            this.setDrawType(v);
         },
         enumerable: true,
         configurable: true
@@ -3848,12 +4157,18 @@ var TGuagePointer = /** @class */ (function (_super) {
         get: function () {
             return guage_pointer_t_get_prop_angle(this.nativeObj);
         },
+        set: function (v) {
+            this.setAngle(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TGuagePointer.prototype, "image", {
         get: function () {
             return guage_pointer_t_get_prop_image(this.nativeObj);
+        },
+        set: function (v) {
+            this.setImage(v);
         },
         enumerable: true,
         configurable: true
@@ -3894,6 +4209,9 @@ var TLabel = /** @class */ (function (_super) {
     Object.defineProperty(TLabel.prototype, "length", {
         get: function () {
             return label_t_get_prop_length(this.nativeObj);
+        },
+        set: function (v) {
+            this.setLength(v);
         },
         enumerable: true,
         configurable: true
@@ -3936,12 +4254,18 @@ var TDraggable = /** @class */ (function (_super) {
         get: function () {
             return draggable_t_get_prop_top(this.nativeObj);
         },
+        set: function (v) {
+            this.setTop(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TDraggable.prototype, "bottom", {
         get: function () {
             return draggable_t_get_prop_bottom(this.nativeObj);
+        },
+        set: function (v) {
+            this.setBottom(v);
         },
         enumerable: true,
         configurable: true
@@ -3950,12 +4274,18 @@ var TDraggable = /** @class */ (function (_super) {
         get: function () {
             return draggable_t_get_prop_left(this.nativeObj);
         },
+        set: function (v) {
+            this.setLeft(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TDraggable.prototype, "right", {
         get: function () {
             return draggable_t_get_prop_right(this.nativeObj);
+        },
+        set: function (v) {
+            this.setRight(v);
         },
         enumerable: true,
         configurable: true
@@ -3964,6 +4294,9 @@ var TDraggable = /** @class */ (function (_super) {
         get: function () {
             return draggable_t_get_prop_vertical_only(this.nativeObj);
         },
+        set: function (v) {
+            this.setVerticalOnly(v);
+        },
         enumerable: true,
         configurable: true
     });
@@ -3971,12 +4304,18 @@ var TDraggable = /** @class */ (function (_super) {
         get: function () {
             return draggable_t_get_prop_horizontal_only(this.nativeObj);
         },
+        set: function (v) {
+            this.setHorizontalOnly(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TDraggable.prototype, "dragWindow", {
         get: function () {
             return draggable_t_get_prop_drag_window(this.nativeObj);
+        },
+        set: function (v) {
+            this.setDragWindow(v);
         },
         enumerable: true,
         configurable: true
@@ -4194,12 +4533,18 @@ var TEdit = /** @class */ (function (_super) {
         get: function () {
             return edit_t_get_prop_readonly(this.nativeObj);
         },
+        set: function (v) {
+            this.setReadonly(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TEdit.prototype, "passwordVisible", {
         get: function () {
             return edit_t_get_prop_password_visible(this.nativeObj);
+        },
+        set: function (v) {
+            this.setPasswordVisible(v);
         },
         enumerable: true,
         configurable: true
@@ -4208,6 +4553,9 @@ var TEdit = /** @class */ (function (_super) {
         get: function () {
             return edit_t_get_prop_auto_fix(this.nativeObj);
         },
+        set: function (v) {
+            this.setAutoFix(v);
+        },
         enumerable: true,
         configurable: true
     });
@@ -4215,12 +4563,18 @@ var TEdit = /** @class */ (function (_super) {
         get: function () {
             return edit_t_get_prop_select_none_when_focused(this.nativeObj);
         },
+        set: function (v) {
+            this.setSelectNoneWhenFocused(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TEdit.prototype, "openImWhenFocused", {
         get: function () {
             return edit_t_get_prop_open_im_when_focused(this.nativeObj);
+        },
+        set: function (v) {
+            this.setOpenImWhenFocused(v);
         },
         enumerable: true,
         configurable: true
@@ -4235,6 +4589,9 @@ var TEdit = /** @class */ (function (_super) {
     Object.defineProperty(TEdit.prototype, "inputType", {
         get: function () {
             return edit_t_get_prop_input_type(this.nativeObj);
+        },
+        set: function (v) {
+            this.setInputType(v);
         },
         enumerable: true,
         configurable: true
@@ -4282,6 +4639,9 @@ var TStyleMutable = /** @class */ (function (_super) {
     Object.defineProperty(TStyleMutable.prototype, "name", {
         get: function () {
             return style_mutable_t_get_prop_name(this.nativeObj);
+        },
+        set: function (v) {
+            this.setName(v);
         },
         enumerable: true,
         configurable: true
@@ -4365,6 +4725,9 @@ var TImageBase = /** @class */ (function (_super) {
         get: function () {
             return image_base_t_get_prop_image(this.nativeObj);
         },
+        set: function (v) {
+            this.setImage(v);
+        },
         enumerable: true,
         configurable: true
     });
@@ -4400,12 +4763,18 @@ var TImageBase = /** @class */ (function (_super) {
         get: function () {
             return image_base_t_get_prop_rotation(this.nativeObj);
         },
+        set: function (v) {
+            this.setRotation(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TImageBase.prototype, "clickable", {
         get: function () {
             return image_base_t_get_prop_clickable(this.nativeObj);
+        },
+        set: function (v) {
+            this.setClickable(v);
         },
         enumerable: true,
         configurable: true
@@ -4414,12 +4783,18 @@ var TImageBase = /** @class */ (function (_super) {
         get: function () {
             return image_base_t_get_prop_selectable(this.nativeObj);
         },
+        set: function (v) {
+            this.setSelectable(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TImageBase.prototype, "selected", {
         get: function () {
             return image_base_t_get_prop_selected(this.nativeObj);
+        },
+        set: function (v) {
+            this.setSelected(v);
         },
         enumerable: true,
         configurable: true
@@ -4736,12 +5111,18 @@ var TButton = /** @class */ (function (_super) {
         get: function () {
             return button_t_get_prop_repeat(this.nativeObj);
         },
+        set: function (v) {
+            this.setRepeat(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TButton.prototype, "enableLongPress", {
         get: function () {
             return button_t_get_prop_enable_long_press(this.nativeObj);
+        },
+        set: function (v) {
+            this.setEnableLongPress(v);
         },
         enumerable: true,
         configurable: true
@@ -4765,6 +5146,9 @@ var TDigitClock = /** @class */ (function (_super) {
     Object.defineProperty(TDigitClock.prototype, "format", {
         get: function () {
             return digit_clock_t_get_prop_format(this.nativeObj);
+        },
+        set: function (v) {
+            this.setFormat(v);
         },
         enumerable: true,
         configurable: true
@@ -4792,6 +5176,9 @@ var TCheckButton = /** @class */ (function (_super) {
         get: function () {
             return check_button_t_get_prop_value(this.nativeObj);
         },
+        set: function (v) {
+            this.setValue(v);
+        },
         enumerable: true,
         configurable: true
     });
@@ -4814,6 +5201,9 @@ var TColorTile = /** @class */ (function (_super) {
     Object.defineProperty(TColorTile.prototype, "bgColor", {
         get: function () {
             return color_tile_t_get_prop_bg_color(this.nativeObj);
+        },
+        set: function (v) {
+            this.setBgColor(v);
         },
         enumerable: true,
         configurable: true
@@ -4861,12 +5251,18 @@ var TComboBoxItem = /** @class */ (function (_super) {
         get: function () {
             return combo_box_item_t_get_prop_value(this.nativeObj);
         },
+        set: function (v) {
+            this.setValue(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TComboBoxItem.prototype, "checked", {
         get: function () {
             return combo_box_item_t_get_prop_checked(this.nativeObj);
+        },
+        set: function (v) {
+            this.setChecked(v);
         },
         enumerable: true,
         configurable: true
@@ -4921,12 +5317,18 @@ var TComboBox = /** @class */ (function (_super) {
         get: function () {
             return combo_box_t_get_prop_open_window(this.nativeObj);
         },
+        set: function (v) {
+            this.setOpenWindow(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TComboBox.prototype, "selectedIndex", {
         get: function () {
             return combo_box_t_get_prop_selected_index(this.nativeObj);
+        },
+        set: function (v) {
+            this.setSelectedIndex(v);
         },
         enumerable: true,
         configurable: true
@@ -4935,12 +5337,18 @@ var TComboBox = /** @class */ (function (_super) {
         get: function () {
             return combo_box_t_get_prop_value(this.nativeObj);
         },
+        set: function (v) {
+            this.setValue(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TComboBox.prototype, "localizeOptions", {
         get: function () {
             return combo_box_t_get_prop_localize_options(this.nativeObj);
+        },
+        set: function (v) {
+            this.setLocalizeOptions(v);
         },
         enumerable: true,
         configurable: true
@@ -4949,12 +5357,18 @@ var TComboBox = /** @class */ (function (_super) {
         get: function () {
             return combo_box_t_get_prop_options(this.nativeObj);
         },
+        set: function (v) {
+            this.setOptions(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TComboBox.prototype, "itemHeight", {
         get: function () {
             return combo_box_t_get_prop_item_height(this.nativeObj);
+        },
+        set: function (v) {
+            this.setItemHeight(v);
         },
         enumerable: true,
         configurable: true
@@ -5040,6 +5454,9 @@ var TWindow = /** @class */ (function (_super) {
         get: function () {
             return window_t_get_prop_fullscreen(this.nativeObj);
         },
+        set: function (v) {
+            this.setFullscreen(v);
+        },
         enumerable: true,
         configurable: true
     });
@@ -5104,6 +5521,9 @@ var TImage = /** @class */ (function (_super) {
         get: function () {
             return image_t_get_prop_draw_type(this.nativeObj);
         },
+        set: function (v) {
+            this.setDrawType(v);
+        },
         enumerable: true,
         configurable: true
     });
@@ -5156,12 +5576,18 @@ var TPopup = /** @class */ (function (_super) {
         get: function () {
             return popup_t_get_prop_close_when_click(this.nativeObj);
         },
+        set: function (v) {
+            this.setCloseWhenClick(v);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(TPopup.prototype, "closeWhenClickOutside", {
         get: function () {
             return popup_t_get_prop_close_when_click_outside(this.nativeObj);
+        },
+        set: function (v) {
+            this.setCloseWhenClickOutside(v);
         },
         enumerable: true,
         configurable: true
