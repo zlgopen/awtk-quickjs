@@ -42,7 +42,7 @@ static async_callback_info_t *async_callback_info_create(JSContext *ctx,
   return_value_if_fail(info != NULL, NULL);
 
   info->ctx = ctx;
-  info->func = func;
+  info->func = jsvalue_ref(ctx, func);
 
   return info;
 }
@@ -54,18 +54,11 @@ static ret_t async_callback_info_call(async_callback_info_t *info,
   ret_t ret = RET_REMOVE;
   JSContext *jctx = info->ctx;
 
-  if (data == NULL) {
-    argv[0] = JS_NULL;
-  } else {
-    argv[0] = jsvalue_create_pointer(info->ctx, (void *)data, type);
-  }
-
+  argv[0] = jsvalue_create_pointer(info->ctx, (void *)data, type);
   jret = jsfunc_call(jctx, info->func, JS_NULL, 1, argv);
   ret = (ret_t)jsvalue_get_int_value(jctx, jret);
 
-  if (type != NULL) {
-    jsvalue_unref(jctx, argv[0]);
-  }
+  jsvalue_unref(jctx, argv[0]);
   jsvalue_unref(jctx, jret);
 
   return ret;
@@ -80,13 +73,13 @@ static ret_t async_callback_info_destroy(async_callback_info_t *info) {
 }
 
 static ret_t call_on_timer(const timer_info_t *timer) {
-  return async_callback_info_call((async_callback_info_t *)(timer->ctx), NULL,
-                                  NULL);
+  return async_callback_info_call((async_callback_info_t *)(timer->ctx), timer,
+                                  "timer_info_t*");
 }
 
 static ret_t call_on_idle(const idle_info_t *idle) {
-  return async_callback_info_call((async_callback_info_t *)(idle->ctx), NULL,
-                                  NULL);
+  return async_callback_info_call((async_callback_info_t *)(idle->ctx), idle,
+                                  "idle_info_t*");
 }
 
 static ret_t call_on_data(void *ctx, const void *data) {
@@ -112,8 +105,7 @@ uint32_t ret = TK_INVALID_ID;
 if (argc >= 3) {
   widget_t *widget = (widget_t *)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
   uint32_t type = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
-  async_callback_info_t *info =
-      async_callback_info_create(ctx, jsvalue_ref(ctx, argv[2]));
+  async_callback_info_t *info = async_callback_info_create(ctx, argv[2]);
 
   ret = widget_on(widget, type, call_on_event, info);
   emitter_set_on_destroy(widget->emitter, ret, emitter_item_on_destroy, NULL);
@@ -129,8 +121,7 @@ if (argc >= 3) {
   emitter_t *emitter =
       (emitter_t *)jsvalue_get_pointer(ctx, argv[0], "emitter_t*");
   uint32_t type = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
-  async_callback_info_t *info =
-      async_callback_info_create(ctx, jsvalue_ref(ctx, argv[2]));
+  async_callback_info_t *info = async_callback_info_create(ctx, argv[2]);
 
   ret = emitter_on(emitter, type, call_on_event, info);
   if (ret == TK_INVALID_ID) {
@@ -155,8 +146,7 @@ JSFUNC_DECL(wrap_timer_add)
 uint32_t ret = TK_INVALID_ID;
 
 if (argc >= 2) {
-  async_callback_info_t *info =
-      async_callback_info_create(ctx, jsvalue_ref(ctx, argv[0]));
+  async_callback_info_t *info = async_callback_info_create(ctx, argv[0]);
   uint32_t duration = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
   ret = timer_add(call_on_timer, info, duration);
   if (ret == TK_INVALID_ID) {
@@ -181,8 +171,7 @@ JSFUNC_DECL(wrap_idle_add)
 uint32_t ret = TK_INVALID_ID;
 
 if (argc >= 1) {
-  async_callback_info_t *info =
-      async_callback_info_create(ctx, jsvalue_ref(ctx, argv[0]));
+  async_callback_info_t *info = async_callback_info_create(ctx, argv[0]);
   ret = idle_add(call_on_idle, info);
   if (ret == TK_INVALID_ID) {
     async_callback_info_destroy(info);
@@ -199,13 +188,9 @@ ret_t ret = RET_FAIL;
 
 if (argc >= 2) {
   widget_t *widget = (widget_t *)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
-  jsvalue_t func = jsvalue_ref(ctx, argv[1]);
-  async_callback_info_t *info = async_callback_info_create(ctx, func);
-
+  async_callback_info_t *info = async_callback_info_create(ctx, argv[1]);
   ret = widget_foreach(widget, call_on_data, info);
-
   async_callback_info_destroy(info);
-  jsvalue_unref(ctx, func);
 }
 
 return jsvalue_create_int(ctx, ret);
