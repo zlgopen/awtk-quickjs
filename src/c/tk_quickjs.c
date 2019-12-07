@@ -1887,6 +1887,78 @@ jsvalue_t get_EVT_USER_START(
   return jsvalue_create_int(ctx, EVT_USER_START);
 }
 
+jsvalue_t get_EVT_NONE(
+    JSContext *ctx, 
+    jsvalue_const_t this_val,
+    int argc, 
+    jsvalue_const_t *argv
+  ) {
+  return jsvalue_create_int(ctx, EVT_NONE);
+}
+
+jsvalue_t get_EVT_PROP_WILL_CHANGE(
+    JSContext *ctx, 
+    jsvalue_const_t this_val,
+    int argc, 
+    jsvalue_const_t *argv
+  ) {
+  return jsvalue_create_int(ctx, EVT_PROP_WILL_CHANGE);
+}
+
+jsvalue_t get_EVT_PROP_CHANGED(
+    JSContext *ctx, 
+    jsvalue_const_t this_val,
+    int argc, 
+    jsvalue_const_t *argv
+  ) {
+  return jsvalue_create_int(ctx, EVT_PROP_CHANGED);
+}
+
+jsvalue_t get_EVT_ITEMS_WILL_CHANGE(
+    JSContext *ctx, 
+    jsvalue_const_t this_val,
+    int argc, 
+    jsvalue_const_t *argv
+  ) {
+  return jsvalue_create_int(ctx, EVT_ITEMS_WILL_CHANGE);
+}
+
+jsvalue_t get_EVT_ITEMS_CHANGED(
+    JSContext *ctx, 
+    jsvalue_const_t this_val,
+    int argc, 
+    jsvalue_const_t *argv
+  ) {
+  return jsvalue_create_int(ctx, EVT_ITEMS_CHANGED);
+}
+
+jsvalue_t get_EVT_PROPS_CHANGED(
+    JSContext *ctx, 
+    jsvalue_const_t this_val,
+    int argc, 
+    jsvalue_const_t *argv
+  ) {
+  return jsvalue_create_int(ctx, EVT_PROPS_CHANGED);
+}
+
+jsvalue_t get_EVT_PROGRESS(
+    JSContext *ctx, 
+    jsvalue_const_t this_val,
+    int argc, 
+    jsvalue_const_t *argv
+  ) {
+  return jsvalue_create_int(ctx, EVT_PROGRESS);
+}
+
+jsvalue_t get_EVT_DESTROY(
+    JSContext *ctx, 
+    jsvalue_const_t this_val,
+    int argc, 
+    jsvalue_const_t *argv
+  ) {
+  return jsvalue_create_int(ctx, EVT_DESTROY);
+}
+
 ret_t event_type_t_init(JSContext *ctx) {
   jsvalue_t global_obj = JS_GetGlobalObject(ctx);
   JS_SetPropertyStr(ctx, global_obj, "EVT_POINTER_DOWN",
@@ -2019,6 +2091,22 @@ ret_t event_type_t_init(JSContext *ctx) {
                       JS_NewCFunction(ctx, get_EVT_REQ_START, "EVT_REQ_START", 1));
   JS_SetPropertyStr(ctx, global_obj, "EVT_USER_START",
                       JS_NewCFunction(ctx, get_EVT_USER_START, "EVT_USER_START", 1));
+  JS_SetPropertyStr(ctx, global_obj, "EVT_NONE",
+                      JS_NewCFunction(ctx, get_EVT_NONE, "EVT_NONE", 1));
+  JS_SetPropertyStr(ctx, global_obj, "EVT_PROP_WILL_CHANGE",
+                      JS_NewCFunction(ctx, get_EVT_PROP_WILL_CHANGE, "EVT_PROP_WILL_CHANGE", 1));
+  JS_SetPropertyStr(ctx, global_obj, "EVT_PROP_CHANGED",
+                      JS_NewCFunction(ctx, get_EVT_PROP_CHANGED, "EVT_PROP_CHANGED", 1));
+  JS_SetPropertyStr(ctx, global_obj, "EVT_ITEMS_WILL_CHANGE",
+                      JS_NewCFunction(ctx, get_EVT_ITEMS_WILL_CHANGE, "EVT_ITEMS_WILL_CHANGE", 1));
+  JS_SetPropertyStr(ctx, global_obj, "EVT_ITEMS_CHANGED",
+                      JS_NewCFunction(ctx, get_EVT_ITEMS_CHANGED, "EVT_ITEMS_CHANGED", 1));
+  JS_SetPropertyStr(ctx, global_obj, "EVT_PROPS_CHANGED",
+                      JS_NewCFunction(ctx, get_EVT_PROPS_CHANGED, "EVT_PROPS_CHANGED", 1));
+  JS_SetPropertyStr(ctx, global_obj, "EVT_PROGRESS",
+                      JS_NewCFunction(ctx, get_EVT_PROGRESS, "EVT_PROGRESS", 1));
+  JS_SetPropertyStr(ctx, global_obj, "EVT_DESTROY",
+                      JS_NewCFunction(ctx, get_EVT_DESTROY, "EVT_DESTROY", 1));
 
  jsvalue_unref(ctx, global_obj);
 
@@ -12684,102 +12772,6 @@ ret_t event_t_init(JSContext *ctx) {
  return RET_OK;
 }
 
-jsvalue_t get_EVT_NONE(
-    JSContext *ctx, 
-    jsvalue_const_t this_val,
-    int argc, 
-    jsvalue_const_t *argv
-  ) {
-  return jsvalue_create_int(ctx, EVT_NONE);
-}
-
-jsvalue_t get_EVT_PROP_WILL_CHANGE(
-    JSContext *ctx, 
-    jsvalue_const_t this_val,
-    int argc, 
-    jsvalue_const_t *argv
-  ) {
-  return jsvalue_create_int(ctx, EVT_PROP_WILL_CHANGE);
-}
-
-jsvalue_t get_EVT_PROP_CHANGED(
-    JSContext *ctx, 
-    jsvalue_const_t this_val,
-    int argc, 
-    jsvalue_const_t *argv
-  ) {
-  return jsvalue_create_int(ctx, EVT_PROP_CHANGED);
-}
-
-jsvalue_t get_EVT_ITEMS_WILL_CHANGE(
-    JSContext *ctx, 
-    jsvalue_const_t this_val,
-    int argc, 
-    jsvalue_const_t *argv
-  ) {
-  return jsvalue_create_int(ctx, EVT_ITEMS_WILL_CHANGE);
-}
-
-jsvalue_t get_EVT_ITEMS_CHANGED(
-    JSContext *ctx, 
-    jsvalue_const_t this_val,
-    int argc, 
-    jsvalue_const_t *argv
-  ) {
-  return jsvalue_create_int(ctx, EVT_ITEMS_CHANGED);
-}
-
-jsvalue_t get_EVT_PROPS_CHANGED(
-    JSContext *ctx, 
-    jsvalue_const_t this_val,
-    int argc, 
-    jsvalue_const_t *argv
-  ) {
-  return jsvalue_create_int(ctx, EVT_PROPS_CHANGED);
-}
-
-jsvalue_t get_EVT_PROGRESS(
-    JSContext *ctx, 
-    jsvalue_const_t this_val,
-    int argc, 
-    jsvalue_const_t *argv
-  ) {
-  return jsvalue_create_int(ctx, EVT_PROGRESS);
-}
-
-jsvalue_t get_EVT_DESTROY(
-    JSContext *ctx, 
-    jsvalue_const_t this_val,
-    int argc, 
-    jsvalue_const_t *argv
-  ) {
-  return jsvalue_create_int(ctx, EVT_DESTROY);
-}
-
-ret_t event_base_type_t_init(JSContext *ctx) {
-  jsvalue_t global_obj = JS_GetGlobalObject(ctx);
-  JS_SetPropertyStr(ctx, global_obj, "EVT_NONE",
-                      JS_NewCFunction(ctx, get_EVT_NONE, "EVT_NONE", 1));
-  JS_SetPropertyStr(ctx, global_obj, "EVT_PROP_WILL_CHANGE",
-                      JS_NewCFunction(ctx, get_EVT_PROP_WILL_CHANGE, "EVT_PROP_WILL_CHANGE", 1));
-  JS_SetPropertyStr(ctx, global_obj, "EVT_PROP_CHANGED",
-                      JS_NewCFunction(ctx, get_EVT_PROP_CHANGED, "EVT_PROP_CHANGED", 1));
-  JS_SetPropertyStr(ctx, global_obj, "EVT_ITEMS_WILL_CHANGE",
-                      JS_NewCFunction(ctx, get_EVT_ITEMS_WILL_CHANGE, "EVT_ITEMS_WILL_CHANGE", 1));
-  JS_SetPropertyStr(ctx, global_obj, "EVT_ITEMS_CHANGED",
-                      JS_NewCFunction(ctx, get_EVT_ITEMS_CHANGED, "EVT_ITEMS_CHANGED", 1));
-  JS_SetPropertyStr(ctx, global_obj, "EVT_PROPS_CHANGED",
-                      JS_NewCFunction(ctx, get_EVT_PROPS_CHANGED, "EVT_PROPS_CHANGED", 1));
-  JS_SetPropertyStr(ctx, global_obj, "EVT_PROGRESS",
-                      JS_NewCFunction(ctx, get_EVT_PROGRESS, "EVT_PROGRESS", 1));
-  JS_SetPropertyStr(ctx, global_obj, "EVT_DESTROY",
-                      JS_NewCFunction(ctx, get_EVT_DESTROY, "EVT_DESTROY", 1));
-
- jsvalue_unref(ctx, global_obj);
-
- return RET_OK;
-}
-
 jsvalue_t wrap_emitter_create(
     JSContext *ctx, 
     jsvalue_const_t this_val,
@@ -12824,7 +12816,7 @@ jsvalue_t wrap_emitter_dispatch_simple_event(
   if(argc >= 2) {
   ret_t ret = 0;
   emitter_t* emitter = (emitter_t*)jsvalue_get_pointer(ctx, argv[0], "emitter_t*");
-  uint32_t type = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
+  event_type_t type = (event_type_t)jsvalue_get_number_value(ctx, argv[1]);
   ret = (ret_t)emitter_dispatch_simple_event(emitter, type);
 
   jret = jsvalue_create_int(ctx, ret);
@@ -25627,7 +25619,6 @@ ret_t awtk_js_init(JSContext *ctx) {
   indicator_default_paint_t_init(ctx);
   fs_file_t_init(ctx);
   event_t_init(ctx);
-  event_base_type_t_init(ctx);
   emitter_t_init(ctx);
   easing_type_t_init(ctx);
   date_time_t_init(ctx);

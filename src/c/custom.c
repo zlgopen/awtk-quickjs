@@ -54,7 +54,7 @@ static ret_t async_callback_info_call(async_callback_info_t *info,
   ret_t ret = RET_REMOVE;
   JSContext *jctx = info->ctx;
 
-  if (type == NULL) {
+  if (data == NULL) {
     argv[0] = JS_NULL;
   } else {
     argv[0] = jsvalue_create_pointer(info->ctx, (void *)data, type);

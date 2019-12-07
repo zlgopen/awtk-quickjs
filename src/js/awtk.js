@@ -327,6 +327,14 @@ var TEventType;
     TEventType[TEventType["THEME_CHANGED"] = EVT_THEME_CHANGED()] = "THEME_CHANGED";
     TEventType[TEventType["REQ_START"] = EVT_REQ_START()] = "REQ_START";
     TEventType[TEventType["USER_START"] = EVT_USER_START()] = "USER_START";
+    TEventType[TEventType["NONE"] = EVT_NONE()] = "NONE";
+    TEventType[TEventType["PROP_WILL_CHANGE"] = EVT_PROP_WILL_CHANGE()] = "PROP_WILL_CHANGE";
+    TEventType[TEventType["PROP_CHANGED"] = EVT_PROP_CHANGED()] = "PROP_CHANGED";
+    TEventType[TEventType["ITEMS_WILL_CHANGE"] = EVT_ITEMS_WILL_CHANGE()] = "ITEMS_WILL_CHANGE";
+    TEventType[TEventType["ITEMS_CHANGED"] = EVT_ITEMS_CHANGED()] = "ITEMS_CHANGED";
+    TEventType[TEventType["PROPS_CHANGED"] = EVT_PROPS_CHANGED()] = "PROPS_CHANGED";
+    TEventType[TEventType["PROGRESS"] = EVT_PROGRESS()] = "PROGRESS";
+    TEventType[TEventType["DESTROY"] = EVT_DESTROY()] = "DESTROY";
 })(TEventType || (TEventType = {}));
 ;
 var TFontManager = /** @class */ (function () {
@@ -1905,18 +1913,6 @@ var TEvent = /** @class */ (function () {
     });
     return TEvent;
 }());
-var TEventBaseType;
-(function (TEventBaseType) {
-    TEventBaseType[TEventBaseType["NONE"] = EVT_NONE()] = "NONE";
-    TEventBaseType[TEventBaseType["PROP_WILL_CHANGE"] = EVT_PROP_WILL_CHANGE()] = "PROP_WILL_CHANGE";
-    TEventBaseType[TEventBaseType["PROP_CHANGED"] = EVT_PROP_CHANGED()] = "PROP_CHANGED";
-    TEventBaseType[TEventBaseType["ITEMS_WILL_CHANGE"] = EVT_ITEMS_WILL_CHANGE()] = "ITEMS_WILL_CHANGE";
-    TEventBaseType[TEventBaseType["ITEMS_CHANGED"] = EVT_ITEMS_CHANGED()] = "ITEMS_CHANGED";
-    TEventBaseType[TEventBaseType["PROPS_CHANGED"] = EVT_PROPS_CHANGED()] = "PROPS_CHANGED";
-    TEventBaseType[TEventBaseType["PROGRESS"] = EVT_PROGRESS()] = "PROGRESS";
-    TEventBaseType[TEventBaseType["DESTROY"] = EVT_DESTROY()] = "DESTROY";
-})(TEventBaseType || (TEventBaseType = {}));
-;
 var TEmitter = /** @class */ (function () {
     function TEmitter(nativeObj) {
         this.nativeObj = nativeObj;
