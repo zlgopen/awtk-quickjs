@@ -48,11 +48,15 @@ sys.path.insert(0, '../awtk-linux-fb/')
 
 ## 文档
 
-[AWTK 脚本绑定原理](https://github.com/zlgopen/awtk/blob/master/docs/script_binding.md)
+* [AWTK JS API 文档](https://github.com/zlgopen/awtk-binding/tree/master/docs/js)
 
-[Javascript 绑定原理与示例](https://github.com/zlgopen/awtk-binding/blob/master/docs/binding_js.md)
+* [AWTK 脚本绑定原理](https://github.com/zlgopen/awtk/blob/master/docs/script_binding.md)
+
+* [Javascript 绑定原理与示例](https://github.com/zlgopen/awtk-binding/blob/master/docs/binding_js.md)
 
 > 本文以 Linux/MacOS 为例，Windows 可能会微妙差异，请酌情处理。
+
+# 注意事项
 
 如果希望自己的应用程序，同时支持 AWTK-JS 和 AWTK-WEB，还需要注意下列事项：
 
