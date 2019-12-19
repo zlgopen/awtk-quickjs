@@ -22,10 +22,10 @@ os.environ['BIN_DIR'] = APP_BIN_DIR;
 os.environ['LIB_DIR'] = APP_LIB_DIR;
 
 
-APP_LIBS = ['assets']
+APP_LIBS = ['awtk-quickjs', 'quickjs']
 APP_LIBPATH = [APP_LIB_DIR]
 APP_CPPPATH = [QUICK_JS_DIR]
-APP_CFLAGS = '-DRES_ROOT=\"\\\"'+RES_ROOT+'\\\"\" -DPATH_MAX=256 -DDUMP_LEAKS '
+APP_CFLAGS = '-DWITH_QUICKJS_LIBC -DPATH_MAX=256 -DDUMP_LEAKS '
 APP_CCFLAGS = APP_CFLAGS
 
 if hasattr(awtk, 'CC'):

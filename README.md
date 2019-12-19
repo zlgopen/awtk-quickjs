@@ -33,7 +33,7 @@ sys.path.insert(0, '../awtk-linux-fb/')
 ## 运行
 
 ```
-./bin/runScript demos/xxxx.js
+./bin/awtkRun demos/xxxx.js
 ```
 
 > 请把 xxxx.js 换成具体的 js 文件。

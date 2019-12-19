@@ -11,7 +11,6 @@
 /lib
 /bin
 tags
-bin/run*
 filter.json
 .vscode
 3rd/build

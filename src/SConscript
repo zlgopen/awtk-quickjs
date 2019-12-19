@@ -5,11 +5,8 @@ env=DefaultEnvironment().Clone()
 BIN_DIR=os.environ['BIN_DIR'];
 LIB_DIR=os.environ['LIB_DIR'];
 
-env['LIBS'] = ['assets', 'quickjs'] + env['LIBS']
-
-SOURCES=['c/utils.c','c/tk_quickjs.c']
-env.Library(os.path.join(LIB_DIR, 'awtk-quickjs'), SOURCES)
-env.Program(os.path.join(BIN_DIR, 'runScript'), ["c/run_js.c"] + SOURCES)
+env.Library(os.path.join(LIB_DIR, 'awtk-quickjs'), ['c/utils.c','c/tk_quickjs.c'])
+env.Program(os.path.join(BIN_DIR, 'awtkRun'), ['c/main.c', 'assets.c'])
 
 
 

@@ -26,30 +26,35 @@ var TEvent = /** @class */ (function () {
         this.nativeObj = nativeObj;
     }
     /**
-     * 转换为event对象。 供脚本语言使用
+     * 转换为event对象。
+     *
+     *> 供脚本语言使用
      *
      * @param event event对象。
-     *
+     
      * @returns event对象。
      */
     TEvent.cast = function (event) {
         return new TEvent(event_cast(event != null ? (event.nativeObj || event) : null));
     };
     /**
-     * 创建event对象。 主要给脚本语言使用。
+     * 创建event对象。
+     *
+     *主要给脚本语言使用。
      *
      * @param type 事件类型。
-     *
+     
      * @returns 返回事件对象。
      */
     TEvent.create = function (type) {
         return new TEvent(event_create(type));
     };
     /**
-     * 销毁事件对象。 主要给脚本语言使用。
+     * 销毁事件对象。
      *
-     * @param event event对象。
+     *主要给脚本语言使用。
      *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TEvent.prototype.destroy = function () {
@@ -90,6 +95,7 @@ var TEvent = /** @class */ (function () {
     });
     return TEvent;
 }());
+;
 /**
  * 矩形。包括一个x坐标、y坐标、宽度和高度。
  *
@@ -99,47 +105,53 @@ var TRect = /** @class */ (function () {
         this.nativeObj = nativeObj;
     }
     /**
-     * 创建rect对象。 主要供脚本语言使用。
+     * 创建rect对象。
+     *
+     *> 主要供脚本语言使用。
      *
      * @param x x坐标。
      * @param y y坐标。
      * @param w 宽度。
      * @param h 高度。
-     *
+     
      * @returns rect对象。
      */
     TRect.create = function (x, y, w, h) {
         return new TRect(rect_create(x, y, w, h));
     };
     /**
-     * 设置rect对象的xywh。 主要供脚本语言使用。
+     * 设置rect对象的xywh。
      *
-     * @param rect rect对象。
+     *> 主要供脚本语言使用。
+     *
      * @param x x坐标。
      * @param y y坐标。
      * @param w 宽度。
      * @param h 高度。
-     *
+     
      * @returns rect对象。
      */
     TRect.prototype.set = function (x, y, w, h) {
         return new TRect(rect_set(this != null ? (this.nativeObj || this) : null, x, y, w, h));
     };
     /**
-     * 转换为rect对象。 供脚本语言使用。
+     * 转换为rect对象。
+     *
+     *> 供脚本语言使用。
      *
      * @param rect rect对象。
-     *
+     
      * @returns rect对象。
      */
     TRect.cast = function (rect) {
         return new TRect(rect_cast(rect != null ? (rect.nativeObj || rect) : null));
     };
     /**
-     * 销毁rect对象。 主要供脚本语言使用。
+     * 销毁rect对象。
      *
-     * @param r rect对象。
+     *> 主要供脚本语言使用。
      *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TRect.prototype.destroy = function () {
@@ -191,6 +203,7 @@ var TRect = /** @class */ (function () {
     });
     return TRect;
 }());
+;
 /**
  * 点(浮点数)。包括一个x坐标和一个y坐标。
  *
@@ -201,6 +214,7 @@ var TPointf = /** @class */ (function () {
     }
     return TPointf;
 }());
+;
 /**
  * 点。包括一个x坐标和一个y坐标。
  *
@@ -211,6 +225,7 @@ var TPoint = /** @class */ (function () {
     }
     return TPoint;
 }());
+;
 /**
  * 事件分发器, 用于实现观察者模式。
  *
@@ -222,29 +237,30 @@ var TEmitter = /** @class */ (function () {
     /**
      * 创建emitter对象。
      *
-     *
+     
      * @returns 对象。
      */
     TEmitter.create = function () {
         return new TEmitter(emitter_create());
     };
     /**
-     * 分发事件。如果当前分发的回调函数返回RET_REMOVE，该回调函数将被移出。 禁用状态下，本函数不做任何事情。  如果当前分发的回调函数返回RET_STOP，dispatch中断分发，并返回RET_STOP，否则返回RET_OK。
+     * 分发事件。如果当前分发的回调函数返回RET_REMOVE，该回调函数将被移出。
+     *禁用状态下，本函数不做任何事情。
      *
-     * @param emitter emitter对象。
      * @param e 事件对象。
-     *
-     * @returns
+     
+     * @returns 如果当前分发的回调函数返回RET_STOP，dispatch中断分发，并返回RET_STOP，否则返回RET_OK。
      */
     TEmitter.prototype.dispatch = function (e) {
         return emitter_dispatch(this != null ? (this.nativeObj || this) : null, e != null ? (e.nativeObj || e) : null);
     };
     /**
-     * 分发事件。 对emitter_dispatch的包装，分发一个简单的事件。  如果当前分发的回调函数返回RET_STOP，dispatch中断分发，并返回RET_STOP，否则返回RET_OK。
+     * 分发事件。
+     *> 对emitter_dispatch的包装，分发一个简单的事件。
+     *如果当前分发的回调函数返回RET_STOP，dispatch中断分发，并返回RET_STOP，否则返回RET_OK。
      *
-     * @param emitter emitter对象。
      * @param type 事件类型。
-     *
+     
      * @returns
      */
     TEmitter.prototype.dispatchSimpleEvent = function (type) {
@@ -253,11 +269,10 @@ var TEmitter = /** @class */ (function () {
     /**
      * 注册指定事件的处理函数。
      *
-     * @param emitter emitter对象。
      * @param type 事件类型。
      * @param on_event 事件处理函数。
      * @param ctx 事件处理函数上下文。
-     *
+     
      * @returns 返回id，用于emitter_off。
      */
     TEmitter.prototype.on = function (type, on_event, ctx) {
@@ -266,9 +281,8 @@ var TEmitter = /** @class */ (function () {
     /**
      * 注销指定事件的处理函数。
      *
-     * @param emitter emitter对象。
      * @param id emitter_on返回的ID。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TEmitter.prototype.off = function (id) {
@@ -277,18 +291,18 @@ var TEmitter = /** @class */ (function () {
     /**
      * 启用。
      *
-     * @param emitter emitter对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TEmitter.prototype.enable = function () {
         return emitter_enable(this != null ? (this.nativeObj || this) : null);
     };
     /**
-     * 禁用。 禁用后emitter_dispatch无效，但可以注册和注销。
+     * 禁用。
      *
-     * @param emitter emitter对象。
+     *禁用后emitter_dispatch无效，但可以注册和注销。
      *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TEmitter.prototype.disable = function () {
@@ -297,8 +311,7 @@ var TEmitter = /** @class */ (function () {
     /**
      * 获取注册的回调函数个数，主要用于辅助测试。
      *
-     * @param emitter emitter对象。
-     *
+     
      * @returns 回调函数个数。
      */
     TEmitter.prototype.size = function () {
@@ -307,18 +320,19 @@ var TEmitter = /** @class */ (function () {
     /**
      * 销毁。
      *
-     * @param emitter emitter对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TEmitter.prototype.destroy = function () {
         return emitter_destroy(this != null ? (this.nativeObj || this) : null);
     };
     /**
-     * 转换为emitter对象(供脚本语言使用)。 主要给脚本语言使用。
+     * 转换为emitter对象(供脚本语言使用)。
+     *
+     *主要给脚本语言使用。
      *
      * @param emitter emitter对象。
-     *
+     
      * @returns 对象。
      */
     TEmitter.cast = function (emitter) {
@@ -326,6 +340,7 @@ var TEmitter = /** @class */ (function () {
     };
     return TEmitter;
 }());
+;
 /**
  * 位图。
  *
@@ -337,7 +352,7 @@ var TBitmap = /** @class */ (function () {
     /**
      * 创建图片对象(一般供脚本语言中使用)。
      *
-     *
+     
      * @returns 返回bitmap对象。
      */
     TBitmap.create = function () {
@@ -350,7 +365,7 @@ var TBitmap = /** @class */ (function () {
      * @param h 高度。
      * @param line_length line_length。
      * @param format 格式。
-     *
+     
      * @returns 返回bitmap对象。
      */
     TBitmap.createEx = function (w, h, line_length, format) {
@@ -359,8 +374,7 @@ var TBitmap = /** @class */ (function () {
     /**
      * 获取图片一个像素占用的字节数。
      *
-     * @param bitmap bitmap对象。
-     *
+     
      * @returns 返回一个像素占用的字节数。
      */
     TBitmap.prototype.getBpp = function () {
@@ -369,8 +383,7 @@ var TBitmap = /** @class */ (function () {
     /**
      * 销毁图片。
      *
-     * @param bitmap bitmap对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TBitmap.prototype.destroy = function () {
@@ -444,8 +457,14 @@ var TBitmap = /** @class */ (function () {
     });
     return TBitmap;
 }());
+;
 /**
- * 一个通用数据类型，用来存放整数、浮点数、字符串和其它对象。 在C/C++中，一般不需动态创建对象，直接声明并初始化即可。如： ```c value_t v; value_set_int(&v, 100); ```> 在脚本语言中，需要动态创建对象。
+ * 一个通用数据类型，用来存放整数、浮点数、字符串和其它对象。
+ *
+ *在C/C++中，一般不需动态创建对象，直接声明并初始化即可。如：
+ *
+ *
+ *> 在脚本语言中，需要动态创建对象。
  *
  */
 var TValue = /** @class */ (function () {
@@ -455,9 +474,8 @@ var TValue = /** @class */ (function () {
     /**
      * 设置类型为bool的值。
      *
-     * @param v value对象。
      * @param value 待设置的值。
-     *
+     
      * @returns value对象本身。
      */
     TValue.prototype.setBool = function (value) {
@@ -466,8 +484,7 @@ var TValue = /** @class */ (function () {
     /**
      * 获取类型为bool的值。
      *
-     * @param v value对象。
-     *
+     
      * @returns 值。
      */
     TValue.prototype.bool = function () {
@@ -476,9 +493,8 @@ var TValue = /** @class */ (function () {
     /**
      * 设置类型为int8的值。
      *
-     * @param v value对象。
      * @param value 待设置的值。
-     *
+     
      * @returns value对象本身。
      */
     TValue.prototype.setInt8 = function (value) {
@@ -487,8 +503,7 @@ var TValue = /** @class */ (function () {
     /**
      * 获取类型为int8的值。
      *
-     * @param v value对象。
-     *
+     
      * @returns 值。
      */
     TValue.prototype.int8 = function () {
@@ -497,9 +512,8 @@ var TValue = /** @class */ (function () {
     /**
      * 设置类型为uint8的值。
      *
-     * @param v value对象。
      * @param value 待设置的值。
-     *
+     
      * @returns value对象本身。
      */
     TValue.prototype.setUint8 = function (value) {
@@ -508,8 +522,7 @@ var TValue = /** @class */ (function () {
     /**
      * 获取类型为uint8的值。
      *
-     * @param v value对象。
-     *
+     
      * @returns 值。
      */
     TValue.prototype.uint8 = function () {
@@ -518,9 +531,8 @@ var TValue = /** @class */ (function () {
     /**
      * 设置类型为int16的值。
      *
-     * @param v value对象。
      * @param value 待设置的值。
-     *
+     
      * @returns value对象本身。
      */
     TValue.prototype.setInt16 = function (value) {
@@ -529,8 +541,7 @@ var TValue = /** @class */ (function () {
     /**
      * 获取类型为int16的值。
      *
-     * @param v value对象。
-     *
+     
      * @returns 值。
      */
     TValue.prototype.int16 = function () {
@@ -539,9 +550,8 @@ var TValue = /** @class */ (function () {
     /**
      * 设置类型为uint16的值。
      *
-     * @param v value对象。
      * @param value 待设置的值。
-     *
+     
      * @returns value对象本身。
      */
     TValue.prototype.setUint16 = function (value) {
@@ -550,8 +560,7 @@ var TValue = /** @class */ (function () {
     /**
      * 获取类型为uint16的值。
      *
-     * @param v value对象。
-     *
+     
      * @returns 值。
      */
     TValue.prototype.uint16 = function () {
@@ -560,9 +569,8 @@ var TValue = /** @class */ (function () {
     /**
      * 设置类型为int32的值。
      *
-     * @param v value对象。
      * @param value 待设置的值。
-     *
+     
      * @returns value对象本身。
      */
     TValue.prototype.setInt32 = function (value) {
@@ -571,8 +579,7 @@ var TValue = /** @class */ (function () {
     /**
      * 获取类型为int32的值。
      *
-     * @param v value对象。
-     *
+     
      * @returns 值。
      */
     TValue.prototype.int32 = function () {
@@ -581,9 +588,8 @@ var TValue = /** @class */ (function () {
     /**
      * 设置类型为uint32的值。
      *
-     * @param v value对象。
      * @param value 待设置的值。
-     *
+     
      * @returns value对象本身。
      */
     TValue.prototype.setUint32 = function (value) {
@@ -592,9 +598,8 @@ var TValue = /** @class */ (function () {
     /**
      * 设置类型为int64的值。
      *
-     * @param v value对象。
      * @param value 待设置的值。
-     *
+     
      * @returns value对象本身。
      */
     TValue.prototype.setInt64 = function (value) {
@@ -603,8 +608,7 @@ var TValue = /** @class */ (function () {
     /**
      * 获取类型为int64的值。
      *
-     * @param v value对象。
-     *
+     
      * @returns 值。
      */
     TValue.prototype.int64 = function () {
@@ -613,9 +617,8 @@ var TValue = /** @class */ (function () {
     /**
      * 设置类型为uint64的值。
      *
-     * @param v value对象。
      * @param value 待设置的值。
-     *
+     
      * @returns value对象本身。
      */
     TValue.prototype.setUint64 = function (value) {
@@ -624,8 +627,7 @@ var TValue = /** @class */ (function () {
     /**
      * 获取类型为uint64的值。
      *
-     * @param v value对象。
-     *
+     
      * @returns 值。
      */
     TValue.prototype.uint64 = function () {
@@ -634,9 +636,8 @@ var TValue = /** @class */ (function () {
     /**
      * 设置类型为float\_t的值。
      *
-     * @param v value对象。
      * @param value 待设置的值。
-     *
+     
      * @returns value对象本身。
      */
     TValue.prototype.setFloat = function (value) {
@@ -645,8 +646,7 @@ var TValue = /** @class */ (function () {
     /**
      * 获取类型为float的值。
      *
-     * @param v value对象。
-     *
+     
      * @returns 值。
      */
     TValue.prototype.float32 = function () {
@@ -655,9 +655,8 @@ var TValue = /** @class */ (function () {
     /**
      * 设置类型为double的值。
      *
-     * @param v value对象。
      * @param value 待设置的值。
-     *
+     
      * @returns value对象本身。
      */
     TValue.prototype.setFloat64 = function (value) {
@@ -666,19 +665,19 @@ var TValue = /** @class */ (function () {
     /**
      * 获取类型为double的值。
      *
-     * @param v value对象。
-     *
+     
      * @returns 值。
      */
     TValue.prototype.float64 = function () {
         return value_double(this != null ? (this.nativeObj || this) : null);
     };
     /**
-     * 设置类型为字符串的值(并拷贝字符串)。 供脚本语言使用。
+     * 设置类型为字符串的值(并拷贝字符串)。
      *
-     * @param v value对象。
+     *> 供脚本语言使用。
+     *
      * @param value 待设置的值。
-     *
+     
      * @returns value对象本身。
      */
     TValue.prototype.setStr = function (value) {
@@ -687,8 +686,7 @@ var TValue = /** @class */ (function () {
     /**
      * 获取类型为字符串的值。
      *
-     * @param v value对象。
-     *
+     
      * @returns 值。
      */
     TValue.prototype.str = function () {
@@ -697,8 +695,7 @@ var TValue = /** @class */ (function () {
     /**
      * 判断value是否为空值。
      *
-     * @param value value对象。
-     *
+     
      * @returns 为空值返回TRUE，否则返回FALSE。
      */
     TValue.prototype.isNull = function () {
@@ -707,9 +704,8 @@ var TValue = /** @class */ (function () {
     /**
      * 设置类型为int的值。
      *
-     * @param v value对象。
      * @param value 待设置的值。
-     *
+     
      * @returns value对象本身。
      */
     TValue.prototype.setInt = function (value) {
@@ -718,9 +714,8 @@ var TValue = /** @class */ (function () {
     /**
      * 设置类型为object的值。
      *
-     * @param v value对象。
      * @param value 待设置的值。
-     *
+     
      * @returns value对象本身。
      */
     TValue.prototype.setObject = function (value) {
@@ -729,8 +724,7 @@ var TValue = /** @class */ (function () {
     /**
      * 转换为object的值。
      *
-     * @param v value对象。
-     *
+     
      * @returns 值。
      */
     TValue.prototype.object = function () {
@@ -739,9 +733,8 @@ var TValue = /** @class */ (function () {
     /**
      * 设置类型为token的值。
      *
-     * @param v value对象。
      * @param value 待设置的值。
-     *
+     
      * @returns value对象本身。
      */
     TValue.prototype.setToken = function (value) {
@@ -750,8 +743,7 @@ var TValue = /** @class */ (function () {
     /**
      * 获取token的值。
      *
-     * @param v value对象。
-     *
+     
      * @returns 值。
      */
     TValue.prototype.token = function () {
@@ -760,7 +752,7 @@ var TValue = /** @class */ (function () {
     /**
      * 创建value对象。
      *
-     *
+     
      * @returns 对象。
      */
     TValue.create = function () {
@@ -769,8 +761,7 @@ var TValue = /** @class */ (function () {
     /**
      * 销毁value对象。
      *
-     * @param v value对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TValue.prototype.destroy = function () {
@@ -779,18 +770,19 @@ var TValue = /** @class */ (function () {
     /**
      * 重置value对象。
      *
-     * @param v value对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TValue.prototype.reset = function () {
         return value_reset(this != null ? (this.nativeObj || this) : null);
     };
     /**
-     * 转换为value对象。 供脚本语言使用
+     * 转换为value对象。
+     *
+     *> 供脚本语言使用
      *
      * @param value value对象。
-     *
+     
      * @returns 对象。
      */
     TValue.cast = function (value) {
@@ -798,6 +790,7 @@ var TValue = /** @class */ (function () {
     };
     return TValue;
 }());
+;
 /**
  * 对象接口。
  *
@@ -810,8 +803,7 @@ var TObject = /** @class */ (function (_super) {
     /**
      * 引用计数减1。引用计数为0时，销毁对象。
      *
-     * @param obj object对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TObject.prototype.unref = function () {
@@ -821,7 +813,7 @@ var TObject = /** @class */ (function (_super) {
      * 引用计数加1。
      *
      * @param obj object对象。
-     *
+     
      * @returns 返回object对象。
      */
     TObject.ref = function (obj) {
@@ -830,8 +822,7 @@ var TObject = /** @class */ (function (_super) {
     /**
      * 获取对象的类型名称。
      *
-     * @param obj object对象。
-     *
+     
      * @returns 返回对象的类型名称。
      */
     TObject.prototype.getType = function () {
@@ -840,8 +831,7 @@ var TObject = /** @class */ (function (_super) {
     /**
      * 获取对象的描述信息。
      *
-     * @param obj object对象。
-     *
+     
      * @returns 返回对象的描述信息。
      */
     TObject.prototype.getDesc = function () {
@@ -850,8 +840,7 @@ var TObject = /** @class */ (function (_super) {
     /**
      * 获取对象占用内存的大小。
      *
-     * @param obj object对象。
-     *
+     
      * @returns 返回对象占用内存的大小。
      */
     TObject.prototype.getSize = function () {
@@ -860,8 +849,7 @@ var TObject = /** @class */ (function (_super) {
     /**
      * 判断对象是否是集合。
      *
-     * @param obj object对象。
-     *
+     
      * @returns 返回TRUE表示是集合，否则不是。
      */
     TObject.prototype.isCollection = function () {
@@ -870,9 +858,8 @@ var TObject = /** @class */ (function (_super) {
     /**
      * 设置对象的名称。
      *
-     * @param obj object对象。
      * @param name 对象的名称。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TObject.prototype.setName = function (name) {
@@ -881,9 +868,8 @@ var TObject = /** @class */ (function (_super) {
     /**
      * 比较两个对象。
      *
-     * @param obj object对象。
      * @param other 比较的object对象。
-     *
+     
      * @returns 返回比较结果。
      */
     TObject.prototype.compare = function (other) {
@@ -892,10 +878,9 @@ var TObject = /** @class */ (function (_super) {
     /**
      * 获取指定属性的值。
      *
-     * @param obj object对象。
      * @param name 属性的名称。
      * @param v 返回属性的值。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TObject.prototype.getProp = function (name, v) {
@@ -904,9 +889,8 @@ var TObject = /** @class */ (function (_super) {
     /**
      * 获取指定属性的字符串类型的值。
      *
-     * @param obj object对象。
      * @param name 属性的名称。
-     *
+     
      * @returns 返回指定属性的字符串类型的值。
      */
     TObject.prototype.getPropStr = function (name) {
@@ -915,9 +899,8 @@ var TObject = /** @class */ (function (_super) {
     /**
      * 获取指定属性的指针类型的值。
      *
-     * @param obj object对象。
      * @param name 属性的名称。
-     *
+     
      * @returns 返回指定属性的指针类型的值。
      */
     TObject.prototype.getPropPointer = function (name) {
@@ -926,9 +909,8 @@ var TObject = /** @class */ (function (_super) {
     /**
      * 获取指定属性的object类型的值。
      *
-     * @param obj object对象。
      * @param name 属性的名称。
-     *
+     
      * @returns 返回指定属性的object类型的值。
      */
     TObject.prototype.getPropObject = function (name) {
@@ -937,10 +919,9 @@ var TObject = /** @class */ (function (_super) {
     /**
      * 获取指定属性的整数类型的值。
      *
-     * @param obj object对象。
      * @param name 属性的名称。
      * @param defval 缺省值。
-     *
+     
      * @returns 返回指定属性的整数类型的值。
      */
     TObject.prototype.getPropInt = function (name, defval) {
@@ -949,10 +930,9 @@ var TObject = /** @class */ (function (_super) {
     /**
      * 获取指定属性的bool类型的值。
      *
-     * @param obj object对象。
      * @param name 属性的名称。
      * @param defval 缺省值。
-     *
+     
      * @returns 返回指定属性的bool类型的值。
      */
     TObject.prototype.getPropBool = function (name, defval) {
@@ -961,10 +941,9 @@ var TObject = /** @class */ (function (_super) {
     /**
      * 获取指定属性的浮点数类型的值。
      *
-     * @param obj object对象。
      * @param name 属性的名称。
      * @param defval 缺省值。
-     *
+     
      * @returns 返回指定属性的浮点数类型的值。
      */
     TObject.prototype.getPropFloat = function (name, defval) {
@@ -973,9 +952,8 @@ var TObject = /** @class */ (function (_super) {
     /**
      * 删除指定属性。
      *
-     * @param obj object对象。
      * @param name 属性的名称。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TObject.prototype.removeProp = function (name) {
@@ -984,10 +962,9 @@ var TObject = /** @class */ (function (_super) {
     /**
      * 设置指定属性的值。
      *
-     * @param obj object对象。
      * @param name 属性的名称。
      * @param value 属性的值。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TObject.prototype.setProp = function (name, value) {
@@ -996,10 +973,9 @@ var TObject = /** @class */ (function (_super) {
     /**
      * 设置指定属性的字符串类型的值。
      *
-     * @param obj object对象。
      * @param name 属性的名称。
      * @param value 属性的值。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TObject.prototype.setPropStr = function (name, value) {
@@ -1008,10 +984,9 @@ var TObject = /** @class */ (function (_super) {
     /**
      * 设置指定属性的object类型的值。
      *
-     * @param obj object对象。
      * @param name 属性的名称。
      * @param value 属性的值。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TObject.prototype.setPropObject = function (name, value) {
@@ -1020,10 +995,9 @@ var TObject = /** @class */ (function (_super) {
     /**
      * 设置指定属性的整数类型的值。
      *
-     * @param obj object对象。
      * @param name 属性的名称。
      * @param value 属性的值。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TObject.prototype.setPropInt = function (name, value) {
@@ -1032,10 +1006,9 @@ var TObject = /** @class */ (function (_super) {
     /**
      * 设置指定属性的bool类型的值。
      *
-     * @param obj object对象。
      * @param name 属性的名称。
      * @param value 属性的值。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TObject.prototype.setPropBool = function (name, value) {
@@ -1044,10 +1017,9 @@ var TObject = /** @class */ (function (_super) {
     /**
      * 设置指定属性的浮点数类型的值。
      *
-     * @param obj object对象。
      * @param name 属性的名称。
      * @param value 属性的值。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TObject.prototype.setPropFloat = function (name, value) {
@@ -1056,10 +1028,9 @@ var TObject = /** @class */ (function (_super) {
     /**
      * 拷贝指定的属性。
      *
-     * @param obj 目标对象。
      * @param src 源对象。
      * @param name 属性的名称。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TObject.prototype.copyProp = function (src, name) {
@@ -1068,9 +1039,8 @@ var TObject = /** @class */ (function (_super) {
     /**
      * 检查是否存在指定的属性。
      *
-     * @param obj object对象。
      * @param name 属性的名称。
-     *
+     
      * @returns 返回TRUE表示存在，否则表示不存在。
      */
     TObject.prototype.hasProp = function (name) {
@@ -1079,10 +1049,9 @@ var TObject = /** @class */ (function (_super) {
     /**
      * 计算一个表达式，表达式中引用的变量从prop中获取。
      *
-     * @param obj object对象。
      * @param expr 表达式。
      * @param v 返回计算结果。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TObject.prototype.eval = function (expr, v) {
@@ -1091,10 +1060,9 @@ var TObject = /** @class */ (function (_super) {
     /**
      * 检查是否可以执行指定的命令。
      *
-     * @param obj object对象。
      * @param name 命令的名称。
      * @param args 命令的参数。
-     *
+     
      * @returns 返回TRUE表示可以执行，否则表示不可以执行。
      */
     TObject.prototype.canExec = function (name, args) {
@@ -1103,20 +1071,18 @@ var TObject = /** @class */ (function (_super) {
     /**
      * 执行指定的命令。
      *
-     * @param obj object对象。
      * @param name 命令的名称。
      * @param args 命令的参数。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
-    TObject.prototype.exec = function (name, args) {
+    TObject.prototype.execute = function (name, args) {
         return object_exec(this != null ? (this.nativeObj || this) : null, name, args);
     };
     /**
      * 触发EVT_PROPS_CHANGED事件。
      *
-     * @param obj object对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TObject.prototype.notifyChanged = function () {
@@ -1125,9 +1091,8 @@ var TObject = /** @class */ (function (_super) {
     /**
      * 获取指定属性的字符串类型的值。
      *
-     * @param obj object对象。
      * @param path 属性的path。
-     *
+     
      * @returns 返回指定属性的字符串类型的值。
      */
     TObject.prototype.getPropStrByPath = function (path) {
@@ -1136,9 +1101,8 @@ var TObject = /** @class */ (function (_super) {
     /**
      * 获取指定属性的指针类型的值。
      *
-     * @param obj object对象。
      * @param path 属性的path。
-     *
+     
      * @returns 返回指定属性的指针类型的值。
      */
     TObject.prototype.getPropPointerByPath = function (path) {
@@ -1147,9 +1111,8 @@ var TObject = /** @class */ (function (_super) {
     /**
      * 获取指定属性的object类型的值。
      *
-     * @param obj object对象。
      * @param path 属性的path。
-     *
+     
      * @returns 返回指定属性的object类型的值。
      */
     TObject.prototype.getPropObjectByPath = function (path) {
@@ -1158,10 +1121,9 @@ var TObject = /** @class */ (function (_super) {
     /**
      * 获取指定属性的整数类型的值。
      *
-     * @param obj object对象。
      * @param path 属性的path。
      * @param defval 缺省值。
-     *
+     
      * @returns 返回指定属性的整数类型的值。
      */
     TObject.prototype.getPropIntByPath = function (path, defval) {
@@ -1170,10 +1132,9 @@ var TObject = /** @class */ (function (_super) {
     /**
      * 获取指定属性的bool类型的值。
      *
-     * @param obj object对象。
      * @param path 属性的path。
      * @param defval 缺省值。
-     *
+     
      * @returns 返回指定属性的bool类型的值。
      */
     TObject.prototype.getPropBoolByPath = function (path, defval) {
@@ -1182,10 +1143,9 @@ var TObject = /** @class */ (function (_super) {
     /**
      * 获取指定属性的浮点数类型的值。
      *
-     * @param obj object对象。
      * @param path 属性的path。
      * @param defval 缺省值。
-     *
+     
      * @returns 返回指定属性的浮点数类型的值。
      */
     TObject.prototype.getPropFloatByPath = function (path, defval) {
@@ -1218,6 +1178,7 @@ var TObject = /** @class */ (function (_super) {
     });
     return TObject;
 }(TEmitter));
+;
 /**
  * TK全局对象。
  *
@@ -1226,9 +1187,32 @@ var TGlobal = /** @class */ (function () {
     function TGlobal() {
     }
     /**
+     * 初始化TK。
+     *
+     * @param w LCD宽度。
+     * @param h LCD高度。
+     * @param app_type 应用程序的类型。
+     * @param app_name 应用程序的名称(必须为常量字符串)。
+     * @param app_root 应用程序的根目录，用于定位资源文件(必须为常量字符串)。
+     
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TGlobal.init = function (w, h, app_type, app_name, app_root) {
+        return tk_init(w, h, app_type, app_name, app_root);
+    };
+    /**
+     * 进入TK事件主循环。
+     *
+     
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TGlobal.run = function () {
+        return tk_run();
+    };
+    /**
      * 退出TK事件主循环。
      *
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TGlobal.quit = function () {
@@ -1237,7 +1221,7 @@ var TGlobal = /** @class */ (function () {
     /**
      * 获取全局指针的X坐标。
      *
-     *
+     
      * @returns 返回全局指针的X坐标。
      */
     TGlobal.getPointerX = function () {
@@ -1246,7 +1230,7 @@ var TGlobal = /** @class */ (function () {
     /**
      * 获取全局指针的Y坐标。
      *
-     *
+     
      * @returns 返回全局指针的X坐标。
      */
     TGlobal.getPointerY = function () {
@@ -1255,7 +1239,7 @@ var TGlobal = /** @class */ (function () {
     /**
      * 获取全局指针是否按下。
      *
-     *
+     
      * @returns 返回全局指针是否按下。
      */
     TGlobal.isPointerPressed = function () {
@@ -1263,8 +1247,11 @@ var TGlobal = /** @class */ (function () {
     };
     return TGlobal;
 }());
+;
 /**
- * 对话框退出码。 一般用作dialog_quit函数的参数。
+ * 对话框退出码。
+ *
+ *> 一般用作dialog_quit函数的参数。
  *
  */
 var TDialogQuitCode;
@@ -1518,22 +1505,26 @@ var TEventType;
      */
     TEventType[TEventType["WIDGET_LOAD"] = EVT_WIDGET_LOAD()] = "WIDGET_LOAD";
     /**
-     * 窗口即将打开事件(event_t)。 如果有窗口动画，在窗口动画开始前触发。如果没有窗口动画，在窗口被加载后的下一次循环中触发。
+     * 窗口即将打开事件(event_t)。
+     *如果有窗口动画，在窗口动画开始前触发。如果没有窗口动画，在窗口被加载后的下一次循环中触发。
      *
      */
     TEventType[TEventType["WINDOW_WILL_OPEN"] = EVT_WINDOW_WILL_OPEN()] = "WINDOW_WILL_OPEN";
     /**
-     * 窗口打开事件(event_t)。 如果有窗口动画，在窗口动画完成时触发。如果没有窗口动画，在窗口被加载后的下一次循环中触发。
+     * 窗口打开事件(event_t)。
+     *如果有窗口动画，在窗口动画完成时触发。如果没有窗口动画，在窗口被加载后的下一次循环中触发。
      *
      */
     TEventType[TEventType["WINDOW_OPEN"] = EVT_WINDOW_OPEN()] = "WINDOW_OPEN";
     /**
-     * 窗口被切换到后台事件(event_t)。 打开新窗口时，当前窗口被切换到后台时，对当前窗口触发本事件。
+     * 窗口被切换到后台事件(event_t)。
+     *打开新窗口时，当前窗口被切换到后台时，对当前窗口触发本事件。
      *
      */
     TEventType[TEventType["WINDOW_TO_BACKGROUND"] = EVT_WINDOW_TO_BACKGROUND()] = "WINDOW_TO_BACKGROUND";
     /**
-     * 窗口被切换到前台事件(event_t)。 关闭当前窗口时，前一个窗口被切换到前台时，对前一个窗口触发本事件。
+     * 窗口被切换到前台事件(event_t)。
+     *关闭当前窗口时，前一个窗口被切换到前台时，对前一个窗口触发本事件。
      *
      */
     TEventType[TEventType["WINDOW_TO_FOREGROUND"] = EVT_WINDOW_TO_FOREGROUND()] = "WINDOW_TO_FOREGROUND";
@@ -1618,7 +1609,8 @@ var TEventType;
      */
     TEventType[TEventType["WIDGET_CREATED"] = EVT_WIDGET_CREATED()] = "WIDGET_CREATED";
     /**
-     * 请求退出应用程序事件。 点击原生窗口关闭按钮时，通过窗口管理器触发，注册该事件并返回RET_STOP，可以阻止窗口关闭。
+     * 请求退出应用程序事件。
+     *点击原生窗口关闭按钮时，通过窗口管理器触发，注册该事件并返回RET_STOP，可以阻止窗口关闭。
      *
      */
     TEventType[TEventType["REQUEST_QUIT_APP"] = EVT_REQUEST_QUIT_APP()] = "REQUEST_QUIT_APP";
@@ -1627,6 +1619,16 @@ var TEventType;
      *
      */
     TEventType[TEventType["THEME_CHANGED"] = EVT_THEME_CHANGED()] = "THEME_CHANGED";
+    /**
+     * 控件加载新的子控件(event_t)。
+     *
+     */
+    TEventType[TEventType["WIDGET_ADD_CHILD"] = EVT_WIDGET_ADD_CHILD()] = "WIDGET_ADD_CHILD";
+    /**
+     * 控件移除子控件(event_t)。
+     *
+     */
+    TEventType[TEventType["WIDGET_REMOVE_CHILD"] = EVT_WIDGET_REMOVE_CHILD()] = "WIDGET_REMOVE_CHILD";
     /**
      * event queue其它请求编号起始值。
      *
@@ -1680,7 +1682,8 @@ var TEventType;
 })(TEventType || (TEventType = {}));
 ;
 /**
- * 字体管理器，负责字体的加载和缓存管理。 (如果使用nanovg，字体由nanovg内部管理)
+ * 字体管理器，负责字体的加载和缓存管理。
+ *(如果使用nanovg，字体由nanovg内部管理)
  *
  */
 var TFontManager = /** @class */ (function () {
@@ -1690,10 +1693,9 @@ var TFontManager = /** @class */ (function () {
     /**
      * 卸载指定的字体。
      *
-     * @param fm 字体管理器对象。
      * @param name 字体名，为NULL时使用缺省字体。
      * @param size 字体的大小(矢量字体指定为0即可)。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TFontManager.prototype.unloadFont = function (name, size) {
@@ -1702,8 +1704,7 @@ var TFontManager = /** @class */ (function () {
     /**
      * 卸载全部字体。
      *
-     * @param fm 字体管理器对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TFontManager.prototype.unloadAll = function () {
@@ -1711,6 +1712,7 @@ var TFontManager = /** @class */ (function () {
     };
     return TFontManager;
 }());
+;
 /**
  * 字模格式常量定义。
  *
@@ -1735,7 +1737,14 @@ var TGlyphFormat;
 })(TGlyphFormat || (TGlyphFormat = {}));
 ;
 /**
- * idle可以看作是duration为0的定时器。 idle可以用来实现一些异步处理。 示例： ```c static ret_t something_on_idle(const idle_info_t* info) {   widget_t* widget = WIDGET(info->ctx);   edit_t* edit = EDIT(widget);   ...   return RET_REMOVE; } ... idle_add(something_on_idle, edit); ``` 在非GUI线程请用idle\_queue。
+ * idle可以看作是duration为0的定时器。
+ *
+ *> idle可以用来实现一些异步处理。
+ *
+ *示例：
+ *
+ *
+ *> 在非GUI线程请用idle\_queue。
  *
  */
 var TIdle = /** @class */ (function () {
@@ -1746,7 +1755,7 @@ var TIdle = /** @class */ (function () {
      *
      * @param on_idle idle回调函数，回调函数返回RET_REPEAT，则下次继续执行，否则自动移出。
      * @param ctx idle回调函数的上下文。
-     *
+     
      * @returns 返回idle的ID，0表示失败。
      */
     TIdle.add = function (on_idle, ctx) {
@@ -1756,7 +1765,7 @@ var TIdle = /** @class */ (function () {
      * 删除指定的idle。
      *
      * @param idle_id idleID。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TIdle.remove = function (idle_id) {
@@ -1764,6 +1773,7 @@ var TIdle = /** @class */ (function () {
     };
     return TIdle;
 }());
+;
 /**
  * 图片管理器。负责加载，解码和缓存图片。
  *
@@ -1775,19 +1785,19 @@ var TImageManager = /** @class */ (function () {
     /**
      * 获取缺省的图片管理器。
      *
-     *
+     
      * @returns 返回图片管理器对象。
      */
     TImageManager.instance = function () {
         return new TImageManager(image_manager());
     };
     /**
-     * 获取指定的图片。 先从缓存查找，如果没找到，再加载并缓存。
+     * 获取指定的图片。
+     *先从缓存查找，如果没找到，再加载并缓存。
      *
-     * @param imm 图片管理器对象。
      * @param name 图片名称。
      * @param image 用于返回图片。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageManager.prototype.getBitmap = function (name, image) {
@@ -1795,6 +1805,7 @@ var TImageManager = /** @class */ (function () {
     };
     return TImageManager;
 }());
+;
 /**
  * 输入类型常量定义。
  *
@@ -1972,7 +1983,19 @@ var TValueType;
 })(TValueType || (TValueType = {}));
 ;
 /**
- * 输入法接口。 常见的实现方式有以下几种： * 空实现。用于不需要输入法的嵌入式平台。 * 缺省实现。用于需要输入法的嵌入式平台。 * 基于SDL实现的平台原生输入法。用于桌面系统和手机系统。 ```graphviz  [default_style]  input_method_default_t -> input_method_t [arrowhead=empty style=dashed]  input_method_sdl_t -> input_method_t [arrowhead=empty style=dashed]  input_method_null_t -> input_method_t [arrowhead=empty style=dashed] ``` 输入类型请参考：[input\_type](input_type_t.md)
+ * 输入法接口。
+ *
+ *常见的实现方式有以下几种：
+ *
+ ** 空实现。用于不需要输入法的嵌入式平台。
+ *
+ ** 缺省实现。用于需要输入法的嵌入式平台。
+ *
+ ** 基于SDL实现的平台原生输入法。用于桌面系统和手机系统。
+ *
+ *
+ *
+ *> 输入类型请参考：[input\_type](input_type_t.md)
  *
  */
 var TInputMethod = /** @class */ (function () {
@@ -1982,9 +2005,8 @@ var TInputMethod = /** @class */ (function () {
     /**
      * 提交输入文本。
      *
-     * @param im 输入法对象。
      * @param text 文本。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TInputMethod.prototype.commitText = function (text) {
@@ -1993,9 +2015,8 @@ var TInputMethod = /** @class */ (function () {
     /**
      * 提交按键。
      *
-     * @param im 输入法对象。
      * @param key 键值。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TInputMethod.prototype.dispatchKey = function (key) {
@@ -2004,7 +2025,7 @@ var TInputMethod = /** @class */ (function () {
     /**
      * 获取全局输入法对象。
      *
-     *
+     
      * @returns 成功返回输入法对象，失败返回NULL。
      */
     TInputMethod.instance = function () {
@@ -2012,6 +2033,7 @@ var TInputMethod = /** @class */ (function () {
     };
     return TInputMethod;
 }());
+;
 /**
  * key code。
  *
@@ -2686,7 +2708,7 @@ var TLocaleInfo = /** @class */ (function () {
     /**
      * 获取缺省locale_info。
      *
-     *
+     
      * @returns 返回locale_info对象。
      */
     TLocaleInfo.instance = function () {
@@ -2695,9 +2717,8 @@ var TLocaleInfo = /** @class */ (function () {
     /**
      * 翻译字符串。
      *
-     * @param locale_info locale_info对象。
      * @param text 待翻译的文本。
-     *
+     
      * @returns 返回翻译之后的字符串。
      */
     TLocaleInfo.prototype.tr = function (text) {
@@ -2706,10 +2727,9 @@ var TLocaleInfo = /** @class */ (function () {
     /**
      * 设置当前的国家和语言。
      *
-     * @param locale_info locale_info对象。
      * @param language 语言。
      * @param country 国家或地区。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TLocaleInfo.prototype.change = function (language, country) {
@@ -2718,9 +2738,8 @@ var TLocaleInfo = /** @class */ (function () {
     /**
      * 注销指定事件的处理函数。
      *
-     * @param locale_info locale_info对象。
      * @param id locale_info_on返回的ID。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TLocaleInfo.prototype.off = function (id) {
@@ -2728,6 +2747,7 @@ var TLocaleInfo = /** @class */ (function () {
     };
     return TLocaleInfo;
 }());
+;
 /**
  * style常量定义。
  *
@@ -2907,7 +2927,12 @@ var TStyleId;
 })(TStyleId || (TStyleId = {}));
 ;
 /**
- * 控件风格。 widget从style对象中，获取诸如字体、颜色和图片相关的参数，根据这些参数来绘制界面。 ```c style_t* style = widget->astyle; int32_t margin = style_get_int(style, STYLE_ID_MARGIN, 2); int32_t icon_at = style_get_int(style, STYLE_ID_ICON_AT, ICON_AT_AUTO); uint16_t font_size = style_get_int(style, STYLE_ID_FONT_SIZE, TK_DEFAULT_FONT_SIZE); ``` 属性名称的请参考[style\_id](style_id_t.md)
+ * 控件风格。
+ *
+ *widget从style对象中，获取诸如字体、颜色和图片相关的参数，根据这些参数来绘制界面。
+ *
+ *
+ *属性名称的请参考[style\_id](style_id_t.md)
  *
  */
 var TStyle = /** @class */ (function () {
@@ -2917,9 +2942,8 @@ var TStyle = /** @class */ (function () {
     /**
      * widget状态改变时，通知style更新数据。
      *
-     * @param s style对象。
      * @param widget 控件对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TStyle.prototype.notifyWidgetStateChanged = function (widget) {
@@ -2928,8 +2952,7 @@ var TStyle = /** @class */ (function () {
     /**
      * 检查style对象是否有效
      *
-     * @param s style对象。
-     *
+     
      * @returns 返回是否有效。
      */
     TStyle.prototype.isValid = function () {
@@ -2938,10 +2961,9 @@ var TStyle = /** @class */ (function () {
     /**
      * 获取指定name的整数格式的值。
      *
-     * @param s style对象。
      * @param name 属性名。
      * @param defval 缺省值。
-     *
+     
      * @returns 返回整数格式的值。
      */
     TStyle.prototype.getInt = function (name, defval) {
@@ -2950,10 +2972,9 @@ var TStyle = /** @class */ (function () {
     /**
      * 获取指定name的字符串格式的值。
      *
-     * @param s style对象。
      * @param name 属性名。
      * @param defval 缺省值。
-     *
+     
      * @returns 返回字符串格式的值。
      */
     TStyle.prototype.getStr = function (name, defval) {
@@ -2962,11 +2983,10 @@ var TStyle = /** @class */ (function () {
     /**
      * 设置指定状态的指定属性的值(仅仅对mutable的style有效)。
      *
-     * @param s style对象。
      * @param state 状态。
      * @param name 属性名。
      * @param value 值。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TStyle.prototype.set = function (state, name, value) {
@@ -2975,8 +2995,7 @@ var TStyle = /** @class */ (function () {
     /**
      * 检查style是否是mutable的。
      *
-     * @param s style对象。
-     *
+     
      * @returns 返回TRUE表示是，否则表示不是。
      */
     TStyle.prototype.isMutable = function () {
@@ -2984,8 +3003,11 @@ var TStyle = /** @class */ (function () {
     };
     return TStyle;
 }());
+;
 /**
- * 主题。 负责管理缺省的主题数据，方便实现style\_const。
+ * 主题。
+ *
+ *负责管理缺省的主题数据，方便实现style\_const。
  *
  */
 var TTheme = /** @class */ (function () {
@@ -2995,7 +3017,7 @@ var TTheme = /** @class */ (function () {
     /**
      * 获取缺省的主题对象。
      *
-     *
+     
      * @returns 返回主题对象。
      */
     TTheme.instance = function () {
@@ -3003,8 +3025,15 @@ var TTheme = /** @class */ (function () {
     };
     return TTheme;
 }());
+;
 /**
- * 定时器系统。 本定时器精度较低，最高精度为1000/FPS，如果需要高精度的定时器，请用OS提供的定时器。 示例： ```c static ret_t my_on_timer(const timer_info_t* info) {  widget_t* widget = WIDGET(info->ctx);  ...  return RET_REPEAT; } ... timer_add(my_on_timer, widget, 1000); ``` 在非GUI线程请用timer\_queue。
+ * 定时器系统。
+ *
+ *> 本定时器精度较低，最高精度为1000/FPS，如果需要高精度的定时器，请用OS提供的定时器。
+ *
+ *示例：
+ *
+ *> 在非GUI线程请用timer\_queue。
  *
  */
 var TTimer = /** @class */ (function () {
@@ -3016,7 +3045,7 @@ var TTimer = /** @class */ (function () {
      * @param on_timer timer回调函数。
      * @param ctx timer回调函数的上下文。
      * @param duration 时间。
-     *
+     
      * @returns 返回timer的ID，TK_INVALID_ID表示失败。
      */
     TTimer.add = function (on_timer, ctx, duration) {
@@ -3026,7 +3055,7 @@ var TTimer = /** @class */ (function () {
      * 删除指定的timer。
      *
      * @param timer_id timerID。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTimer.remove = function (timer_id) {
@@ -3036,7 +3065,7 @@ var TTimer = /** @class */ (function () {
      * 重置指定的timer，重置之后定时器重新开始计时。
      *
      * @param timer_id timerID。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTimer.reset = function (timer_id) {
@@ -3047,7 +3076,7 @@ var TTimer = /** @class */ (function () {
      *
      * @param timer_id timerID。
      * @param duration 新的时间。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTimer.modify = function (timer_id, duration) {
@@ -3055,6 +3084,7 @@ var TTimer = /** @class */ (function () {
     };
     return TTimer;
 }());
+;
 /**
  * 垂直对齐的常量定义。
  *
@@ -3236,7 +3266,26 @@ var TBitmapFlag;
 })(TBitmapFlag || (TBitmapFlag = {}));
 ;
 /**
- * 矢量图画布抽象基类。 具体实现时可以使用agg，nanovg, cairo和skia等方式。 cairo和skia体积太大，不适合嵌入式平台，但在PC平台也是一种选择。 目前我们只提供了基于nanovg的实现，支持软件渲染和硬件渲染。 我们对nanovg进行了一些改进: * 可以用agg/agge实现软件渲染(暂时不支持文本绘制)。 * 可以用bgfx使用DirectX(Windows平台)和Metal(iOS)平台硬件加速。 ```graphviz   [default_style]   vgcanvas_cairo_t -> vgcanvas_t[arrowhead = "empty"]   vgcanvas_nanovg_t -> vgcanvas_t[arrowhead = "empty"]   opengl -> vgcanvas_nanovg_t[arrowhead = "none"]   bgfx -> vgcanvas_nanovg_t[arrowhead = "none"]   agg -> vgcanvas_nanovg_t[arrowhead = "none"]   agge -> vgcanvas_nanovg_t[arrowhead = "none"]   vgcanvas_skia_t -> vgcanvas_t[arrowhead = "empty"]   vgcanvas_agge_t -> vgcanvas_t[arrowhead = "empty"] ``` 示例： ```c   vgcanvas_t* vg = canvas_get_vgcanvas(c);   vgcanvas_save(vg);   vgcanvas_translate(vg, 0, 100);   vgcanvas_set_line_width(vg, 1);   vgcanvas_set_fill_color(vg, color_init(0xff, 0, 0, 0xff));   vgcanvas_rect(vg, 5, 5, 100, 100);   vgcanvas_fill(vg);   vgcanvas_restore(vg); ```请参考：https://www.w3schools.com/tags/ref_canvas.asp
+ * 矢量图画布抽象基类。
+ *
+ *具体实现时可以使用agg，nanovg, cairo和skia等方式。
+ *
+ *cairo和skia体积太大，不适合嵌入式平台，但在PC平台也是一种选择。
+ *
+ *目前我们只提供了基于nanovg的实现，支持软件渲染和硬件渲染。
+ *
+ *我们对nanovg进行了一些改进:
+ *
+ ** 可以用agg/agge实现软件渲染(暂时不支持文本绘制)。
+ *
+ ** 可以用bgfx使用DirectX(Windows平台)和Metal(iOS)平台硬件加速。
+ *
+ *
+ *
+ *示例：
+ *
+ *
+ *>请参考：https://www.w3schools.com/tags/ref_canvas.asp
  *
  */
 var TVgcanvas = /** @class */ (function () {
@@ -3247,7 +3296,7 @@ var TVgcanvas = /** @class */ (function () {
      * 转换为vgcanvas对象(供脚本语言使用)。
      *
      * @param vg vgcanvas对象。
-     *
+     
      * @returns vgcanvas对象。
      */
     TVgcanvas.cast = function (vg) {
@@ -3256,8 +3305,7 @@ var TVgcanvas = /** @class */ (function () {
     /**
      * flush
      *
-     * @param vg vgcanvas对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.flush = function () {
@@ -3266,8 +3314,7 @@ var TVgcanvas = /** @class */ (function () {
     /**
      * 清除之前的路径，并重新开始一条路径。
      *
-     * @param vg vgcanvas对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.beginPath = function () {
@@ -3276,10 +3323,9 @@ var TVgcanvas = /** @class */ (function () {
     /**
      * 移动当前点到指定点。
      *
-     * @param vg vgcanvas对象。
      * @param x x坐标。
      * @param y y坐标。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.moveTo = function (x, y) {
@@ -3288,10 +3334,9 @@ var TVgcanvas = /** @class */ (function () {
     /**
      * 生成一条线段(从当前点到目标点)。
      *
-     * @param vg vgcanvas对象。
      * @param x x坐标。
      * @param y y坐标。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.lineTo = function (x, y) {
@@ -3300,12 +3345,11 @@ var TVgcanvas = /** @class */ (function () {
     /**
      * 生成一条二次贝塞尔曲线。
      *
-     * @param vg vgcanvas对象。
      * @param cpx 控制点x坐标。
      * @param cpy 控制点y坐标。
      * @param x x坐标。
      * @param y y坐标。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.quadTo = function (cpx, cpy, x, y) {
@@ -3314,14 +3358,13 @@ var TVgcanvas = /** @class */ (function () {
     /**
      * 生成一条三次贝塞尔曲线。
      *
-     * @param vg vgcanvas对象。
      * @param cp1x 控制点1x坐标。
      * @param cp1y 控制点1y坐标。
      * @param cp2x 控制点2x坐标。
      * @param cp2y 控制点3y坐标。
      * @param x x坐标。
      * @param y y坐标。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.bezierTo = function (cp1x, cp1y, cp2x, cp2y, x, y) {
@@ -3330,13 +3373,12 @@ var TVgcanvas = /** @class */ (function () {
     /**
      * 生成一条圆弧路径到指定点。
      *
-     * @param vg vgcanvas对象。
      * @param x1 起始点x坐标。
      * @param y1 起始点y坐标。
      * @param x2 结束点x坐标。
      * @param y2 结束点y坐标。
      * @param r 半径。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.arcTo = function (x1, y1, x2, y2, r) {
@@ -3345,14 +3387,13 @@ var TVgcanvas = /** @class */ (function () {
     /**
      * 生成一条圆弧。
      *
-     * @param vg vgcanvas对象。
      * @param x 原点x坐标。
      * @param y 原点y坐标。
      * @param r 半径。
      * @param start_angle 起始角度。
      * @param end_angle 结束角度。
      * @param ccw 是否逆时针。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.arc = function (x, y, r, start_angle, end_angle, ccw) {
@@ -3361,10 +3402,9 @@ var TVgcanvas = /** @class */ (function () {
     /**
      * 检查点是否在当前路径中。
      *
-     * @param vg vgcanvas对象。
      * @param x x坐标。
      * @param y y坐标。
-     *
+     
      * @returns 返回TRUE表示在，否则表示不在。
      */
     TVgcanvas.prototype.isPointInPath = function (x, y) {
@@ -3373,12 +3413,11 @@ var TVgcanvas = /** @class */ (function () {
     /**
      * 生成一个矩形路径。
      *
-     * @param vg vgcanvas对象。
      * @param x x坐标。
      * @param y y坐标。
      * @param w 宽度。
      * @param h 高度。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.rect = function (x, y, w, h) {
@@ -3387,13 +3426,12 @@ var TVgcanvas = /** @class */ (function () {
     /**
      * 生成一个圆角矩形路径。
      *
-     * @param vg vgcanvas对象。
      * @param x x坐标。
      * @param y y坐标。
      * @param w 宽度。
      * @param h 高度。
      * @param r 圆角半径。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.roundedRect = function (x, y, w, h, r) {
@@ -3402,22 +3440,22 @@ var TVgcanvas = /** @class */ (function () {
     /**
      * 生成一个椭圆路径。
      *
-     * @param vg vgcanvas对象。
      * @param x x坐标。
      * @param y y坐标。
      * @param rx 圆角半径。
      * @param ry 圆角半径。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.ellipse = function (x, y, rx, ry) {
         return vgcanvas_ellipse(this != null ? (this.nativeObj || this) : null, x, y, rx, ry);
     };
     /**
-     * 闭合路径。闭合路径是指把起点和终点连接起来，形成一个封闭的多边形。
+     * 闭合路径。
      *
-     * @param vg vgcanvas对象。
+     *>闭合路径是指把起点和终点连接起来，形成一个封闭的多边形。
      *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.closePath = function () {
@@ -3426,9 +3464,8 @@ var TVgcanvas = /** @class */ (function () {
     /**
      * 旋转。
      *
-     * @param vg vgcanvas对象。
      * @param rad 角度
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.rotate = function (rad) {
@@ -3437,10 +3474,9 @@ var TVgcanvas = /** @class */ (function () {
     /**
      * 缩放。
      *
-     * @param vg vgcanvas对象。
      * @param x x方向缩放比例。
      * @param y y方向缩放比例。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.scale = function (x, y) {
@@ -3449,10 +3485,9 @@ var TVgcanvas = /** @class */ (function () {
     /**
      * 平移。
      *
-     * @param vg vgcanvas对象。
      * @param x x方向偏移。
      * @param y y方向偏移。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.translate = function (x, y) {
@@ -3461,14 +3496,13 @@ var TVgcanvas = /** @class */ (function () {
     /**
      * 变换矩阵。
      *
-     * @param vg vgcanvas对象。
      * @param a a
      * @param b b
      * @param c c
      * @param d d
      * @param e e
      * @param f f
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.transform = function (a, b, c, d, e, f) {
@@ -3477,14 +3511,13 @@ var TVgcanvas = /** @class */ (function () {
     /**
      * 设置变换矩阵。
      *
-     * @param vg vgcanvas对象。
      * @param a a
      * @param b b
      * @param c c
      * @param d d
      * @param e e
      * @param f f
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.setTransform = function (a, b, c, d, e, f) {
@@ -3493,12 +3526,11 @@ var TVgcanvas = /** @class */ (function () {
     /**
      * 矩形裁剪。
      *
-     * @param vg vgcanvas对象。
      * @param x x坐标。
      * @param y y坐标。
      * @param w 宽度。
      * @param h 高度。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.clipRect = function (x, y, w, h) {
@@ -3507,8 +3539,7 @@ var TVgcanvas = /** @class */ (function () {
     /**
      * 填充多边形。
      *
-     * @param vg vgcanvas对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.fill = function () {
@@ -3517,20 +3548,19 @@ var TVgcanvas = /** @class */ (function () {
     /**
      * 画线。
      *
-     * @param vg vgcanvas对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.stroke = function () {
         return vgcanvas_stroke(this != null ? (this.nativeObj || this) : null);
     };
     /**
-     * 用图片填充/画多边形(可能存在可移植性问题，除非必要请勿使用)。 多边形的顶点必须在图片范围内，可以通过矩阵变化画到不同的位置。
+     * 用图片填充/画多边形(可能存在可移植性问题，除非必要请勿使用)。
+     *多边形的顶点必须在图片范围内，可以通过矩阵变化画到不同的位置。
      *
-     * @param vg vgcanvas对象。
      * @param stroke TRUE表示画线FALSE表示填充。
      * @param img 图片。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.paint = function (stroke, img) {
@@ -3539,9 +3569,8 @@ var TVgcanvas = /** @class */ (function () {
     /**
      * 设置字体的名称。
      *
-     * @param vg vgcanvas对象。
      * @param font 字体名称。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.setFont = function (font) {
@@ -3550,9 +3579,8 @@ var TVgcanvas = /** @class */ (function () {
     /**
      * 设置字体的大小。
      *
-     * @param vg vgcanvas对象。
      * @param font 字体大小。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.setFontSize = function (font) {
@@ -3561,9 +3589,8 @@ var TVgcanvas = /** @class */ (function () {
     /**
      * 设置文本水平对齐的方式。
      *
-     * @param vg vgcanvas对象。
      * @param value 取值：left|center|right，必须为常量字符串。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.setTextAlign = function (value) {
@@ -3572,9 +3599,8 @@ var TVgcanvas = /** @class */ (function () {
     /**
      * 设置文本垂直对齐的方式。
      *
-     * @param vg vgcanvas对象。
      * @param value 取值：top|middle|bottom，必须为常量字符串。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.setTextBaseline = function (value) {
@@ -3583,12 +3609,11 @@ var TVgcanvas = /** @class */ (function () {
     /**
      * 绘制文本。
      *
-     * @param vg vgcanvas对象。
      * @param text text
      * @param x x坐标。
      * @param y y坐标。
      * @param max_width 最大宽度。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.fillText = function (text, x, y, max_width) {
@@ -3597,9 +3622,8 @@ var TVgcanvas = /** @class */ (function () {
     /**
      * 测量文本的宽度。
      *
-     * @param vg vgcanvas对象。
      * @param text text
-     *
+     
      * @returns 返回text的宽度。
      */
     TVgcanvas.prototype.measureText = function (text) {
@@ -3608,7 +3632,6 @@ var TVgcanvas = /** @class */ (function () {
     /**
      * 绘制图片。
      *
-     * @param vg vgcanvas对象。
      * @param img 图片。
      * @param sx sx
      * @param sy sy
@@ -3618,16 +3641,17 @@ var TVgcanvas = /** @class */ (function () {
      * @param dy dy
      * @param dw dw
      * @param dh dh
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.drawImage = function (img, sx, sy, sw, sh, dx, dy, dw, dh) {
         return vgcanvas_draw_image(this != null ? (this.nativeObj || this) : null, img != null ? (img.nativeObj || img) : null, sx, sy, sw, sh, dx, dy, dw, dh);
     };
     /**
-     * 绘制图标。 绘制图标时会根据屏幕密度进行自动缩放，而绘制普通图片时不会。
+     * 绘制图标。
      *
-     * @param vg vgcanvas对象。
+     *绘制图标时会根据屏幕密度进行自动缩放，而绘制普通图片时不会。
+     *
      * @param img 图片。
      * @param sx sx
      * @param sy sy
@@ -3637,7 +3661,7 @@ var TVgcanvas = /** @class */ (function () {
      * @param dy dy
      * @param dw dw
      * @param dh dh
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.drawIcon = function (img, sx, sy, sw, sh, dx, dy, dw, dh) {
@@ -3646,9 +3670,8 @@ var TVgcanvas = /** @class */ (function () {
     /**
      * 设置是否启用反走样。
      *
-     * @param vg vgcanvas对象。
      * @param value 是否启用反走样。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.setAntialias = function (value) {
@@ -3657,9 +3680,8 @@ var TVgcanvas = /** @class */ (function () {
     /**
      * 设置全局透明度。
      *
-     * @param vg vgcanvas对象。
      * @param alpha global alpha。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.setGlobalAlpha = function (alpha) {
@@ -3668,9 +3690,8 @@ var TVgcanvas = /** @class */ (function () {
     /**
      * 设置线条的宽度。
      *
-     * @param vg vgcanvas对象。
      * @param value 线宽。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.setLineWidth = function (value) {
@@ -3679,9 +3700,8 @@ var TVgcanvas = /** @class */ (function () {
     /**
      * 设置填充颜色。
      *
-     * @param vg vgcanvas对象。
      * @param color 颜色。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.setFillColor = function (color) {
@@ -3690,9 +3710,8 @@ var TVgcanvas = /** @class */ (function () {
     /**
      * 设置线条颜色。
      *
-     * @param vg vgcanvas对象。
      * @param color 颜色。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.setStrokeColor = function (color) {
@@ -3701,9 +3720,8 @@ var TVgcanvas = /** @class */ (function () {
     /**
      * 设置line cap。
      *
-     * @param vg vgcanvas对象。
      * @param value 取值：butt|round|square，必须为常量字符串。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.setLineCap = function (value) {
@@ -3712,9 +3730,8 @@ var TVgcanvas = /** @class */ (function () {
     /**
      * 设置line join。
      *
-     * @param vg vgcanvas对象。
      * @param value 取值：bevel|round|miter，必须为常量字符串。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.setLineJoin = function (value) {
@@ -3723,29 +3740,30 @@ var TVgcanvas = /** @class */ (function () {
     /**
      * 设置miter limit。
      *
-     * @param vg vgcanvas对象。
      * @param value miter limit
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.setMiterLimit = function (value) {
         return vgcanvas_set_miter_limit(this != null ? (this.nativeObj || this) : null, value);
     };
     /**
-     * 保存当前的状态。如颜色和矩阵等信息。 save/restore必须配套使用，否则可能导致状态混乱。
+     * 保存当前的状态。如颜色和矩阵等信息。
      *
-     * @param vg vgcanvas对象。
+     *> save/restore必须配套使用，否则可能导致状态混乱。
      *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.save = function () {
         return vgcanvas_save(this != null ? (this.nativeObj || this) : null);
     };
     /**
-     * 恢复上次save的状态。> save/restore必须配套使用，否则可能导致状态混乱。
+     * 恢复上次save的状态。
      *
-     * @param vg vgcanvas对象。
+     *> save/restore必须配套使用，否则可能导致状态混乱。
      *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.restore = function () {
@@ -3836,7 +3854,8 @@ var TVgcanvas = /** @class */ (function () {
     });
     Object.defineProperty(TVgcanvas.prototype, "miterLimit", {
         /**
-         * miter\_limit。 @see http://www.w3school.com.cn/tags/canvas_miterlimit.asp
+         * miter\_limit。
+         *@see http://www.w3school.com.cn/tags/canvas_miterlimit.asp
          *
          */
         get: function () {
@@ -3850,7 +3869,8 @@ var TVgcanvas = /** @class */ (function () {
     });
     Object.defineProperty(TVgcanvas.prototype, "lineCap", {
         /**
-         * line\_cap。 @see http://www.w3school.com.cn/tags/canvas_linecap.asp
+         * line\_cap。
+         *@see http://www.w3school.com.cn/tags/canvas_linecap.asp
          *
          */
         get: function () {
@@ -3864,7 +3884,8 @@ var TVgcanvas = /** @class */ (function () {
     });
     Object.defineProperty(TVgcanvas.prototype, "lineJoin", {
         /**
-         * line\_join。 @see http://www.w3school.com.cn/tags/canvas_linejoin.asp
+         * line\_join。
+         *@see http://www.w3school.com.cn/tags/canvas_linejoin.asp
          *
          */
         get: function () {
@@ -3906,7 +3927,9 @@ var TVgcanvas = /** @class */ (function () {
     });
     Object.defineProperty(TVgcanvas.prototype, "textAlign", {
         /**
-         * 文本对齐方式。 @see http://www.w3school.com.cn/tags/canvas_textalign.asp
+         * 文本对齐方式。
+         *
+         *@see http://www.w3school.com.cn/tags/canvas_textalign.asp
          *
          */
         get: function () {
@@ -3920,7 +3943,9 @@ var TVgcanvas = /** @class */ (function () {
     });
     Object.defineProperty(TVgcanvas.prototype, "textBaseline", {
         /**
-         * 文本基线。 @see http://www.w3school.com.cn/tags/canvas_textbaseline.asp
+         * 文本基线。
+         *
+         *@see http://www.w3school.com.cn/tags/canvas_textbaseline.asp
          *
          */
         get: function () {
@@ -3934,6 +3959,7 @@ var TVgcanvas = /** @class */ (function () {
     });
     return TVgcanvas;
 }());
+;
 /**
  * 控件的属性。
  *
@@ -4466,6 +4492,11 @@ var TWidgetProp;
      */
     TWidgetProp[TWidgetProp["ACTIVE_ICON"] = WIDGET_PROP_ACTIVE_ICON()] = "ACTIVE_ICON";
     /**
+     * 动态加载UI名字。
+     *
+     */
+    TWidgetProp[TWidgetProp["LOAD_UI"] = WIDGET_PROP_LOAD_UI()] = "LOAD_UI";
+    /**
      * 要打开窗口的名称。
      *
      */
@@ -4897,7 +4928,9 @@ var TWindowClosable;
 })(TWindowClosable || (TWindowClosable = {}));
 ;
 /**
- * 控件状态常量定义。 这里指定常用的状态值，扩展控件可以在自己的头文件中定义私有的状态。
+ * 控件状态常量定义。
+ *
+ *这里指定常用的状态值，扩展控件可以在自己的头文件中定义私有的状态。
  *
  */
 var TWidgetState;
@@ -5005,7 +5038,10 @@ var TWidgetState;
 })(TWidgetState || (TWidgetState = {}));
 ;
 /**
- * **widget_t** 是所有控件、窗口和窗口管理器的基类。 **widget_t**也是一个容器，可放其它**widget_t**到它的内部，形成一个树形结构。 ```graphviz   [default_style]   widget_t -> widget_t[arrowhead = "diamond"]   window_t -> widget_t[arrowhead = "empty"]   window_manager_t -> widget_t[arrowhead = "empty"]   button_t -> widget_t[arrowhead = "empty"]   label_t -> widget_t[arrowhead = "empty"]   xxx_widget_t -> widget_t[arrowhead = "empty"] ``` 通常**widget_t**通过一个矩形区域向用户呈现一些信息，接受用户的输入，并据此做出适当的反应。 它负责控件的生命周期、通用状态、事件分发和Style的管理。 本类提供的接口(函数和属性)除非特别说明，一般都适用于子类控件。 为了便于解释，这里特别说明一下几个术语： * **父控件与子控件**：父控件与子控件指的两个控件的组合关系(这是在运行时决定的)。 比如：在窗口中放一个按钮，此时，我们称按钮是窗口的子控件，窗口是按钮的父控件。 ```graphviz   [default_style]   子控件 -> 父控件[arrowhead = "ediamond"] ``` * **子类控件与父类控件**：子类控件与父类控件指的两类控件的继承关系(这是在设计时决定的)。 比如：我们称**button_t**是**widget_t**的子类控件，**widget_t**是**button_t**的父类控件。 ```graphviz   [default_style]   子类控件 -> 父类控件[arrowhead = "empty"] ``` widget相关的函数都只能在GUI线程中执行，如果需在非GUI线程中想调用widget相关函数， 请用idle\_queue或timer\_queue进行串行化。 请参考[demo thread](https://github.com/zlgopen/awtk/blob/master/demos/demo_thread_app.c) **widget\_t**是抽象类，不要直接创建**widget\_t**的实例。控件支持两种创建方式： * 通过XML创建。如： ```xml <button x="c" y="m" w="80" h="30" text="OK"/> ``` * 通过代码创建。如： ```c  widget_t* button = button_create(win, 10, 10, 128, 30);  widget_set_text(button, L"OK");  widget_on(button, EVT_CLICK, on_click, NULL); ```
+ * widget_t* button = button_create(win, 10, 10, 128, 30);
+ *widget_set_text(button, L"OK");
+ *widget_on(button, EVT_CLICK, on_click, NULL);
+ *```
  *
  */
 var TWidget = /** @class */ (function () {
@@ -5015,8 +5051,7 @@ var TWidget = /** @class */ (function () {
     /**
      * 获取子控件的个数。
      *
-     * @param widget 控件对象。
-     *
+     
      * @returns 子控件的个数。
      */
     TWidget.prototype.countChildren = function () {
@@ -5025,9 +5060,8 @@ var TWidget = /** @class */ (function () {
     /**
      * 获取指定索引的子控件。
      *
-     * @param widget 控件对象。
      * @param index 索引。
-     *
+     
      * @returns 子控件。
      */
     TWidget.prototype.getChild = function (index) {
@@ -5036,8 +5070,7 @@ var TWidget = /** @class */ (function () {
     /**
      * 获取控件在父控件中的索引编号。
      *
-     * @param widget 控件对象。
-     *
+     
      * @returns 在父控件中的索引编号。
      */
     TWidget.prototype.indexOf = function () {
@@ -5046,10 +5079,9 @@ var TWidget = /** @class */ (function () {
     /**
      * 移动控件。
      *
-     * @param widget 控件对象。
      * @param x x坐标
      * @param y y坐标
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.move = function (x, y) {
@@ -5058,10 +5090,9 @@ var TWidget = /** @class */ (function () {
     /**
      * 调整控件的大小。
      *
-     * @param widget 控件对象。
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.resize = function (w, h) {
@@ -5070,46 +5101,45 @@ var TWidget = /** @class */ (function () {
     /**
      * 移动控件并调整控件的大小。
      *
-     * @param widget 控件对象。
      * @param x x坐标
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.moveResize = function (x, y, w, h) {
         return widget_move_resize(this != null ? (this.nativeObj || this) : null, x, y, w, h);
     };
     /**
-     * 设置控件的值。 只是对widget\_set\_prop的包装，值的意义由子类控件决定。
+     * 设置控件的值。
+     *只是对widget\_set\_prop的包装，值的意义由子类控件决定。
      *
-     * @param widget 控件对象。
      * @param value 值。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setValue = function (value) {
         return widget_set_value(this != null ? (this.nativeObj || this) : null, value);
     };
     /**
-     * 设置控件的值(以动画形式变化到指定的值)。 只是对widget\_set\_prop的包装，值的意义由子类控件决定。
+     * 设置控件的值(以动画形式变化到指定的值)。
+     *只是对widget\_set\_prop的包装，值的意义由子类控件决定。
      *
-     * @param widget 控件对象。
      * @param value 值。
      * @param duration 动画持续时间(毫秒)。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.animateValueTo = function (value, duration) {
         return widget_animate_value_to(this != null ? (this.nativeObj || this) : null, value, duration);
     };
     /**
-     * 增加控件的值。 只是对widget\_set\_prop的包装，值的意义由子类控件决定。
+     * 增加控件的值。
+     *只是对widget\_set\_prop的包装，值的意义由子类控件决定。
      *
-     * @param widget 控件对象。
      * @param delta 增量。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.addValue = function (delta) {
@@ -5118,20 +5148,19 @@ var TWidget = /** @class */ (function () {
     /**
      * 启用指定的主题。
      *
-     * @param widget 控件对象。
      * @param style style的名称。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.useStyle = function (style) {
         return widget_use_style(this != null ? (this.nativeObj || this) : null, style);
     };
     /**
-     * 设置控件的文本。 只是对widget\_set\_prop的包装，文本的意义由子类控件决定。
+     * 设置控件的文本。
+     *只是对widget\_set\_prop的包装，文本的意义由子类控件决定。
      *
-     * @param widget 控件对象。
      * @param text 文本。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setText = function (text) {
@@ -5140,9 +5169,8 @@ var TWidget = /** @class */ (function () {
     /**
      * 获取翻译之后的文本，然后调用widget_set_text。
      *
-     * @param widget 控件对象。
      * @param text 文本。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setTrText = function (text) {
@@ -5151,18 +5179,17 @@ var TWidget = /** @class */ (function () {
     /**
      * 获取控件的值。只是对widget\_get\_prop的包装，值的意义由子类控件决定。
      *
-     * @param widget 控件对象。
-     *
+     
      * @returns 返回值。
      */
     TWidget.prototype.getValue = function () {
         return widget_get_value(this != null ? (this.nativeObj || this) : null);
     };
     /**
-     * 获取控件的文本。 只是对widget\_get\_prop的包装，文本的意义由子类控件决定。
+     * 获取控件的文本。
+     *只是对widget\_get\_prop的包装，文本的意义由子类控件决定。
      *
-     * @param widget 控件对象。
-     *
+     
      * @returns 返回文本。
      */
     TWidget.prototype.getText = function () {
@@ -5171,20 +5198,20 @@ var TWidget = /** @class */ (function () {
     /**
      * 设置控件的名称。
      *
-     * @param widget 控件对象。
      * @param name 名称。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setName = function (name) {
         return widget_set_name(this != null ? (this.nativeObj || this) : null, name);
     };
     /**
-     * 设置theme的名称，用于动态切换主题。名称与当前主题名称相同，则重新加载全部资源。 目前只支持带有文件系统的平台。
+     * 设置theme的名称，用于动态切换主题。名称与当前主题名称相同，则重新加载全部资源。
      *
-     * @param widget 控件对象。
+     *> 目前只支持带有文件系统的平台。
+     *
      * @param name 主题的名称。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setTheme = function (name) {
@@ -5193,87 +5220,109 @@ var TWidget = /** @class */ (function () {
     /**
      * 设置鼠标指针的图片名。
      *
-     * @param widget 控件对象。
      * @param cursor 图片名称(无扩展名)。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setPointerCursor = function (cursor) {
         return widget_set_pointer_cursor(this != null ? (this.nativeObj || this) : null, cursor);
     };
     /**
-     * 设置控件的动画参数(仅用于在UI文件使用)。 请参考[控件动画](https://github.com/zlgopen/awtk/blob/master/docs/widget_animator.md)
+     * 设置控件的动画参数(仅用于在UI文件使用)。
+     *请参考[控件动画](https://github.com/zlgopen/awtk/blob/master/docs/widget_animator.md)
      *
-     * @param widget 控件对象。
      * @param animation 动画参数。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setAnimation = function (animation) {
         return widget_set_animation(this != null ? (this.nativeObj || this) : null, animation);
     };
     /**
-     * 创建动画。 请参考[控件动画](https://github.com/zlgopen/awtk/blob/master/docs/widget_animator.md) * 除非指定auto_start=false，动画创建后自动启动。 * 除非指定auto_destroy=false，动画播放完成后自动销毁。
+     * 创建动画。
+     *请参考[控件动画](https://github.com/zlgopen/awtk/blob/master/docs/widget_animator.md)
      *
-     * @param widget 控件对象。
+     ** 除非指定auto_start=false，动画创建后自动启动。
+     ** 除非指定auto_destroy=false，动画播放完成后自动销毁。
+     *
      * @param animation 动画参数。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.createAnimator = function (animation) {
         return widget_create_animator(this != null ? (this.nativeObj || this) : null, animation);
     };
     /**
-     * 播放动画。 请参考[控件动画](https://github.com/zlgopen/awtk/blob/master/docs/widget_animator.md) * 1.widget为NULL时，播放所有名称为name的动画。 * 2.name为NULL时，播放所有widget相关的动画。 * 3.widget和name均为NULL，播放所有动画。
+     * 播放动画。
+     *请参考[控件动画](https://github.com/zlgopen/awtk/blob/master/docs/widget_animator.md)
      *
-     * @param widget 控件对象。
+     ** 1.widget为NULL时，播放所有名称为name的动画。
+     ** 2.name为NULL时，播放所有widget相关的动画。
+     ** 3.widget和name均为NULL，播放所有动画。
+     *
      * @param name 动画名称。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.startAnimator = function (name) {
         return widget_start_animator(this != null ? (this.nativeObj || this) : null, name);
     };
     /**
-     * 设置动画的时间倍率，<0: 时间倒退，<1: 时间变慢，>1 时间变快。 请参考[控件动画](https://github.com/zlgopen/awtk/blob/master/docs/widget_animator.md) * 1.widget为NULL时，设置所有名称为name的动画的时间倍率。 * 2.name为NULL时，设置所有widget相关的动画的时间倍率。 * 3.widget和name均为NULL，设置所有动画的时间倍率。
+     * 设置动画的时间倍率，<0: 时间倒退，<1: 时间变慢，>1 时间变快。
+     *请参考[控件动画](https://github.com/zlgopen/awtk/blob/master/docs/widget_animator.md)
      *
-     * @param widget 控件对象。
+     ** 1.widget为NULL时，设置所有名称为name的动画的时间倍率。
+     ** 2.name为NULL时，设置所有widget相关的动画的时间倍率。
+     ** 3.widget和name均为NULL，设置所有动画的时间倍率。
+     *
      * @param name 动画名称。
      * @param time_scale 时间倍率。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setAnimatorTimeScale = function (name, time_scale) {
         return widget_set_animator_time_scale(this != null ? (this.nativeObj || this) : null, name, time_scale);
     };
     /**
-     * 暂停动画。 请参考[控件动画](https://github.com/zlgopen/awtk/blob/master/docs/widget_animator.md) * 1.widget为NULL时，暂停所有名称为name的动画。 * 2.name为NULL时，暂停所有widget相关的动画。 * 3.widget和name均为NULL，暂停所有动画。
+     * 暂停动画。
+     *请参考[控件动画](https://github.com/zlgopen/awtk/blob/master/docs/widget_animator.md)
      *
-     * @param widget 控件对象。
+     ** 1.widget为NULL时，暂停所有名称为name的动画。
+     ** 2.name为NULL时，暂停所有widget相关的动画。
+     ** 3.widget和name均为NULL，暂停所有动画。
+     *
      * @param name 动画名称。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.pauseAnimator = function (name) {
         return widget_pause_animator(this != null ? (this.nativeObj || this) : null, name);
     };
     /**
-     * 停止动画(控件的相应属性回归原位)。 请参考[控件动画](https://github.com/zlgopen/awtk/blob/master/docs/widget_animator.md) * 1.widget为NULL时，停止所有名称为name的动画。 * 2.name为NULL时，停止所有widget相关的动画。 * 3.widget和name均为NULL，停止所有动画。
+     * 停止动画(控件的相应属性回归原位)。
+     *请参考[控件动画](https://github.com/zlgopen/awtk/blob/master/docs/widget_animator.md)
      *
-     * @param widget 控件对象。
+     ** 1.widget为NULL时，停止所有名称为name的动画。
+     ** 2.name为NULL时，停止所有widget相关的动画。
+     ** 3.widget和name均为NULL，停止所有动画。
+     *
      * @param name 动画名称。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.stopAnimator = function (name) {
         return widget_stop_animator(this != null ? (this.nativeObj || this) : null, name);
     };
     /**
-     * 销毁动画。 请参考[控件动画](https://github.com/zlgopen/awtk/blob/master/docs/widget_animator.md) * 1.widget为NULL时，销毁所有名称为name的动画。 * 2.name为NULL时，销毁所有widget相关的动画。 * 3.widget和name均为NULL，销毁所有动画。
+     * 销毁动画。
+     *请参考[控件动画](https://github.com/zlgopen/awtk/blob/master/docs/widget_animator.md)
      *
-     * @param widget 控件对象。
+     ** 1.widget为NULL时，销毁所有名称为name的动画。
+     ** 2.name为NULL时，销毁所有widget相关的动画。
+     ** 3.widget和name均为NULL，销毁所有动画。
+     *
      * @param name 动画名称。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.destroyAnimator = function (name) {
@@ -5282,9 +5331,8 @@ var TWidget = /** @class */ (function () {
     /**
      * 设置控件的可用性。
      *
-     * @param widget 控件对象。
      * @param enable 是否可用性。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setEnable = function (enable) {
@@ -5293,53 +5341,61 @@ var TWidget = /** @class */ (function () {
     /**
      * 设置控件是否启用反馈。
      *
-     * @param widget 控件对象。
      * @param feedback 是否启用反馈。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setFeedback = function (feedback) {
         return widget_set_feedback(this != null ? (this.nativeObj || this) : null, feedback);
     };
     /**
-     * 设置控件的floating标志。> floating的控件不受父控件的子控件布局参数的影响。
+     * 设置控件的floating标志。
+     *> floating的控件不受父控件的子控件布局参数的影响。
      *
-     * @param widget 控件对象。
      * @param floating 是否启用floating布局。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setFloating = function (floating) {
         return widget_set_floating(this != null ? (this.nativeObj || this) : null, floating);
     };
     /**
-     * 设置控件的是否聚焦。
+     * 设置控件是否获得焦点。
      *
-     * @param widget 控件对象。
-     * @param focused 是否聚焦。
-     *
+     * @param focused 是否获得焦点。
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setFocused = function (focused) {
         return widget_set_focused(this != null ? (this.nativeObj || this) : null, focused);
     };
     /**
+     * 设置控件是否可获得焦点。
+     *
+     * @param focusable 是否可获得焦点。
+     
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TWidget.prototype.setFocusable = function (focusable) {
+        return widget_set_focusable(this != null ? (this.nativeObj || this) : null, focusable);
+    };
+    /**
      * 设置控件的状态。
      *
-     * @param widget 控件对象。
      * @param state 状态(必须为真正的常量字符串，在widget的整个生命周期有效)。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setState = function (state) {
         return widget_set_state(this != null ? (this.nativeObj || this) : null, state);
     };
     /**
-     * 设置控件的不透明度。>在嵌入式平台，半透明效果会使性能大幅下降，请谨慎使用。
+     * 设置控件的不透明度。
      *
-     * @param widget 控件对象。
+     *>在嵌入式平台，半透明效果会使性能大幅下降，请谨慎使用。
+     *
      * @param opacity 不透明度(取值0-255，0表示完全透明，255表示完全不透明)。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setOpacity = function (opacity) {
@@ -5348,8 +5404,7 @@ var TWidget = /** @class */ (function () {
     /**
      * 销毁全部子控件。
      *
-     * @param widget 控件对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.destroyChildren = function () {
@@ -5358,9 +5413,8 @@ var TWidget = /** @class */ (function () {
     /**
      * 加入一个子控件。
      *
-     * @param widget 控件对象。
      * @param child 子控件对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.addChild = function (child) {
@@ -5369,9 +5423,8 @@ var TWidget = /** @class */ (function () {
     /**
      * 移出指定的子控件(并不销毁)。
      *
-     * @param widget 控件对象。
      * @param child 子控件对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.removeChild = function (child) {
@@ -5380,10 +5433,9 @@ var TWidget = /** @class */ (function () {
     /**
      * 插入子控件到指定的位置。
      *
-     * @param widget 控件对象。
      * @param index 位置序数(大于等于总个数，则放到最后)。
      * @param child 子控件对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.insertChild = function (index, child) {
@@ -5392,9 +5444,8 @@ var TWidget = /** @class */ (function () {
     /**
      * 调整控件在父控件中的位置序数。
      *
-     * @param widget 控件对象。
      * @param index 位置序数(大于等于总个数，则放到最后)。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.restack = function (index) {
@@ -5403,9 +5454,8 @@ var TWidget = /** @class */ (function () {
     /**
      * 查找指定名称的子控件(同widget_lookup(widget, name, FALSE))。
      *
-     * @param widget 控件对象。
      * @param name 子控件的名称。
-     *
+     
      * @returns 子控件或NULL。
      */
     TWidget.prototype.child = function (name) {
@@ -5414,10 +5464,9 @@ var TWidget = /** @class */ (function () {
     /**
      * 查找指定名称的子控件(返回第一个)。
      *
-     * @param widget 控件对象。
      * @param name 子控件的名称。
      * @param recursive 是否递归查找全部子控件。
-     *
+     
      * @returns 子控件或NULL。
      */
     TWidget.prototype.lookup = function (name, recursive) {
@@ -5426,10 +5475,9 @@ var TWidget = /** @class */ (function () {
     /**
      * 查找指定类型的子控件(返回第一个)。
      *
-     * @param widget 控件对象。
      * @param type 子控件的名称。
      * @param recursive 是否递归查找全部子控件。
-     *
+     
      * @returns 子控件或NULL。
      */
     TWidget.prototype.lookupByType = function (type, recursive) {
@@ -5438,10 +5486,9 @@ var TWidget = /** @class */ (function () {
     /**
      * 设置控件的可见性。
      *
-     * @param widget 控件对象。
      * @param visible 是否可见。
      * @param recursive 是否递归设置全部子控件。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setVisible = function (visible, recursive) {
@@ -5450,9 +5497,8 @@ var TWidget = /** @class */ (function () {
     /**
      * 设置控件的可见性(不触发repaint和relayout)。
      *
-     * @param widget 控件对象。
      * @param visible 是否可见。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setVisibleOnly = function (visible) {
@@ -5461,22 +5507,23 @@ var TWidget = /** @class */ (function () {
     /**
      * 设置控件是否接受用户事件。
      *
-     * @param widget 控件对象。
      * @param sensitive 是否接受用户事件。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setSensitive = function (sensitive) {
         return widget_set_sensitive(this != null ? (this.nativeObj || this) : null, sensitive);
     };
     /**
-     * 注册指定事件的处理函数。 使用示例： ```c widget_t* ok = button_create(win, 10, 10, 80, 30); widget_on(ok, EVT_CLICK, on_click, NULL); ```
+     * widget_t* ok = button_create(win, 10, 10, 80, 30);
+     *widget_on(ok, EVT_CLICK, on_click, NULL);
      *
-     * @param widget 控件对象。
+     *```
+     *
      * @param type 事件类型。
      * @param on_event 事件处理函数。
      * @param ctx 事件处理函数上下文。
-     *
+     
      * @returns 返回id，用于widget_off。
      */
     TWidget.prototype.on = function (type, on_event, ctx) {
@@ -5485,9 +5532,8 @@ var TWidget = /** @class */ (function () {
     /**
      * 注销指定事件的处理函数。
      *
-     * @param widget 控件对象。
      * @param id widget_on返回的ID。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.off = function (id) {
@@ -5496,9 +5542,8 @@ var TWidget = /** @class */ (function () {
     /**
      * 请求强制重绘控件。
      *
-     * @param widget 控件对象。
      * @param r 矩形对象(widget本地坐标)。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.invalidateForce = function (r) {
@@ -5507,10 +5552,9 @@ var TWidget = /** @class */ (function () {
     /**
      * 设置字符串格式的属性。
      *
-     * @param widget 控件对象。
      * @param name 属性的名称。
      * @param v 属性的值。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setPropStr = function (name, v) {
@@ -5519,10 +5563,9 @@ var TWidget = /** @class */ (function () {
     /**
      * 获取字符串格式的属性。
      *
-     * @param widget 控件对象。
      * @param name 属性的名称。
      * @param defval 缺省值。
-     *
+     
      * @returns 返回属性的值。
      */
     TWidget.prototype.getPropStr = function (name, defval) {
@@ -5531,10 +5574,9 @@ var TWidget = /** @class */ (function () {
     /**
      * 设置整数格式的属性。
      *
-     * @param widget 控件对象。
      * @param name 属性的名称。
      * @param v 属性的值。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setPropInt = function (name, v) {
@@ -5543,10 +5585,9 @@ var TWidget = /** @class */ (function () {
     /**
      * 获取整数格式的属性。
      *
-     * @param widget 控件对象。
      * @param name 属性的名称。
      * @param defval 缺省值。
-     *
+     
      * @returns 返回属性的值。
      */
     TWidget.prototype.getPropInt = function (name, defval) {
@@ -5555,10 +5596,9 @@ var TWidget = /** @class */ (function () {
     /**
      * 设置布尔格式的属性。
      *
-     * @param widget 控件对象。
      * @param name 属性的名称。
      * @param v 属性的值。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setPropBool = function (name, v) {
@@ -5567,10 +5607,9 @@ var TWidget = /** @class */ (function () {
     /**
      * 获取布尔格式的属性。
      *
-     * @param widget 控件对象。
      * @param name 属性的名称。
      * @param defval 缺省值。
-     *
+     
      * @returns 返回属性的值。
      */
     TWidget.prototype.getPropBool = function (name, defval) {
@@ -5579,8 +5618,7 @@ var TWidget = /** @class */ (function () {
     /**
      * 判断当前控件所在的窗口是否已经打开。
      *
-     * @param widget 控件对象。
-     *
+     
      * @returns 返回当前控件所在的窗口是否已经打开。
      */
     TWidget.prototype.isWindowOpened = function () {
@@ -5589,8 +5627,7 @@ var TWidget = /** @class */ (function () {
     /**
      * 判断当前控件是否是窗口。
      *
-     * @param widget 控件对象。
-     *
+     
      * @returns 返回当前控件是否是窗口。
      */
     TWidget.prototype.isWindow = function () {
@@ -5599,8 +5636,7 @@ var TWidget = /** @class */ (function () {
     /**
      * 判断当前控件是否是设计窗口。
      *
-     * @param widget 控件对象。
-     *
+     
      * @returns 返回当前控件是否是设计窗口。
      */
     TWidget.prototype.isDesigningWindow = function () {
@@ -5609,8 +5645,7 @@ var TWidget = /** @class */ (function () {
     /**
      * 判断当前控件是否是窗口管理器。
      *
-     * @param widget 控件对象。
-     *
+     
      * @returns 返回当前控件是否是窗口管理器。
      */
     TWidget.prototype.isWindowManager = function () {
@@ -5619,10 +5654,9 @@ var TWidget = /** @class */ (function () {
     /**
      * 遍历当前控件及子控件。
      *
-     * @param widget 控件对象。
      * @param visit 遍历的回调函数。
      * @param ctx 回调函数的上下文。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.foreach = function (visit, ctx) {
@@ -5631,8 +5665,7 @@ var TWidget = /** @class */ (function () {
     /**
      * 获取当前控件所在的窗口。
      *
-     * @param widget 控件对象。
-     *
+     
      * @returns 窗口对象。
      */
     TWidget.prototype.getWindow = function () {
@@ -5641,8 +5674,7 @@ var TWidget = /** @class */ (function () {
     /**
      * 获取当前的窗口管理器。
      *
-     * @param widget 控件对象。
-     *
+     
      * @returns 窗口管理器对象。
      */
     TWidget.prototype.getWindowManager = function () {
@@ -5651,8 +5683,7 @@ var TWidget = /** @class */ (function () {
     /**
      * 获取当前控件的类型名称。
      *
-     * @param widget 控件对象。
-     *
+     
      * @returns 返回类型名。
      */
     TWidget.prototype.getType = function () {
@@ -5661,9 +5692,8 @@ var TWidget = /** @class */ (function () {
     /**
      * clone。
      *
-     * @param widget 控件对象。
      * @param parent clone新控件的parent对象。
-     *
+     
      * @returns 返回clone的对象。
      */
     TWidget.prototype.clone = function (parent) {
@@ -5672,9 +5702,8 @@ var TWidget = /** @class */ (function () {
     /**
      * 判断两个widget是否相同。
      *
-     * @param widget 控件对象。
      * @param other 要比较的控件对象。
-     *
+     
      * @returns 返回TRUE表示相同，否则表示不同。
      */
     TWidget.prototype.equal = function (other) {
@@ -5684,17 +5713,18 @@ var TWidget = /** @class */ (function () {
      * 转换为widget对象(供脚本语言使用)。
      *
      * @param widget widget对象。
-     *
+     
      * @returns widget对象。
      */
     TWidget.cast = function (widget) {
         return new TWidget(widget_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     /**
-     * 从父控件中移除控件，并调用unref函数销毁控件。 一般无需直接调用，关闭窗口时，自动销毁相关控件。
+     * 从父控件中移除控件，并调用unref函数销毁控件。
      *
-     * @param widget 控件对象。
+     *> 一般无需直接调用，关闭窗口时，自动销毁相关控件。
      *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.destroy = function () {
@@ -5703,8 +5733,7 @@ var TWidget = /** @class */ (function () {
     /**
      * 减少控件的引用计数。引用计数为0时销毁控件。
      *
-     * @param widget 控件对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.unref = function () {
@@ -5713,8 +5742,7 @@ var TWidget = /** @class */ (function () {
     /**
      * 布局当前控件及子控件。
      *
-     * @param widget widget对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.layout = function () {
@@ -5723,9 +5751,8 @@ var TWidget = /** @class */ (function () {
     /**
      * 设置控件自己的布局参数。
      *
-     * @param widget 控件对象。
      * @param params 布局参数。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setSelfLayout = function (params) {
@@ -5734,9 +5761,8 @@ var TWidget = /** @class */ (function () {
     /**
      * 设置子控件的布局参数。
      *
-     * @param widget 控件对象。
      * @param params 布局参数。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setChildrenLayout = function (params) {
@@ -5745,12 +5771,11 @@ var TWidget = /** @class */ (function () {
     /**
      * 设置控件自己的布局(缺省布局器)参数(过时，请用widget\_set\_self\_layout)。
      *
-     * @param widget 控件对象。
      * @param x x参数。
      * @param y y参数。
      * @param w w参数。
      * @param h h参数。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setSelfLayoutParams = function (x, y, w, h) {
@@ -5759,10 +5784,9 @@ var TWidget = /** @class */ (function () {
     /**
      * 设置整数类型的style。
      *
-     * @param widget 控件对象。
      * @param state_and_name 状态和名字，用英文的冒号分隔。
      * @param value 值。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setStyleInt = function (state_and_name, value) {
@@ -5771,10 +5795,9 @@ var TWidget = /** @class */ (function () {
     /**
      * 设置字符串类型的style。
      *
-     * @param widget 控件对象。
      * @param state_and_name 状态和名字，用英文的冒号分隔。
      * @param value 值。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setStyleStr = function (state_and_name, value) {
@@ -5783,10 +5806,9 @@ var TWidget = /** @class */ (function () {
     /**
      * 设置颜色类型的style。
      *
-     * @param widget 控件对象。
      * @param state_and_name 状态和名字，用英文的冒号分隔。
      * @param value 值。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setStyleColor = function (state_and_name, value) {
@@ -5961,7 +5983,8 @@ var TWidget = /** @class */ (function () {
     });
     Object.defineProperty(TWidget.prototype, "withFocusState", {
         /**
-         * 是否支持焦点状态。 如果希望style支持焦点状态，但有不希望焦点停留，可用本属性。
+         * 是否支持焦点状态。
+         *> 如果希望style支持焦点状态，但有不希望焦点停留，可用本属性。
          *
          */
         get: function () {
@@ -6000,6 +6023,7 @@ var TWidget = /** @class */ (function () {
     });
     return TWidget;
 }());
+;
 /**
  * 函数返回值常量定义。
  *
@@ -6123,8 +6147,11 @@ var TTimerManager = /** @class */ (function () {
     }
     return TTimerManager;
 }());
+;
 /**
- * 获取当前时间的函数。 这里的当前时间是相对的，在嵌入式系统一般相对于开机时间。 它本身并没有任何意义，一般用来计算时间间隔，如实现定时器和动画等等。
+ * 获取当前时间的函数。
+ *这里的当前时间是相对的，在嵌入式系统一般相对于开机时间。
+ *它本身并没有任何意义，一般用来计算时间间隔，如实现定时器和动画等等。
  *
  */
 var TTimeNow = /** @class */ (function () {
@@ -6133,7 +6160,7 @@ var TTimeNow = /** @class */ (function () {
     /**
      * 获取当前时间(秒)。
      *
-     *
+     
      * @returns 返回当前时间(秒)。
      */
     TTimeNow.s = function () {
@@ -6142,7 +6169,7 @@ var TTimeNow = /** @class */ (function () {
     /**
      * 获取当前时间(毫秒)。
      *
-     *
+     
      * @returns 返回当前时间(毫秒)。
      */
     TTimeNow.ms = function () {
@@ -6150,6 +6177,7 @@ var TTimeNow = /** @class */ (function () {
     };
     return TTimeNow;
 }());
+;
 /**
  * 图片绘制方法常量定义。
  *
@@ -6217,27 +6245,32 @@ var TImageDrawType;
      */
     TImageDrawType[TImageDrawType["REPEAT_Y_INVERSE"] = IMAGE_DRAW_REPEAT_Y_INVERSE()] = "REPEAT_Y_INVERSE";
     /**
-     * 9宫格显示。 将图片分成等大小的9块，4个角按原大小显示在目标矩形的4个角，左右上下和中间5块分别缩放显示在对应的目标区域。
+     * 9宫格显示。
+     *将图片分成等大小的9块，4个角按原大小显示在目标矩形的4个角，左右上下和中间5块分别缩放显示在对应的目标区域。
      *
      */
     TImageDrawType[TImageDrawType["PATCH9"] = IMAGE_DRAW_PATCH9()] = "PATCH9";
     /**
-     * 水平方向3宫格显示，垂直方向居中显示。 将图片在水平方向上分成等大小的3块，左右两块按原大小显示在目标矩形的左右，中间一块缩放显示在目标区域中间剩余部分。
+     * 水平方向3宫格显示，垂直方向居中显示。
+     *将图片在水平方向上分成等大小的3块，左右两块按原大小显示在目标矩形的左右，中间一块缩放显示在目标区域中间剩余部分。
      *
      */
     TImageDrawType[TImageDrawType["PATCH3_X"] = IMAGE_DRAW_PATCH3_X()] = "PATCH3_X";
     /**
-     * 垂直方向3宫格显示，水平方向居中显示。 将图片在垂直方向上分成等大小的3块，上下两块按原大小显示在目标矩形的上下，中间一块缩放显示在目标区域中间剩余部分。
+     * 垂直方向3宫格显示，水平方向居中显示。
+     *将图片在垂直方向上分成等大小的3块，上下两块按原大小显示在目标矩形的上下，中间一块缩放显示在目标区域中间剩余部分。
      *
      */
     TImageDrawType[TImageDrawType["PATCH3_Y"] = IMAGE_DRAW_PATCH3_Y()] = "PATCH3_Y";
     /**
-     * 水平方向3宫格显示，垂直方向缩放显示。 将图片在水平方向上分成等大小的3块，左右两块按原大小显示在目标矩形的左右，中间一块缩放显示在目标区域中间剩余部分。
+     * 水平方向3宫格显示，垂直方向缩放显示。
+     *将图片在水平方向上分成等大小的3块，左右两块按原大小显示在目标矩形的左右，中间一块缩放显示在目标区域中间剩余部分。
      *
      */
     TImageDrawType[TImageDrawType["PATCH3_X_SCALE_Y"] = IMAGE_DRAW_PATCH3_X_SCALE_Y()] = "PATCH3_X_SCALE_Y";
     /**
-     * 垂直方向3宫格显示，水平方向缩放显示。 将图片在垂直方向上分成等大小的3块，上下两块按原大小显示在目标矩形的上下，中间一块缩放显示在目标区域中间剩余部分。
+     * 垂直方向3宫格显示，水平方向缩放显示。
+     *将图片在垂直方向上分成等大小的3块，上下两块按原大小显示在目标矩形的上下，中间一块缩放显示在目标区域中间剩余部分。
      *
      */
     TImageDrawType[TImageDrawType["PATCH3_Y_SCALE_X"] = IMAGE_DRAW_PATCH3_Y_SCALE_X()] = "PATCH3_Y_SCALE_X";
@@ -6254,8 +6287,7 @@ var TCanvas = /** @class */ (function () {
     /**
      * 获取画布的宽度。
      *
-     * @param c canvas对象。
-     *
+     
      * @returns 返回画布的宽度。
      */
     TCanvas.prototype.getWidth = function () {
@@ -6264,8 +6296,7 @@ var TCanvas = /** @class */ (function () {
     /**
      * 获取画布的高度。
      *
-     * @param c canvas对象。
-     *
+     
      * @returns 返回画布的高度。
      */
     TCanvas.prototype.getHeight = function () {
@@ -6274,9 +6305,8 @@ var TCanvas = /** @class */ (function () {
     /**
      * 获取裁剪区。
      *
-     * @param c canvas对象。
      * @param r rect对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCanvas.prototype.getClipRect = function (r) {
@@ -6285,9 +6315,8 @@ var TCanvas = /** @class */ (function () {
     /**
      * 设置裁剪区。
      *
-     * @param c canvas对象。
      * @param r rect对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCanvas.prototype.setClipRect = function (r) {
@@ -6296,10 +6325,9 @@ var TCanvas = /** @class */ (function () {
     /**
      * 设置裁剪区。
      *
-     * @param c canvas对象。
      * @param r rect对象。
      * @param translate 是否将裁剪区的位置加上canvas当前的偏移。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCanvas.prototype.setClipRectEx = function (r, translate) {
@@ -6308,11 +6336,10 @@ var TCanvas = /** @class */ (function () {
     /**
      * 设置填充颜色。
      *
-     * 供脚本语言使用。
+     *> 供脚本语言使用。
      *
-     * @param c canvas对象。
      * @param color 颜色。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCanvas.prototype.setFillColor = function (color) {
@@ -6321,11 +6348,10 @@ var TCanvas = /** @class */ (function () {
     /**
      * 设置文本颜色。
      *
-     * 供脚本语言使用。
+     *> 供脚本语言使用。
      *
-     * @param c canvas对象。
      * @param color 颜色。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCanvas.prototype.setTextColor = function (color) {
@@ -6334,11 +6360,10 @@ var TCanvas = /** @class */ (function () {
     /**
      * 设置线条颜色。
      *
-     * 供脚本语言使用。
+     *> 供脚本语言使用。
      *
-     * @param c canvas对象。
      * @param color 颜色。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCanvas.prototype.setStrokeColor = function (color) {
@@ -6347,9 +6372,8 @@ var TCanvas = /** @class */ (function () {
     /**
      * 设置全局alpha值。
      *
-     * @param c canvas对象。
      * @param alpha alpha值。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCanvas.prototype.setGlobalAlpha = function (alpha) {
@@ -6358,10 +6382,9 @@ var TCanvas = /** @class */ (function () {
     /**
      * 平移原点坐标。
      *
-     * @param c canvas对象。
      * @param dx x偏移。
      * @param dy y偏移。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCanvas.prototype.translate = function (dx, dy) {
@@ -6370,10 +6393,9 @@ var TCanvas = /** @class */ (function () {
     /**
      * 反向平移原点坐标。
      *
-     * @param c canvas对象。
      * @param dx x偏移。
      * @param dy y偏移。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCanvas.prototype.untranslate = function (dx, dy) {
@@ -6382,11 +6404,10 @@ var TCanvas = /** @class */ (function () {
     /**
      * 画垂直线。
      *
-     * @param c canvas对象。
      * @param x x坐标。
      * @param y y坐标。
      * @param h 高度。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCanvas.prototype.drawVline = function (x, y, h) {
@@ -6395,11 +6416,10 @@ var TCanvas = /** @class */ (function () {
     /**
      * 画水平线。
      *
-     * @param c canvas对象。
      * @param x x坐标。
      * @param y y坐标。
      * @param w 宽度。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCanvas.prototype.drawHline = function (x, y, w) {
@@ -6408,12 +6428,11 @@ var TCanvas = /** @class */ (function () {
     /**
      * 填充矩形。
      *
-     * @param c canvas对象。
      * @param x x坐标。
      * @param y y坐标。
      * @param w 宽度。
      * @param h 高度。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCanvas.prototype.fillRect = function (x, y, w, h) {
@@ -6422,12 +6441,11 @@ var TCanvas = /** @class */ (function () {
     /**
      * 绘制矩形。
      *
-     * @param c canvas对象。
      * @param x x坐标。
      * @param y y坐标。
      * @param w 宽度。
      * @param h 高度。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCanvas.prototype.strokeRect = function (x, y, w, h) {
@@ -6436,10 +6454,9 @@ var TCanvas = /** @class */ (function () {
     /**
      * 设置字体。
      *
-     * @param c canvas对象。
      * @param name 字体名称。
      * @param size 字体大小。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCanvas.prototype.setFont = function (name, size) {
@@ -6448,11 +6465,10 @@ var TCanvas = /** @class */ (function () {
     /**
      * 计算文本所占的宽度。
      *
-     * 供脚本语言使用。
+     *> 供脚本语言使用。
      *
-     * @param c canvas对象。
      * @param str 字符串。
-     *
+     
      * @returns 返回文本所占的宽度。
      */
     TCanvas.prototype.measureText = function (str) {
@@ -6461,13 +6477,12 @@ var TCanvas = /** @class */ (function () {
     /**
      * 绘制文本。
      *
-     * 供脚本语言使用。
+     *> 供脚本语言使用。
      *
-     * @param c canvas对象。
      * @param str 字符串。
      * @param x x坐标。
      * @param y y坐标。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCanvas.prototype.drawText = function (str, x, y) {
@@ -6476,12 +6491,11 @@ var TCanvas = /** @class */ (function () {
     /**
      * 绘制文本。
      *
-     * 供脚本语言使用。
+     *> 供脚本语言使用。
      *
-     * @param c canvas对象。
      * @param str 字符串。
      * @param r 矩形区域。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCanvas.prototype.drawTextInRect = function (str, r) {
@@ -6490,11 +6504,10 @@ var TCanvas = /** @class */ (function () {
     /**
      * 绘制图标。
      *
-     * @param c canvas对象。
      * @param img 图片对象。
      * @param cx 中心点x坐标。
      * @param cy 中心点y坐标。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCanvas.prototype.drawIcon = function (img, cx, cy) {
@@ -6503,11 +6516,10 @@ var TCanvas = /** @class */ (function () {
     /**
      * 绘制图片。
      *
-     * @param c canvas对象。
      * @param img 图片对象。
      * @param src 源区域。
      * @param dst 目的区域。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCanvas.prototype.drawImage = function (img, src, dst) {
@@ -6516,11 +6528,10 @@ var TCanvas = /** @class */ (function () {
     /**
      * 绘制图片。
      *
-     * @param c canvas对象。
      * @param img 图片对象。
      * @param draw_type 绘制类型。
      * @param dst 目的区域。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCanvas.prototype.drawImageEx = function (img, draw_type, dst) {
@@ -6529,8 +6540,7 @@ var TCanvas = /** @class */ (function () {
     /**
      * 获取vgcanvas对象。
      *
-     * @param c canvas对象。
-     *
+     
      * @returns 返回vgcanvas对象。
      */
     TCanvas.prototype.getVgcanvas = function () {
@@ -6540,7 +6550,7 @@ var TCanvas = /** @class */ (function () {
      * 转换为canvas对象(供脚本语言使用)。
      *
      * @param c canvas对象。
-     *
+     
      * @returns canvas对象。
      */
     TCanvas.cast = function (c) {
@@ -6549,8 +6559,7 @@ var TCanvas = /** @class */ (function () {
     /**
      * 释放相关资源。
      *
-     * @param c canvas对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCanvas.prototype.reset = function () {
@@ -6616,15 +6625,7 @@ var TCanvas = /** @class */ (function () {
     });
     return TCanvas;
 }());
-/**
- * 路径相关的工具函数。
- *
- */
-var TPath = /** @class */ (function () {
-    function TPath() {
-    }
-    return TPath;
-}());
+;
 /**
  * 命名的值。
  *
@@ -6636,7 +6637,7 @@ var TNamedValue = /** @class */ (function () {
     /**
      * 创建named_value对象。
      *
-     *
+     
      * @returns 返回named_value对象。
      */
     TNamedValue.create = function () {
@@ -6646,7 +6647,7 @@ var TNamedValue = /** @class */ (function () {
      * 转换为named_value对象(供脚本语言使用)。
      *
      * @param nv named_value对象。
-     *
+     
      * @returns 返回named_value对象。
      */
     TNamedValue.cast = function (nv) {
@@ -6655,9 +6656,8 @@ var TNamedValue = /** @class */ (function () {
     /**
      * 设置名称。
      *
-     * @param nv named_value对象。
      * @param name 名称。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TNamedValue.prototype.setName = function (name) {
@@ -6666,9 +6666,8 @@ var TNamedValue = /** @class */ (function () {
     /**
      * 设置值。
      *
-     * @param nv named_value对象。
      * @param value 值。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TNamedValue.prototype.setValue = function (value) {
@@ -6677,8 +6676,7 @@ var TNamedValue = /** @class */ (function () {
     /**
      * 获取值对象(主要给脚本语言使用)。
      *
-     * @param nv named_value对象。
-     *
+     
      * @returns 返回值对象。
      */
     TNamedValue.prototype.getValue = function () {
@@ -6687,8 +6685,7 @@ var TNamedValue = /** @class */ (function () {
     /**
      * 销毁named_value对象。
      *
-     * @param nv named_value对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TNamedValue.prototype.destroy = function () {
@@ -6710,6 +6707,7 @@ var TNamedValue = /** @class */ (function () {
     });
     return TNamedValue;
 }());
+;
 /**
  * MIME_TYPE。
  *
@@ -7238,6 +7236,7 @@ var TIdleManager = /** @class */ (function () {
     }
     return TIdleManager;
 }());
+;
 /**
  * 指示器默认绘制的类型。
  *
@@ -7272,15 +7271,6 @@ var TIndicatorDefaultPaint;
 })(TIndicatorDefaultPaint || (TIndicatorDefaultPaint = {}));
 ;
 /**
- * 文件接口。 示例： ```c int32_t ret = 0; const char* file_name = "test.txt"; int32_t len = file_get_size(file_name); uint8_t* buff = (uint8_t*)TKMEM_ALLOC(len + 1); return_value_if_fail(buff != NULL, NULL); fs_file_t* fp = fs_open_file(os_fs(), file_name, "rb"); if (fp != NULL) {   ret = fs_file_read(fp, buff, len);   fs_file_close(fp); } ```
- *
- */
-var TFsFile = /** @class */ (function () {
-    function TFsFile() {
-    }
-    return TFsFile;
-}());
-/**
  * 剪切板数据类型定义。
  *
  */
@@ -7310,7 +7300,7 @@ var TClipBoard = /** @class */ (function () {
      * 设置文本(UTF8)数据到剪切板。
      *
      * @param text 文本。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TClipBoard.setText = function (text) {
@@ -7319,7 +7309,7 @@ var TClipBoard = /** @class */ (function () {
     /**
      * 从剪切板中获取文本(UTF8)数据。
      *
-     *
+     
      * @returns 返回文本数据。
      */
     TClipBoard.getText = function () {
@@ -7327,6 +7317,7 @@ var TClipBoard = /** @class */ (function () {
     };
     return TClipBoard;
 }());
+;
 /**
  * 缓动作动画常量定义。
  *
@@ -7456,7 +7447,9 @@ var TEasingType;
 })(TEasingType || (TEasingType = {}));
 ;
 /**
- * 日期时间。> 在嵌入式平台中，在系统初始时，需要调用date\_time\_global\_init设置实际获取/设置系统时间的函数。
+ * 日期时间。
+ *
+ *> 在嵌入式平台中，在系统初始时，需要调用date\_time\_global\_init设置实际获取/设置系统时间的函数。
  *
  */
 var TDateTime = /** @class */ (function () {
@@ -7466,7 +7459,7 @@ var TDateTime = /** @class */ (function () {
     /**
      * 创建date_time对象，并初始为当前日期和时间(一般供脚本语言中使用)。
      *
-     *
+     
      * @returns 返回date_time对象。
      */
     TDateTime.create = function () {
@@ -7475,8 +7468,7 @@ var TDateTime = /** @class */ (function () {
     /**
      * 设置当前时间。
      *
-     * @param dt date_time对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TDateTime.prototype.set = function () {
@@ -7485,8 +7477,7 @@ var TDateTime = /** @class */ (function () {
     /**
      * 销毁date_time对象(一般供脚本语言中使用)。
      *
-     * @param dt date_time对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TDateTime.prototype.destroy = function () {
@@ -7571,6 +7562,7 @@ var TDateTime = /** @class */ (function () {
     });
     return TDateTime;
 }());
+;
 /**
  * 颜色。
  *
@@ -7580,84 +7572,93 @@ var TColor = /** @class */ (function () {
         this.nativeObj = nativeObj;
     }
     /**
-     * 创建color对象。 主要供脚本语言使用。
+     * 创建color对象。
+     *
+     *> 主要供脚本语言使用。
      *
      * @param r 红色通道。
      * @param b 蓝色通道。
      * @param g 绿色通道。
      * @param a alpha通道。
-     *
+     
      * @returns color对象。
      */
     TColor.create = function (r, b, g, a) {
         return new TColor(color_create(r, b, g, a));
     };
     /**
-     * 创建color对象。 主要供脚本语言使用。
+     * 创建color对象。
      *
-     * @param c color对象。
+     *> 主要供脚本语言使用。
+     *
      * @param str css类似的颜色值。
-     *
+     
      * @returns color对象。
      */
     TColor.prototype.fromStr = function (str) {
         return new TColor(color_from_str(this != null ? (this.nativeObj || this) : null, str));
     };
     /**
-     * 获取红色通道的值。 主要供脚本语言使用。
+     * 获取红色通道的值。
      *
-     * @param c color对象。
+     *> 主要供脚本语言使用。
      *
+     
      * @returns 返回红色通道的值。
      */
     TColor.prototype.r = function () {
         return color_r(this != null ? (this.nativeObj || this) : null);
     };
     /**
-     * 获取绿色通道的值。 主要供脚本语言使用。
+     * 获取绿色通道的值。
      *
-     * @param c color对象。
+     *> 主要供脚本语言使用。
      *
+     
      * @returns 返回绿色通道的值。
      */
     TColor.prototype.g = function () {
         return color_g(this != null ? (this.nativeObj || this) : null);
     };
     /**
-     * 获取蓝色通道的值。 主要供脚本语言使用。
+     * 获取蓝色通道的值。
      *
-     * @param c color对象。
+     *> 主要供脚本语言使用。
      *
+     
      * @returns 返回蓝色通道的值。
      */
     TColor.prototype.b = function () {
         return color_b(this != null ? (this.nativeObj || this) : null);
     };
     /**
-     * 获取alpha通道的值。 主要供脚本语言使用。
+     * 获取alpha通道的值。
      *
-     * @param c color对象。
+     *> 主要供脚本语言使用。
      *
+     
      * @returns 返回alpha通道的值。
      */
     TColor.prototype.a = function () {
         return color_a(this != null ? (this.nativeObj || this) : null);
     };
     /**
-     * 转换为color对象。 供脚本语言使用。
+     * 转换为color对象。
+     *
+     *> 供脚本语言使用。
      *
      * @param color color对象。
-     *
+     
      * @returns color对象。
      */
     TColor.cast = function (color) {
         return new TColor(color_cast(color != null ? (color.nativeObj || color) : null));
     };
     /**
-     * 销毁color对象。 主要供脚本语言使用。
+     * 销毁color对象。
+     *> 主要供脚本语言使用。
      *
-     * @param c color对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TColor.prototype.destroy = function () {
@@ -7679,6 +7680,7 @@ var TColor = /** @class */ (function () {
     });
     return TColor;
 }());
+;
 /**
  * 单个资源的描述信息。
  *
@@ -7733,7 +7735,8 @@ var TAssetInfo = /** @class */ (function () {
     });
     Object.defineProperty(TAssetInfo.prototype, "refcount", {
         /**
-         * 引用计数。 is\_in\_rom == FALSE时才有效。
+         * 引用计数。
+         *is\_in\_rom == FALSE时才有效。
          *
          */
         get: function () {
@@ -7755,6 +7758,7 @@ var TAssetInfo = /** @class */ (function () {
     });
     return TAssetInfo;
 }());
+;
 /**
  * 资源类型常量定义。
  *
@@ -7809,7 +7813,35 @@ var TAssetType;
 })(TAssetType || (TAssetType = {}));
 ;
 /**
- * 资源管理器。 这里的资源管理器并非Windows下的文件浏览器，而是负责对各种资源，比如字体、主题、图片、界面数据、字符串和其它数据的进行集中管理的组件。引入资源管理器的目的有以下几个： * 让上层不需要了解存储的方式。 在没有文件系统时或者内存紧缺时，把资源转成常量数组直接编译到代码中。在有文件系统而且内存充足时，资源放在文件系统中。在有网络时，资源也可以存放在服务器上(暂未实现)。资源管理器为上层提供统一的接口，让上层而不用关心底层的存储方式。 * 让上层不需要了解资源的具体格式。 比如一个名为earth的图片，没有文件系统或内存紧缺，图片直接用位图数据格式存在ROM中，而有文件系统时，则用PNG格式存放在文件系统中。资源管理器让上层不需要关心图片的格式，访问时指定图片的名称即可(不用指定扩展名)。 * 让上层不需要了解屏幕的密度。 不同的屏幕密度下需要加载不同的图片，比如MacPro的Retina屏就需要用双倍解析度的图片，否则就出现界面模糊。AWTK以后会支持PC软件和手机软件的开发，所以资源管理器需要为此提供支持，让上层不需关心屏幕的密度。 * 对资源进行内存缓存。 不同类型的资源使用方式是不一样的，比如字体和主题加载之后会一直使用，UI文件在生成界面之后就暂时不需要了，PNG文件解码之后就只需要保留解码的位图数据即可。资源管理器配合图片管理器等其它组件实现资源的自动缓存。当从文件系统加载资源时，目录结构要求如下： ``` assets/{theme}/raw/  fonts   字体  images  图片    x1   普通密度屏幕的图片。    x2   2倍密度屏幕的图片。    x3   3倍密度屏幕的图片。    xx   密度无关的图片。  strings 需要翻译的字符串。  styles  主题数据。  ui      UI描述数据。 ```
+ * 资源管理器。
+ *这里的资源管理器并非Windows下的文件浏览器，而是负责对各种资源，比如字体、主题、图片、界面数据、字符串和其它数据的进行集中管理的组件。引入资源管理器的目的有以下几个：
+ *
+ ** 让上层不需要了解存储的方式。
+ *在没有文件系统时或者内存紧缺时，把资源转成常量数组直接编译到代码中。在有文件系统而且内存充足时，资源放在文件系统中。在有网络时，资源也可以存放在服务器上(暂未实现)。资源管理器为上层提供统一的接口，让上层而不用关心底层的存储方式。
+ *
+ ** 让上层不需要了解资源的具体格式。
+ *比如一个名为earth的图片，没有文件系统或内存紧缺，图片直接用位图数据格式存在ROM中，而有文件系统时，则用PNG格式存放在文件系统中。资源管理器让上层不需要关心图片的格式，访问时指定图片的名称即可(不用指定扩展名)。
+ *
+ ** 让上层不需要了解屏幕的密度。
+ *不同的屏幕密度下需要加载不同的图片，比如MacPro的Retina屏就需要用双倍解析度的图片，否则就出现界面模糊。AWTK以后会支持PC软件和手机软件的开发，所以资源管理器需要为此提供支持，让上层不需关心屏幕的密度。
+ *
+ ** 对资源进行内存缓存。
+ *不同类型的资源使用方式是不一样的，比如字体和主题加载之后会一直使用，UI文件在生成界面之后就暂时不需要了，PNG文件解码之后就只需要保留解码的位图数据即可。资源管理器配合图片管理器等其它组件实现资源的自动缓存。
+ *
+ *当从文件系统加载资源时，目录结构要求如下：
+ *
+ *```
+ *assets/{theme}/raw/
+ *fonts   字体
+ *images  图片
+ *x1   普通密度屏幕的图片。
+ *x2   2倍密度屏幕的图片。
+ *x3   3倍密度屏幕的图片。
+ *xx   密度无关的图片。
+ *strings 需要翻译的字符串。
+ *styles  主题数据。
+ *ui      UI描述数据。
+ *```
  *
  */
 var TAssetsManager = /** @class */ (function () {
@@ -7819,7 +7851,7 @@ var TAssetsManager = /** @class */ (function () {
     /**
      * 获取缺省资源管理器。
      *
-     *
+     
      * @returns 返回asset manager对象。
      */
     TAssetsManager.instance = function () {
@@ -7828,10 +7860,9 @@ var TAssetsManager = /** @class */ (function () {
     /**
      * 在资源管理器的缓存中查找指定的资源并引用它，如果缓存中不存在，尝试加载该资源。
      *
-     * @param am asset manager对象。
      * @param type 资源的类型。
      * @param name 资源的名称。
-     *
+     
      * @returns 返回资源。
      */
     TAssetsManager.prototype.ref = function (type, name) {
@@ -7840,9 +7871,8 @@ var TAssetsManager = /** @class */ (function () {
     /**
      * 释放指定的资源。
      *
-     * @param am asset manager对象。
      * @param info 资源。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TAssetsManager.prototype.unref = function (info) {
@@ -7850,66 +7880,40 @@ var TAssetsManager = /** @class */ (function () {
     };
     return TAssetsManager;
 }());
+;
 /**
  * 画布控件。
  *
- *  画布控件让开发者可以自己在控件上绘制需要的内容。
+ *画布控件让开发者可以自己在控件上绘制需要的内容。
  *
- *  canvas\_widget\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于canvas\_widget\_t控件。
+ *canvas\_widget\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于canvas\_widget\_t控件。
  *
- *  在xml中使用"canvas"标签创建画布控件。如：
+ *在xml中使用"canvas"标签创建画布控件。如：
  *
- *  ```xml
- *  <canvas name="paint_vgcanvas" x="0" y="0" w="100%" h="100%" />
- *  ```
+ *```xml
+ *<canvas name="paint_vgcanvas" x="0" y="0" w="100%" h="100%" />
+ *```
  *
- * 更多用法请参考：
- *  [canvas_widget.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/vgcanvas.xml)
+ *> 更多用法请参考：
+ *[canvas_widget.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/vgcanvas.xml)
  *
- *  在c代码中使用函数canvas\_widget\_create创建画布控件。如：
+ *在c代码中使用函数canvas\_widget\_create创建画布控件。如：
  *
- *  ```c
- *  widget_t* canvas = canvas_widget_create(win, 0, 0, win->w, win->h);
- *  ```
  *
- * 创建之后，需要用widget\_on注册EVT\_PAINT事件，并在EVT\_PAINT事件处理函数中绘制。
+ *> 创建之后，需要用widget\_on注册EVT\_PAINT事件，并在EVT\_PAINT事件处理函数中绘制。
  *
- *  ```c
- *  widget_on(canvas, EVT_PAINT, on_paint_event, canvas);
- *  ```
  *
- *  绘制时，可以通过canvas接口去绘制，也可以通过vgcanvas接口去绘制。
- *  先从evt获取canvas对象，再通过canvas\_get\_vgcanvas从canvas中获取vgcanvas对象。
+ *绘制时，可以通过canvas接口去绘制，也可以通过vgcanvas接口去绘制。
+ *先从evt获取canvas对象，再通过canvas\_get\_vgcanvas从canvas中获取vgcanvas对象。
  *
- *  ```c
  *
- *  static ret_t on_paint_event(void* ctx, event_t* evt) {
- *   widget_t* canvas_widget = WIDGET(ctx);
- *   canvas_t* c = paint_event_cast(evt)->c;
- *   vgcanvas_t* vg = canvas_get_vgcanvas(c);
- *   color_t bg = color_init(0xe0, 0xe0, 0xe0, 0xff);
- *   color_t tc = color_init(0, 0, 0, 0xff);
- *   rect_t r = rect_init(canvas_widget->x, canvas_widget->y, canvas_widget->w, canvas_widget->h);
+ *> 完整示例请参考：
+ *[canvas demo](https://github.com/zlgopen/awtk-c-demos/blob/master/demos/canvas.c)
  *
- *   vgcanvas_save(vg);
- *   vgcanvas_clip_rect(vg, r.x, r.y, r.w, r.h);
- *   vgcanvas_translate(vg, r.x, r.y);
+ *参考：
  *
- *  ...
- *
- *   vgcanvas_restore(vg);
- *
- *   return RET_OK;
- *  }
- *  ```
- *
- * 完整示例请参考：
- *  [canvas demo](https://github.com/zlgopen/awtk-c-demos/blob/master/demos/canvas.c)
- *
- *  参考：
- *
- *  * [canvas接口描述](canvas_t.md)
- *  * [vgcanvas接口描述](vgcanvas_t.md)
+ ** [canvas接口描述](canvas_t.md)
+ ** [vgcanvas接口描述](vgcanvas_t.md)
  *
  */
 var TCanvasWidget = /** @class */ (function (_super) {
@@ -7925,7 +7929,7 @@ var TCanvasWidget = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TCanvasWidget.create = function (parent, x, y, w, h) {
@@ -7935,7 +7939,7 @@ var TCanvasWidget = /** @class */ (function (_super) {
      * 转换为canvas_widget对象(供脚本语言使用)。
      *
      * @param widget canvas_widget对象。
-     *
+     
      * @returns canvas_widget对象。
      */
     TCanvasWidget.cast = function (widget) {
@@ -7943,36 +7947,29 @@ var TCanvasWidget = /** @class */ (function (_super) {
     };
     return TCanvasWidget;
 }(TWidget));
+;
 /**
  * 模拟时钟控件。
  *
- *  time\_clock\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于time\_clock\_t控件。
+ *time\_clock\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于time\_clock\_t控件。
  *
- *  在xml中使用"time\_clock"标签创建模拟时钟控件。如：
+ *在xml中使用"time\_clock"标签创建模拟时钟控件。如：
  *
- *  ```xml
- *  <time_clock x="c" y="m" w="300" h="300" bg_image="clock_bg" image="clock"
- *    hour_image="clock_hour" minute_image="clock_minute" second_image="clock_second"/>
- *  ```
+ *```xml
+ *<time_clock x="c" y="m" w="300" h="300" bg_image="clock_bg" image="clock"
+ *hour_image="clock_hour" minute_image="clock_minute" second_image="clock_second"/>
+ *```
  *
- * 更多用法请参考：[time\_clock.xml](
- *  https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/time_clock.xml)
+ *> 更多用法请参考：[time\_clock.xml](
+ *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/time_clock.xml)
  *
- *  在c代码中使用函数time\_clock\_create创建模拟时钟控件。如：
+ *在c代码中使用函数time\_clock\_create创建模拟时钟控件。如：
  *
- *  ```c
- *  widget_t* tc = time_clock_create(win, 10, 10, 240, 240);
- *  time_clock_set_image(tc, "clock");
- *  time_clock_set_bg_image(tc, "clock_bg");
- *  time_clock_set_hour_image(tc, "clock_hour");
- *  time_clock_set_minute_image(tc, "clock_minute");
- *  time_clock_set_second_image(tc, "clock_second");
- *  ```
  *
- * 完整示例请参考：[time_clock demo](
- *  https://github.com/zlgopen/awtk-c-demos/blob/master/demos/time_clock.c)
+ *> 完整示例请参考：[time_clock demo](
+ *https://github.com/zlgopen/awtk-c-demos/blob/master/demos/time_clock.c)
  *
- *  time\_clock一般不需要设置style。
+ *time\_clock一般不需要设置style。
  *
  */
 var TTimeClock = /** @class */ (function (_super) {
@@ -7988,7 +7985,7 @@ var TTimeClock = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TTimeClock.create = function (parent, x, y, w, h) {
@@ -7998,7 +7995,7 @@ var TTimeClock = /** @class */ (function (_super) {
      * 转换为time_clock对象(供脚本语言使用)。
      *
      * @param widget time_clock对象。
-     *
+     
      * @returns time_clock对象。
      */
     TTimeClock.cast = function (widget) {
@@ -8007,9 +8004,8 @@ var TTimeClock = /** @class */ (function (_super) {
     /**
      * 设置小时的值。
      *
-     * @param widget 控件对象。
      * @param hour 小时的值。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTimeClock.prototype.setHour = function (hour) {
@@ -8018,9 +8014,8 @@ var TTimeClock = /** @class */ (function (_super) {
     /**
      * 设置分钟的值。
      *
-     * @param widget 控件对象。
      * @param minute 分钟的值。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTimeClock.prototype.setMinute = function (minute) {
@@ -8029,9 +8024,8 @@ var TTimeClock = /** @class */ (function (_super) {
     /**
      * 设置秒的值。
      *
-     * @param widget 控件对象。
      * @param second 秒的值。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTimeClock.prototype.setSecond = function (second) {
@@ -8040,9 +8034,8 @@ var TTimeClock = /** @class */ (function (_super) {
     /**
      * 设置小时的图片。
      *
-     * @param widget 控件对象。
      * @param hour 小时的图片。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTimeClock.prototype.setHourImage = function (hour) {
@@ -8051,9 +8044,8 @@ var TTimeClock = /** @class */ (function (_super) {
     /**
      * 设置分钟的图片。
      *
-     * @param widget 控件对象。
      * @param minute_image 分钟的图片。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTimeClock.prototype.setMinuteImage = function (minute_image) {
@@ -8062,9 +8054,8 @@ var TTimeClock = /** @class */ (function (_super) {
     /**
      * 设置秒的图片。
      *
-     * @param widget 控件对象。
      * @param second_image 秒的图片。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTimeClock.prototype.setSecondImage = function (second_image) {
@@ -8073,9 +8064,8 @@ var TTimeClock = /** @class */ (function (_super) {
     /**
      * 设置背景图片。
      *
-     * @param widget 控件对象。
      * @param bg_image 背景图片。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTimeClock.prototype.setBgImage = function (bg_image) {
@@ -8084,9 +8074,8 @@ var TTimeClock = /** @class */ (function (_super) {
     /**
      * 设置中心图片。
      *
-     * @param widget 控件对象。
      * @param image 图片。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTimeClock.prototype.setImage = function (image) {
@@ -8094,12 +8083,11 @@ var TTimeClock = /** @class */ (function (_super) {
     };
     /**
      * 设置小时指针的旋转锚点。
-     * 后面加上px为像素点，不加px为相对百分比坐标0.0f到1.0f
+     *> 后面加上px为像素点，不加px为相对百分比坐标0.0f到1.0f
      *
-     * @param widget 控件对象。
      * @param anchor_x 指针的锚点坐标x。
      * @param anchor_y 指针的锚点坐标y。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTimeClock.prototype.setHourAnchor = function (anchor_x, anchor_y) {
@@ -8107,12 +8095,11 @@ var TTimeClock = /** @class */ (function (_super) {
     };
     /**
      * 设置分钟指针的旋转锚点。
-     * 后面加上px为像素点，不加px为相对百分比坐标0.0f到1.0f
+     *> 后面加上px为像素点，不加px为相对百分比坐标0.0f到1.0f
      *
-     * @param widget 控件对象。
      * @param anchor_x 指针的锚点坐标x。
      * @param anchor_y 指针的锚点坐标y。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTimeClock.prototype.setMinuteAnchor = function (anchor_x, anchor_y) {
@@ -8120,12 +8107,11 @@ var TTimeClock = /** @class */ (function (_super) {
     };
     /**
      * 设置秒钟指针的旋转锚点。
-     * 后面加上px为像素点，不加px为相对百分比坐标0.0f到1.0f
+     *> 后面加上px为像素点，不加px为相对百分比坐标0.0f到1.0f
      *
-     * @param widget 控件对象。
      * @param anchor_x 指针的锚点坐标x。
      * @param anchor_y 指针的锚点坐标y。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTimeClock.prototype.setSecondAnchor = function (anchor_x, anchor_y) {
@@ -8311,44 +8297,39 @@ var TTimeClock = /** @class */ (function (_super) {
     });
     return TTimeClock;
 }(TWidget));
+;
 /**
  * 文本选择器控件，通常用于选择日期和时间等。
  *
- * XXX: 目前需要先设置options和visible_nr，再设置其它参数(在XML中也需要按此顺序)。
+ *> XXX: 目前需要先设置options和visible_nr，再设置其它参数(在XML中也需要按此顺序)。
  *
- *  text\_selector\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于text\_selector\_t控件。
+ *text\_selector\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于text\_selector\_t控件。
  *
- *  在xml中使用"text\_selector"标签创建文本选择器控件。如：
+ *在xml中使用"text\_selector"标签创建文本选择器控件。如：
  *
- *  ```xml
- *  <text_selector options="red;green;blue;gold;orange" visible_nr="3" text="red"/>
- *  ```
+ *```xml
+ *<text_selector options="red;green;blue;gold;orange" visible_nr="3" text="red"/>
+ *```
  *
- * 更多用法请参考：[text\_selector.xml](
- *  https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/text_selector.xml)
+ *> 更多用法请参考：[text\_selector.xml](
+ *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/text_selector.xml)
  *
- *  在c代码中使用函数text\_selector\_create创建文本选择器控件。如：
+ *在c代码中使用函数text\_selector\_create创建文本选择器控件。如：
  *
- *  ```c
- *  widget_t* ts = text_selector_create(win, 10, 10, 80, 150);
- *  text_selector_set_options(ts, "1:red;2:green;3:blue;4:orange;5:gold");
- *  text_selector_set_value(ts, 1);
- *  widget_use_style(ts, "dark");
- *  ```
  *
- * 完整示例请参考：[text\_selector demo](
- *  https://github.com/zlgopen/awtk-c-demos/blob/master/demos/text_selector.c)
+ *> 完整示例请参考：[text\_selector demo](
+ *https://github.com/zlgopen/awtk-c-demos/blob/master/demos/text_selector.c)
  *
- *  可用通过style来设置控件的显示风格，如字体和背景颜色等。如：
+ *可用通过style来设置控件的显示风格，如字体和背景颜色等。如：
  *
- *  ```xml
- *  <style name="dark" fg_color="#a0a0a0"  text_color="black" text_align_h="center">
- *    <normal     bg_color="#ffffff" mask_color="#404040" border_color="#404040"/>
- *  </style>
- *  ```
+ *```xml
+ *<style name="dark" fg_color="#a0a0a0"  text_color="black" text_align_h="center">
+ *<normal     bg_color="#ffffff" mask_color="#404040" border_color="#404040"/>
+ *</style>
+ *```
  *
- * 更多用法请参考：[theme default](
- *  https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L443)
+ *> 更多用法请参考：[theme default](
+ *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L443)
  *
  */
 var TTextSelector = /** @class */ (function (_super) {
@@ -8364,7 +8345,7 @@ var TTextSelector = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TTextSelector.create = function (parent, x, y, w, h) {
@@ -8374,7 +8355,7 @@ var TTextSelector = /** @class */ (function (_super) {
      * 转换text_selector对象(供脚本语言使用)。
      *
      * @param widget text_selector对象。
-     *
+     
      * @returns text_selector对象。
      */
     TTextSelector.cast = function (widget) {
@@ -8383,8 +8364,7 @@ var TTextSelector = /** @class */ (function (_super) {
     /**
      * 重置所有选项。
      *
-     * @param widget text_selector对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTextSelector.prototype.resetOptions = function () {
@@ -8393,8 +8373,7 @@ var TTextSelector = /** @class */ (function (_super) {
     /**
      * 获取选项个数。
      *
-     * @param widget text_selector对象。
-     *
+     
      * @returns 返回选项个数。
      */
     TTextSelector.prototype.countOptions = function () {
@@ -8403,10 +8382,9 @@ var TTextSelector = /** @class */ (function (_super) {
     /**
      * 追加一个选项。
      *
-     * @param widget text_selector对象。
      * @param value 值。
      * @param text 文本。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTextSelector.prototype.appendOption = function (value, text) {
@@ -8415,9 +8393,8 @@ var TTextSelector = /** @class */ (function (_super) {
     /**
      * 设置选项。
      *
-     * @param widget text_selector对象。
      * @param options 选项。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTextSelector.prototype.setOptions = function (options) {
@@ -8426,11 +8403,10 @@ var TTextSelector = /** @class */ (function (_super) {
     /**
      * 设置一系列的整数选项。
      *
-     * @param widget text_selector对象。
      * @param start 起始值。
      * @param nr 个数。
      * @param step 步长。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTextSelector.prototype.setRangeOptions = function (start, nr, step) {
@@ -8439,8 +8415,7 @@ var TTextSelector = /** @class */ (function (_super) {
     /**
      * 获取text_selector的值。
      *
-     * @param widget text_selector对象。
-     *
+     
      * @returns 返回值。
      */
     TTextSelector.prototype.getValue = function () {
@@ -8449,9 +8424,8 @@ var TTextSelector = /** @class */ (function (_super) {
     /**
      * 设置text_selector的值。
      *
-     * @param widget text_selector对象。
      * @param value 值。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTextSelector.prototype.setValue = function (value) {
@@ -8460,8 +8434,7 @@ var TTextSelector = /** @class */ (function (_super) {
     /**
      * 获取text_selector的文本。
      *
-     * @param widget text_selector对象。
-     *
+     
      * @returns 返回文本。
      */
     TTextSelector.prototype.getTextValue = function () {
@@ -8470,9 +8443,8 @@ var TTextSelector = /** @class */ (function (_super) {
     /**
      * 设置text_selector的文本。
      *
-     * @param widget text_selector对象。
      * @param text 文本。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTextSelector.prototype.setText = function (text) {
@@ -8481,9 +8453,8 @@ var TTextSelector = /** @class */ (function (_super) {
     /**
      * 设置第index个选项为当前选中的选项。
      *
-     * @param widget text_selector对象。
      * @param index 选项的索引。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTextSelector.prototype.setSelectedIndex = function (index) {
@@ -8492,9 +8463,8 @@ var TTextSelector = /** @class */ (function (_super) {
     /**
      * 设置可见的选项数。
      *
-     * @param widget text_selector对象。
      * @param visible_nr 选项数。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTextSelector.prototype.setVisibleNr = function (visible_nr) {
@@ -8531,8 +8501,8 @@ var TTextSelector = /** @class */ (function (_super) {
     Object.defineProperty(TTextSelector.prototype, "options", {
         /**
          * 设置可选项(冒号分隔值和文本，分号分隔选项，如:1:red;2:green;3:blue)。
-         *  对于数值选项，也可以指定一个范围，用『-』分隔起始值、结束值和格式。
-         *  如："1-7-%02d"表示1到7，格式为『02d』，格式为可选，缺省为『%d』。
+         *对于数值选项，也可以指定一个范围，用『-』分隔起始值、结束值和格式。
+         *如："1-7-%02d"表示1到7，格式为『02d』，格式为可选，缺省为『%d』。
          *
          */
         get: function () {
@@ -8546,6 +8516,7 @@ var TTextSelector = /** @class */ (function (_super) {
     });
     return TTextSelector;
 }(TWidget));
+;
 /**
  * 对象属性变化事件。
  *
@@ -8559,7 +8530,7 @@ var TPropChangeEvent = /** @class */ (function (_super) {
      * 把event对象转prop_change_event_t对象，主要给脚本语言使用。
      *
      * @param event event对象。
-     *
+     
      * @returns 返回event对象。
      */
     TPropChangeEvent.cast = function (event) {
@@ -8589,6 +8560,7 @@ var TPropChangeEvent = /** @class */ (function (_super) {
     });
     return TPropChangeEvent;
 }(TEvent));
+;
 /**
  * 进度变化事件。
  *
@@ -8602,7 +8574,7 @@ var TProgressEvent = /** @class */ (function (_super) {
      * 把event对象转progress_event_t对象，主要给脚本语言使用。
      *
      * @param event event对象。
-     *
+     
      * @returns 返回event对象。
      */
     TProgressEvent.cast = function (event) {
@@ -8621,40 +8593,37 @@ var TProgressEvent = /** @class */ (function (_super) {
     });
     return TProgressEvent;
 }(TEvent));
+;
 /**
  * 开关控件。
  *
- *  switch\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于switch\_t控件。
+ *switch\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于switch\_t控件。
  *
- *  在xml中使用"switch"标签创建开关控件。如：
+ *在xml中使用"switch"标签创建开关控件。如：
  *
- *  ```xml
- *  <switch x="10" y="60" w="60" h="22" />
- *  ```
+ *```xml
+ *<switch x="10" y="60" w="60" h="22" />
+ *```
  *
- * 更多用法请参考：[switch.xml](
- *  https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/switch.xml)
+ *> 更多用法请参考：[switch.xml](
+ *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/switch.xml)
  *
- *  在c代码中使用函数switch\_create创建开关控件。如：
+ *在c代码中使用函数switch\_create创建开关控件。如：
  *
- *  ```c
- *   widget_t* sw = switch_create(win, 10, 10, 80, 30);
- *   widget_on(sw, EVT_VALUE_CHANGED, on_changed, NULL);
- *  ```
  *
- * 完整示例请参考：[switch demo](
- *  https://github.com/zlgopen/awtk-c-demos/blob/master/demos/switch.c)
+ *> 完整示例请参考：[switch demo](
+ *https://github.com/zlgopen/awtk-c-demos/blob/master/demos/switch.c)
  *
- *  可用通过style来设置控件的显示风格，如背景图片等。如：
+ *可用通过style来设置控件的显示风格，如背景图片等。如：
  *
- *  ```xml
- *  <style name="default">
- *    <normal  bg_image="switch" />
- *  </style>
- *  ```
+ *```xml
+ *<style name="default">
+ *<normal  bg_image="switch" />
+ *</style>
+ *```
  *
- * 更多用法请参考：[theme default](
- *  https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L452)
+ *> 更多用法请参考：[theme default](
+ *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L452)
  *
  */
 var TSwitch = /** @class */ (function (_super) {
@@ -8670,7 +8639,7 @@ var TSwitch = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TSwitch.create = function (parent, x, y, w, h) {
@@ -8679,9 +8648,8 @@ var TSwitch = /** @class */ (function (_super) {
     /**
      * 设置控件的值。
      *
-     * @param widget switch对象。
      * @param value 值
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSwitch.prototype.setValue = function (value) {
@@ -8691,7 +8659,7 @@ var TSwitch = /** @class */ (function (_super) {
      * 转换switch对象(供脚本语言使用)。
      *
      * @param widget switch对象。
-     *
+     
      * @returns switch对象。
      */
     TSwitch.cast = function (widget) {
@@ -8724,51 +8692,49 @@ var TSwitch = /** @class */ (function (_super) {
     });
     return TSwitch;
 }(TWidget));
+;
 /**
  * 滑动视图。
  *
- *  滑动视图可以管理多个页面，并通过滑动来切换当前页面。也可以管理多张图片，让它们自动切换。
+ *滑动视图可以管理多个页面，并通过滑动来切换当前页面。也可以管理多张图片，让它们自动切换。
  *
- *  slide\_view\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于slide\_view\_t控件。
+ *slide\_view\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于slide\_view\_t控件。
  *
- *  在xml中使用"slide\_view"标签创建滑动视图控件。如：
+ *在xml中使用"slide\_view"标签创建滑动视图控件。如：
  *
- *  ```xml
- *    <slide_view x="0" y="0" w="100%" h="100%" style="dot">
- *    <view x="0" y="0" w="100%" h="100%" children_layout="default(w=60,h=60,m=5,s=10)">
- *     ...
- *    </view>
- *    <view x="0" y="0" w="100%" h="100%" children_layout="default(w=60,h=60,m=5,s=10)">
- *     ...
- *    </view>
- *    </slide_view>
- *  ```
+ *```xml
+ *<slide_view x="0" y="0" w="100%" h="100%" style="dot">
+ *<view x="0" y="0" w="100%" h="100%" children_layout="default(w=60,h=60,m=5,s=10)">
+ *...
+ *</view>
+ *<view x="0" y="0" w="100%" h="100%" children_layout="default(w=60,h=60,m=5,s=10)">
+ *...
+ *</view>
+ *</slide_view>
+ *```
  *
- * 更多用法请参考：[slide_view.xml](
- * https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/slide_view.xml)
+ *> 更多用法请参考：[slide_view.xml](
+ *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/slide_view.xml)
  *
- *  在c代码中使用函数slide\_view\_create创建滑动视图控件。如：
+ *在c代码中使用函数slide\_view\_create创建滑动视图控件。如：
  *
- *  ```c
- *  slide_view = slide_view_create(win, 0, 0, win->w, win->h);
- *  ```
  *
- * 完整示例请参考：
- *  [slide_view demo](
- *  https://github.com/zlgopen/awtk-c-demos/blob/master/demos/slide_view.c)
+ *> 完整示例请参考：
+ *[slide_view demo](
+ *https://github.com/zlgopen/awtk-c-demos/blob/master/demos/slide_view.c)
  *
- *  可用通过style来设置控件的显示风格，如背景颜色和指示器的图标等等。如：
+ *可用通过style来设置控件的显示风格，如背景颜色和指示器的图标等等。如：
  *
- *  ```xml
- *  <style name="dot">
- *    <normal  icon="dot" active_icon="active_dot"/>
- *  </style>
- *  ```
+ *```xml
+ *<style name="dot">
+ *<normal  icon="dot" active_icon="active_dot"/>
+ *</style>
+ *```
  *
- * 如果希望背景图片跟随滚动，请将背景图片设置到页面上，否则设置到slide\_view上。
+ *> 如果希望背景图片跟随滚动，请将背景图片设置到页面上，否则设置到slide\_view上。
  *
- * 更多用法请参考：[theme default](
- *  https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L458)
+ *> 更多用法请参考：[theme default](
+ *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L458)
  *
  */
 var TSlideView = /** @class */ (function (_super) {
@@ -8784,7 +8750,7 @@ var TSlideView = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TSlideView.create = function (parent, x, y, w, h) {
@@ -8794,7 +8760,7 @@ var TSlideView = /** @class */ (function (_super) {
      * 转换为slide_view对象(供脚本语言使用)。
      *
      * @param widget slide_view对象。
-     *
+     
      * @returns slide_view对象。
      */
     TSlideView.cast = function (widget) {
@@ -8803,9 +8769,8 @@ var TSlideView = /** @class */ (function (_super) {
     /**
      * 设置为自动播放模式。
      *
-     * @param widget slide_view对象。
      * @param auto_play 0表示禁止自动播放，非0表示自动播放时每一页播放的时间。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlideView.prototype.setAutoPlay = function (auto_play) {
@@ -8814,9 +8779,8 @@ var TSlideView = /** @class */ (function (_super) {
     /**
      * 设置当前页的序号。
      *
-     * @param widget slide_view对象。
      * @param index 当前页的序号。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlideView.prototype.setActive = function (index) {
@@ -8825,9 +8789,8 @@ var TSlideView = /** @class */ (function (_super) {
     /**
      * 设置为上下滑动(缺省为左右滑动)。
      *
-     * @param widget slide_view对象。
      * @param vertical TRUE表示上下滑动，FALSE表示左右滑动。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlideView.prototype.setVertical = function (vertical) {
@@ -8836,20 +8799,19 @@ var TSlideView = /** @class */ (function (_super) {
     /**
      * 设置页面切换动画。
      *
-     *  anim_hint取值如下：
+     *anim_hint取值如下：
      *
-     *  * "translate"：平移。
-     *  * "overlap"：覆盖。
-     *  * "overlap\_with\_alpha"：覆盖并改变透明度。
+     ** "translate"：平移。
+     ** "overlap"：覆盖。
+     ** "overlap\_with\_alpha"：覆盖并改变透明度。
      *
-     * 使用"overlap"或"overlap\_with\_alpha"动画时，背景图片最好指定到page上。
+     *> 使用"overlap"或"overlap\_with\_alpha"动画时，背景图片最好指定到page上。
+     *>
+     *> 使用"overlap\_with\_alpha"动画时，slideview的背景设置为黑色，
+     *> 或slideview的背景设置为透明，窗口的背景设置为黑色，以获得更好的视觉效果和性能。
      *
-     * 使用"overlap\_with\_alpha"动画时，slideview的背景设置为黑色，
-     * 或slideview的背景设置为透明，窗口的背景设置为黑色，以获得更好的视觉效果和性能。
-     *
-     * @param widget slide_view对象。
      * @param anim_hint 页面切换动画。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlideView.prototype.setAnimHint = function (anim_hint) {
@@ -8858,9 +8820,8 @@ var TSlideView = /** @class */ (function (_super) {
     /**
      * 设置循环切换模式。
      *
-     * @param widget slide_view对象。
      * @param loop 是否启用循环切换模式。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlideView.prototype.setLoop = function (loop) {
@@ -8898,8 +8859,8 @@ var TSlideView = /** @class */ (function (_super) {
         /**
          * 循环切换模式。
          *
-         *  向后切换：切换到最后一页时，再往后切换就到第一页。
-         *  向前切换：切换到第一页时，再往前切换就到最后一页。
+         *向后切换：切换到最后一页时，再往后切换就到第一页。
+         *向前切换：切换到第一页时，再往前切换就到最后一页。
          *
          */
         get: function () {
@@ -8927,8 +8888,37 @@ var TSlideView = /** @class */ (function (_super) {
     });
     return TSlideView;
 }(TWidget));
+;
 /**
- * slide_view的指示器控件。> 支持直线、弧线排布，默认有4种绘制样式，若设置了icon/active_icon，则优先使用icon/active_icon slide\_indicator\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于slide\_indicator\_t控件。 在xml中使用"slide\_indicator"或"slide\_indicator\_arc"标签创建指示器控件。如： ```xml <slide_view name="view" x="0"  y="0" w="100%" h="100%"> ... </slide_view> <slide_indicator name="indicator" x="right" y="0" w="6" h="100%"/> ``` 更多用法请参考：[slide\_view.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/slide_view.xml) 在c代码中使用函数slide\_indicator\_create创建指示器控件。如： ```c  widget_t* slide_indicator = slide_indicator_create(parent, 0, 0, 0, 0); ``` ```xml <style name="default">   <normal fg_color="#FFFFFF80" selected_fg_color="#FFFFFF"/> </style> ``` 更多用法请参考：[theme default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L350)
+ * slide_view的指示器控件。
+ *
+ *> 支持直线、弧线排布，默认有4种绘制样式，若设置了icon/active_icon，则优先使用icon/active_icon
+ *
+ *slide\_indicator\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于slide\_indicator\_t控件。
+ *
+ *在xml中使用"slide\_indicator"或"slide\_indicator\_arc"标签创建指示器控件。如：
+ *
+ *```xml
+ *<slide_view name="view" x="0"  y="0" w="100%" h="100%">
+ *...
+ *</slide_view>
+ *<slide_indicator name="indicator" x="right" y="0" w="6" h="100%"/>
+ *```
+ *
+ *> 更多用法请参考：[slide\_view.xml](
+ *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/slide_view.xml)
+ *
+ *在c代码中使用函数slide\_indicator\_create创建指示器控件。如：
+ *
+ *
+ *```xml
+ *<style name="default">
+ *<normal fg_color="#FFFFFF80" selected_fg_color="#FFFFFF"/>
+ *</style>
+ *```
+ *
+ *> 更多用法请参考：[theme default](
+ *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L350)
  *
  */
 var TSlideIndicator = /** @class */ (function (_super) {
@@ -8944,7 +8934,7 @@ var TSlideIndicator = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TSlideIndicator.create = function (parent, x, y, w, h) {
@@ -8958,7 +8948,7 @@ var TSlideIndicator = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TSlideIndicator.createLinear = function (parent, x, y, w, h) {
@@ -8972,7 +8962,7 @@ var TSlideIndicator = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TSlideIndicator.createArc = function (parent, x, y, w, h) {
@@ -8982,7 +8972,7 @@ var TSlideIndicator = /** @class */ (function (_super) {
      * 转换为slide_indicator对象(供脚本语言使用)。
      *
      * @param widget slide_indicator对象。
-     *
+     
      * @returns slide_indicator对象。
      */
     TSlideIndicator.cast = function (widget) {
@@ -8991,9 +8981,8 @@ var TSlideIndicator = /** @class */ (function (_super) {
     /**
      * 设置当前页的序号。
      *
-     * @param widget slide_indicator对象。
      * @param value 当前项的序号。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlideIndicator.prototype.setValue = function (value) {
@@ -9002,9 +8991,8 @@ var TSlideIndicator = /** @class */ (function (_super) {
     /**
      * 设置指示器的数量。
      *
-     * @param widget slide_indicator对象。
      * @param max 数量。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlideIndicator.prototype.setMax = function (max) {
@@ -9013,9 +9001,8 @@ var TSlideIndicator = /** @class */ (function (_super) {
     /**
      * 设置指示器的默认绘制类型。
      *
-     * @param widget slide_indicator对象。
      * @param default_paint 默认绘制类型。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlideIndicator.prototype.setDefaultPaint = function (default_paint) {
@@ -9024,9 +9011,8 @@ var TSlideIndicator = /** @class */ (function (_super) {
     /**
      * 设置指示器是否自动隐藏。
      *
-     * @param widget slide_indicator对象。
      * @param auto_hide 0表示禁止，非0表示无操作后延迟多久隐藏。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlideIndicator.prototype.setAutoHide = function (auto_hide) {
@@ -9035,9 +9021,8 @@ var TSlideIndicator = /** @class */ (function (_super) {
     /**
      * 设置指示器的边距(默认为10像素)。
      *
-     * @param widget slide_indicator对象。
      * @param margin 指示器的边距。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlideIndicator.prototype.setMargin = function (margin) {
@@ -9046,9 +9031,8 @@ var TSlideIndicator = /** @class */ (function (_super) {
     /**
      * 设置指示器的间距(指示器有弧度时为角度值，否则为直线间距)。
      *
-     * @param widget slide_indicator对象。
      * @param spacing 指示器的间距。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlideIndicator.prototype.setSpacing = function (spacing) {
@@ -9057,9 +9041,8 @@ var TSlideIndicator = /** @class */ (function (_super) {
     /**
      * 设置指示器的大小(默认为8)。
      *
-     * @param widget slide_indicator对象。
      * @param size 指示器的大小。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlideIndicator.prototype.setSize = function (size) {
@@ -9068,10 +9051,9 @@ var TSlideIndicator = /** @class */ (function (_super) {
     /**
      * 设置旋转锚点。
      *
-     * @param widget slide_indicator对象。
      * @param anchor_x 锚点坐标x。(后面加上px为像素点，不加px为相对百分比坐标)
      * @param anchor_y 锚点坐标y。(后面加上px为像素点，不加px为相对百分比坐标)
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlideIndicator.prototype.setAnchor = function (anchor_x, anchor_y) {
@@ -9080,9 +9062,8 @@ var TSlideIndicator = /** @class */ (function (_super) {
     /**
      * 设置指示器指示的目标。
      *
-     * @param widget slide_indicator对象。
      * @param indicated_target 指示器指示的目标
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlideIndicator.prototype.setIndicatedTarget = function (indicated_target) {
@@ -9224,67 +9205,51 @@ var TSlideIndicator = /** @class */ (function (_super) {
     });
     return TSlideIndicator;
 }(TWidget));
+;
 /**
  * 左右滑动菜单控件。
  *
- *  一般用一组按钮作为子控件，通过左右滑动改变当前的项。除了当菜单使用外，也可以用来切换页面。
+ *一般用一组按钮作为子控件，通过左右滑动改变当前的项。除了当菜单使用外，也可以用来切换页面。
  *
- *  slide\_menu\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于slide\_menu\_t控件。
+ *slide\_menu\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于slide\_menu\_t控件。
  *
- *  在xml中使用"slide\_menu"标签创建左右滑动菜单控件。如：
+ *在xml中使用"slide\_menu"标签创建左右滑动菜单控件。如：
  *
- *  ```xml
- *  <slide_menu style="mask" align_v="top">
- *   <button style="slide_button" text="0"/>
- *    <button style="slide_button" text="1"/>
- *    <button style="slide_button" text="2"/>
- *    <button style="slide_button" text="3"/>
- *    <button style="slide_button" text="4"/>
- *  </slide_menu>
- *  ```
+ *```xml
+ *<slide_menu style="mask" align_v="top">
+ *<button style="slide_button" text="0"/>
+ *<button style="slide_button" text="1"/>
+ *<button style="slide_button" text="2"/>
+ *<button style="slide_button" text="3"/>
+ *<button style="slide_button" text="4"/>
+ *</slide_menu>
+ *```
  *
- * 更多用法请参考：[slide_menu.xml](
- *  https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/slide_menu.xml)
+ *> 更多用法请参考：[slide_menu.xml](
+ *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/slide_menu.xml)
  *
- *  在c代码中使用函数slide\_menu\_create创建左右滑动菜单控件。如：
+ *在c代码中使用函数slide\_menu\_create创建左右滑动菜单控件。如：
  *
- *  ```c
- *  slide_menu = slide_menu_create(win, 10, 10, 300, 60);
- *  b = button_create(slide_menu, 0, 0, 0, 0);
- *  widget_set_text_utf8(b, "1");
- *  b = button_create(slide_menu, 0, 0, 0, 0);
- *  widget_set_text_utf8(b, "2");
- *  b = button_create(slide_menu, 0, 0, 0, 0);
- *  widget_set_text_utf8(b, "3");
- *  b = button_create(slide_menu, 0, 0, 0, 0);
- *  widget_set_text_utf8(b, "4");
- *  ```
  *
- *  可按下面的方法关注当前项改变的事件：
+ *可按下面的方法关注当前项改变的事件：
  *
- *  ```c
- *  widget_on(slide_menu, EVT_VALUE_CHANGED, on_current_changed, slide_menu);
- *  ```
  *
- *  可按下面的方法关注当前按钮被点击的事件：
+ *可按下面的方法关注当前按钮被点击的事件：
  *
- *  ```c
- *  widget_on(b, EVT_CLICK, on_button_click, b);
- *  ```
  *
- * 完整示例请参考：[slide_menu demo](
- *  https://github.com/zlgopen/awtk-c-demos/blob/master/demos/slide_menu.c)
+ *> 完整示例请参考：[slide_menu demo](
+ *https://github.com/zlgopen/awtk-c-demos/blob/master/demos/slide_menu.c)
  *
- *  可用通过style来设置控件的显示风格，如背景颜色和蒙版颜色等等。如：
+ *可用通过style来设置控件的显示风格，如背景颜色和蒙版颜色等等。如：
  *
- *  ```xml
- *  <style name="mask">
- *    <normal     bg_color="#f0f0f0" mask_color="#f0f0f0"/>
- *  </style>
- *  ```
+ *```xml
+ *<style name="mask">
+ *<normal     bg_color="#f0f0f0" mask_color="#f0f0f0"/>
+ *</style>
+ *```
  *
- * 更多用法请参考：[theme default](
- *  https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L493)
+ *> 更多用法请参考：[theme default](
+ *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L493)
  *
  */
 var TSlideMenu = /** @class */ (function (_super) {
@@ -9300,7 +9265,7 @@ var TSlideMenu = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TSlideMenu.create = function (parent, x, y, w, h) {
@@ -9310,7 +9275,7 @@ var TSlideMenu = /** @class */ (function (_super) {
      * 转换slide_menu对象(供脚本语言使用)。
      *
      * @param widget slide_menu对象。
-     *
+     
      * @returns slide_menu对象。
      */
     TSlideMenu.cast = function (widget) {
@@ -9319,9 +9284,8 @@ var TSlideMenu = /** @class */ (function (_super) {
     /**
      * 设置当前项。
      *
-     * @param widget slide_menu对象。
      * @param value 当前项的索引。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlideMenu.prototype.setValue = function (value) {
@@ -9330,9 +9294,8 @@ var TSlideMenu = /** @class */ (function (_super) {
     /**
      * 设置垂直对齐方式。
      *
-     * @param widget slide_menu对象。
      * @param align_v 对齐方式。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlideMenu.prototype.setAlignV = function (align_v) {
@@ -9341,9 +9304,8 @@ var TSlideMenu = /** @class */ (function (_super) {
     /**
      * 设置最小缩放比例。
      *
-     * @param widget slide_menu对象。
      * @param min_scale 最小缩放比例，范围[0.5-1]。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlideMenu.prototype.setMinScale = function (min_scale) {
@@ -9393,39 +9355,37 @@ var TSlideMenu = /** @class */ (function (_super) {
     });
     return TSlideMenu;
 }(TWidget));
+;
 /**
  * 滚动视图。
  *
- *  scroll\_view\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于scroll\_view\_t控件。
+ *scroll\_view\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于scroll\_view\_t控件。
  *
- *  在xml中使用"scroll\_view"标签创建滚动视图控件。如：
+ *在xml中使用"scroll\_view"标签创建滚动视图控件。如：
  *
- *  ```xml
- *  <list_view x="0"  y="30" w="100%" h="-80" item_height="60">
- *    <scroll_view name="view" x="0"  y="0" w="100%" h="100%">
- *      <list_item style="odd" children_layout="default(rows=1,cols=0)">
- *        <image draw_type="icon" w="30" image="earth"/>
- *        <label w="-30" text="1.Hello AWTK !">
- *          <switch x="r:10" y="m" w="60" h="20"/>
- *        </label>
- *      </list_item>
- *      ...
- *    </scroll_view>
- *   </list_view>
- *  ```
+ *```xml
+ *<list_view x="0"  y="30" w="100%" h="-80" item_height="60">
+ *<scroll_view name="view" x="0"  y="0" w="100%" h="100%">
+ *<list_item style="odd" children_layout="default(rows=1,cols=0)">
+ *<image draw_type="icon" w="30" image="earth"/>
+ *<label w="-30" text="1.Hello AWTK !">
+ *<switch x="r:10" y="m" w="60" h="20"/>
+ *</label>
+ *</list_item>
+ *...
+ *</scroll_view>
+ *</list_view>
+ *```
  *
- * 滚动视图一般作为列表视图的子控件使用。
+ *> 滚动视图一般作为列表视图的子控件使用。
  *
- * 更多用法请参考：[list\_view\_m.xml](
- * https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/list_view_m.xml)
+ *> 更多用法请参考：[list\_view\_m.xml](
+ *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/list_view_m.xml)
  *
- *  在c代码中使用函数scroll\_view\_create创建列表视图控件。如：
+ *在c代码中使用函数scroll\_view\_create创建列表视图控件。如：
  *
- *  ```c
- *   widget_t* scroll_view = scroll_view_create(win, 0, 0, 0, 0);
- *  ```
  *
- *  可用通过style来设置控件的显示风格，如背景颜色和边框颜色等(一般情况不需要)。
+ *可用通过style来设置控件的显示风格，如背景颜色和边框颜色等(一般情况不需要)。
  *
  */
 var TScrollView = /** @class */ (function (_super) {
@@ -9441,7 +9401,7 @@ var TScrollView = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TScrollView.create = function (parent, x, y, w, h) {
@@ -9451,7 +9411,7 @@ var TScrollView = /** @class */ (function (_super) {
      * 转换为scroll_view对象(供脚本语言使用)。
      *
      * @param widget scroll_view对象。
-     *
+     
      * @returns scroll_view对象。
      */
     TScrollView.cast = function (widget) {
@@ -9460,9 +9420,8 @@ var TScrollView = /** @class */ (function (_super) {
     /**
      * 设置虚拟宽度。
      *
-     * @param widget 控件对象。
      * @param w 虚拟宽度。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TScrollView.prototype.setVirtualW = function (w) {
@@ -9471,9 +9430,8 @@ var TScrollView = /** @class */ (function (_super) {
     /**
      * 设置虚拟高度。
      *
-     * @param widget 控件对象。
      * @param h 虚拟高度。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TScrollView.prototype.setVirtualH = function (h) {
@@ -9482,9 +9440,8 @@ var TScrollView = /** @class */ (function (_super) {
     /**
      * 设置是否允许x方向滑动。
      *
-     * @param widget 控件对象。
      * @param xslidable 是否允许滑动。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TScrollView.prototype.setXslidable = function (xslidable) {
@@ -9493,9 +9450,8 @@ var TScrollView = /** @class */ (function (_super) {
     /**
      * 设置是否允许y方向滑动。
      *
-     * @param widget 控件对象。
      * @param yslidable 是否允许滑动。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TScrollView.prototype.setYslidable = function (yslidable) {
@@ -9504,10 +9460,9 @@ var TScrollView = /** @class */ (function (_super) {
     /**
      * 设置偏移量。
      *
-     * @param widget 控件对象。
      * @param xoffset x偏移量。
      * @param yoffset y偏移量。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TScrollView.prototype.setOffset = function (xoffset, yoffset) {
@@ -9516,10 +9471,9 @@ var TScrollView = /** @class */ (function (_super) {
     /**
      * 设置偏移速度比例。
      *
-     * @param widget 控件对象。
      * @param xspeed_scale x偏移速度比例。。
      * @param yspeed_scale y偏移速度比例。。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TScrollView.prototype.setSpeedScale = function (xspeed_scale, yspeed_scale) {
@@ -9528,11 +9482,10 @@ var TScrollView = /** @class */ (function (_super) {
     /**
      * 滚动到指定的偏移量。
      *
-     * @param widget 控件对象。
      * @param xoffset_end x偏移量。
      * @param yoffset_end y偏移量。
      * @param duration 时间。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TScrollView.prototype.scrollTo = function (xoffset_end, yoffset_end, duration) {
@@ -9541,11 +9494,10 @@ var TScrollView = /** @class */ (function (_super) {
     /**
      * 滚动到指定的偏移量。
      *
-     * @param widget 控件对象。
      * @param xoffset_delta x偏移量。
      * @param yoffset_delta y偏移量。
      * @param duration 时间。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TScrollView.prototype.scrollDeltaTo = function (xoffset_delta, yoffset_delta, duration) {
@@ -9653,43 +9605,41 @@ var TScrollView = /** @class */ (function (_super) {
     });
     return TScrollView;
 }(TWidget));
+;
 /**
  * 滚动条控件。
  *
- * 目前只支持垂直滚动。
+ *> 目前只支持垂直滚动。
  *
- *  scroll\_bar\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于scroll\_bar\_t控件。
+ *scroll\_bar\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于scroll\_bar\_t控件。
  *
- *  在xml中使用"scroll\_bar"或"scroll\_bar\_d"或"scroll\_bar\_m"标签创建滚动条控件。如：
+ *在xml中使用"scroll\_bar"或"scroll\_bar\_d"或"scroll\_bar\_m"标签创建滚动条控件。如：
  *
- *  ```xml
- *  <list_view x="0"  y="30" w="100%" h="-80" item_height="60">
- *  <scroll_view name="view" x="0"  y="0" w="100%" h="100%">
- *  ...
- *  </scroll_view>
- *  <scroll_bar_m name="bar" x="right" y="0" w="6" h="100%" value="0"/>
- *  </list_view>
- *  ```
+ *```xml
+ *<list_view x="0"  y="30" w="100%" h="-80" item_height="60">
+ *<scroll_view name="view" x="0"  y="0" w="100%" h="100%">
+ *...
+ *</scroll_view>
+ *<scroll_bar_m name="bar" x="right" y="0" w="6" h="100%" value="0"/>
+ *</list_view>
+ *```
  *
- * 更多用法请参考：[list\_view\_m.xml](
- * https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/list_view_m.xml)
+ *> 更多用法请参考：[list\_view\_m.xml](
+ *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/list_view_m.xml)
  *
- *  在c代码中使用函数scroll\_bar\_create创建列表项控件。如：
+ *在c代码中使用函数scroll\_bar\_create创建列表项控件。如：
  *
- *  ```c
- *   widget_t* scroll_bar = scroll_bar_create(list_view, 0, 0, 0, 0);
- *  ```
  *
- *  ```xml
- *  <style name="default">
- *    <normal bg_color="#c0c0c0" fg_color="#808080"/>
- *    <over bg_color="#c0c0c0" fg_color="#808080"/>
- *    <pressed bg_color="#c0c0c0" fg_color="#808080"/>
- *  </style>
- *  ```
+ *```xml
+ *<style name="default">
+ *<normal bg_color="#c0c0c0" fg_color="#808080"/>
+ *<over bg_color="#c0c0c0" fg_color="#808080"/>
+ *<pressed bg_color="#c0c0c0" fg_color="#808080"/>
+ *</style>
+ *```
  *
- * 更多用法请参考：[theme default](
- * https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L350)
+ *> 更多用法请参考：[theme default](
+ *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L350)
  *
  */
 var TScrollBar = /** @class */ (function (_super) {
@@ -9700,14 +9650,14 @@ var TScrollBar = /** @class */ (function (_super) {
     /**
      * 创建scroll_bar对象
      *
-     * 根据宏WITH_DESKTOP_STYLE决定创建desktop风格还是mobile风格的滚动条
+     *> 根据宏WITH_DESKTOP_STYLE决定创建desktop风格还是mobile风格的滚动条
      *
      * @param parent 父控件
      * @param x x坐标
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TScrollBar.create = function (parent, x, y, w, h) {
@@ -9717,7 +9667,7 @@ var TScrollBar = /** @class */ (function (_super) {
      * 转换为scroll_bar对象(供脚本语言使用)。
      *
      * @param widget scroll_bar对象。
-     *
+     
      * @returns scroll_bar对象。
      */
     TScrollBar.cast = function (widget) {
@@ -9731,7 +9681,7 @@ var TScrollBar = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TScrollBar.createMobile = function (parent, x, y, w, h) {
@@ -9745,7 +9695,7 @@ var TScrollBar = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TScrollBar.createDesktop = function (parent, x, y, w, h) {
@@ -9754,10 +9704,9 @@ var TScrollBar = /** @class */ (function (_super) {
     /**
      * 设置参数。
      *
-     * @param widget scroll_bar控件。
      * @param virtual_size 虚拟高度。
      * @param row 每一行的高度。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TScrollBar.prototype.setParams = function (virtual_size, row) {
@@ -9766,10 +9715,9 @@ var TScrollBar = /** @class */ (function (_super) {
     /**
      * 滚动到指定的值。
      *
-     * @param widget scroll_bar控件。
      * @param value 值。
      * @param duration 动画持续时间。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TScrollBar.prototype.scrollTo = function (value, duration) {
@@ -9778,9 +9726,8 @@ var TScrollBar = /** @class */ (function (_super) {
     /**
      * 设置值，并触发EVT_VALUE_CHANGED事件。
      *
-     * @param widget scroll_bar控件。
      * @param value 值。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TScrollBar.prototype.setValue = function (value) {
@@ -9789,9 +9736,8 @@ var TScrollBar = /** @class */ (function (_super) {
     /**
      * 在当前的值上增加一个值，并触发EVT_VALUE_CHANGED事件。
      *
-     * @param widget scroll_bar控件。
      * @param delta 值。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TScrollBar.prototype.addDelta = function (delta) {
@@ -9800,9 +9746,8 @@ var TScrollBar = /** @class */ (function (_super) {
     /**
      * 在当前的值上增加一个值，并滚动到新的值，并触发EVT_VALUE_CHANGED事件。
      *
-     * @param widget scroll_bar控件。
      * @param delta 值。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TScrollBar.prototype.scrollDelta = function (delta) {
@@ -9811,9 +9756,8 @@ var TScrollBar = /** @class */ (function (_super) {
     /**
      * 设置值，但不触发EVT_VALUE_CHANGED事件。
      *
-     * @param widget scroll_bar控件。
      * @param value 值。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TScrollBar.prototype.setValueOnly = function (value) {
@@ -9822,8 +9766,7 @@ var TScrollBar = /** @class */ (function (_super) {
     /**
      * 判断是否是mobile风格的滚动条。
      *
-     * @param widget scroll_bar控件。
-     *
+     
      * @returns 返回TRUE表示是mobile风格的，否则表示不是mobile风格的。
      */
     TScrollBar.prototype.isMobile = function () {
@@ -9878,53 +9821,51 @@ var TScrollBar = /** @class */ (function (_super) {
     });
     return TScrollBar;
 }(TWidget));
+;
 /**
  * 列表视图控件。
  *
- *  列表视图控件是一个可以垂直滚动的列表控件。
+ *列表视图控件是一个可以垂直滚动的列表控件。
  *
- *  如果不需要滚动，可以用view控件配置适当的layout参数作为列表控件。
+ *如果不需要滚动，可以用view控件配置适当的layout参数作为列表控件。
  *
- *  列表视图中的列表项可以固定高度，也可以使用不同高度。请参考[变高列表项](
- * https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/list_view_vh.xml)
+ *列表视图中的列表项可以固定高度，也可以使用不同高度。请参考[变高列表项](
+ *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/list_view_vh.xml)
  *
- *  列表视图控件的中可以有滚动条，也可以没有滚动条。
- *  可以使用移动设备风格的滚动条，也可以使用桌面风格的滚动条。
+ *列表视图控件的中可以有滚动条，也可以没有滚动条。
+ *可以使用移动设备风格的滚动条，也可以使用桌面风格的滚动条。
  *
- *  list\_view\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于list\_view\_t控件。
+ *list\_view\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于list\_view\_t控件。
  *
- *  在xml中使用"list\_view"标签创建列表视图控件。如：
+ *在xml中使用"list\_view"标签创建列表视图控件。如：
  *
- *  ```xml
- *  <list_view x="0"  y="30" w="100%" h="-80" item_height="60">
- *    <scroll_view name="view" x="0"  y="0" w="100%" h="100%">
- *      <list_item style="odd" children_layout="default(rows=1,cols=0)">
- *        <image draw_type="icon" w="30" image="earth"/>
- *        <label w="-30" text="1.Hello AWTK !">
- *          <switch x="r:10" y="m" w="60" h="20"/>
- *        </label>
- *      </list_item>
- *      ...
- *    </scroll_view>
- *   </list_view>
- *  ```
+ *```xml
+ *<list_view x="0"  y="30" w="100%" h="-80" item_height="60">
+ *<scroll_view name="view" x="0"  y="0" w="100%" h="100%">
+ *<list_item style="odd" children_layout="default(rows=1,cols=0)">
+ *<image draw_type="icon" w="30" image="earth"/>
+ *<label w="-30" text="1.Hello AWTK !">
+ *<switch x="r:10" y="m" w="60" h="20"/>
+ *</label>
+ *</list_item>
+ *...
+ *</scroll_view>
+ *</list_view>
+ *```
  *
- * 注意：列表项不是作为列表视图控件的直接子控件，而是作为滚动视图的子控件。
+ *> 注意：列表项不是作为列表视图控件的直接子控件，而是作为滚动视图的子控件。
  *
  *
- * 更多用法请参考：[list\_view\_m.xml](
- * https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/list_view_m.xml)
+ *> 更多用法请参考：[list\_view\_m.xml](
+ *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/list_view_m.xml)
  *
- *  在c代码中使用函数list\_view\_create创建列表视图控件。如：
+ *在c代码中使用函数list\_view\_create创建列表视图控件。如：
  *
- *  ```c
- *   widget_t* list_view = list_view_create(win, 0, 0, 0, 0);
- *  ```
  *
- *  用代码构造列表视图是比较繁琐的事情，最好用XML来构造。
- *  如果需要动态修改，可以使用widget\_clone来增加列表项，使用widget\_remove\_child来移出列表项。
+ *用代码构造列表视图是比较繁琐的事情，最好用XML来构造。
+ *如果需要动态修改，可以使用widget\_clone来增加列表项，使用widget\_remove\_child来移出列表项。
  *
- *  可用通过style来设置控件的显示风格，如背景颜色和边框颜色等(一般情况不需要)。
+ *可用通过style来设置控件的显示风格，如背景颜色和边框颜色等(一般情况不需要)。
  *
  */
 var TListView = /** @class */ (function (_super) {
@@ -9940,7 +9881,7 @@ var TListView = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TListView.create = function (parent, x, y, w, h) {
@@ -9949,9 +9890,8 @@ var TListView = /** @class */ (function (_super) {
     /**
      * 设置列表项的高度。
      *
-     * @param widget 控件对象。
      * @param item_height 列表项的高度。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TListView.prototype.setItemHeight = function (item_height) {
@@ -9960,9 +9900,8 @@ var TListView = /** @class */ (function (_super) {
     /**
      * 设置列表项的缺省高度。
      *
-     * @param widget 控件对象。
      * @param default_item_height 列表项的高度。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TListView.prototype.setDefaultItemHeight = function (default_item_height) {
@@ -9971,9 +9910,8 @@ var TListView = /** @class */ (function (_super) {
     /**
      * 设置是否自动隐藏滚动条。
      *
-     * @param widget 控件对象。
      * @param auto_hide_scroll_bar 是否自动隐藏滚动条。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TListView.prototype.setAutoHideScrollBar = function (auto_hide_scroll_bar) {
@@ -9983,7 +9921,7 @@ var TListView = /** @class */ (function (_super) {
      * 转换为list_view对象(供脚本语言使用)。
      *
      * @param widget list_view对象。
-     *
+     
      * @returns list_view对象。
      */
     TListView.cast = function (widget) {
@@ -10033,38 +9971,36 @@ var TListView = /** @class */ (function (_super) {
     });
     return TListView;
 }(TWidget));
+;
 /**
  * 水平列表视图控件。
  *
- *  list\_view\_h\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于list\_view\_h\_t控件。
+ *list\_view\_h\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于list\_view\_h\_t控件。
  *
- *  在xml中使用"list\_view\_h"标签创建水平列表视图控件。如：
+ *在xml中使用"list\_view\_h"标签创建水平列表视图控件。如：
  *
- *  ```xml
- *  <list_view_h x="center"  y="10" w="90%" h="100" item_width="200" spacing="5">
- *    <scroll_view name="view" w="100%" h="100%">
- *      <image style="border" draw_type="auto" image="1" text="1"/>
- *      ...
- *    </scroll_view>
- *  </list_view_h>
- *  ```
+ *```xml
+ *<list_view_h x="center"  y="10" w="90%" h="100" item_width="200" spacing="5">
+ *<scroll_view name="view" w="100%" h="100%">
+ *<image style="border" draw_type="auto" image="1" text="1"/>
+ *...
+ *</scroll_view>
+ *</list_view_h>
+ *```
  *
- * 注意：列表项不是作为列表视图控件的直接子控件，而是作为滚动视图的子控件。
+ *> 注意：列表项不是作为列表视图控件的直接子控件，而是作为滚动视图的子控件。
  *
  *
- * 更多用法请参考：[list\_view\_h.xml](
- * https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/list_view_h.xml)
+ *> 更多用法请参考：[list\_view\_h.xml](
+ *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/list_view_h.xml)
  *
- *  在c代码中使用函数list\_view\_h\_create创建水平列表视图控件。如：
+ *在c代码中使用函数list\_view\_h\_create创建水平列表视图控件。如：
  *
- *  ```c
- *   widget_t* list_view = list_view_h_create(win, 0, 0, 0, 0);
- *  ```
  *
- *  用代码构造列表视图是比较繁琐的事情，最好用XML来构造。
- *  如果需要动态修改，可以使用widget\_clone来增加列表项，使用widget\_remove\_child来移出列表项。
+ *用代码构造列表视图是比较繁琐的事情，最好用XML来构造。
+ *如果需要动态修改，可以使用widget\_clone来增加列表项，使用widget\_remove\_child来移出列表项。
  *
- *  可用通过style来设置控件的显示风格，如背景颜色和边框颜色等(一般情况不需要)。
+ *可用通过style来设置控件的显示风格，如背景颜色和边框颜色等(一般情况不需要)。
  *
  */
 var TListViewH = /** @class */ (function (_super) {
@@ -10080,7 +10016,7 @@ var TListViewH = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TListViewH.create = function (parent, x, y, w, h) {
@@ -10089,9 +10025,8 @@ var TListViewH = /** @class */ (function (_super) {
     /**
      * 设置列表项的宽度。
      *
-     * @param widget 控件对象。
      * @param item_width 列表项的宽度。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TListViewH.prototype.setItemWidth = function (item_width) {
@@ -10100,9 +10035,8 @@ var TListViewH = /** @class */ (function (_super) {
     /**
      * 设置列表项的间距。
      *
-     * @param widget 控件对象。
      * @param spacing 列表项的间距。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TListViewH.prototype.setSpacing = function (spacing) {
@@ -10112,7 +10046,7 @@ var TListViewH = /** @class */ (function (_super) {
      * 转换为list_view_h对象(供脚本语言使用)。
      *
      * @param widget list_view_h对象。
-     *
+     
      * @returns list_view_h对象。
      */
     TListViewH.cast = function (widget) {
@@ -10148,52 +10082,50 @@ var TListViewH = /** @class */ (function (_super) {
     });
     return TListViewH;
 }(TWidget));
+;
 /**
  * 列表项控件。
  *
- *  列表项控件是一个简单的容器控件，一般作为列表视图中滚动视图的子控件。
+ *列表项控件是一个简单的容器控件，一般作为列表视图中滚动视图的子控件。
  *
- *  list\_item\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于list\_item\_t控件。
+ *list\_item\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于list\_item\_t控件。
  *
- *  在xml中使用"list\_item"标签创建列表项控件。如：
+ *在xml中使用"list\_item"标签创建列表项控件。如：
  *
- *  ```xml
- *  <list_view x="0"  y="30" w="100%" h="-80" item_height="60">
- *    <scroll_view name="view" x="0"  y="0" w="100%" h="100%">
- *      <list_item style="odd" children_layout="default(rows=1,cols=0)">
- *        <image draw_type="icon" w="30" image="earth"/>
- *        <label w="-30" text="1.Hello AWTK !">
- *          <switch x="r:10" y="m" w="60" h="20"/>
- *        </label>
- *      </list_item>
- *      ...
- *    </scroll_view>
- *   </list_view>
- *  ```
+ *```xml
+ *<list_view x="0"  y="30" w="100%" h="-80" item_height="60">
+ *<scroll_view name="view" x="0"  y="0" w="100%" h="100%">
+ *<list_item style="odd" children_layout="default(rows=1,cols=0)">
+ *<image draw_type="icon" w="30" image="earth"/>
+ *<label w="-30" text="1.Hello AWTK !">
+ *<switch x="r:10" y="m" w="60" h="20"/>
+ *</label>
+ *</list_item>
+ *...
+ *</scroll_view>
+ *</list_view>
+ *```
  *
- * 更多用法请参考：[list\_view\_m.xml](
- * https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/list_view_m.xml)
+ *> 更多用法请参考：[list\_view\_m.xml](
+ *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/list_view_m.xml)
  *
- *  在c代码中使用函数list\_item\_create创建列表项控件。如：
+ *在c代码中使用函数list\_item\_create创建列表项控件。如：
  *
- *  ```c
- *   widget_t* list_item = list_item_create(scroll_view, 0, 0, 0, 0);
- *  ```
  *
- * 列表项控件大小一般由列表控制，不需指定xywh参数。
+ *> 列表项控件大小一般由列表控制，不需指定xywh参数。
  *
- *  可以用style来实现可点击或不可点击的效果。如：
+ *可以用style来实现可点击或不可点击的效果。如：
  *
- *  ```xml
- *  <style name="odd_clickable" border_color="#a0a0a0"  border="bottom" text_color="black">
- *    <normal     bg_color="#f5f5f5" />
- *    <pressed    bg_color="#c0c0c0" />
- *    <over       bg_color="#f5f5f5" />
- *  </style>
- *  ```
+ *```xml
+ *<style name="odd_clickable" border_color="#a0a0a0"  border="bottom" text_color="black">
+ *<normal     bg_color="#f5f5f5" />
+ *<pressed    bg_color="#c0c0c0" />
+ *<over       bg_color="#f5f5f5" />
+ *</style>
+ *```
  *
- * 更多用法请参考：[theme default](
- * https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L372)
+ *> 更多用法请参考：[theme default](
+ *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L372)
  *
  */
 var TListItem = /** @class */ (function (_super) {
@@ -10209,7 +10141,7 @@ var TListItem = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TListItem.create = function (parent, x, y, w, h) {
@@ -10219,7 +10151,7 @@ var TListItem = /** @class */ (function (_super) {
      * 转换为list_item对象(供脚本语言使用)。
      *
      * @param widget list_item对象。
-     *
+     
      * @returns list_item对象。
      */
     TListItem.cast = function (widget) {
@@ -10227,8 +10159,33 @@ var TListItem = /** @class */ (function (_super) {
     };
     return TListItem;
 }(TWidget));
+;
 /**
- * 可水平滚动的文本控件，方便实现长文本滚动。 hscroll\_label\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于hscroll\_label\_t控件。 在xml中使用"hscroll\_label"标签创建行号控件，一般配合mledit使用。如： ```xml ``` 更多用法请参考：[mledit.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/mledit.xml) 可用通过style来设置控件的显示风格，如字体的大小和颜色等等。如： ```xml  <style name="default" text_color="black">    <normal   />    <focused  />  </style> ``` 更多用法请参考： [theme default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml)
+ * 可水平滚动的文本控件，方便实现长文本滚动。
+ *
+ *
+ *hscroll\_label\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于hscroll\_label\_t控件。
+ *
+ *在xml中使用"hscroll\_label"标签创建行号控件，一般配合mledit使用。如：
+ *
+ *```xml
+ *```
+ *
+ *> 更多用法请参考：[mledit.xml](
+ *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/mledit.xml)
+ *
+ *可用通过style来设置控件的显示风格，如字体的大小和颜色等等。如：
+ *
+ *```xml
+ *<style name="default" text_color="black">
+ *<normal   />
+ *<focused  />
+ *</style>
+ *```
+ *
+ *> 更多用法请参考：
+ *[theme default](
+ *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml)
  *
  */
 var THscrollLabel = /** @class */ (function (_super) {
@@ -10244,7 +10201,7 @@ var THscrollLabel = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     THscrollLabel.create = function (parent, x, y, w, h) {
@@ -10253,9 +10210,8 @@ var THscrollLabel = /** @class */ (function (_super) {
     /**
      * 设置lull。
      *
-     * @param widget 控件对象。
      * @param lull 间歇时间(ms)。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     THscrollLabel.prototype.setLull = function (lull) {
@@ -10264,9 +10220,8 @@ var THscrollLabel = /** @class */ (function (_super) {
     /**
      * 设置duration。
      *
-     * @param widget 控件对象。
      * @param duration 滚动时间(ms)。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     THscrollLabel.prototype.setDuration = function (duration) {
@@ -10275,9 +10230,8 @@ var THscrollLabel = /** @class */ (function (_super) {
     /**
      * 设置only_focus。
      *
-     * @param widget 控件对象。
      * @param only_focus 是否只有处于focus时才滚动。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     THscrollLabel.prototype.setOnlyFocus = function (only_focus) {
@@ -10286,9 +10240,8 @@ var THscrollLabel = /** @class */ (function (_super) {
     /**
      * 设置only_parent_focus。
      *
-     * @param widget 控件对象。
      * @param only_parent_focus 是否只有处于focus时才滚动。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     THscrollLabel.prototype.setOnlyParentFocus = function (only_parent_focus) {
@@ -10297,9 +10250,8 @@ var THscrollLabel = /** @class */ (function (_super) {
     /**
      * 设置loop。
      *
-     * @param widget 控件对象。
      * @param loop 是否循环滚动。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     THscrollLabel.prototype.setLoop = function (loop) {
@@ -10308,9 +10260,8 @@ var THscrollLabel = /** @class */ (function (_super) {
     /**
      * 设置yoyo。
      *
-     * @param widget 控件对象。
      * @param yoyo 是否往返滚动。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     THscrollLabel.prototype.setYoyo = function (yoyo) {
@@ -10319,9 +10270,8 @@ var THscrollLabel = /** @class */ (function (_super) {
     /**
      * 设置ellipses。
      *
-     * @param widget 控件对象。
      * @param ellipses 是否在文本超长时在行尾显示"..."。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     THscrollLabel.prototype.setEllipses = function (ellipses) {
@@ -10330,9 +10280,8 @@ var THscrollLabel = /** @class */ (function (_super) {
     /**
      * 设置x偏移(一般无需用户调用)。。
      *
-     * @param widget 控件对象。
      * @param xoffset x偏移。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     THscrollLabel.prototype.setXoffset = function (xoffset) {
@@ -10341,8 +10290,7 @@ var THscrollLabel = /** @class */ (function (_super) {
     /**
      * 启动(一般无需用户调用)。
      *
-     * @param widget 控件对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     THscrollLabel.prototype.start = function () {
@@ -10351,8 +10299,7 @@ var THscrollLabel = /** @class */ (function (_super) {
     /**
      * 停止(一般无需用户调用)。
      *
-     * @param widget 控件对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     THscrollLabel.prototype.stop = function () {
@@ -10362,7 +10309,7 @@ var THscrollLabel = /** @class */ (function (_super) {
      * 转换为hscroll_label对象(供脚本语言使用)。
      *
      * @param widget hscroll_label对象。
-     *
+     
      * @returns hscroll_label对象。
      */
     THscrollLabel.cast = function (widget) {
@@ -10493,8 +10440,45 @@ var THscrollLabel = /** @class */ (function (_super) {
     });
     return THscrollLabel;
 }(TWidget));
+;
 /**
- * 图文混排控件，实现简单的图文混排。 rich\_text\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于rich\_text\_t控件。 在xml中使用"rich\_text"标签创建图文混排控件。如： ```xml <rich_text x="0" y="0" w="100%" h="60" text="<image name=&quota;bricks&quota;/><font align_v=&quota;middle&quota;>hello awtk!</font>" /> ``` 更多用法请参考： [rich_text.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/rich_text.xml) 在c代码中使用函数rich\_text\_create创建图文混排控件。如： ```c  widget_t* rich_text = rich_text_create(win, 0, 0, 0, 0);  widget_set_text_utf8(rich_text,                    "<image name=\"bricks\"/><font color=\"gold\" align_v=\"bottom\" "                    "size=\"24\">hello awtk!</font><font color=\"green\" size=\"20\">ProTip! The "                    "feed shows you events from people you follow and repositories you watch. "                    "nhello world. </font><font color=\"red\" "                    "size=\"20\">确定取消中文字符测试。确定。取消。中文字符测试。</font>"); widget_set_self_layout_params(rich_text, "center", "middle", "100%", "100%"); ``` 完整示例请参考： [rich_text demo](https://github.com/zlgopen/awtk-c-demos/blob/master/demos/rich_text.c) 可用通过style来设置控件的显示风格，如背景颜色等等。而字体的大小和颜色则由文本内部的属性决定。 目前支持image和font两个tag： * image 支持的属性有：   * name 图片的名称。   * w 图片的宽度。   * h 图片的高度。 * font 支持的属性有：   * color 颜色。   * size 大小。   * align_v 垂直方向对齐的方式(top|middle|bottom)。   * bold 粗体(暂不支持)   * italic 斜体(暂不支持)   * underline 下划线(暂不支持)
+ * 图文混排控件，实现简单的图文混排。
+ *
+ *rich\_text\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于rich\_text\_t控件。
+ *
+ *在xml中使用"rich\_text"标签创建图文混排控件。如：
+ *
+ *```xml
+ *<rich_text x="0" y="0" w="100%" h="60"
+ *text="<image name=&quota;bricks&quota;/><font align_v=&quota;middle&quota;>hello awtk!</font>" />
+ *```
+ *>
+ *
+ *> 更多用法请参考：
+ *[rich_text.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/rich_text.xml)
+ *
+ *在c代码中使用函数rich\_text\_create创建图文混排控件。如：
+ *
+ *
+ *> 完整示例请参考：
+ *[rich_text demo](https://github.com/zlgopen/awtk-c-demos/blob/master/demos/rich_text.c)
+ *
+ *可用通过style来设置控件的显示风格，如背景颜色等等。而字体的大小和颜色则由文本内部的属性决定。
+ *
+ *目前支持image和font两个tag：
+ *
+ ** image 支持的属性有：
+ ** name 图片的名称。
+ ** w 图片的宽度。
+ ** h 图片的高度。
+ *
+ ** font 支持的属性有：
+ ** color 颜色。
+ ** size 大小。
+ ** align_v 垂直方向对齐的方式(top|middle|bottom)。
+ ** bold 粗体(暂不支持)
+ ** italic 斜体(暂不支持)
+ ** underline 下划线(暂不支持)
  *
  */
 var TRichText = /** @class */ (function (_super) {
@@ -10510,7 +10494,7 @@ var TRichText = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TRichText.create = function (parent, x, y, w, h) {
@@ -10519,9 +10503,8 @@ var TRichText = /** @class */ (function (_super) {
     /**
      * 设置文本。
      *
-     * @param widget 控件对象。
      * @param text 文本。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TRichText.prototype.setText = function (text) {
@@ -10531,7 +10514,7 @@ var TRichText = /** @class */ (function (_super) {
      * 转换为rich_text对象(供脚本语言使用)。
      *
      * @param widget rich_text对象。
-     *
+     
      * @returns rich_text对象。
      */
     TRichText.cast = function (widget) {
@@ -10561,43 +10544,39 @@ var TRichText = /** @class */ (function (_super) {
     });
     return TRichText;
 }(TWidget));
+;
 /**
  * 进度圆环控件。
  *
- *  progress\_circle\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于progress\_circle\_t控件。
+ *progress\_circle\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于progress\_circle\_t控件。
  *
- *  在xml中使用"progress\_circle"标签创建进度圆环控件。如：
+ *在xml中使用"progress\_circle"标签创建进度圆环控件。如：
  *
- *  ```xml
- *   <progress_circle max="360" show_text="true" start_angle="90" />
- *  ```
+ *```xml
+ *<progress_circle max="360" show_text="true" start_angle="90" />
+ *```
  *
- * 更多用法请参考：
- *  [progress_circle.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/progress_circle.xml)
+ *> 更多用法请参考：
+ *[progress_circle.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/progress_circle.xml)
  *
- *  在c代码中使用函数progress\_circle\_create创建进度圆环控件。如：
+ *在c代码中使用函数progress\_circle\_create创建进度圆环控件。如：
  *
- *  ```c
- *   progress_circle = progress_circle_create(win, 10, 10, 200, 200);
- *   progress_circle_set_max(progress_circle, 360);
- *   widget_set_value(progress_circle, 128);
- *  ```
  *
- * 完整示例请参考：
- *  [progress_circle
- *  demo](https://github.com/zlgopen/awtk-c-demos/blob/master/demos/progress_circle.c)
+ *> 完整示例请参考：
+ *[progress_circle
+ *demo](https://github.com/zlgopen/awtk-c-demos/blob/master/demos/progress_circle.c)
  *
- *  可用通过style来设置控件的显示风格，如字体的大小和颜色等等。如：
+ *可用通过style来设置控件的显示风格，如字体的大小和颜色等等。如：
  *
- *  ```xml
- *  <style name="default">
- *    <normal text_color="green" fg_color="black" />
- *  </style>
- *  ```
+ *```xml
+ *<style name="default">
+ *<normal text_color="green" fg_color="black" />
+ *</style>
+ *```
  *
- * 更多用法请参考：
- *  [theme
- *  default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L467)
+ *> 更多用法请参考：
+ *[theme
+ *default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L467)
  *
  */
 var TProgressCircle = /** @class */ (function (_super) {
@@ -10613,7 +10592,7 @@ var TProgressCircle = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TProgressCircle.create = function (parent, x, y, w, h) {
@@ -10623,7 +10602,7 @@ var TProgressCircle = /** @class */ (function (_super) {
      * 转换为progress_circle对象(供脚本语言使用)。
      *
      * @param widget progress_circle对象。
-     *
+     
      * @returns progress_circle对象。
      */
     TProgressCircle.cast = function (widget) {
@@ -10632,9 +10611,8 @@ var TProgressCircle = /** @class */ (function (_super) {
     /**
      * 设置值。
      *
-     * @param widget 控件对象。
      * @param value 值。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TProgressCircle.prototype.setValue = function (value) {
@@ -10643,9 +10621,8 @@ var TProgressCircle = /** @class */ (function (_super) {
     /**
      * 设置最大值。
      *
-     * @param widget 控件对象。
      * @param max 最大值。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TProgressCircle.prototype.setMax = function (max) {
@@ -10654,9 +10631,8 @@ var TProgressCircle = /** @class */ (function (_super) {
     /**
      * 设置环线的厚度。
      *
-     * @param widget 控件对象。
      * @param line_width 环线的厚度。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TProgressCircle.prototype.setLineWidth = function (line_width) {
@@ -10665,9 +10641,8 @@ var TProgressCircle = /** @class */ (function (_super) {
     /**
      * 设置起始角度。
      *
-     * @param widget 控件对象。
      * @param start_angle 起始角度。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TProgressCircle.prototype.setStartAngle = function (start_angle) {
@@ -10676,9 +10651,8 @@ var TProgressCircle = /** @class */ (function (_super) {
     /**
      * 设置单位。
      *
-     * @param widget 控件对象。
      * @param unit 单位。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TProgressCircle.prototype.setUnit = function (unit) {
@@ -10687,9 +10661,8 @@ var TProgressCircle = /** @class */ (function (_super) {
     /**
      * 设置是否显示文本。
      *
-     * @param widget 控件对象。
      * @param show_text 是否显示文本。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TProgressCircle.prototype.setShowText = function (show_text) {
@@ -10698,9 +10671,8 @@ var TProgressCircle = /** @class */ (function (_super) {
     /**
      * 设置是否为逆时针方向。
      *
-     * @param widget 控件对象。
      * @param counter_clock_wise 是否为逆时针方向。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TProgressCircle.prototype.setCounterClockWise = function (counter_clock_wise) {
@@ -10806,8 +10778,28 @@ var TProgressCircle = /** @class */ (function (_super) {
     });
     return TProgressCircle;
 }(TWidget));
+;
 /**
- * 多行编辑器控件。 mledit\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于mledit\_t控件。 在xml中使用"mledit"标签创建多行编辑器控件。如： ```xml <mledit x="c" y="m" w="300" h="300" /> ``` 更多用法请参考：[mledit.xml]( https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/mledit.xml) 在c代码中使用函数mledit\_create创建多行编辑器控件。如： ```c widget_t* tc = mledit_create(win, 10, 10, 240, 240); ``` 完整示例请参考：[mledit demo]( https://github.com/zlgopen/awtk-c-demos/blob/master/demos/mledit.c) time\_clock一般不需要设置style。
+ * 多行编辑器控件。
+ *
+ *mledit\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于mledit\_t控件。
+ *
+ *在xml中使用"mledit"标签创建多行编辑器控件。如：
+ *
+ *```xml
+ *<mledit x="c" y="m" w="300" h="300" />
+ *```
+ *
+ *> 更多用法请参考：[mledit.xml](
+ *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/mledit.xml)
+ *
+ *在c代码中使用函数mledit\_create创建多行编辑器控件。如：
+ *
+ *
+ *> 完整示例请参考：[mledit demo](
+ *https://github.com/zlgopen/awtk-c-demos/blob/master/demos/mledit.c)
+ *
+ *time\_clock一般不需要设置style。
  *
  */
 var TMledit = /** @class */ (function (_super) {
@@ -10823,7 +10815,7 @@ var TMledit = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TMledit.create = function (parent, x, y, w, h) {
@@ -10832,9 +10824,8 @@ var TMledit = /** @class */ (function (_super) {
     /**
      * 设置编辑器是否为只读。
      *
-     * @param widget widget对象。
      * @param readonly 只读。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TMledit.prototype.setReadonly = function (readonly) {
@@ -10843,9 +10834,8 @@ var TMledit = /** @class */ (function (_super) {
     /**
      * 设置为焦点。
      *
-     * @param widget widget对象。
      * @param focus 是否为焦点。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TMledit.prototype.setFocus = function (focus) {
@@ -10854,9 +10844,8 @@ var TMledit = /** @class */ (function (_super) {
     /**
      * 设置编辑器是否自动折行。
      *
-     * @param widget widget对象。
      * @param wrap_word 是否自动折行。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TMledit.prototype.setWrapWord = function (wrap_word) {
@@ -10865,9 +10854,8 @@ var TMledit = /** @class */ (function (_super) {
     /**
      * 设置编辑器的最大行数。
      *
-     * @param widget widget对象。
      * @param max_lines 最大行数。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TMledit.prototype.setMaxLines = function (max_lines) {
@@ -10876,9 +10864,8 @@ var TMledit = /** @class */ (function (_super) {
     /**
      * 设置编辑器的输入提示。
      *
-     * @param widget widget对象。
      * @param tips 输入提示。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TMledit.prototype.setInputTips = function (tips) {
@@ -10887,9 +10874,8 @@ var TMledit = /** @class */ (function (_super) {
     /**
      * 设置编辑器光标位置。
      *
-     * @param widget widget对象。
      * @param cursor 光标位置。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TMledit.prototype.setCursor = function (cursor) {
@@ -10898,9 +10884,8 @@ var TMledit = /** @class */ (function (_super) {
     /**
      * 设置编辑器滚动速度。
      *
-     * @param widget widget对象。
      * @param scroll_line 滚动行数。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TMledit.prototype.setScrollLine = function (scroll_line) {
@@ -10910,7 +10895,7 @@ var TMledit = /** @class */ (function (_super) {
      * 转换为mledit对象(供脚本语言使用)。
      *
      * @param widget mledit对象。
-     *
+     
      * @returns mledit对象。
      */
     TMledit.cast = function (widget) {
@@ -10985,8 +10970,38 @@ var TMledit = /** @class */ (function (_super) {
     });
     return TMledit;
 }(TWidget));
+;
 /**
- * 行号。多行编辑器的行号。 line\_number\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于line\_number\_t控件。 在xml中使用"lin\e_number"标签创建行号控件，一般配合mledit使用。如： ```xml <mledit x="c" y="10" h="40%" w="90%" focus="true" left_margin="36" right_margin="16" wrap_word="true">  <line_number x="0" y="0" w="32" h="100%" value="0"/>  <scroll_bar_d x="right" y="0" w="14" h="100%" value="0"/> </mledit> ``` 更多用法请参考：[mledit.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/mledit.xml) 可用通过style来设置控件的显示风格，如字体的大小和颜色等等。如： ```xml <line_number> <style name="default">    <normal text_color="black" bg_color="#d0d0d0" text_align_h="right"/> </style> </line_number> ``` 更多用法请参考： [theme default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L556)
+ * 行号。多行编辑器的行号。
+ *
+ *line\_number\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于line\_number\_t控件。
+ *
+ *在xml中使用"lin\e_number"标签创建行号控件，一般配合mledit使用。如：
+ *
+ *```xml
+ *<mledit x="c" y="10" h="40%" w="90%" focus="true" left_margin="36" right_margin="16"
+ *wrap_word="true">
+ *<line_number x="0" y="0" w="32" h="100%" value="0"/>
+ *<scroll_bar_d x="right" y="0" w="14" h="100%" value="0"/>
+ *</mledit>
+ *```
+ *
+ *> 更多用法请参考：[mledit.xml](
+ *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/mledit.xml)
+ *
+ *可用通过style来设置控件的显示风格，如字体的大小和颜色等等。如：
+ *
+ *```xml
+ *<line_number>
+ *<style name="default">
+ *<normal text_color="black" bg_color="#d0d0d0" text_align_h="right"/>
+ *</style>
+ *</line_number>
+ *```
+ *
+ *> 更多用法请参考：
+ *[theme default](
+ *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L556)
  *
  */
 var TLineNumber = /** @class */ (function (_super) {
@@ -11002,7 +11017,7 @@ var TLineNumber = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TLineNumber.create = function (parent, x, y, w, h) {
@@ -11011,9 +11026,8 @@ var TLineNumber = /** @class */ (function (_super) {
     /**
      * 设置顶部边距。
      *
-     * @param widget 控件对象。
      * @param top_margin 顶部边距。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TLineNumber.prototype.setTopMargin = function (top_margin) {
@@ -11022,9 +11036,8 @@ var TLineNumber = /** @class */ (function (_super) {
     /**
      * 设置顶部边距。
      *
-     * @param widget 控件对象。
      * @param bottom_margin 顶部边距。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TLineNumber.prototype.setBottomMargin = function (bottom_margin) {
@@ -11033,9 +11046,8 @@ var TLineNumber = /** @class */ (function (_super) {
     /**
      * 设置行高。
      *
-     * @param widget 控件对象。
      * @param line_height 行高。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TLineNumber.prototype.setLineHeight = function (line_height) {
@@ -11044,9 +11056,8 @@ var TLineNumber = /** @class */ (function (_super) {
     /**
      * 设置y偏移。
      *
-     * @param widget 控件对象。
      * @param yoffset 行高。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TLineNumber.prototype.setYoffset = function (yoffset) {
@@ -11056,7 +11067,7 @@ var TLineNumber = /** @class */ (function (_super) {
      * 转换为line_number对象(供脚本语言使用)。
      *
      * @param widget line_number对象。
-     *
+     
      * @returns line_number对象。
      */
     TLineNumber.cast = function (widget) {
@@ -11064,40 +11075,36 @@ var TLineNumber = /** @class */ (function (_super) {
     };
     return TLineNumber;
 }(TWidget));
+;
 /**
  * 图片值控件。
  *
- *  可以用图片来表示如电池电量、WIFI信号强度和其它各种数值的值。
+ *可以用图片来表示如电池电量、WIFI信号强度和其它各种数值的值。
  *
- *  其原理如下：
+ *其原理如下：
  *
- *   * 1.把value以format为格式转换成字符串。
- *   * 2.把每个字符与image(图片文件名前缀)映射成一个图片名。
- *   * 3.最后把这些图片显示出来。
+ ** 1.把value以format为格式转换成字符串。
+ ** 2.把每个字符与image(图片文件名前缀)映射成一个图片名。
+ ** 3.最后把这些图片显示出来。
  *
- * image\_value\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于image\_value\_t控件。
+ *image\_value\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于image\_value\_t控件。
  *
- * 在xml中使用"image\_value"标签创建图片值控件。如：
+ *在xml中使用"image\_value"标签创建图片值控件。如：
  *
- *  ```xml
- *  <image_value  value="0" image="num_" />
- *  ```
+ *```xml
+ *<image_value  value="0" image="num_" />
+ *```
  *
- * 更多用法请参考：
- *  [image\_value](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/image_value.xml)
+ *> 更多用法请参考：
+ *[image\_value](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/image_value.xml)
  *
- *  在c代码中使用函数image\_value\_create创建图片值控件。如：
+ *在c代码中使用函数image\_value\_create创建图片值控件。如：
  *
- *  ```c
- *  image_value = image_value_create(win, 10, 10, 200, 200);
- *  image_value_set_image(image_value, "num_");
- *  image_value_set_value(image_value, 100);
- *  ```
  *
- * 完整示例请参考：
- *  [image_value demo](https://github.com/zlgopen/awtk-c-demos/blob/master/demos/image_value.c)
+ *> 完整示例请参考：
+ *[image_value demo](https://github.com/zlgopen/awtk-c-demos/blob/master/demos/image_value.c)
  *
- *  可用通过style来设置控件的显示风格，如背景颜色和边框等等，不过一般情况并不需要。
+ *可用通过style来设置控件的显示风格，如背景颜色和边框等等，不过一般情况并不需要。
  *
  */
 var TImageValue = /** @class */ (function (_super) {
@@ -11113,7 +11120,7 @@ var TImageValue = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TImageValue.create = function (parent, x, y, w, h) {
@@ -11122,9 +11129,8 @@ var TImageValue = /** @class */ (function (_super) {
     /**
      * 设置图片前缀。
      *
-     * @param widget image_value对象。
      * @param image 图片前缀。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageValue.prototype.setImage = function (image) {
@@ -11133,9 +11139,8 @@ var TImageValue = /** @class */ (function (_super) {
     /**
      * 设置格式。
      *
-     * @param widget image_value对象。
      * @param format 格式。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageValue.prototype.setFormat = function (format) {
@@ -11144,9 +11149,8 @@ var TImageValue = /** @class */ (function (_super) {
     /**
      * 设置值。
      *
-     * @param widget image_value对象。
      * @param value 值。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageValue.prototype.setValue = function (value) {
@@ -11156,7 +11160,7 @@ var TImageValue = /** @class */ (function (_super) {
      * 转换为image_value对象(供脚本语言使用)。
      *
      * @param widget image_value对象。
-     *
+     
      * @returns image_value对象。
      */
     TImageValue.cast = function (widget) {
@@ -11206,38 +11210,32 @@ var TImageValue = /** @class */ (function (_super) {
     });
     return TImageValue;
 }(TWidget));
+;
 /**
  * 图片动画控件，指定一个图片前缀，依次显示指定序列的图片，从而形成动画效果。
  *
- *  图片序列可以用sequence指定，也可以用start\_index和end\_index指定一个范围。
+ *图片序列可以用sequence指定，也可以用start\_index和end\_index指定一个范围。
  *
- *  image\_animation\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于image\_animation\_t控件。
+ *image\_animation\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于image\_animation\_t控件。
  *
- *  在xml中使用"image\_animation"标签创建图片动画控件。如：
+ *在xml中使用"image\_animation"标签创建图片动画控件。如：
  *
- *  ```xml
- *  <image_animation image="ani" start_index="1" end_index="9" auto_play="true" interval="50"
- *  delay="100"/>
- *  ```
+ *```xml
+ *<image_animation image="ani" start_index="1" end_index="9" auto_play="true" interval="50"
+ *delay="100"/>
+ *```
  *
- * 更多用法请参考：
- *  [image_animation.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/image_animation.xml)
+ *> 更多用法请参考：
+ *[image_animation.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/image_animation.xml)
  *
- *  在c代码中使用函数image\_animation\_create创建图片动画控件。如：
+ *在c代码中使用函数image\_animation\_create创建图片动画控件。如：
  *
- *  ```c
- *  image_animation = image_animation_create(win, 10, 10, 200, 200);
- *  image_animation_set_image(image_animation, "ani");
- *  image_animation_set_interval(image_animation, 50);
- *  image_animation_set_range_sequence(image_animation, 1, 9);
- *  image_animation_play(image_animation);
- *  ```
  *
- * 完整示例请参考：
- *  [image_animation
- *  demo](https://github.com/zlgopen/awtk-c-demos/blob/master/demos/image_animation.c)
+ *> 完整示例请参考：
+ *[image_animation
+ *demo](https://github.com/zlgopen/awtk-c-demos/blob/master/demos/image_animation.c)
  *
- *  可用通过style来设置控件的显示风格，如背景颜色和边框等等，不过一般情况并不需要。
+ *可用通过style来设置控件的显示风格，如背景颜色和边框等等，不过一般情况并不需要。
  *
  */
 var TImageAnimation = /** @class */ (function (_super) {
@@ -11253,7 +11251,7 @@ var TImageAnimation = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TImageAnimation.create = function (parent, x, y, w, h) {
@@ -11262,9 +11260,8 @@ var TImageAnimation = /** @class */ (function (_super) {
     /**
      * 设置是否循环播放。
      *
-     * @param widget image_animation对象。
      * @param loop 是否循环播放。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageAnimation.prototype.setLoop = function (loop) {
@@ -11273,9 +11270,8 @@ var TImageAnimation = /** @class */ (function (_super) {
     /**
      * 设置图片前缀。
      *
-     * @param widget image_animation对象。
      * @param image 图片前缀。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageAnimation.prototype.setImage = function (image) {
@@ -11284,9 +11280,8 @@ var TImageAnimation = /** @class */ (function (_super) {
     /**
      * 设置播放间隔时间。
      *
-     * @param widget image_animation对象。
      * @param interval 间隔时间(毫秒)。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageAnimation.prototype.setInterval = function (interval) {
@@ -11295,9 +11290,8 @@ var TImageAnimation = /** @class */ (function (_super) {
     /**
      * 设置延迟播放时间(仅适用于自动播放)。
      *
-     * @param widget image_animation对象。
      * @param delay 延迟播放时间(毫秒)。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageAnimation.prototype.setDelay = function (delay) {
@@ -11306,9 +11300,8 @@ var TImageAnimation = /** @class */ (function (_super) {
     /**
      * 设置是否自动播放。
      *
-     * @param widget image_animation对象。
      * @param auto_play 是否自动播放。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageAnimation.prototype.setAutoPlay = function (auto_play) {
@@ -11316,11 +11309,10 @@ var TImageAnimation = /** @class */ (function (_super) {
     };
     /**
      * 设置播放序列。比如image为"fire"，sequence为"12223", 将依次播放"fire1", "fire2", "fire2", "fire2",
-     *  "fire3"。
+     *"fire3"。
      *
-     * @param widget image_animation对象。
      * @param sequence 播放序列。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageAnimation.prototype.setSequence = function (sequence) {
@@ -11328,14 +11320,13 @@ var TImageAnimation = /** @class */ (function (_super) {
     };
     /**
      * 设置播放序列。比如image为"fire"，start_index为0, end_index为99, 将依次播放"fire0", ...,
-     *  "fire99"。
+     *"fire99"。
      *
-     * 若指定的图片不存在，则重复上一张图片。
+     *若指定的图片不存在，则重复上一张图片。
      *
-     * @param widget image_animation对象。
      * @param start_index 图片起始序数。
      * @param end_index 图片结束序数。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageAnimation.prototype.setRangeSequence = function (start_index, end_index) {
@@ -11344,8 +11335,7 @@ var TImageAnimation = /** @class */ (function (_super) {
     /**
      * 播放。
      *
-     * @param widget image_animation对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageAnimation.prototype.play = function () {
@@ -11354,8 +11344,7 @@ var TImageAnimation = /** @class */ (function (_super) {
     /**
      * 停止(并重置index为-1)。
      *
-     * @param widget image_animation对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageAnimation.prototype.stop = function () {
@@ -11364,8 +11353,7 @@ var TImageAnimation = /** @class */ (function (_super) {
     /**
      * 暂停。
      *
-     * @param widget image_animation对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageAnimation.prototype.pause = function () {
@@ -11374,8 +11362,7 @@ var TImageAnimation = /** @class */ (function (_super) {
     /**
      * 手动切换到下一张图片。
      *
-     * @param widget image_animation对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageAnimation.prototype.next = function () {
@@ -11384,16 +11371,15 @@ var TImageAnimation = /** @class */ (function (_super) {
     /**
      * 设置生成图片名的格式。
      *
-     *  XXX:生成图片名时，第一个参数是图片名前缀，第二个是序数，只能在此前提下设置格式。
+     *XXX:生成图片名时，第一个参数是图片名前缀，第二个是序数，只能在此前提下设置格式。
      *
-     *  ```
-     *   const char* format = image_animation->format ? image_animation->format : "%s%d";
-     *   tk_snprintf(name, TK_NAME_LEN, format, image_animation->image, image_animation->index);
-     *  ```
+     *```
+     *const char* format = image_animation->format ? image_animation->format : "%s%d";
+     *tk_snprintf(name, TK_NAME_LEN, format, image_animation->image, image_animation->index);
+     *```
      *
-     * @param widget image_animation对象。
      * @param format 格式。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageAnimation.prototype.setFormat = function (format) {
@@ -11402,9 +11388,8 @@ var TImageAnimation = /** @class */ (function (_super) {
     /**
      * 设置绘制完成后unload图片，以释放内存空间。
      *
-     * @param widget image_animation对象。
      * @param unload_after_paint 是否绘制完成后unload图片。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageAnimation.prototype.setUnloadAfterPaint = function (unload_after_paint) {
@@ -11414,7 +11399,7 @@ var TImageAnimation = /** @class */ (function (_super) {
      * 转换为image_animation对象(供脚本语言使用)。
      *
      * @param widget image_animation对象。
-     *
+     
      * @returns image_animation对象。
      */
     TImageAnimation.cast = function (widget) {
@@ -11556,42 +11541,39 @@ var TImageAnimation = /** @class */ (function (_super) {
     });
     return TImageAnimation;
 }(TWidget));
+;
 /**
  * 表盘控件。
  *
- *  表盘控件就是一张图片。
+ *表盘控件就是一张图片。
  *
- *  guage\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于guage\_t控件。
+ *guage\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于guage\_t控件。
  *
- *  在xml中使用"guage"标签创建表盘控件。如：
+ *在xml中使用"guage"标签创建表盘控件。如：
  *
- *  ```xml
- *  <guage x="c" y="10" w="240" h="240" image="guage_bg"
- *  ```
+ *```xml
+ *<guage x="c" y="10" w="240" h="240" image="guage_bg"
+ *```
  *
- * 更多用法请参考：
- *  [guage.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/guage.xml)
+ *> 更多用法请参考：
+ *[guage.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/guage.xml)
  *
- *  在c代码中使用函数guage\_create创建表盘控件。如：
+ *在c代码中使用函数guage\_create创建表盘控件。如：
  *
- *  ```c
- *   widget_t* guage = guage_create(win, 10, 10, 200, 200);
- *   guage_set_image(guage, "guage_bg");
- *  ```
  *
- *  可用通过style来设置控件的显示风格，如背景和边框等。如：
+ *可用通过style来设置控件的显示风格，如背景和边框等。如：
  *
- *  ```xml
- *  <guage>
- *   <style name="border">
- *    <normal border_color="#000000" bg_color="#e0e0e0" text_color="black"/>
- *   </style>
- *  </guage>
- *  ```
+ *```xml
+ *<guage>
+ *<style name="border">
+ *<normal border_color="#000000" bg_color="#e0e0e0" text_color="black"/>
+ *</style>
+ *</guage>
+ *```
  *
- * 更多用法请参考：
- *  [theme
- *  default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml)
+ *> 更多用法请参考：
+ *[theme
+ *default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml)
  *
  */
 var TGuage = /** @class */ (function (_super) {
@@ -11607,7 +11589,7 @@ var TGuage = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TGuage.create = function (parent, x, y, w, h) {
@@ -11617,7 +11599,7 @@ var TGuage = /** @class */ (function (_super) {
      * 转换为guage对象(供脚本语言使用)。
      *
      * @param widget guage对象。
-     *
+     
      * @returns guage对象。
      */
     TGuage.cast = function (widget) {
@@ -11626,9 +11608,8 @@ var TGuage = /** @class */ (function (_super) {
     /**
      * 设置背景图片的名称。
      *
-     * @param widget image对象。
      * @param name 图片名称，该图片必须存在于资源管理器。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TGuage.prototype.setImage = function (name) {
@@ -11637,12 +11618,11 @@ var TGuage = /** @class */ (function (_super) {
     /**
      * 设置图片的显示方式。
      *
-     * 绘制方式的属性值和枚举值:
-     *  [image\_draw\_type\_name\_value](https://github.com/zlgopen/awtk/blob/master/src/base/enums.c#L98)
+     *> 绘制方式的属性值和枚举值:
+     *[image\_draw\_type\_name\_value](https://github.com/zlgopen/awtk/blob/master/src/base/enums.c#L98)
      *
-     * @param widget image对象。
      * @param draw_type 显示方式。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TGuage.prototype.setDrawType = function (draw_type) {
@@ -11678,8 +11658,29 @@ var TGuage = /** @class */ (function (_super) {
     });
     return TGuage;
 }(TWidget));
+;
 /**
- * 仪表指针控件。 仪表指针就是一张旋转的图片，图片可以是普通图片也可以是SVG图片。 在嵌入式平台上，对于旋转的图片，SVG图片的效率比位图高数倍，所以推荐使用SVG图片。 guage\_pointer\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于guage\_pointer\_t控件。 在xml中使用"guage\_pointer"标签创建仪表指针控件。如： ```xml <guage_pointer x="c" y="50" w="24" h="140" value="-128" image="guage_pointer" /> ``` 更多用法请参考： [guage.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/guage.xml) 在c代码中使用函数guage\_pointer\_create创建仪表指针控件。如： ```c  widget_t* guage_pointer = guage_pointer_create(guage, 10, 10, 100, 30);  guage_pointer_set_image(guage_pointer, "guage_pointer"); ``` 创建之后，需要用guage\_pointer\_set\_image设置仪表指针图片。
+ * 仪表指针控件。
+ *
+ *仪表指针就是一张旋转的图片，图片可以是普通图片也可以是SVG图片。
+ *
+ *在嵌入式平台上，对于旋转的图片，SVG图片的效率比位图高数倍，所以推荐使用SVG图片。
+ *
+ *guage\_pointer\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于guage\_pointer\_t控件。
+ *
+ *在xml中使用"guage\_pointer"标签创建仪表指针控件。如：
+ *
+ *```xml
+ *<guage_pointer x="c" y="50" w="24" h="140" value="-128" image="guage_pointer" />
+ *```
+ *
+ *> 更多用法请参考：
+ *[guage.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/guage.xml)
+ *
+ *在c代码中使用函数guage\_pointer\_create创建仪表指针控件。如：
+ *
+ *
+ *> 创建之后，需要用guage\_pointer\_set\_image设置仪表指针图片。
  *
  */
 var TGuagePointer = /** @class */ (function (_super) {
@@ -11695,7 +11696,7 @@ var TGuagePointer = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TGuagePointer.create = function (parent, x, y, w, h) {
@@ -11705,7 +11706,7 @@ var TGuagePointer = /** @class */ (function (_super) {
      * 转换为guage_pointer对象(供脚本语言使用)。
      *
      * @param widget guage_pointer对象。
-     *
+     
      * @returns guage_pointer对象。
      */
     TGuagePointer.cast = function (widget) {
@@ -11714,9 +11715,8 @@ var TGuagePointer = /** @class */ (function (_super) {
     /**
      * 设置指针角度。12点钟方向为0度，顺时钟方向为正，单位为度。
      *
-     * @param widget 控件对象。
      * @param angle 指针角度。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TGuagePointer.prototype.setAngle = function (angle) {
@@ -11725,9 +11725,8 @@ var TGuagePointer = /** @class */ (function (_super) {
     /**
      * 设置指针的图片。
      *
-     * @param widget 控件对象。
      * @param image 指针的图片。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TGuagePointer.prototype.setImage = function (image) {
@@ -11736,10 +11735,9 @@ var TGuagePointer = /** @class */ (function (_super) {
     /**
      * 设置指针的旋转锚点。
      *
-     * @param widget 控件对象。
      * @param anchor_x 指针的锚点坐标x。(后面加上px为像素点，不加px为相对百分比坐标)
      * @param anchor_y 指针的锚点坐标y。(后面加上px为像素点，不加px为相对百分比坐标)
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TGuagePointer.prototype.setAnchor = function (anchor_x, anchor_y) {
@@ -11761,7 +11759,9 @@ var TGuagePointer = /** @class */ (function (_super) {
     });
     Object.defineProperty(TGuagePointer.prototype, "image", {
         /**
-         * 指针图片。 图片须垂直向上，图片的中心点为旋转方向。
+         * 指针图片。
+         *
+         *图片须垂直向上，图片的中心点为旋转方向。
          *
          */
         get: function () {
@@ -11797,8 +11797,35 @@ var TGuagePointer = /** @class */ (function (_super) {
     });
     return TGuagePointer;
 }(TWidget));
+;
 /**
- * 将draggable放入目标控件，即可让目标控件或当前窗口可以被拖动。 draggable\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于draggable\_t控件。 在xml中使用"draggable"标签创建draggable控件。如： ```xml  <button text="Drag Me" w="80" h="40" x="10" y="10">   <draggable />  </button> ``` 拖动对话框标题时移动对话框： ```xml <dialog_title x="0" y="0" w="100%" h="30" text="Hello AWTK"   <draggable drag_window="true"/> </dialog_title> ``` 更多用法请参考： [draggable.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/draggable.xml) 在c代码中使用函数draggable\_create创建按钮控件。如： ```c  widget_t* draggable = draggable_create(target, 0, 0, 0, 0); ``` draggable本身不可见，故无需style。
+ * 将draggable放入目标控件，即可让目标控件或当前窗口可以被拖动。
+ *
+ *draggable\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于draggable\_t控件。
+ *
+ *在xml中使用"draggable"标签创建draggable控件。如：
+ *
+ *```xml
+ *<button text="Drag Me" w="80" h="40" x="10" y="10">
+ *<draggable />
+ *</button>
+ *```
+ *
+ *拖动对话框标题时移动对话框：
+ *
+ *```xml
+ *<dialog_title x="0" y="0" w="100%" h="30" text="Hello AWTK"
+ *<draggable drag_window="true"/>
+ *</dialog_title>
+ *```
+ *
+ *> 更多用法请参考：
+ *[draggable.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/draggable.xml)
+ *
+ *在c代码中使用函数draggable\_create创建按钮控件。如：
+ *
+ *
+ *> draggable本身不可见，故无需style。
  *
  */
 var TDraggable = /** @class */ (function (_super) {
@@ -11814,7 +11841,7 @@ var TDraggable = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TDraggable.create = function (parent, x, y, w, h) {
@@ -11824,7 +11851,7 @@ var TDraggable = /** @class */ (function (_super) {
      * 转换为draggable对象(供脚本语言使用)。
      *
      * @param widget draggable对象。
-     *
+     
      * @returns draggable对象。
      */
     TDraggable.cast = function (widget) {
@@ -11833,9 +11860,8 @@ var TDraggable = /** @class */ (function (_super) {
     /**
      * 设置top。
      *
-     * @param widget widget对象。
      * @param top 拖动范围的顶部限制。缺省为父控件的顶部。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TDraggable.prototype.setTop = function (top) {
@@ -11844,9 +11870,8 @@ var TDraggable = /** @class */ (function (_super) {
     /**
      * 设置bottom。
      *
-     * @param widget widget对象。
      * @param bottom 拖动范围的底部限制。缺省为父控件的底部。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TDraggable.prototype.setBottom = function (bottom) {
@@ -11855,9 +11880,8 @@ var TDraggable = /** @class */ (function (_super) {
     /**
      * 设置left。
      *
-     * @param widget widget对象。
      * @param left 拖动范围的左边限制。缺省为父控件的左边。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TDraggable.prototype.setLeft = function (left) {
@@ -11866,9 +11890,8 @@ var TDraggable = /** @class */ (function (_super) {
     /**
      * 设置right。
      *
-     * @param widget widget对象。
      * @param right 拖动范围的右边限制。缺省为父控件的右边边。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TDraggable.prototype.setRight = function (right) {
@@ -11877,9 +11900,8 @@ var TDraggable = /** @class */ (function (_super) {
     /**
      * 设置vertical_only。
      *
-     * @param widget widget对象。
      * @param vertical_only 只允许垂直拖动。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TDraggable.prototype.setVerticalOnly = function (vertical_only) {
@@ -11888,20 +11910,19 @@ var TDraggable = /** @class */ (function (_super) {
     /**
      * 设置horizontal_only。
      *
-     * @param widget widget对象。
      * @param horizontal_only 只允许水平拖动。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TDraggable.prototype.setHorizontalOnly = function (horizontal_only) {
         return draggable_set_horizontal_only(this != null ? (this.nativeObj || this) : null, horizontal_only);
     };
     /**
-     * 设置drag_window。 拖动窗口而不是父控件。比如放在对话框的titlebar上，拖动titlebar其实是希望拖动对话框。
+     * 设置drag_window。
+     *拖动窗口而不是父控件。比如放在对话框的titlebar上，拖动titlebar其实是希望拖动对话框。
      *
-     * @param widget widget对象。
      * @param drag_window drag_window
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TDraggable.prototype.setDragWindow = function (drag_window) {
@@ -12007,36 +12028,37 @@ var TDraggable = /** @class */ (function (_super) {
     });
     return TDraggable;
 }(TWidget));
+;
 /**
  * 颜色选择器。
  *
- *  color\_picker\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于color\_picker\_t控件。
+ *color\_picker\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于color\_picker\_t控件。
  *
- *  在xml中使用"color\_picker"标签创建颜色选择器控件。如：
+ *在xml中使用"color\_picker"标签创建颜色选择器控件。如：
  *
- *  ```xml
- *  <color_picker x="0" y="0" w="100%" h="100%" value="orange">
- *   <color_component x="0" y="0" w="200" h="200" name="sv"/>
- *   <color_component x="210" y="0" w="20" h="200" name="h"/>
- *   <color_tile x="0" y="210" w="50%" h="20" name="new" bg_color="green"/>
- *   <color_tile x="right" y="210" w="50%" h="20" name="old" bg_color="blue"/>
- *  </color_picker>
- *  ```
+ *```xml
+ *<color_picker x="0" y="0" w="100%" h="100%" value="orange">
+ *<color_component x="0" y="0" w="200" h="200" name="sv"/>
+ *<color_component x="210" y="0" w="20" h="200" name="h"/>
+ *<color_tile x="0" y="210" w="50%" h="20" name="new" bg_color="green"/>
+ *<color_tile x="right" y="210" w="50%" h="20" name="old" bg_color="blue"/>
+ *</color_picker>
+ *```
  *
- * 更多用法请参考：
- *  [color\_picker](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/color_picker.xml)
+ *> 更多用法请参考：
+ *[color\_picker](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/color_picker.xml)
  *
- *  其中的子控件必须按下列规则命名：
+ *其中的子控件必须按下列规则命名：
  *
- *  * r 红色分量。可以是spin_box、edit和slider。
- *  * g 绿色分量。可以是spin_box、edit和slider。
- *  * b 蓝色分量。可以是spin_box、edit和slider。
- *  * h Hue分量。可以是spin_box、edit、slider和color_component。
- *  * s Saturation分量。可以是spin_box、edit和slider。
- *  * v Value/Brightness分量。可以是spin_box、edit和slider。
- *  * sv Saturation和Value/Brightness分量。可以是color_component。
- *  * old 旧的值。可以是spin_box、edit和color_tile。
- *  * new 新的值。可以是spin_box、edit和color_tile。
+ ** r 红色分量。可以是spin_box、edit和slider。
+ ** g 绿色分量。可以是spin_box、edit和slider。
+ ** b 蓝色分量。可以是spin_box、edit和slider。
+ ** h Hue分量。可以是spin_box、edit、slider和color_component。
+ ** s Saturation分量。可以是spin_box、edit和slider。
+ ** v Value/Brightness分量。可以是spin_box、edit和slider。
+ ** sv Saturation和Value/Brightness分量。可以是color_component。
+ ** old 旧的值。可以是spin_box、edit和color_tile。
+ ** new 新的值。可以是spin_box、edit和color_tile。
  *
  */
 var TColorPicker = /** @class */ (function (_super) {
@@ -12052,7 +12074,7 @@ var TColorPicker = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TColorPicker.create = function (parent, x, y, w, h) {
@@ -12061,9 +12083,8 @@ var TColorPicker = /** @class */ (function (_super) {
     /**
      * 设置颜色。
      *
-     * @param widget 控件对象。
      * @param color 颜色。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TColorPicker.prototype.setColor = function (color) {
@@ -12073,7 +12094,7 @@ var TColorPicker = /** @class */ (function (_super) {
      * 转换为color_picker对象(供脚本语言使用)。
      *
      * @param widget color_picker对象。
-     *
+     
      * @returns color_picker对象。
      */
     TColorPicker.cast = function (widget) {
@@ -12092,11 +12113,12 @@ var TColorPicker = /** @class */ (function (_super) {
     });
     return TColorPicker;
 }(TWidget));
+;
 /**
  * 颜色选择器的颜色分量。
- *  控件的名称有严格规定：
- *  COLOR_PICKER_CHILD_SV: 水平为Value/Brightness(递增)，垂直为Saturation(递减)。
- *  COLOR_PICKER_CHILD_H: 水平为同色，垂直为Hue(递减)。
+ *控件的名称有严格规定：
+ *COLOR_PICKER_CHILD_SV: 水平为Value/Brightness(递增)，垂直为Saturation(递减)。
+ *COLOR_PICKER_CHILD_H: 水平为同色，垂直为Hue(递减)。
  *
  */
 var TColorComponent = /** @class */ (function (_super) {
@@ -12108,7 +12130,7 @@ var TColorComponent = /** @class */ (function (_super) {
      * 转换为color_component对象(供脚本语言使用)。
      *
      * @param widget color_component对象。
-     *
+     
      * @returns color_component对象。
      */
     TColorComponent.cast = function (widget) {
@@ -12116,6 +12138,7 @@ var TColorComponent = /** @class */ (function (_super) {
     };
     return TColorComponent;
 }(TWidget));
+;
 /**
  * 窗口管理器。
  *
@@ -12128,7 +12151,7 @@ var TWindowManager = /** @class */ (function (_super) {
     /**
      * 获取全局window_manager对象
      *
-     *
+     
      * @returns 对象。
      */
     TWindowManager.instance = function () {
@@ -12138,7 +12161,7 @@ var TWindowManager = /** @class */ (function (_super) {
      * 转换为window_manager对象(供脚本语言使用)。
      *
      * @param widget window_manager对象。
-     *
+     
      * @returns window_manager对象。
      */
     TWindowManager.cast = function (widget) {
@@ -12147,8 +12170,7 @@ var TWindowManager = /** @class */ (function (_super) {
     /**
      * 获取最上面的主窗口。
      *
-     * @param widget 窗口管理器对象。
-     *
+     
      * @returns 返回窗口对象。
      */
     TWindowManager.prototype.getTopMainWindow = function () {
@@ -12157,8 +12179,7 @@ var TWindowManager = /** @class */ (function (_super) {
     /**
      * 获取最上面的窗口。
      *
-     * @param widget 窗口管理器对象。
-     *
+     
      * @returns 返回窗口对象。
      */
     TWindowManager.prototype.getTopWindow = function () {
@@ -12167,8 +12188,7 @@ var TWindowManager = /** @class */ (function (_super) {
     /**
      * 获取前一个的窗口。
      *
-     * @param widget 窗口管理器对象。
-     *
+     
      * @returns 返回窗口对象。
      */
     TWindowManager.prototype.getPrevWindow = function () {
@@ -12177,8 +12197,7 @@ var TWindowManager = /** @class */ (function (_super) {
     /**
      * 获取指针当前的X坐标。
      *
-     * @param widget 窗口管理器对象。
-     *
+     
      * @returns 返回指针当前的X坐标。
      */
     TWindowManager.prototype.getPointerX = function () {
@@ -12187,8 +12206,7 @@ var TWindowManager = /** @class */ (function (_super) {
     /**
      * 获取指针当前的Y坐标。
      *
-     * @param widget 窗口管理器对象。
-     *
+     
      * @returns 返回指针当前的X坐标。
      */
     TWindowManager.prototype.getPointerY = function () {
@@ -12197,8 +12215,7 @@ var TWindowManager = /** @class */ (function (_super) {
     /**
      * 获取指针当前是否按下。
      *
-     * @param widget 窗口管理器对象。
-     *
+     
      * @returns 返回指针当前是否按下。
      */
     TWindowManager.prototype.getPointerPressed = function () {
@@ -12207,9 +12224,8 @@ var TWindowManager = /** @class */ (function (_super) {
     /**
      * 设置是否显示FPS。
      *
-     * @param widget 窗口管理器对象。
      * @param show_fps 是否显示FPS。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWindowManager.prototype.setShowFps = function (show_fps) {
@@ -12218,9 +12234,8 @@ var TWindowManager = /** @class */ (function (_super) {
     /**
      * 设置屏保时间。
      *
-     * @param widget 窗口管理器对象。
      * @param screen_saver_time 屏保时间(单位毫秒)。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWindowManager.prototype.setScreenSaverTime = function (screen_saver_time) {
@@ -12229,9 +12244,8 @@ var TWindowManager = /** @class */ (function (_super) {
     /**
      * 设置鼠标指针。
      *
-     * @param widget 窗口管理器对象。
      * @param cursor 图片名称(从图片管理器中加载)。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWindowManager.prototype.setCursor = function (cursor) {
@@ -12240,10 +12254,9 @@ var TWindowManager = /** @class */ (function (_super) {
     /**
      * 请求关闭顶层窗口。
      *
-     * 如果顶层窗口时模态对话框，用DIALOG\_QUIT\_NONE调用dialog\_quit。
+     *> 如果顶层窗口时模态对话框，用DIALOG\_QUIT\_NONE调用dialog\_quit。
      *
-     * @param widget 窗口管理器对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWindowManager.prototype.back = function () {
@@ -12252,10 +12265,9 @@ var TWindowManager = /** @class */ (function (_super) {
     /**
      * 回到主窗口，关闭之上的全部窗口。
      *
-     * 如果顶层窗口时模态对话框，用DIALOG\_QUIT\_NONE调用dialog\_quit。
+     *> 如果顶层窗口时模态对话框，用DIALOG\_QUIT\_NONE调用dialog\_quit。
      *
-     * @param widget 窗口管理器对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWindowManager.prototype.backToHome = function () {
@@ -12264,11 +12276,10 @@ var TWindowManager = /** @class */ (function (_super) {
     /**
      * 回到指定的窗口，关闭之上的全部窗口。
      *
-     * 如果顶层窗口时模态对话框，用DIALOG\_QUIT\_NONE调用dialog\_quit。
+     *> 如果顶层窗口时模态对话框，用DIALOG\_QUIT\_NONE调用dialog\_quit。
      *
-     * @param widget 窗口管理器对象。
      * @param target 目标窗口的名称。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWindowManager.prototype.backTo = function (target) {
@@ -12276,22 +12287,15 @@ var TWindowManager = /** @class */ (function (_super) {
     };
     return TWindowManager;
 }(TWidget));
+;
 /**
  * 窗口。
  *
- *  本类把窗口相关的公共行为进行抽象，放到一起方便重用。目前已知的具体实现如下图：
+ *本类把窗口相关的公共行为进行抽象，放到一起方便重用。目前已知的具体实现如下图：
  *
- *  ```graphviz
- *    [default_style]
  *
- *    window_t -> window_base_t[arrowhead = "empty"]
- *    popup_t -> window_base_t[arrowhead = "empty"]
- *    dialog_t -> window_base_t[arrowhead = "empty"]
- *    system_bar_t -> window_base_t[arrowhead = "empty"]
- *    calibration_win_t -> window_base_t[arrowhead = "empty"]
- *  ```
  *
- * 本类是一个抽象类，不能进行实例化。请在应用程序中使用具体的类，如window\_t。
+ *> 本类是一个抽象类，不能进行实例化。请在应用程序中使用具体的类，如window\_t。
  *
  */
 var TWindowBase = /** @class */ (function (_super) {
@@ -12303,7 +12307,7 @@ var TWindowBase = /** @class */ (function (_super) {
      * 转换为window_base对象(供脚本语言使用)。
      *
      * @param widget window_base对象。
-     *
+     
      * @returns window_base对象。
      */
     TWindowBase.cast = function (widget) {
@@ -12312,9 +12316,9 @@ var TWindowBase = /** @class */ (function (_super) {
     Object.defineProperty(TWindowBase.prototype, "theme", {
         /**
          * 主题资源的名称。
-         *  每个窗口都可以有独立的主题文件，如果没指定，则使用系统缺省的主题文件。
-         *  主题是一个XML文件，放在assets/raw/styles目录下。
-         *  请参考[主题](https://github.com/zlgopen/awtk/blob/master/docs/theme.md)
+         *每个窗口都可以有独立的主题文件，如果没指定，则使用系统缺省的主题文件。
+         *主题是一个XML文件，放在assets/raw/styles目录下。
+         *请参考[主题](https://github.com/zlgopen/awtk/blob/master/docs/theme.md)
          *
          */
         get: function () {
@@ -12327,13 +12331,13 @@ var TWindowBase = /** @class */ (function (_super) {
         /**
          * 收到EVT_REQUEST_CLOSE_WINDOW是否自动关闭窗口。
          *
-         *  如果关闭窗口时，需要用户确认:
+         *如果关闭窗口时，需要用户确认:
          *
-         *  * 1.将closable设置为WINDOW\_CLOSABLE\_CONFIRM
+         ** 1.将closable设置为WINDOW\_CLOSABLE\_CONFIRM
          *
-         *  * 2.处理窗口的EVT\_REQUEST\_CLOSE\_WINDOW事件
+         ** 2.处理窗口的EVT\_REQUEST\_CLOSE\_WINDOW事件
          *
-         * closable在XML中取值为：yes/no/confirm，缺省为yes。
+         *> closable在XML中取值为：yes/no/confirm，缺省为yes。
          *
          */
         get: function () {
@@ -12344,8 +12348,11 @@ var TWindowBase = /** @class */ (function (_super) {
     });
     return TWindowBase;
 }(TWidget));
+;
 /**
- * 可变的style(可实时修改并生效，主要用于在designer中被编辑的控件，或者一些特殊控件)。 style\_mutable也对style\_const进行了包装，当用户没修改某个值时，便从style\_const中获取。
+ * 可变的style(可实时修改并生效，主要用于在designer中被编辑的控件，或者一些特殊控件)。
+ *
+ *style\_mutable也对style\_const进行了包装，当用户没修改某个值时，便从style\_const中获取。
  *
  */
 var TStyleMutable = /** @class */ (function (_super) {
@@ -12356,9 +12363,8 @@ var TStyleMutable = /** @class */ (function (_super) {
     /**
      * 设置style的名称。
      *
-     * @param s style对象。
      * @param name 名称。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TStyleMutable.prototype.setName = function (name) {
@@ -12367,11 +12373,10 @@ var TStyleMutable = /** @class */ (function (_super) {
     /**
      * 设置指定名称整数格式的值。
      *
-     * @param s style对象。
      * @param state 控件状态。
      * @param name 属性名。
      * @param val 值。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TStyleMutable.prototype.setInt = function (state, name, val) {
@@ -12381,18 +12386,20 @@ var TStyleMutable = /** @class */ (function (_super) {
      * 转换为style_mutable对象。
      *
      * @param s style对象。
-     *
+     
      * @returns style对象。
      */
     TStyleMutable.cast = function (s) {
         return new TStyleMutable(style_mutable_cast(s != null ? (s.nativeObj || s) : null));
     };
     /**
-     * 创建style\_mutable对象。 除了测试程序外不需要直接调用，widget会通过style\_factory\_create创建。
+     * 创建style\_mutable对象。
+     *
+     *> 除了测试程序外不需要直接调用，widget会通过style\_factory\_create创建。
      *
      * @param widget 控件
      * @param default_style 缺省的style。
-     *
+     
      * @returns style对象。
      */
     TStyleMutable.create = function (widget, default_style) {
@@ -12414,28 +12421,23 @@ var TStyleMutable = /** @class */ (function (_super) {
     });
     return TStyleMutable;
 }(TStyle));
+;
 /**
  * 图片控件基类。
  *
- *  本类把图片相关控件的公共行为进行抽象，放到一起方便重用。目前已知的具体实现如下图：
+ *本类把图片相关控件的公共行为进行抽象，放到一起方便重用。目前已知的具体实现如下图：
  *
- *  ```graphviz
- *    [default_style]
  *
- *    image_t -> image_base_t[arrowhead = "empty"]
- *    svg_image_t -> image_base_t[arrowhead = "empty"]
- *    gif_image_t -> image_base_t[arrowhead = "empty"]
- *  ```
  *
- * 本类是一个抽象类，不能进行实例化。请在应用程序中使用具体的类，如image\_t。
+ *> 本类是一个抽象类，不能进行实例化。请在应用程序中使用具体的类，如image\_t。
  *
- *  如果需要显示文件系统中的图片，只需将图片名称换成实际的文件名，并加上"file://"前缀即可。如：
+ *如果需要显示文件系统中的图片，只需将图片名称换成实际的文件名，并加上"file://"前缀即可。如：
  *
- * ```
- *   <image draw_type="center" image="file://./demos/assets/default/raw/images/xx/flag_CN.png" />
- *   <gif image="file://./demos/assets/default/raw/images/x2/bee.gif" />
- *   <svg image="file://./demos/assets/default/raw/images/svg/china.bsvg" />
- *  ```
+ *```
+ *<image draw_type="center" image="file://./demos/assets/default/raw/images/xx/flag_CN.png" />
+ *<gif image="file://./demos/assets/default/raw/images/x2/bee.gif" />
+ *<svg image="file://./demos/assets/default/raw/images/svg/china.bsvg" />
+ *```
  *
  */
 var TImageBase = /** @class */ (function (_super) {
@@ -12446,11 +12448,10 @@ var TImageBase = /** @class */ (function (_super) {
     /**
      * 设置控件的图片名称。
      *
-     * 如果需要显示文件系统中的图片，只需将图片名称换成实际的文件名，并加上"file://"前缀即可。
+     *> 如果需要显示文件系统中的图片，只需将图片名称换成实际的文件名，并加上"file://"前缀即可。
      *
-     * @param widget image对象。
      * @param name 图片名称，该图片必须存在于资源管理器。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageBase.prototype.setImage = function (name) {
@@ -12459,9 +12460,8 @@ var TImageBase = /** @class */ (function (_super) {
     /**
      * 设置控件的旋转角度(仅在WITH_VGCANVAS定义时生效)。
      *
-     * @param widget 控件对象。
      * @param rotation 旋转角度(幅度)。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageBase.prototype.setRotation = function (rotation) {
@@ -12470,10 +12470,9 @@ var TImageBase = /** @class */ (function (_super) {
     /**
      * 设置控件的缩放比例(仅在WITH_VGCANVAS定义时生效)。
      *
-     * @param widget 控件对象。
      * @param scale_x X方向缩放比例。
      * @param scale_y Y方向缩放比例。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageBase.prototype.setScale = function (scale_x, scale_y) {
@@ -12482,10 +12481,9 @@ var TImageBase = /** @class */ (function (_super) {
     /**
      * 设置控件的锚点(仅在WITH_VGCANVAS定义时生效)。
      *
-     * @param widget 控件对象。
      * @param anchor_x 锚点X(0-1)。0在控件左边，0.5在控件中间，1在控件右边。
      * @param anchor_y 锚点Y(0-1)。0在控件顶部，0.5在控件中间，1在控件底部。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageBase.prototype.setAnchor = function (anchor_x, anchor_y) {
@@ -12494,9 +12492,8 @@ var TImageBase = /** @class */ (function (_super) {
     /**
      * 设置控件的选中状态。
      *
-     * @param widget 控件对象。
      * @param selected 是否被选中。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageBase.prototype.setSelected = function (selected) {
@@ -12505,9 +12502,8 @@ var TImageBase = /** @class */ (function (_super) {
     /**
      * 设置控件是否可以被选中。
      *
-     * @param widget 控件对象。
      * @param selectable 是否可以被选中。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageBase.prototype.setSelectable = function (selectable) {
@@ -12516,9 +12512,8 @@ var TImageBase = /** @class */ (function (_super) {
     /**
      * 设置控件是否可以被点击。
      *
-     * @param widget 控件对象。
      * @param clickable 是否可以被点击。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageBase.prototype.setClickable = function (clickable) {
@@ -12528,7 +12523,7 @@ var TImageBase = /** @class */ (function (_super) {
      * 转换为image_base对象(供脚本语言使用)。
      *
      * @param widget image_base对象。
-     *
+     
      * @returns image_base对象。
      */
     TImageBase.cast = function (widget) {
@@ -12650,6 +12645,7 @@ var TImageBase = /** @class */ (function (_super) {
     });
     return TImageBase;
 }(TWidget));
+;
 /**
  * 窗口事件，由窗口管理器触发。
  *
@@ -12663,7 +12659,7 @@ var TWindowEvent = /** @class */ (function (_super) {
      * 把event对象转window_event_t对象。主要给脚本语言使用。
      *
      * @param event event对象。
-     *
+     
      * @returns 对象。
      */
     TWindowEvent.cast = function (event) {
@@ -12682,6 +12678,7 @@ var TWindowEvent = /** @class */ (function (_super) {
     });
     return TWindowEvent;
 }(TEvent));
+;
 /**
  * 绘制事件。
  *
@@ -12695,7 +12692,7 @@ var TPaintEvent = /** @class */ (function (_super) {
      * 把event对象转paint_event_t对象。主要给脚本语言使用。
      *
      * @param event event对象。
-     *
+     
      * @returns event 对象。
      */
     TPaintEvent.cast = function (event) {
@@ -12714,6 +12711,7 @@ var TPaintEvent = /** @class */ (function (_super) {
     });
     return TPaintEvent;
 }(TEvent));
+;
 /**
  * 按键事件。
  *
@@ -12727,7 +12725,7 @@ var TKeyEvent = /** @class */ (function (_super) {
      * 把event对象转key_event_t对象，主要给脚本语言使用。
      *
      * @param event event对象。
-     *
+     
      * @returns event对象。
      */
     TKeyEvent.cast = function (event) {
@@ -12779,7 +12777,8 @@ var TKeyEvent = /** @class */ (function (_super) {
     });
     Object.defineProperty(TKeyEvent.prototype, "ctrl", {
         /**
-         * right alt键是否按下。 ctrl键是否按下。
+         * right alt键是否按下。
+         *ctrl键是否按下。
          *
          */
         get: function () {
@@ -12845,7 +12844,8 @@ var TKeyEvent = /** @class */ (function (_super) {
     });
     Object.defineProperty(TKeyEvent.prototype, "cmd", {
         /**
-         * left shift键是否按下。 cmd/win键是否按下。
+         * left shift键是否按下。
+         *cmd/win键是否按下。
          *
          */
         get: function () {
@@ -12878,6 +12878,7 @@ var TKeyEvent = /** @class */ (function (_super) {
     });
     return TKeyEvent;
 }(TEvent));
+;
 /**
  * 指针事件。
  *
@@ -12891,7 +12892,7 @@ var TPointerEvent = /** @class */ (function (_super) {
      * 把event对象转pointer_event_t对象，主要给脚本语言使用。
      *
      * @param event event对象。
-     *
+     
      * @returns event对象。
      */
     TPointerEvent.cast = function (event) {
@@ -12998,6 +12999,7 @@ var TPointerEvent = /** @class */ (function (_super) {
     });
     return TPointerEvent;
 }(TEvent));
+;
 /**
  * 滚轮事件。
  *
@@ -13011,7 +13013,7 @@ var TOrientationEvent = /** @class */ (function (_super) {
      * 把event对象转orientation_event_t对象，主要给脚本语言使用。
      *
      * @param event event对象。
-     *
+     
      * @returns event对象。
      */
     TOrientationEvent.cast = function (event) {
@@ -13030,6 +13032,7 @@ var TOrientationEvent = /** @class */ (function (_super) {
     });
     return TOrientationEvent;
 }(TEvent));
+;
 /**
  * 滚轮事件。
  *
@@ -13043,7 +13046,7 @@ var TWheelEvent = /** @class */ (function (_super) {
      * 把event对象转wheel_event_t对象，主要给脚本语言使用。
      *
      * @param event event对象。
-     *
+     
      * @returns event对象。
      */
     TWheelEvent.cast = function (event) {
@@ -13095,38 +13098,36 @@ var TWheelEvent = /** @class */ (function (_super) {
     });
     return TWheelEvent;
 }(TEvent));
+;
 /**
  * app_bar控件。
  *
- *  一个简单的容器控件，一般在窗口的顶部，用于显示本窗口的状态和信息。
+ *一个简单的容器控件，一般在窗口的顶部，用于显示本窗口的状态和信息。
  *
- *  它本身不提供布局功能，仅提供具有语义的标签，让xml更具有可读性。
- *  子控件的布局可用layout\_children属性指定。
- *  请参考[布局参数](https://github.com/zlgopen/awtk/blob/master/docs/layout.md)。
+ *它本身不提供布局功能，仅提供具有语义的标签，让xml更具有可读性。
+ *子控件的布局可用layout\_children属性指定。
+ *请参考[布局参数](https://github.com/zlgopen/awtk/blob/master/docs/layout.md)。
  *
- *  app\_bar\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于app\_bar\_t控件。
+ *app\_bar\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于app\_bar\_t控件。
  *
- *  在xml中使用"app\_bar"标签创建app\_bar。如：
+ *在xml中使用"app\_bar"标签创建app\_bar。如：
  *
- *  ```xml
- *  <app_bar x="0" y="0" w="100%" h="30"
- *    <label x="0" y="0" w="100%" h="100%" text="Basic Controls" />
- *  </app_bar>
- *  ```
+ *```xml
+ *<app_bar x="0" y="0" w="100%" h="30"
+ *<label x="0" y="0" w="100%" h="100%" text="Basic Controls" />
+ *</app_bar>
+ *```
  *
- *  在c代码中使用函数app\_bar\_create创建app\_bar。如：
+ *在c代码中使用函数app\_bar\_create创建app\_bar。如：
  *
- *  ```c
- *   widget_t* app_bar = app_bar_create(win, 0, 0, 320, 30);
- *  ```
  *
- *  可用通过style来设置控件的显示风格，如背景颜色等。如：
+ *可用通过style来设置控件的显示风格，如背景颜色等。如：
  *
- *  ```xml
- *  <style name="default" border_color="#a0a0a0">
- *    <normal     bg_color="#f0f0f0" />
- *  </style>
- *  ```
+ *```xml
+ *<style name="default" border_color="#a0a0a0">
+ *<normal     bg_color="#f0f0f0" />
+ *</style>
+ *```
  *
  */
 var TAppBar = /** @class */ (function (_super) {
@@ -13142,7 +13143,7 @@ var TAppBar = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TAppBar.create = function (parent, x, y, w, h) {
@@ -13152,7 +13153,7 @@ var TAppBar = /** @class */ (function (_super) {
      * 转换为app_bar对象(供脚本语言使用)。
      *
      * @param widget app_bar对象。
-     *
+     
      * @returns app_bar对象。
      */
     TAppBar.cast = function (widget) {
@@ -13160,33 +13161,34 @@ var TAppBar = /** @class */ (function (_super) {
     };
     return TAppBar;
 }(TWidget));
+;
 /**
  * Button Group控件。一个简单的容器控件，用于容纳一组按钮控件。
  *
- *  它本身不提供布局功能，仅提供具有语义的标签，让xml更具有可读性。
- *  子控件的布局可用layout\_children属性指定。
- *  请参考[布局参数](https://github.com/zlgopen/awtk/blob/master/docs/layout.md)。
+ *它本身不提供布局功能，仅提供具有语义的标签，让xml更具有可读性。
+ *子控件的布局可用layout\_children属性指定。
+ *请参考[布局参数](https://github.com/zlgopen/awtk/blob/master/docs/layout.md)。
  *
- *  button\_group\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于button\_group\_t控件。
+ *button\_group\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于button\_group\_t控件。
  *
- *  在xml中使用"button\_group"标签创建button\_group。如：
+ *在xml中使用"button\_group"标签创建button\_group。如：
  *
- *  ```xml
- *  <button_group x="0" y="m" w="100%" h="40" children_layout="default(c=4,r=1,s=5,m=5)">
- *    <button name="open:basic" text="Basic"/>
- *    <button name="open:button" text="Buttons"/>
- *    <button name="open:edit" text="Edits"/>
- *    <button name="open:keyboard" text="KeyBoard"/>
- *  </button_group>
- *  ```
+ *```xml
+ *<button_group x="0" y="m" w="100%" h="40" children_layout="default(c=4,r=1,s=5,m=5)">
+ *<button name="open:basic" text="Basic"/>
+ *<button name="open:button" text="Buttons"/>
+ *<button name="open:edit" text="Edits"/>
+ *<button name="open:keyboard" text="KeyBoard"/>
+ *</button_group>
+ *```
  *
- *  可用通过style来设置控件的显示风格，如背景颜色等。如：
+ *可用通过style来设置控件的显示风格，如背景颜色等。如：
  *
- *  ```xml
- *  <style name="default" border_color="#a0a0a0">
- *    <normal     bg_color="#f0f0f0" />
- *  </style>
- *  ```
+ *```xml
+ *<style name="default" border_color="#a0a0a0">
+ *<normal     bg_color="#f0f0f0" />
+ *</style>
+ *```
  *
  */
 var TButtonGroup = /** @class */ (function (_super) {
@@ -13202,7 +13204,7 @@ var TButtonGroup = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TButtonGroup.create = function (parent, x, y, w, h) {
@@ -13212,7 +13214,7 @@ var TButtonGroup = /** @class */ (function (_super) {
      * 转换为button_group对象(供脚本语言使用)。
      *
      * @param widget button_group对象。
-     *
+     
      * @returns button_group对象。
      */
     TButtonGroup.cast = function (widget) {
@@ -13220,51 +13222,47 @@ var TButtonGroup = /** @class */ (function (_super) {
     };
     return TButtonGroup;
 }(TWidget));
+;
 /**
  * 按钮控件。
  *
- *  点击按钮之后会触发EVT\_CLICK事件，注册EVT\_CLICK事件以执行特定操作。
+ *点击按钮之后会触发EVT\_CLICK事件，注册EVT\_CLICK事件以执行特定操作。
  *
- *  按钮控件也可以作为容器使用，使用图片和文本作为其子控件，可以实现很多有趣的效果。
+ *按钮控件也可以作为容器使用，使用图片和文本作为其子控件，可以实现很多有趣的效果。
  *
- *  button\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于button\_t控件。
+ *button\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于button\_t控件。
  *
- *  在xml中使用"button"标签创建按钮控件。如：
+ *在xml中使用"button"标签创建按钮控件。如：
  *
- *  ```xml
- *  <button x="c" y="m" w="80" h="30" text="OK"/>
- *  ```
+ *```xml
+ *<button x="c" y="m" w="80" h="30" text="OK"/>
+ *```
  *
- * 更多用法请参考：
- *  [button.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/button.xml)
+ *> 更多用法请参考：
+ *[button.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/button.xml)
  *
- *  在c代码中使用函数button\_create创建按钮控件。如：
+ *在c代码中使用函数button\_create创建按钮控件。如：
  *
- *  ```c
- *   widget_t* button = button_create(win, 10, 10, 128, 30);
- *   widget_set_text(button, L"OK");
- *   widget_on(button, EVT_CLICK, on_click, NULL);
- *  ```
  *
- * 创建之后，需要用widget\_set\_text或widget\_set\_text\_utf8设置文本内容。
+ *> 创建之后，需要用widget\_set\_text或widget\_set\_text\_utf8设置文本内容。
  *
- * 完整示例请参考：
- *  [button demo](https://github.com/zlgopen/awtk-c-demos/blob/master/demos/button.c)
+ *> 完整示例请参考：
+ *[button demo](https://github.com/zlgopen/awtk-c-demos/blob/master/demos/button.c)
  *
- *  可用通过style来设置控件的显示风格，如字体的大小和颜色等等。如：
+ *可用通过style来设置控件的显示风格，如字体的大小和颜色等等。如：
  *
- *  ```xml
- *   <style name="default" border_color="#a0a0a0"  text_color="black">
- *    <normal     bg_color="#f0f0f0" />
- *    <pressed    bg_color="#c0c0c0" x_offset="1" y_offset="1"/>
- *    <over       bg_color="#e0e0e0" />
- *    <disable    bg_color="gray" text_color="#d0d0d0" />
- *  </style>
- *  ```
+ *```xml
+ *<style name="default" border_color="#a0a0a0"  text_color="black">
+ *<normal     bg_color="#f0f0f0" />
+ *<pressed    bg_color="#c0c0c0" x_offset="1" y_offset="1"/>
+ *<over       bg_color="#e0e0e0" />
+ *<disable    bg_color="gray" text_color="#d0d0d0" />
+ *</style>
+ *```
  *
- * 更多用法请参考：
- *  [theme
- *  default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L31)
+ *> 更多用法请参考：
+ *[theme
+ *default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L31)
  *
  */
 var TButton = /** @class */ (function (_super) {
@@ -13280,7 +13278,7 @@ var TButton = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TButton.create = function (parent, x, y, w, h) {
@@ -13290,7 +13288,7 @@ var TButton = /** @class */ (function (_super) {
      * 转换为button对象(供脚本语言使用)。
      *
      * @param widget button对象。
-     *
+     
      * @returns button对象。
      */
     TButton.cast = function (widget) {
@@ -13299,9 +13297,8 @@ var TButton = /** @class */ (function (_super) {
     /**
      * 设置触发EVT\_CLICK事件的时间间隔。为0则不重复触发EVT\_CLICK事件。
      *
-     * @param widget 控件对象。
      * @param repeat 触发EVT_CLICK事件的时间间隔(毫秒)。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TButton.prototype.setRepeat = function (repeat) {
@@ -13310,9 +13307,8 @@ var TButton = /** @class */ (function (_super) {
     /**
      * 设置是否启用长按事件。
      *
-     * @param widget 控件对象。
      * @param enable_long_press 是否启用长按事件。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TButton.prototype.setEnableLongPress = function (enable_long_press) {
@@ -13322,7 +13318,7 @@ var TButton = /** @class */ (function (_super) {
         /**
          * 重复触发EVT\_CLICK事件的时间间隔。
          *
-         *  为0则不重复触发EVT\_CLICK事件。
+         *为0则不重复触发EVT\_CLICK事件。
          *
          */
         get: function () {
@@ -13338,8 +13334,8 @@ var TButton = /** @class */ (function (_super) {
         /**
          * 是否启用长按事件，为true时才触发长按事件。
          *
-         *  触发长按事件后不再触发点击事件。
-         *  缺省不启用。
+         *触发长按事件后不再触发点击事件。
+         *缺省不启用。
          *
          */
         get: function () {
@@ -13353,61 +13349,52 @@ var TButton = /** @class */ (function (_super) {
     });
     return TButton;
 }(TWidget));
+;
 /**
  * 勾选按钮控件(单选/多选)。
  *
- *  check\_button\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于check\_button\_t控件。
+ *check\_button\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于check\_button\_t控件。
  *
- *  在xml中使用"check_button"标签创建多选按钮控件。如：
+ *在xml中使用"check_button"标签创建多选按钮控件。如：
  *
- *  ```xml
- *  <check_button name="c1" text="Book"/>
- *  ```
+ *```xml
+ *<check_button name="c1" text="Book"/>
+ *```
  *
- *  在xml中使用"radio_button"标签创建单选按钮控件。如：
+ *在xml中使用"radio_button"标签创建单选按钮控件。如：
  *
- *  ```xml
- *  <radio_button name="r1" text="Book"/>
- *  ```
+ *```xml
+ *<radio_button name="r1" text="Book"/>
+ *```
  *
- * 更多用法请参考：
- *  [button.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/basic.xml)
+ *> 更多用法请参考：
+ *[button.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/basic.xml)
  *
- *  在c代码中使用函数check\_button\_create创建多选按钮控件。如：
+ *在c代码中使用函数check\_button\_create创建多选按钮控件。如：
  *
- *  ```c
- *   widget_t* button = check_button_create(win, x, y, w, h);
- *   widget_set_text(button, L"OK");
- *   widget_on(button, EVT_VALUE_CHANGED, on_changed, NULL);
- *  ```
  *
- *  在c代码中使用函数check\_button\_create\_radio创建单选按钮控件。如：
+ *在c代码中使用函数check\_button\_create\_radio创建单选按钮控件。如：
  *
- *  ```c
- *   widget_t* button = check_button_create_radio(win, x, y, w, h);
- *   widget_set_text(button, L"OK");
- *   widget_on(button, EVT_VALUE_CHANGED, on_changed, NULL);
- *  ```
  *
- * 完整示例请参考：
- *  [button demo](https://github.com/zlgopen/awtk-c-demos/blob/master/demos/check_button.c)
+ *> 完整示例请参考：
+ *[button demo](https://github.com/zlgopen/awtk-c-demos/blob/master/demos/check_button.c)
  *
- *  可用通过style来设置控件的显示风格，如字体的大小和颜色等等。如：
+ *可用通过style来设置控件的显示风格，如字体的大小和颜色等等。如：
  *
- *  ```xml
- *  <style name="default" icon_at="left">
- *    <normal  icon="unchecked" />
- *    <pressed icon="unchecked" />
- *    <over    icon="unchecked" text_color="green"/>
- *    <normal_of_checked icon="checked" text_color="blue"/>
- *    <pressed_of_checked icon="checked" text_color="blue"/>
- *    <over_of_checked icon="checked" text_color="green"/>
- *  </style>
- *  ```
+ *```xml
+ *<style name="default" icon_at="left">
+ *<normal  icon="unchecked" />
+ *<pressed icon="unchecked" />
+ *<over    icon="unchecked" text_color="green"/>
+ *<normal_of_checked icon="checked" text_color="blue"/>
+ *<pressed_of_checked icon="checked" text_color="blue"/>
+ *<over_of_checked icon="checked" text_color="green"/>
+ *</style>
+ *```
  *
- * 更多用法请参考：
- *  [theme
- *  default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L227)
+ *> 更多用法请参考：
+ *[theme
+ *default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L227)
  *
  */
 var TCheckButton = /** @class */ (function (_super) {
@@ -13423,7 +13410,7 @@ var TCheckButton = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TCheckButton.create = function (parent, x, y, w, h) {
@@ -13437,7 +13424,7 @@ var TCheckButton = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TCheckButton.createRadio = function (parent, x, y, w, h) {
@@ -13446,9 +13433,8 @@ var TCheckButton = /** @class */ (function (_super) {
     /**
      * 设置控件的值。
      *
-     * @param widget check_button对象。
      * @param value 值
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCheckButton.prototype.setValue = function (value) {
@@ -13458,7 +13444,7 @@ var TCheckButton = /** @class */ (function (_super) {
      * 转换check_button对象(供脚本语言使用)。
      *
      * @param widget check_button对象。
-     *
+     
      * @returns check_button对象。
      */
     TCheckButton.cast = function (widget) {
@@ -13480,8 +13466,33 @@ var TCheckButton = /** @class */ (function (_super) {
     });
     return TCheckButton;
 }(TWidget));
+;
 /**
- * 一个裁剪子控件的容器控件。 它本身不提供布局功能，仅提供具有语义的标签，让xml更具有可读性。 子控件的布局可用layout\_children属性指定。 请参考[布局参数](https://github.com/zlgopen/awtk/blob/master/docs/layout.md)。 clip\_view\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于clip\_view\_t控件。 在xml中使用"clip_view"标签创建clip_view，在clip_view控件下的所有子控件都会被裁剪。如下button控件会被裁剪，无法画出clip_view控件 ： ```xml  <clip_view x="0" y="0" w="100" h="100">    <button x="50" y="10" w="100" h="50" />    </clip_view> ``` 备注：在clip_view控件下的所有子控件都会被裁剪，如果子控件本身会设置裁剪区的话，在子控件中计算裁剪区的交集，具体请参考scroll_view控件的scroll_view_on_paint_children函数。  可用通过style来设置控件的显示风格，如背景颜色等。如： ```xml <style name="default" border_color="#a0a0a0">   <normal     bg_color="#f0f0f0" /> </style> ```
+ * 一个裁剪子控件的容器控件。
+ *
+ *它本身不提供布局功能，仅提供具有语义的标签，让xml更具有可读性。
+ *子控件的布局可用layout\_children属性指定。
+ *请参考[布局参数](https://github.com/zlgopen/awtk/blob/master/docs/layout.md)。
+ *
+ *clip\_view\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于clip\_view\_t控件。
+ *
+ *在xml中使用"clip_view"标签创建clip_view，在clip_view控件下的所有子控件都会被裁剪。如下button控件会被裁剪，无法画出clip_view控件 ：
+ *
+ *```xml
+ *<clip_view x="0" y="0" w="100" h="100">
+ *<button x="50" y="10" w="100" h="50" />
+ *</clip_view>
+ *```
+ *
+ *备注：在clip_view控件下的所有子控件都会被裁剪，如果子控件本身会设置裁剪区的话，在子控件中计算裁剪区的交集，具体请参考scroll_view控件的scroll_view_on_paint_children函数。
+ *
+ *可用通过style来设置控件的显示风格，如背景颜色等。如：
+ *
+ *```xml
+ *<style name="default" border_color="#a0a0a0">
+ *<normal     bg_color="#f0f0f0" />
+ *</style>
+ *```
  *
  */
 var TClipView = /** @class */ (function (_super) {
@@ -13497,7 +13508,7 @@ var TClipView = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TClipView.create = function (parent, x, y, w, h) {
@@ -13507,7 +13518,7 @@ var TClipView = /** @class */ (function (_super) {
      * 转换为clip_view对象(供脚本语言使用)。
      *
      * @param widget clip_view对象。
-     *
+     
      * @returns clip_view对象。
      */
     TClipView.cast = function (widget) {
@@ -13515,31 +13526,28 @@ var TClipView = /** @class */ (function (_super) {
     };
     return TClipView;
 }(TWidget));
+;
 /**
  * 色块控件。
  *
- *  用来显示一个颜色块，它通过属性而不是主题来设置颜色，方便在运行时动态改变颜色。
+ *用来显示一个颜色块，它通过属性而不是主题来设置颜色，方便在运行时动态改变颜色。
  *
- *  可以使用value属性访问背景颜色的颜色值。
+ *可以使用value属性访问背景颜色的颜色值。
  *
- *  color\_tile\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于color\_tile\_t控件。
+ *color\_tile\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于color\_tile\_t控件。
  *
- *  在xml中使用"color_tile"标签创建色块控件。如：
+ *在xml中使用"color_tile"标签创建色块控件。如：
  *
- *  ```xml
- *  <color_tile x="c" y="m" w="80" h="30" bg_color="green" />
- *  ```
+ *```xml
+ *<color_tile x="c" y="m" w="80" h="30" bg_color="green" />
+ *```
  *
- * 更多用法请参考：
- *  [color_tile](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/color_picker_rgb.xml)
+ *> 更多用法请参考：
+ *[color_tile](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/color_picker_rgb.xml)
  *
- *  在c代码中使用函数color_tile\_create创建色块控件。如：
+ *在c代码中使用函数color_tile\_create创建色块控件。如：
  *
- *  ```c
- *   widget_t* color_tile = color_tile_create(win, 10, 10, 128, 30);
- *   color_tile_set_bg_color(color_tile, "red");
- *  ```
- * 创建之后，用color\_tile\_set\_bg\_color设置背景颜色。
+ *> 创建之后，用color\_tile\_set\_bg\_color设置背景颜色。
  *
  */
 var TColorTile = /** @class */ (function (_super) {
@@ -13555,7 +13563,7 @@ var TColorTile = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TColorTile.create = function (parent, x, y, w, h) {
@@ -13565,7 +13573,7 @@ var TColorTile = /** @class */ (function (_super) {
      * 转换为color_tile对象(供脚本语言使用)。
      *
      * @param widget color_tile对象。
-     *
+     
      * @returns color_tile对象。
      */
     TColorTile.cast = function (widget) {
@@ -13574,9 +13582,8 @@ var TColorTile = /** @class */ (function (_super) {
     /**
      * 设置背景颜色。
      *
-     * @param widget 控件对象。
      * @param color 背景颜色。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TColorTile.prototype.setBgColor = function (color) {
@@ -13609,33 +13616,34 @@ var TColorTile = /** @class */ (function (_super) {
     });
     return TColorTile;
 }(TWidget));
+;
 /**
  * column。一个简单的容器控件，垂直排列其子控件。
  *
- *  它本身不提供布局功能，仅提供具有语义的标签，让xml更具有可读性。
- *  子控件的布局可用layout\_children属性指定。
- *  请参考[布局参数](https://github.com/zlgopen/awtk/blob/master/docs/layout.md)。
+ *它本身不提供布局功能，仅提供具有语义的标签，让xml更具有可读性。
+ *子控件的布局可用layout\_children属性指定。
+ *请参考[布局参数](https://github.com/zlgopen/awtk/blob/master/docs/layout.md)。
  *
- *  column\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于column\_t控件。
+ *column\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于column\_t控件。
  *
- *  在xml中使用"column"标签创建column。如：
+ *在xml中使用"column"标签创建column。如：
  *
- *  ```xml
- *   <column x="0" y="0" w="100%" h="100%" children_layout="default(c=1,r=0)">
- *      <button name="open:basic" text="Basic"/>
- *      <button name="open:button" text="Buttons"/>
- *      <button name="open:edit" text="Edits"/>
- *      <button name="open:keyboard" text="KeyBoard"/>
- *    </column>
- *  ```
+ *```xml
+ *<column x="0" y="0" w="100%" h="100%" children_layout="default(c=1,r=0)">
+ *<button name="open:basic" text="Basic"/>
+ *<button name="open:button" text="Buttons"/>
+ *<button name="open:edit" text="Edits"/>
+ *<button name="open:keyboard" text="KeyBoard"/>
+ *</column>
+ *```
  *
- *  可用通过style来设置控件的显示风格，如背景颜色等。如：
+ *可用通过style来设置控件的显示风格，如背景颜色等。如：
  *
- *  ```xml
- *  <style name="default" border_color="#a0a0a0">
- *    <normal     bg_color="#f0f0f0" />
- *  </style>
- *  ```
+ *```xml
+ *<style name="default" border_color="#a0a0a0">
+ *<normal     bg_color="#f0f0f0" />
+ *</style>
+ *```
  *
  */
 var TColumn = /** @class */ (function (_super) {
@@ -13651,7 +13659,7 @@ var TColumn = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TColumn.create = function (parent, x, y, w, h) {
@@ -13661,7 +13669,7 @@ var TColumn = /** @class */ (function (_super) {
      * 转换为column对象(供脚本语言使用)。
      *
      * @param widget column对象。
-     *
+     
      * @returns column对象。
      */
     TColumn.cast = function (widget) {
@@ -13669,10 +13677,11 @@ var TColumn = /** @class */ (function (_super) {
     };
     return TColumn;
 }(TWidget));
+;
 /**
  * ComboBox Item控件。
  *
- *  本类仅供combo\_box控件内部使用。
+ *本类仅供combo\_box控件内部使用。
  *
  */
 var TComboBoxItem = /** @class */ (function (_super) {
@@ -13688,7 +13697,7 @@ var TComboBoxItem = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TComboBoxItem.create = function (parent, x, y, w, h) {
@@ -13698,7 +13707,7 @@ var TComboBoxItem = /** @class */ (function (_super) {
      * 转换combo_box_item对象(供脚本语言使用)。
      *
      * @param widget combo_box_item对象。
-     *
+     
      * @returns combo_box_item对象。
      */
     TComboBoxItem.cast = function (widget) {
@@ -13707,9 +13716,8 @@ var TComboBoxItem = /** @class */ (function (_super) {
     /**
      * 设置控件是否被选中。
      *
-     * @param widget combo_box_item对象。
      * @param checked 是否被选中。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TComboBoxItem.prototype.setChecked = function (checked) {
@@ -13718,9 +13726,8 @@ var TComboBoxItem = /** @class */ (function (_super) {
     /**
      * 设置控件的值。
      *
-     * @param widget combo_box_item对象。
      * @param value 值
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TComboBoxItem.prototype.setValue = function (value) {
@@ -13756,117 +13763,111 @@ var TComboBoxItem = /** @class */ (function (_super) {
     });
     return TComboBoxItem;
 }(TWidget));
+;
 /**
  * 下拉列表控件。
  *
- *  点击右边的按钮，可弹出一个下拉列表，从中选择一项作为当前的值。
+ *点击右边的按钮，可弹出一个下拉列表，从中选择一项作为当前的值。
  *
- *  combo\_box\_t是[edit\_t](edit_t.md)的子类控件，edit\_t的函数均适用于combo\_box\_t控件。
+ *combo\_box\_t是[edit\_t](edit_t.md)的子类控件，edit\_t的函数均适用于combo\_box\_t控件。
  *
- *  在xml中使用"combo_box"标签创建下拉列表控件。
+ *在xml中使用"combo_box"标签创建下拉列表控件。
  *
- *  列表选项可以直接写在"options"属性中。如：
+ *列表选项可以直接写在"options"属性中。如：
  *
- *  ```xml
- *  <combo_box readonly="true" x="10" y="bottom:5" w="200" h="30" tr_text="ok"
- * options="1:ok;2:cancel;"/>
- *  ```
+ *```xml
+ *<combo_box readonly="true" x="10" y="bottom:5" w="200" h="30" tr_text="ok"
+ *options="1:ok;2:cancel;"/>
+ *```
  *
- *  列表选项也可以放在独立的窗口中，用属性"open_window"指定窗口的名称。如：
+ *列表选项也可以放在独立的窗口中，用属性"open_window"指定窗口的名称。如：
  *
- *  ```xml
- *  <combo_box open_window="language" readonly="true" x="10" y="bottom:50" w="200" h="30"
- * tr_text="english"/>
- *  ```
+ *```xml
+ *<combo_box open_window="language" readonly="true" x="10" y="bottom:50" w="200" h="30"
+ *tr_text="english"/>
+ *```
  *
- *  language.xml:
+ *language.xml:
  *
- *  ```xml
- *  <popup close_when_click_outside="true" h="80"
- *   <list_view x="0"  y="0" w="100%" h="100%" item_height="30">
- *    <scroll_view name="view" x="0"  y="0" w="-12" h="100%">
- *      <combo_box_item tr_text="english"/>
- *      <combo_box_item tr_text="chinese" />
- *    </scroll_view>
- *    <scroll_bar_d name="bar" x="right" y="0" w="12" h="100%" value="0"/>
- *  </list_view>
- *  </popup>
- *  ```
+ *```xml
+ *<popup close_when_click_outside="true" h="80"
+ *<list_view x="0"  y="0" w="100%" h="100%" item_height="30">
+ *<scroll_view name="view" x="0"  y="0" w="-12" h="100%">
+ *<combo_box_item tr_text="english"/>
+ *<combo_box_item tr_text="chinese" />
+ *</scroll_view>
+ *<scroll_bar_d name="bar" x="right" y="0" w="12" h="100%" value="0"/>
+ *</list_view>
+ *</popup>
+ *```
  *
- * 更多用法请参考：[combo_box.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/combo_box.xml)
+ *> 更多用法请参考：[combo_box.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/combo_box.xml)
  *
  *
  *
- *  如果在文本比较长时，希望在获得焦点时文本自动滚动，可以放入一个hscroll_label为子控件，并命名为"value"。如：
+ *如果在文本比较长时，希望在获得焦点时文本自动滚动，可以放入一个hscroll_label为子控件，并命名为"value"。如：
  *
- *  ```xml
- *    <combo_box left_margin="6" readonly="true" x="10" y="50" w="80" h="30" options="leftttttttttt;centerrrrrrrrrrrrrrrr;rightttttttttt;"
- *    selected_index="1">
- *    <hscroll_label x="0" y="0" w="-30" h="100%"
- *      name="value"
- *      lull="1000"
- *      loop="true"
- *      yoyo="true"
- *      ellipses="true"
- *      only_parent_focus="true"/>
- *    <button style="combobox_down" x="right:5" y="middle" w="20" h="20"/>
- *  </combo_box>
- *  ```
+ *```xml
+ *<combo_box left_margin="6" readonly="true" x="10" y="50" w="80" h="30" options="leftttttttttt;centerrrrrrrrrrrrrrrr;rightttttttttt;"
+ *selected_index="1">
+ *<hscroll_label x="0" y="0" w="-30" h="100%"
+ *name="value"
+ *lull="1000"
+ *loop="true"
+ *yoyo="true"
+ *ellipses="true"
+ *only_parent_focus="true"/>
+ *<button style="combobox_down" x="right:5" y="middle" w="20" h="20"/>
+ *</combo_box>
+ *```
  *
- *  在c代码中使用函数combo\_box\_create创建下拉列表控件。如：
+ *在c代码中使用函数combo\_box\_create创建下拉列表控件。如：
  *
- *  ```c
- *   widget_t* combo_box = combo_box_create(win, 10, 10, 128, 30);
  *
- *   combo_box_set_options(combo_box, "left;center;right;");
- *   combo_box_set_selected_index(combo_box, 1);
+ *创建之后：
  *
- *  ```
+ ** 用combo\_box\_set\_options设置可选项目。
+ ** 用combo\_box\_set\_selected\_index设置缺省项。
  *
- *  创建之后：
+ *> 完整示例请参考：[combo_box
+ *demo](https://github.com/zlgopen/awtk-c-demos/blob/master/demos/combo_box.c)
  *
- *  * 用combo\_box\_set\_options设置可选项目。
- *  * 用combo\_box\_set\_selected\_index设置缺省项。
+ *可用通过style来设置控件的显示风格，如字体的大小和颜色等等。如：
  *
- * 完整示例请参考：[combo_box
- * demo](https://github.com/zlgopen/awtk-c-demos/blob/master/demos/combo_box.c)
+ *```xml
+ *<combo_box>
+ *<style name="default" border_color="#a0a0a0"  text_color="black" text_align_h="left">
+ *<normal     bg_color="#f0f0f0" />
+ *<focused    bg_color="#f0f0f0" border_color="black"/>
+ *<empty      bg_color="#f0f0f0" text_color="#a0a0a0" />
+ *</style>
+ *</combo_box>
+ *```
  *
- *  可用通过style来设置控件的显示风格，如字体的大小和颜色等等。如：
+ ** 1.combobox的下拉按钮的style名称为combobox_down，可以在主题文件中设置。
  *
- *  ```xml
- *  <combo_box>
- *  <style name="default" border_color="#a0a0a0"  text_color="black" text_align_h="left">
- *    <normal     bg_color="#f0f0f0" />
- *    <focused    bg_color="#f0f0f0" border_color="black"/>
- *    <empty      bg_color="#f0f0f0" text_color="#a0a0a0" />
- *  </style>
- *  </combo_box>
- *  ```
+ *```xml
+ *<button>
+ *<style name="combobox_down" border_color="#a0a0a0">
+ *<normal     bg_color="#f0f0f0" icon="arrow_down_n"/>
+ *<pressed    bg_color="#c0c0c0" icon="arrow_down_p"/>
+ *<over       bg_color="#e0e0e0" icon="arrow_down_o"/>
+ *</style>
+ *</button>
+ *```
  *
- *  * 1.combobox的下拉按钮的style名称为combobox_down，可以在主题文件中设置。
+ ** 2.combobox的弹出popup窗口的style名称为combobox_popup，可以在主题文件中设置。
  *
- *  ```xml
- *  <button>
- *   <style name="combobox_down" border_color="#a0a0a0">
- *    <normal     bg_color="#f0f0f0" icon="arrow_down_n"/>
- *    <pressed    bg_color="#c0c0c0" icon="arrow_down_p"/>
- *    <over       bg_color="#e0e0e0" icon="arrow_down_o"/>
- *  </style>
- *  </button>
- *  ```
+ *```xml
+ *<popup>
+ *<style name="combobox_popup" border_color="red">
+ *<normal bg_color="#808080"/>
+ *</style>
+ *</popup>
+ *```
  *
- *   * 2.combobox的弹出popup窗口的style名称为combobox_popup，可以在主题文件中设置。
- *
- *  ```xml
- *  <popup>
- *  <style name="combobox_popup" border_color="red">
- *    <normal bg_color="#808080"/>
- *  </style>
- *  </popup>
- *  ```
- *
- * 更多用法请参考：[theme
- * default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L422)
+ *> 更多用法请参考：[theme
+ *default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L422)
  *
  */
 var TComboBox = /** @class */ (function (_super) {
@@ -13882,7 +13883,7 @@ var TComboBox = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TComboBox.create = function (parent, x, y, w, h) {
@@ -13892,7 +13893,7 @@ var TComboBox = /** @class */ (function (_super) {
      * 转换combo_box对象(供脚本语言使用)。
      *
      * @param widget combo_box对象。
-     *
+     
      * @returns combo_box对象。
      */
     TComboBox.cast = function (widget) {
@@ -13901,9 +13902,8 @@ var TComboBox = /** @class */ (function (_super) {
     /**
      * 点击按钮时可以打开popup窗口，本函数可设置窗口的名称。
      *
-     * @param widget combo_box对象。
      * @param open_window 弹出窗口的名称。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TComboBox.prototype.setOpenWindow = function (open_window) {
@@ -13912,8 +13912,7 @@ var TComboBox = /** @class */ (function (_super) {
     /**
      * 重置所有选项。
      *
-     * @param widget combo_box对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TComboBox.prototype.resetOptions = function () {
@@ -13922,8 +13921,7 @@ var TComboBox = /** @class */ (function (_super) {
     /**
      * 获取选项个数。
      *
-     * @param widget combo_box对象。
-     *
+     
      * @returns 返回选项个数。
      */
     TComboBox.prototype.countOptions = function () {
@@ -13932,9 +13930,8 @@ var TComboBox = /** @class */ (function (_super) {
     /**
      * 设置第index个选项为当前选中的选项。
      *
-     * @param widget combo_box对象。
      * @param index 选项的索引。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TComboBox.prototype.setSelectedIndex = function (index) {
@@ -13943,9 +13940,8 @@ var TComboBox = /** @class */ (function (_super) {
     /**
      * 设置是否本地化(翻译)选项。
      *
-     * @param widget combo_box对象。
      * @param localize_options 是否本地化(翻译)选项。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TComboBox.prototype.setLocalizeOptions = function (localize_options) {
@@ -13954,9 +13950,8 @@ var TComboBox = /** @class */ (function (_super) {
     /**
      * 设置值。
      *
-     * @param widget combo_box对象。
      * @param value 值。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TComboBox.prototype.setValue = function (value) {
@@ -13965,9 +13960,8 @@ var TComboBox = /** @class */ (function (_super) {
     /**
      * 设置item高度。
      *
-     * @param widget combo_box对象。
      * @param item_height item的高度。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TComboBox.prototype.setItemHeight = function (item_height) {
@@ -13976,10 +13970,9 @@ var TComboBox = /** @class */ (function (_super) {
     /**
      * 追加一个选项。
      *
-     * @param widget combo_box对象。
      * @param value 值。
      * @param text 文本。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TComboBox.prototype.appendOption = function (value, text) {
@@ -13988,9 +13981,8 @@ var TComboBox = /** @class */ (function (_super) {
     /**
      * 设置选项。
      *
-     * @param widget combo_box对象。
      * @param options 选项。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TComboBox.prototype.setOptions = function (options) {
@@ -13999,8 +13991,7 @@ var TComboBox = /** @class */ (function (_super) {
     /**
      * 获取combo_box的值。
      *
-     * @param widget combo_box对象。
-     *
+     
      * @returns 返回值。
      */
     TComboBox.prototype.getValue = function () {
@@ -14009,8 +14000,7 @@ var TComboBox = /** @class */ (function (_super) {
     /**
      * 获取combo_box的文本。
      *
-     * @param widget combo_box对象。
-     *
+     
      * @returns 返回文本。
      */
     TComboBox.prototype.getTextValue = function () {
@@ -14102,29 +14092,30 @@ var TComboBox = /** @class */ (function (_super) {
     });
     return TComboBox;
 }(TWidget));
+;
 /**
  * 对话框客户区控件。
  *
- *  它本身不提供布局功能，仅提供具有语义的标签，让xml更具有可读性。
- *  子控件的布局可用layout\_children属性指定。
- *  请参考[布局参数](https://github.com/zlgopen/awtk/blob/master/docs/layout.md)。
+ *它本身不提供布局功能，仅提供具有语义的标签，让xml更具有可读性。
+ *子控件的布局可用layout\_children属性指定。
+ *请参考[布局参数](https://github.com/zlgopen/awtk/blob/master/docs/layout.md)。
  *
- *  dialog\_client\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于dialog\_client\_t控件。
+ *dialog\_client\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于dialog\_client\_t控件。
  *
- *  在xml中使用"dialog\_client"标签创建dialog\_client。如：
+ *在xml中使用"dialog\_client"标签创建dialog\_client。如：
  *
- *  ```xml
- *  <dialog anim_hint="center_scale(duration=300)" x="c" y="m" w="80%" h="160" text="Dialog">
- *  <dialog_title x="0" y="0" w="100%" h="30" text="Hello AWTK" />
- *  <dialog_client x="0" y="bottom" w="100%" h="-30">
- *    <label name="" x="center" y="middle:-20" w="200" h="30" text="Are you ready?"/>
- *    <button name="quit" x="10" y="bottom:10" w="40%" h="30" text="确定"/>
- *    <button name="quit" x="right:10" y="bottom:10" w="40%" h="30" text="取消"/>
- *  </dialog_client>
- *  </dialog>
- *  ```
+ *```xml
+ *<dialog anim_hint="center_scale(duration=300)" x="c" y="m" w="80%" h="160" text="Dialog">
+ *<dialog_title x="0" y="0" w="100%" h="30" text="Hello AWTK" />
+ *<dialog_client x="0" y="bottom" w="100%" h="-30">
+ *<label name="" x="center" y="middle:-20" w="200" h="30" text="Are you ready?"/>
+ *<button name="quit" x="10" y="bottom:10" w="40%" h="30" text="确定"/>
+ *<button name="quit" x="right:10" y="bottom:10" w="40%" h="30" text="取消"/>
+ *</dialog_client>
+ *</dialog>
+ *```
  *
- *  在c代码中，用dialog\_create\_simple创建对话框时，自动创建dialog客户区对象。
+ *在c代码中，用dialog\_create\_simple创建对话框时，自动创建dialog客户区对象。
  *
  */
 var TDialogClient = /** @class */ (function (_super) {
@@ -14140,7 +14131,7 @@ var TDialogClient = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns dialog对象。
      */
     TDialogClient.create = function (parent, x, y, w, h) {
@@ -14150,7 +14141,7 @@ var TDialogClient = /** @class */ (function (_super) {
      * 转换为dialog_client对象(供脚本语言使用)。
      *
      * @param widget dialog_client对象。
-     *
+     
      * @returns dialog_client对象。
      */
     TDialogClient.cast = function (widget) {
@@ -14158,29 +14149,30 @@ var TDialogClient = /** @class */ (function (_super) {
     };
     return TDialogClient;
 }(TWidget));
+;
 /**
  * 对话框标题控件。
  *
- *  它本身不提供布局功能，仅提供具有语义的标签，让xml更具有可读性。
- *  子控件的布局可用layout\_children属性指定。
- *  请参考[布局参数](https://github.com/zlgopen/awtk/blob/master/docs/layout.md)。
+ *它本身不提供布局功能，仅提供具有语义的标签，让xml更具有可读性。
+ *子控件的布局可用layout\_children属性指定。
+ *请参考[布局参数](https://github.com/zlgopen/awtk/blob/master/docs/layout.md)。
  *
- *  dialog\_title\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于dialog\_title\_t控件。
+ *dialog\_title\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于dialog\_title\_t控件。
  *
- *  在xml中使用"dialog\_title"标签创建dialog\_title。如：
+ *在xml中使用"dialog\_title"标签创建dialog\_title。如：
  *
- *  ```xml
- *  <dialog anim_hint="center_scale(duration=300)" x="c" y="m" w="80%" h="160" text="Dialog">
- *  <dialog_title x="0" y="0" w="100%" h="30" text="Hello AWTK" />
- *  <dialog_client x="0" y="bottom" w="100%" h="-30">
- *    <label name="" x="center" y="middle:-20" w="200" h="30" text="Are you ready?"/>
- *    <button name="quit" x="10" y="bottom:10" w="40%" h="30" text="确定"/>
- *    <button name="quit" x="right:10" y="bottom:10" w="40%" h="30" text="取消"/>
- *  </dialog_client>
- *  </dialog>
- *  ```
+ *```xml
+ *<dialog anim_hint="center_scale(duration=300)" x="c" y="m" w="80%" h="160" text="Dialog">
+ *<dialog_title x="0" y="0" w="100%" h="30" text="Hello AWTK" />
+ *<dialog_client x="0" y="bottom" w="100%" h="-30">
+ *<label name="" x="center" y="middle:-20" w="200" h="30" text="Are you ready?"/>
+ *<button name="quit" x="10" y="bottom:10" w="40%" h="30" text="确定"/>
+ *<button name="quit" x="right:10" y="bottom:10" w="40%" h="30" text="取消"/>
+ *</dialog_client>
+ *</dialog>
+ *```
  *
- *  在c代码中，用dialog\_create\_simple创建对话框时，自动创建dialog标题对象。
+ *在c代码中，用dialog\_create\_simple创建对话框时，自动创建dialog标题对象。
  *
  */
 var TDialogTitle = /** @class */ (function (_super) {
@@ -14196,7 +14188,7 @@ var TDialogTitle = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns dialog对象。
      */
     TDialogTitle.create = function (parent, x, y, w, h) {
@@ -14206,7 +14198,7 @@ var TDialogTitle = /** @class */ (function (_super) {
      * 转换为dialog_title对象(供脚本语言使用)。
      *
      * @param widget dialog_title对象。
-     *
+     
      * @returns dialog_title对象。
      */
     TDialogTitle.cast = function (widget) {
@@ -14214,8 +14206,37 @@ var TDialogTitle = /** @class */ (function (_super) {
     };
     return TDialogTitle;
 }(TWidget));
+;
 /**
- * 数字时钟控件。 digit\_clock\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于digit\_clock\_t控件。 在xml中使用"digit\_clock"标签创建数字时钟控件。如： ```xml <digit_clock format="YY/MM/DD h:mm:ss"/> ``` 更多用法请参考：[digit\_clock.xml]( https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/digit_clock.xml) 在c代码中使用函数digit\_clock\_create创建数字时钟控件。如： ```c widget_t* tc = digit_clock_create(win, 10, 10, 240, 30); digit_clock_set_format(tc, "YY/MM/DD h:mm:ss"); ``` 完整示例请参考：[digit\_clock demo]( https://github.com/zlgopen/awtk-c-demos/blob/master/demos/digit_clock.c) 可用通过style来设置控件的显示风格，如字体的大小和颜色等等。如： ```xml <style name="default">   <normal text_color="black" /> </style> ``` 更多用法请参考：[theme default]( https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L138)
+ * 数字时钟控件。
+ *
+ *digit\_clock\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于digit\_clock\_t控件。
+ *
+ *在xml中使用"digit\_clock"标签创建数字时钟控件。如：
+ *
+ *```xml
+ *<digit_clock format="YY/MM/DD h:mm:ss"/>
+ *```
+ *
+ *> 更多用法请参考：[digit\_clock.xml](
+ *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/digit_clock.xml)
+ *
+ *在c代码中使用函数digit\_clock\_create创建数字时钟控件。如：
+ *
+ *
+ *> 完整示例请参考：[digit\_clock demo](
+ *https://github.com/zlgopen/awtk-c-demos/blob/master/demos/digit_clock.c)
+ *
+ *可用通过style来设置控件的显示风格，如字体的大小和颜色等等。如：
+ *
+ *```xml
+ *<style name="default">
+ *<normal text_color="black" />
+ *</style>
+ *```
+ *
+ *> 更多用法请参考：[theme default](
+ *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L138)
  *
  */
 var TDigitClock = /** @class */ (function (_super) {
@@ -14231,7 +14252,7 @@ var TDigitClock = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TDigitClock.create = function (parent, x, y, w, h) {
@@ -14241,7 +14262,7 @@ var TDigitClock = /** @class */ (function (_super) {
      * 转换为digit_clock对象(供脚本语言使用)。
      *
      * @param widget digit_clock对象。
-     *
+     
      * @returns digit_clock对象。
      */
     TDigitClock.cast = function (widget) {
@@ -14250,9 +14271,8 @@ var TDigitClock = /** @class */ (function (_super) {
     /**
      * 设置显示格式。
      *
-     * @param widget 控件对象。
      * @param format 格式。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TDigitClock.prototype.setFormat = function (format) {
@@ -14260,7 +14280,29 @@ var TDigitClock = /** @class */ (function (_super) {
     };
     Object.defineProperty(TDigitClock.prototype, "format", {
         /**
-         * 显示格式。 * Y 代表年(完整显示) * M 代表月(1-12) * D 代表日(1-31) * h 代表时(0-23) * m 代表分(0-59) * s 代表秒(0-59) * w 代表星期(0-6) * W 代表星期的英文缩写(支持翻译) * YY 代表年(只显示末两位) * MM 代表月(01-12) * DD 代表日(01-31) * hh 代表时(00-23) * mm 代表分(00-59) * ss 代表秒(00-59) * MMM 代表月的英文缩写(支持翻译) 如 日期时间为：2018/11/12 9:10:20 * "Y/D/M"显示为"2018/11/12" * "Y-D-M"显示为"2018-11-12" * "Y-D-M h:m:s"显示为"2018-11-12 9:10:20" * "Y-D-M hh:mm:ss"显示为"2018-11-12 09:10:20"
+         * 显示格式。
+         *
+         ** Y 代表年(完整显示)
+         ** M 代表月(1-12)
+         ** D 代表日(1-31)
+         ** h 代表时(0-23)
+         ** m 代表分(0-59)
+         ** s 代表秒(0-59)
+         ** w 代表星期(0-6)
+         ** W 代表星期的英文缩写(支持翻译)
+         ** YY 代表年(只显示末两位)
+         ** MM 代表月(01-12)
+         ** DD 代表日(01-31)
+         ** hh 代表时(00-23)
+         ** mm 代表分(00-59)
+         ** ss 代表秒(00-59)
+         ** MMM 代表月的英文缩写(支持翻译)
+         *
+         *如 日期时间为：2018/11/12 9:10:20
+         ** "Y/D/M"显示为"2018/11/12"
+         ** "Y-D-M"显示为"2018-11-12"
+         ** "Y-D-M h:m:s"显示为"2018-11-12 9:10:20"
+         ** "Y-D-M hh:mm:ss"显示为"2018-11-12 09:10:20"
          *
          */
         get: function () {
@@ -14274,10 +14316,11 @@ var TDigitClock = /** @class */ (function (_super) {
     });
     return TDigitClock;
 }(TWidget));
+;
 /**
  * dragger控件。
  *
- *  目前主要用于scrollbar里的滑块。
+ *目前主要用于scrollbar里的滑块。
  *
  */
 var TDragger = /** @class */ (function (_super) {
@@ -14293,7 +14336,7 @@ var TDragger = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TDragger.create = function (parent, x, y, w, h) {
@@ -14303,7 +14346,7 @@ var TDragger = /** @class */ (function (_super) {
      * 转换为dragger对象(供脚本语言使用)。
      *
      * @param widget dragger对象。
-     *
+     
      * @returns dragger对象。
      */
     TDragger.cast = function (widget) {
@@ -14312,12 +14355,11 @@ var TDragger = /** @class */ (function (_super) {
     /**
      * 设置拖动的范围。
      *
-     * @param widget dragger控件。
      * @param x_min x坐标最小值。
      * @param y_min y坐标最小值。
      * @param x_max x坐标最大值。
      * @param y_max y坐标最大值。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TDragger.prototype.setRange = function (x_min, y_min, x_max, y_max) {
@@ -14369,61 +14411,58 @@ var TDragger = /** @class */ (function (_super) {
     });
     return TDragger;
 }(TWidget));
+;
 /**
  * 单行编辑器控件。
  *
- *  在基于SDL的平台，单行编辑器控件使用平台原生的输入法，对于嵌入式平台使用内置的输入法。
+ *在基于SDL的平台，单行编辑器控件使用平台原生的输入法，对于嵌入式平台使用内置的输入法。
  *
- *  在使用内置的输入法时，软键盘由输入类型决定，开发者可以自定义软键盘的界面。
+ *在使用内置的输入法时，软键盘由输入类型决定，开发者可以自定义软键盘的界面。
  *
- *  edit\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于edit\_t控件。
+ *edit\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于edit\_t控件。
  *
- *  edit\_t本身可以做为容器，放入按钮等控件。有几个特殊的子控件：
+ *edit\_t本身可以做为容器，放入按钮等控件。有几个特殊的子控件：
  *
- *  * 名为"clear"的按钮。点击时清除编辑器中的内容。
- *  * 名为"inc"的按钮。点击时增加编辑器的值，用于实现类似于spinbox的功能。
- *  * 名为"dec"的按钮。点击时减少编辑器的值，用于实现类似于spinbox的功能。
- *  * 名为"visible"的复选框。勾选时显示密码，反之不显示密码。
+ ** 名为"clear"的按钮。点击时清除编辑器中的内容。
+ ** 名为"inc"的按钮。点击时增加编辑器的值，用于实现类似于spinbox的功能。
+ ** 名为"dec"的按钮。点击时减少编辑器的值，用于实现类似于spinbox的功能。
+ ** 名为"visible"的复选框。勾选时显示密码，反之不显示密码。
  *
- * 在xml中使用"edit"标签创建编辑器控件。如：
+ *在xml中使用"edit"标签创建编辑器控件。如：
  *
- *  ```xml
- *  <edit x="c" y="m" w="80" h="30"
- *    tips="age" input_type="uint" min="0" max="150" step="1" auto_fix="true" style="number" />
- *  ```
+ *```xml
+ *<edit x="c" y="m" w="80" h="30"
+ *tips="age" input_type="uint" min="0" max="150" step="1" auto_fix="true" style="number" />
+ *```
  *
- * XXX：需要在min/max/step之前设置input\_type。
+ *> XXX：需要在min/max/step之前设置input\_type。
  *
- *更多用法请参考：
- *  [edit.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/edit.xml)
+ *>更多用法请参考：
+ *[edit.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/edit.xml)
  *
- *  在c代码中使用函数edit\_create创建编辑器控件。如：
+ *在c代码中使用函数edit\_create创建编辑器控件。如：
  *
- *  ```c
- *   widget_t* edit = edit_create(win, 10, 10, 128, 30);
- *   widget_set_text(edit, L"OK");
- *  ```
  *
- * 创建之后，可以用widget\_set\_text或widget\_set\_text\_utf8设置文本内容。
+ *> 创建之后，可以用widget\_set\_text或widget\_set\_text\_utf8设置文本内容。
  *
- * 完整示例请参考：
- *  [edit demo](https://github.com/zlgopen/awtk-c-demos/blob/master/demos/edit.c)
+ *> 完整示例请参考：
+ *[edit demo](https://github.com/zlgopen/awtk-c-demos/blob/master/demos/edit.c)
  *
- *  可用通过style来设置控件的显示风格，如字体的大小和颜色等等。如：
+ *可用通过style来设置控件的显示风格，如字体的大小和颜色等等。如：
  *
- *  ```xml
- *  <style name="default" border_color="#a0a0a0"  text_color="black" text_align_h="left">
- *    <normal     bg_color="#f0f0f0" />
- *    <focused    bg_color="#f0f0f0" border_color="black"/>
- *    <disable    bg_color="gray" text_color="#d0d0d0" />
- *    <error      bg_color="#f0f0f0" text_color="red" />
- *    <empty      bg_color="#f0f0f0" text_color="#a0a0a0" />
- *  </style>
- *  ```
+ *```xml
+ *<style name="default" border_color="#a0a0a0"  text_color="black" text_align_h="left">
+ *<normal     bg_color="#f0f0f0" />
+ *<focused    bg_color="#f0f0f0" border_color="black"/>
+ *<disable    bg_color="gray" text_color="#d0d0d0" />
+ *<error      bg_color="#f0f0f0" text_color="red" />
+ *<empty      bg_color="#f0f0f0" text_color="#a0a0a0" />
+ *</style>
+ *```
  *
- * 更多用法请参考：
- *  [theme
- * default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L104)
+ *> 更多用法请参考：
+ *[theme
+ *default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L104)
  *
  */
 var TEdit = /** @class */ (function (_super) {
@@ -14439,7 +14478,7 @@ var TEdit = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TEdit.create = function (parent, x, y, w, h) {
@@ -14449,7 +14488,7 @@ var TEdit = /** @class */ (function (_super) {
      * 转换为edit对象(供脚本语言使用)。
      *
      * @param widget edit对象。
-     *
+     
      * @returns edit对象。
      */
     TEdit.cast = function (widget) {
@@ -14458,8 +14497,7 @@ var TEdit = /** @class */ (function (_super) {
     /**
      * 获取int类型的值。
      *
-     * @param widget widget对象。
-     *
+     
      * @returns 返回int的值。
      */
     TEdit.prototype.getInt = function () {
@@ -14468,8 +14506,7 @@ var TEdit = /** @class */ (function (_super) {
     /**
      * 获取double类型的值。
      *
-     * @param widget widget对象。
-     *
+     
      * @returns 返回double的值。
      */
     TEdit.prototype.getDouble = function () {
@@ -14478,9 +14515,8 @@ var TEdit = /** @class */ (function (_super) {
     /**
      * 设置int类型的值。
      *
-     * @param widget widget对象。
      * @param value 值。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TEdit.prototype.setInt = function (value) {
@@ -14489,9 +14525,8 @@ var TEdit = /** @class */ (function (_super) {
     /**
      * 设置double类型的值。
      *
-     * @param widget widget对象。
      * @param value 值。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TEdit.prototype.setDouble = function (value) {
@@ -14500,10 +14535,9 @@ var TEdit = /** @class */ (function (_super) {
     /**
      * 设置为文本输入及其长度限制，不允许输入超过max个字符，少于min个字符时进入error状态。
      *
-     * @param widget widget对象。
      * @param min 最小长度。
      * @param max 最大长度。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TEdit.prototype.setTextLimit = function (min, max) {
@@ -14512,11 +14546,10 @@ var TEdit = /** @class */ (function (_super) {
     /**
      * 设置为整数输入及取值范围。
      *
-     * @param widget widget对象。
      * @param min 最小值。
      * @param max 最大值。
      * @param step 步长。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TEdit.prototype.setIntLimit = function (min, max, step) {
@@ -14525,11 +14558,10 @@ var TEdit = /** @class */ (function (_super) {
     /**
      * 设置为浮点数输入及取值范围。
      *
-     * @param widget widget对象。
      * @param min 最小值。
      * @param max 最大值。
      * @param step 步长。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TEdit.prototype.setFloatLimit = function (min, max, step) {
@@ -14538,9 +14570,8 @@ var TEdit = /** @class */ (function (_super) {
     /**
      * 设置编辑器是否为只读。
      *
-     * @param widget widget对象。
      * @param readonly 只读。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TEdit.prototype.setReadonly = function (readonly) {
@@ -14549,9 +14580,8 @@ var TEdit = /** @class */ (function (_super) {
     /**
      * 设置编辑器是否为自动改正。
      *
-     * @param widget widget对象。
      * @param auto_fix 自动改正。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TEdit.prototype.setAutoFix = function (auto_fix) {
@@ -14560,9 +14590,8 @@ var TEdit = /** @class */ (function (_super) {
     /**
      * 设置编辑器是否在获得焦点时不选中文本。
      *
-     * @param widget widget对象。
      * @param select_none_when_focused 是否在获得焦点时不选中文本。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TEdit.prototype.setSelectNoneWhenFocused = function (select_none_when_focused) {
@@ -14571,9 +14600,8 @@ var TEdit = /** @class */ (function (_super) {
     /**
      * 设置编辑器是否在获得焦点时打开输入法。
      *
-     * @param widget widget对象。
      * @param open_im_when_focused 是否在获得焦点时打开输入法。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TEdit.prototype.setOpenImWhenFocused = function (open_im_when_focused) {
@@ -14582,9 +14610,8 @@ var TEdit = /** @class */ (function (_super) {
     /**
      * 设置编辑器的输入类型。
      *
-     * @param widget widget对象。
      * @param type 输入类型。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TEdit.prototype.setInputType = function (type) {
@@ -14593,9 +14620,8 @@ var TEdit = /** @class */ (function (_super) {
     /**
      * 设置编辑器的输入提示。
      *
-     * @param widget widget对象。
      * @param tips 输入提示。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TEdit.prototype.setInputTips = function (tips) {
@@ -14604,9 +14630,8 @@ var TEdit = /** @class */ (function (_super) {
     /**
      * 当编辑器输入类型为密码时，设置密码是否可见。
      *
-     * @param widget widget对象。
      * @param password_visible 密码是否可见。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TEdit.prototype.setPasswordVisible = function (password_visible) {
@@ -14615,9 +14640,8 @@ var TEdit = /** @class */ (function (_super) {
     /**
      * 设置为焦点。
      *
-     * @param widget widget对象。
      * @param focus 是否为焦点。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TEdit.prototype.setFocus = function (focus) {
@@ -14626,9 +14650,8 @@ var TEdit = /** @class */ (function (_super) {
     /**
      * 设置输入框的光标坐标。
      *
-     * @param widget widget对象。
      * @param cursor 是否为焦点。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TEdit.prototype.setCursor = function (cursor) {
@@ -14680,7 +14703,7 @@ var TEdit = /** @class */ (function (_super) {
         /**
          * 获得焦点时不选中文本。
          *
-         * 主要用于没有指针设备的情况，否则软键盘无法取消选中文本。
+         *> 主要用于没有指针设备的情况，否则软键盘无法取消选中文本。
          *
          */
         get: function () {
@@ -14696,7 +14719,7 @@ var TEdit = /** @class */ (function (_super) {
         /**
          * 获得焦点时打开输入法。
          *
-         * 主要用于没有指针设备的情况，否则每次切换焦点时都打开输入法。
+         *> 主要用于没有指针设备的情况，否则每次切换焦点时都打开输入法。
          *
          */
         get: function () {
@@ -14758,7 +14781,7 @@ var TEdit = /** @class */ (function (_super) {
     Object.defineProperty(TEdit.prototype, "step", {
         /**
          * 步长。
-         *  作为数值型编辑器时，一次增加和减少时的数值。
+         *作为数值型编辑器时，一次增加和减少时的数值。
          *
          */
         get: function () {
@@ -14769,40 +14792,41 @@ var TEdit = /** @class */ (function (_super) {
     });
     return TEdit;
 }(TWidget));
+;
 /**
  * grid_item。一个简单的容器控件，一般作为grid的子控件。
  *
- *  它本身不提供布局功能，仅提供具有语义的标签，让xml更具有可读性。
- *  子控件的布局可用layout\_children属性指定。
- *  请参考[布局参数](https://github.com/zlgopen/awtk/blob/master/docs/layout.md)。
+ *它本身不提供布局功能，仅提供具有语义的标签，让xml更具有可读性。
+ *子控件的布局可用layout\_children属性指定。
+ *请参考[布局参数](https://github.com/zlgopen/awtk/blob/master/docs/layout.md)。
  *
- *  grid\_item\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于grid\_item\_t控件。
+ *grid\_item\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于grid\_item\_t控件。
  *
- *  在xml中使用"grid\_item"标签创建grid\_item。如：
+ *在xml中使用"grid\_item"标签创建grid\_item。如：
  *
- *  ```xml
- *   <grid x="0" y="0" w="100%" h="100%" children_layout="default(c=2,r=2,m=5,s=5)">
- *     <grid_item>
- *       <button x="c" y="m" w="80%" h="30" name="0" text="0"/>
- *     </grid_item>
- *     <grid_item>
- *       <button x="c" y="m" w="80%" h="30" name="1" text="1"/>
- *     </grid_item>
- *     <grid_item>
- *       <button x="c" y="m" w="80%" h="30" name="2" text="2"/>
- *     </grid_item>
- *     <grid_item>
- *       <button x="c" y="m" w="80%" h="30" name="3" text="3"/>
- *     </grid_item>
- *   </grid>```
+ *```xml
+ *<grid x="0" y="0" w="100%" h="100%" children_layout="default(c=2,r=2,m=5,s=5)">
+ *<grid_item>
+ *<button x="c" y="m" w="80%" h="30" name="0" text="0"/>
+ *</grid_item>
+ *<grid_item>
+ *<button x="c" y="m" w="80%" h="30" name="1" text="1"/>
+ *</grid_item>
+ *<grid_item>
+ *<button x="c" y="m" w="80%" h="30" name="2" text="2"/>
+ *</grid_item>
+ *<grid_item>
+ *<button x="c" y="m" w="80%" h="30" name="3" text="3"/>
+ *</grid_item>
+ *</grid>```
  *
- *  可用通过style来设置控件的显示风格，如背景颜色等。如：
+ *可用通过style来设置控件的显示风格，如背景颜色等。如：
  *
- *  ```xml
- *  <style name="default" border_color="#a0a0a0">
- *    <normal     bg_color="#f0f0f0" />
- *  </style>
- *  ```
+ *```xml
+ *<style name="default" border_color="#a0a0a0">
+ *<normal     bg_color="#f0f0f0" />
+ *</style>
+ *```
  *
  */
 var TGridItem = /** @class */ (function (_super) {
@@ -14818,7 +14842,7 @@ var TGridItem = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TGridItem.create = function (parent, x, y, w, h) {
@@ -14828,7 +14852,7 @@ var TGridItem = /** @class */ (function (_super) {
      * 转换为grid_item对象(供脚本语言使用)。
      *
      * @param widget grid_item对象。
-     *
+     
      * @returns grid_item对象。
      */
     TGridItem.cast = function (widget) {
@@ -14836,33 +14860,34 @@ var TGridItem = /** @class */ (function (_super) {
     };
     return TGridItem;
 }(TWidget));
+;
 /**
  * grid控件。一个简单的容器控件，用于网格排列一组控件。
  *
- *  它本身不提供布局功能，仅提供具有语义的标签，让xml更具有可读性。
- *  子控件的布局可用layout\_children属性指定。
- *  请参考[布局参数](https://github.com/zlgopen/awtk/blob/master/docs/layout.md)。
+ *它本身不提供布局功能，仅提供具有语义的标签，让xml更具有可读性。
+ *子控件的布局可用layout\_children属性指定。
+ *请参考[布局参数](https://github.com/zlgopen/awtk/blob/master/docs/layout.md)。
  *
- *  grid\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于grid\_t控件。
+ *grid\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于grid\_t控件。
  *
- *  在xml中使用"grid"标签创建grid。如：
+ *在xml中使用"grid"标签创建grid。如：
  *
- *  ```xml
- *   <grid x="0" y="0" w="100%" h="100%" children_layout="default(c=2,r=2,m=5,s=5)">
- *      <button name="open:basic" text="Basic"/>
- *      <button name="open:button" text="Buttons"/>
- *      <button name="open:edit" text="Edits"/>
- *      <button name="open:keyboard" text="KeyBoard"/>
- *    </grid>
- *  ```
+ *```xml
+ *<grid x="0" y="0" w="100%" h="100%" children_layout="default(c=2,r=2,m=5,s=5)">
+ *<button name="open:basic" text="Basic"/>
+ *<button name="open:button" text="Buttons"/>
+ *<button name="open:edit" text="Edits"/>
+ *<button name="open:keyboard" text="KeyBoard"/>
+ *</grid>
+ *```
  *
- *  可用通过style来设置控件的显示风格，如背景颜色等。如：
+ *可用通过style来设置控件的显示风格，如背景颜色等。如：
  *
- *  ```xml
- *  <style name="default" border_color="#a0a0a0">
- *    <normal     bg_color="#f0f0f0" />
- *  </style>
- *  ```
+ *```xml
+ *<style name="default" border_color="#a0a0a0">
+ *<normal     bg_color="#f0f0f0" />
+ *</style>
+ *```
  *
  */
 var TGrid = /** @class */ (function (_super) {
@@ -14878,7 +14903,7 @@ var TGrid = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TGrid.create = function (parent, x, y, w, h) {
@@ -14888,7 +14913,7 @@ var TGrid = /** @class */ (function (_super) {
      * 转换为grid对象(供脚本语言使用)。
      *
      * @param widget grid对象。
-     *
+     
      * @returns grid对象。
      */
     TGrid.cast = function (widget) {
@@ -14896,34 +14921,35 @@ var TGrid = /** @class */ (function (_super) {
     };
     return TGrid;
 }(TWidget));
+;
 /**
  * 分组控件。
  *
- *  单选按钮在同一个父控件中是互斥的，所以通常将相关的单选按钮放在一个group\_box中。
+ *单选按钮在同一个父控件中是互斥的，所以通常将相关的单选按钮放在一个group\_box中。
  *
- *  它本身不提供布局功能，仅提供具有语义的标签，让xml更具有可读性。
- *  子控件的布局可用layout\_children属性指定。
- *  请参考[布局参数](https://github.com/zlgopen/awtk/blob/master/docs/layout.md)。
+ *它本身不提供布局功能，仅提供具有语义的标签，让xml更具有可读性。
+ *子控件的布局可用layout\_children属性指定。
+ *请参考[布局参数](https://github.com/zlgopen/awtk/blob/master/docs/layout.md)。
  *
- *  group\_box\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于group\_box\_t控件。
+ *group\_box\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于group\_box\_t控件。
  *
- *  在xml中使用"group\_box"标签创建group\_box。如：
+ *在xml中使用"group\_box"标签创建group\_box。如：
  *
- *  ```xml
- *  <group_box x="20" y="230" w="50%" h="90" children_layout="default(r=3,c=1,ym=2,s=10)"
- *    <radio_button name="r1" text="Book"/>
- *    <radio_button name="r2" text="Food"/>
- *    <radio_button name="r3" text="Pencil" value="true"/>
- *  </group_box>
- *  ```
+ *```xml
+ *<group_box x="20" y="230" w="50%" h="90" children_layout="default(r=3,c=1,ym=2,s=10)"
+ *<radio_button name="r1" text="Book"/>
+ *<radio_button name="r2" text="Food"/>
+ *<radio_button name="r3" text="Pencil" value="true"/>
+ *</group_box>
+ *```
  *
- *  可用通过style来设置控件的显示风格，如背景颜色等。如：
+ *可用通过style来设置控件的显示风格，如背景颜色等。如：
  *
- *  ```xml
- *  <style name="default" border_color="#a0a0a0">
- *    <normal     bg_color="#f0f0f0" />
- *  </style>
- *  ```
+ *```xml
+ *<style name="default" border_color="#a0a0a0">
+ *<normal     bg_color="#f0f0f0" />
+ *</style>
+ *```
  *
  */
 var TGroupBox = /** @class */ (function (_super) {
@@ -14939,7 +14965,7 @@ var TGroupBox = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TGroupBox.create = function (parent, x, y, w, h) {
@@ -14949,7 +14975,7 @@ var TGroupBox = /** @class */ (function (_super) {
      * 转换为group_box对象(供脚本语言使用)。
      *
      * @param widget group_box对象。
-     *
+     
      * @returns group_box对象。
      */
     TGroupBox.cast = function (widget) {
@@ -14957,47 +14983,44 @@ var TGroupBox = /** @class */ (function (_super) {
     };
     return TGroupBox;
 }(TWidget));
+;
 /**
  * 文本控件。用于显示一行或多行文本。
  *
- *  文本控件不会根据文本的长度自动换行，只有文本内容包含换行符时才会换行。
+ *文本控件不会根据文本的长度自动换行，只有文本内容包含换行符时才会换行。
  *
- *  如需自动换行请使用[rich\_text\_t](rich_text_t.md)控件。
+ *如需自动换行请使用[rich\_text\_t](rich_text_t.md)控件。
  *
- *  label\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于label\_t控件。
+ *label\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于label\_t控件。
  *
- *  在xml中使用"label"标签创建文本控件。如：
+ *在xml中使用"label"标签创建文本控件。如：
  *
- *  ```xml
- *  <label style="center" text="center"/>
- *  ```
+ *```xml
+ *<label style="center" text="center"/>
+ *```
  *
- * 更多用法请参考：[label.xml](
- * https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/label.xml)
+ *> 更多用法请参考：[label.xml](
+ *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/label.xml)
  *
- *  在c代码中使用函数label\_create创建文本控件。如：
+ *在c代码中使用函数label\_create创建文本控件。如：
  *
- *  ```c
- *   widget_t* label = label_create(win, 10, 10, 128, 30);
- *   widget_set_text(label, L"hello awtk!");
- *  ```
  *
- * 创建之后，需要用widget\_set\_text或widget\_set\_text\_utf8设置文本内容。
+ *> 创建之后，需要用widget\_set\_text或widget\_set\_text\_utf8设置文本内容。
  *
- * 完整示例请参考：[label demo](
- * https://github.com/zlgopen/awtk-c-demos/blob/master/demos/label.c)
+ *> 完整示例请参考：[label demo](
+ *https://github.com/zlgopen/awtk-c-demos/blob/master/demos/label.c)
  *
- *  可用通过style来设置控件的显示风格，如字体的大小和颜色等等。如：
+ *可用通过style来设置控件的显示风格，如字体的大小和颜色等等。如：
  *
- *  ```xml
- *   <style name="left">
- *    <normal text_color="red" text_align_h="left" border_color="#a0a0a0" margin="4" />
- *   </style>
- *  ```
+ *```xml
+ *<style name="left">
+ *<normal text_color="red" text_align_h="left" border_color="#a0a0a0" margin="4" />
+ *</style>
+ *```
  *
- * 更多用法请参考：
- *  [theme default](
- * https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L144)
+ *> 更多用法请参考：
+ *[theme default](
+ *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L144)
  *
  */
 var TLabel = /** @class */ (function (_super) {
@@ -15013,7 +15036,7 @@ var TLabel = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TLabel.create = function (parent, x, y, w, h) {
@@ -15022,9 +15045,8 @@ var TLabel = /** @class */ (function (_super) {
     /**
      * 设置显示字符的个数(小余0时全部显示)。。
      *
-     * @param widget 控件对象。
      * @param length 最大可显示字符个数。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TLabel.prototype.setLength = function (length) {
@@ -15033,12 +15055,11 @@ var TLabel = /** @class */ (function (_super) {
     /**
      * 根据文本内容调节控件大小。
      *
-     * @param widget 控件对象。
      * @param min_w 最小宽度。
      * @param max_w 最大宽度。
      * @param min_h 最小高度。
      * @param max_h 最大高度。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TLabel.prototype.resizeToContent = function (min_w, max_w, min_h, max_h) {
@@ -15048,7 +15069,7 @@ var TLabel = /** @class */ (function (_super) {
      * 转换为label对象(供脚本语言使用)。
      *
      * @param widget label对象。
-     *
+     
      * @returns label对象。
      */
     TLabel.cast = function (widget) {
@@ -15057,7 +15078,7 @@ var TLabel = /** @class */ (function (_super) {
     Object.defineProperty(TLabel.prototype, "length", {
         /**
          * 显示字符的个数(小余0时全部显示)。
-         *  主要用于动态改变显示字符的个数，来实现类似[拨号中...]的动画效果。
+         *主要用于动态改变显示字符的个数，来实现类似[拨号中...]的动画效果。
          *
          */
         get: function () {
@@ -15071,8 +15092,43 @@ var TLabel = /** @class */ (function (_super) {
     });
     return TLabel;
 }(TWidget));
+;
 /**
- * overlay窗口。 overlay窗口有点类似于非模态的dialog，但是它位置和大小是完全自由的，窗口管理器不会对它做任何限制。 如果overlay窗口有透明或半透效果，则不支持窗口动画，但可以通过移动窗口位置来实现类似动画的效果。 overlay\_t是[window\_base\_t](window_base_t.md)的子类控件，window\_base\_t的函数均适用于overlay\_t控件。 在xml中使用"overlay"标签创建窗口。需要指定坐标和大小，可以指定主题和动画名称。如： ```xml <overlay theme="basic" x="100" y="100" w="200" h="300"> ... </overlay> ``` 更多用法请参考：[overlay.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/) 在c代码中使用函数overlay\_create创建窗口。如： ```c  widget_t* overlay = overlay_create(NULL, 100, 100, 200, 300); ``` 完整示例请参考：[overlay demo](https://github.com/zlgopen/awtk-c-demos/blob/master/demos/) 可用通过style来设置窗口的风格，如背景颜色或图片等。如： ```xml <style name="bricks">  <normal bg_image="bricks"  bg_image_draw_type="repeat"/> </style> ``` 更多用法请参考：[theme default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L0)
+ * overlay窗口。
+ *
+ *overlay窗口有点类似于非模态的dialog，但是它位置和大小是完全自由的，窗口管理器不会对它做任何限制。
+ *
+ *如果overlay窗口有透明或半透效果，则不支持窗口动画，但可以通过移动窗口位置来实现类似动画的效果。
+ *
+ *overlay\_t是[window\_base\_t](window_base_t.md)的子类控件，window\_base\_t的函数均适用于overlay\_t控件。
+ *
+ *在xml中使用"overlay"标签创建窗口。需要指定坐标和大小，可以指定主题和动画名称。如：
+ *
+ *```xml
+ *<overlay theme="basic" x="100" y="100" w="200" h="300">
+ *...
+ *</overlay>
+ *```
+ *
+ *>
+ *更多用法请参考：[overlay.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/)
+ *
+ *在c代码中使用函数overlay\_create创建窗口。如：
+ *
+ *
+ *> 完整示例请参考：[overlay
+ *demo](https://github.com/zlgopen/awtk-c-demos/blob/master/demos/)
+ *
+ *可用通过style来设置窗口的风格，如背景颜色或图片等。如：
+ *
+ *```xml
+ *<style name="bricks">
+ *<normal bg_image="bricks"  bg_image_draw_type="repeat"/>
+ *</style>
+ *```
+ *
+ *> 更多用法请参考：[theme
+ *default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L0)
  *
  */
 var TOverlay = /** @class */ (function (_super) {
@@ -15088,7 +15144,7 @@ var TOverlay = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TOverlay.create = function (parent, x, y, w, h) {
@@ -15098,7 +15154,7 @@ var TOverlay = /** @class */ (function (_super) {
      * 转换为overlay对象(供脚本语言使用)。
      *
      * @param widget overlay对象。
-     *
+     
      * @returns overlay对象。
      */
     TOverlay.cast = function (widget) {
@@ -15106,30 +15162,31 @@ var TOverlay = /** @class */ (function (_super) {
     };
     return TOverlay;
 }(TWidget));
+;
 /**
  * 页面管理控件。
  *
- *  只有一个Page处于active状态，处于active状态的Page才能显示并接收事件。
- *  常用于实现标签控件中的页面管理。
+ *只有一个Page处于active状态，处于active状态的Page才能显示并接收事件。
+ *常用于实现标签控件中的页面管理。
  *
- *  pages\_t是[widget\_t](widget_t.md)的子类控件，
- *  widget\_t的函数均适用于pages\_t控件。
+ *pages\_t是[widget\_t](widget_t.md)的子类控件，
+ *widget\_t的函数均适用于pages\_t控件。
  *
- *  在xml中使用"pages"标签创建页面管理控件。如：
+ *在xml中使用"pages"标签创建页面管理控件。如：
  *
- *  ```xml
- *  <tab_control x="0" y="0" w="100%" h="100%"
- *    <pages x="c" y="20" w="90%" h="-60" value="1">
- *    ...
- *    </pages>
- *    <tab_button_group>
- *    ...
- *    </tab_button_group>
- *  </tab_control>
- *  ```
+ *```xml
+ *<tab_control x="0" y="0" w="100%" h="100%"
+ *<pages x="c" y="20" w="90%" h="-60" value="1">
+ *...
+ *</pages>
+ *<tab_button_group>
+ *...
+ *</tab_button_group>
+ *</tab_control>
+ *```
  *
- * 更多用法请参考：
- *  [tab control](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/)
+ *> 更多用法请参考：
+ *[tab control](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/)
  *
  */
 var TPages = /** @class */ (function (_super) {
@@ -15145,7 +15202,7 @@ var TPages = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TPages.create = function (parent, x, y, w, h) {
@@ -15155,7 +15212,7 @@ var TPages = /** @class */ (function (_super) {
      * 转换为pages对象(供脚本语言使用)。
      *
      * @param widget pages对象。
-     *
+     
      * @returns pages对象。
      */
     TPages.cast = function (widget) {
@@ -15164,9 +15221,8 @@ var TPages = /** @class */ (function (_super) {
     /**
      * 设置当前的Page。
      *
-     * @param widget 控件对象。
      * @param index 当前Page的序号。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TPages.prototype.setActive = function (index) {
@@ -15175,9 +15231,8 @@ var TPages = /** @class */ (function (_super) {
     /**
      * 通过页面的名字设置当前的Page。
      *
-     * @param widget 控件对象。
      * @param name 当前Page的名字。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TPages.prototype.setActiveByName = function (name) {
@@ -15199,43 +15254,41 @@ var TPages = /** @class */ (function (_super) {
     });
     return TPages;
 }(TWidget));
+;
 /**
  * 进度条控件。
  *
- *  进度条控件可以水平显示也可以垂直显示，由vertical属性决定。
+ *进度条控件可以水平显示也可以垂直显示，由vertical属性决定。
  *
- *  progress\_bar\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于progress\_bar\_t控件。
+ *progress\_bar\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于progress\_bar\_t控件。
  *
- *  在xml中使用"progress\_bar"标签创建进度条控件。如：
+ *在xml中使用"progress\_bar"标签创建进度条控件。如：
  *
- *  ```xml
- *   <progress_bar name="bar1" x="10" y="128" w="240" h="30" value="40"/>
- *   <progress_bar name="bar2" x="280" y="128" w="30" h="118" value="20" vertical="true"/>
- *  ```
+ *```xml
+ *<progress_bar name="bar1" x="10" y="128" w="240" h="30" value="40"/>
+ *<progress_bar name="bar2" x="280" y="128" w="30" h="118" value="20" vertical="true"/>
+ *```
  *
- * 更多用法请参考：
- *  [basic demo](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/basic.xml)
+ *> 更多用法请参考：
+ *[basic demo](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/basic.xml)
  *
- *  在c代码中使用函数progress\_bar\_create创建进度条控件。如：
+ *在c代码中使用函数progress\_bar\_create创建进度条控件。如：
  *
- *  ```c
- *   widget_t* progress_bar = progress_bar_create(win, 10, 10, 128, 30);
- *  ```
  *
- * 完整示例请参考：
- *  [progress_bar demo](https://github.com/zlgopen/awtk-c-demos/blob/master/demos/progress_bar.c)
+ *> 完整示例请参考：
+ *[progress_bar demo](https://github.com/zlgopen/awtk-c-demos/blob/master/demos/progress_bar.c)
  *
- *  可用通过style来设置控件的显示风格，如字体的大小和颜色等等。如：
+ *可用通过style来设置控件的显示风格，如字体的大小和颜色等等。如：
  *
- *  ```xml
- *  <style>
- *    <normal bg_color="#f0f0f0" text_color="gold" fg_color="#c0c0c0" border_color="#a0a0a0" />
- *  </style>
- *  ```
+ *```xml
+ *<style>
+ *<normal bg_color="#f0f0f0" text_color="gold" fg_color="#c0c0c0" border_color="#a0a0a0" />
+ *</style>
+ *```
  *
- * 更多用法请参考：
- *  [theme
- *  default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L183)
+ *> 更多用法请参考：
+ *[theme
+ *default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L183)
  *
  */
 var TProgressBar = /** @class */ (function (_super) {
@@ -15251,7 +15304,7 @@ var TProgressBar = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TProgressBar.create = function (parent, x, y, w, h) {
@@ -15261,7 +15314,7 @@ var TProgressBar = /** @class */ (function (_super) {
      * 转换为progress_bar对象(供脚本语言使用)。
      *
      * @param widget progress_bar对象。
-     *
+     
      * @returns progress_bar对象。
      */
     TProgressBar.cast = function (widget) {
@@ -15270,9 +15323,8 @@ var TProgressBar = /** @class */ (function (_super) {
     /**
      * 设置进度条的进度。
      *
-     * @param widget 控件对象。
      * @param value 进度
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TProgressBar.prototype.setValue = function (value) {
@@ -15281,9 +15333,8 @@ var TProgressBar = /** @class */ (function (_super) {
     /**
      * 设置最大值。
      *
-     * @param widget 控件对象。
      * @param max 最大值。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TProgressBar.prototype.setMax = function (max) {
@@ -15292,9 +15343,8 @@ var TProgressBar = /** @class */ (function (_super) {
     /**
      * 设置进度条的方向。
      *
-     * @param widget 控件对象。
      * @param vertical 是否为垂直方向。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TProgressBar.prototype.setVertical = function (vertical) {
@@ -15303,9 +15353,8 @@ var TProgressBar = /** @class */ (function (_super) {
     /**
      * 设置进度条的是否显示文本。
      *
-     * @param widget 控件对象。
      * @param show_text 是否显示文本。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TProgressBar.prototype.setShowText = function (show_text) {
@@ -15314,10 +15363,9 @@ var TProgressBar = /** @class */ (function (_super) {
     /**
      * 获取进度百分比。
      *
-     * 当max为100时，percent和value取整后一致。
+     *> 当max为100时，percent和value取整后一致。
      *
-     * @param widget 控件对象。
-     *
+     
      * @returns 返回百分比。
      */
     TProgressBar.prototype.getPercent = function () {
@@ -15381,33 +15429,34 @@ var TProgressBar = /** @class */ (function (_super) {
     });
     return TProgressBar;
 }(TWidget));
+;
 /**
  * row。一个简单的容器控件，用于水平排列其子控件。
  *
- *  它本身不提供布局功能，仅提供具有语义的标签，让xml更具有可读性。
- *  子控件的布局可用layout\_children属性指定。
- *  请参考[布局参数](https://github.com/zlgopen/awtk/blob/master/docs/layout.md)。
+ *它本身不提供布局功能，仅提供具有语义的标签，让xml更具有可读性。
+ *子控件的布局可用layout\_children属性指定。
+ *请参考[布局参数](https://github.com/zlgopen/awtk/blob/master/docs/layout.md)。
  *
- *  row\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于row\_t控件。
+ *row\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于row\_t控件。
  *
- *  在xml中使用"row"标签创建row。如：
+ *在xml中使用"row"标签创建row。如：
  *
- *  ```xml
- *   <row x="0" y="0" w="100%" h="100%" children_layout="default(c=0,r=1)">
- *      <button name="open:basic" text="Basic"/>
- *      <button name="open:button" text="Buttons"/>
- *      <button name="open:edit" text="Edits"/>
- *      <button name="open:keyboard" text="KeyBoard"/>
- *    </row>
- *  ```
+ *```xml
+ *<row x="0" y="0" w="100%" h="100%" children_layout="default(c=0,r=1)">
+ *<button name="open:basic" text="Basic"/>
+ *<button name="open:button" text="Buttons"/>
+ *<button name="open:edit" text="Edits"/>
+ *<button name="open:keyboard" text="KeyBoard"/>
+ *</row>
+ *```
  *
- *  可用通过style来设置控件的显示风格，如背景颜色等。如：
+ *可用通过style来设置控件的显示风格，如背景颜色等。如：
  *
- *  ```xml
- *  <style name="default" border_color="#a0a0a0">
- *    <normal     bg_color="#f0f0f0" />
- *  </style>
- *  ```
+ *```xml
+ *<style name="default" border_color="#a0a0a0">
+ *<normal     bg_color="#f0f0f0" />
+ *</style>
+ *```
  *
  */
 var TRow = /** @class */ (function (_super) {
@@ -15423,7 +15472,7 @@ var TRow = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TRow.create = function (parent, x, y, w, h) {
@@ -15433,7 +15482,7 @@ var TRow = /** @class */ (function (_super) {
      * 转换为row对象(供脚本语言使用)。
      *
      * @param widget row对象。
-     *
+     
      * @returns row对象。
      */
     TRow.cast = function (widget) {
@@ -15441,46 +15490,42 @@ var TRow = /** @class */ (function (_super) {
     };
     return TRow;
 }(TWidget));
+;
 /**
  * 滑块控件。
  *
- *  slider\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于slider\_t控件。
+ *slider\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于slider\_t控件。
  *
- *  在xml中使用"slider"标签创建滑块控件。如：
+ *在xml中使用"slider"标签创建滑块控件。如：
  *
- *  ```xml
- *  <slider x="center" y="10" w="80%" h="20" value="10"/>
- *  <slider style="img" x="center" y="50" w="80%" h="30" value="20" />
- *  <slider style="img" x="center" y="90" w="80%" h="30" value="30" min="5" max="50" step="5"/>
- *  ```
+ *```xml
+ *<slider x="center" y="10" w="80%" h="20" value="10"/>
+ *<slider style="img" x="center" y="50" w="80%" h="30" value="20" />
+ *<slider style="img" x="center" y="90" w="80%" h="30" value="30" min="5" max="50" step="5"/>
+ *```
  *
- * 更多用法请参考：
- *  [basic](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/basic.xml)
+ *> 更多用法请参考：
+ *[basic](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/basic.xml)
  *
- *  在c代码中使用函数slider\_create创建滑块控件。如：
+ *在c代码中使用函数slider\_create创建滑块控件。如：
  *
- *  ```c
- *   widget_t* slider = slider_create(win, 10, 10, 200, 30);
- *   widget_on(slider, EVT_VALUE_CHANGED, on_changed, NULL);
- *   widget_on(slider, EVT_VALUE_CHANGING, on_changing, NULL);
- *  ```
  *
- * 完整示例请参考：
- *  [slider demo](https://github.com/zlgopen/awtk-c-demos/blob/master/demos/slider.c)
+ *> 完整示例请参考：
+ *[slider demo](https://github.com/zlgopen/awtk-c-demos/blob/master/demos/slider.c)
  *
- *  可用通过style来设置控件的显示风格，如图片和颜色等等。如：
+ *可用通过style来设置控件的显示风格，如图片和颜色等等。如：
  *
- *  ```xml
- *  <style name="img" bg_image="slider_bg" fg_image="slider_fg">
- *   <normal icon="slider_drag"/>
- *   <pressed icon="slider_drag_p"/>
- *   <over icon="slider_drag_o"/>
- *  </style>
- *  ```
+ *```xml
+ *<style name="img" bg_image="slider_bg" fg_image="slider_fg">
+ *<normal icon="slider_drag"/>
+ *<pressed icon="slider_drag_p"/>
+ *<over icon="slider_drag_o"/>
+ *</style>
+ *```
  *
- * 更多用法请参考：
- *  [theme
- *  default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L179)
+ *> 更多用法请参考：
+ *[theme
+ *default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L179)
  *
  */
 var TSlider = /** @class */ (function (_super) {
@@ -15496,7 +15541,7 @@ var TSlider = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TSlider.create = function (parent, x, y, w, h) {
@@ -15506,7 +15551,7 @@ var TSlider = /** @class */ (function (_super) {
      * 转换为slider对象(供脚本语言使用)。
      *
      * @param widget slider对象。
-     *
+     
      * @returns slider对象。
      */
     TSlider.cast = function (widget) {
@@ -15515,9 +15560,8 @@ var TSlider = /** @class */ (function (_super) {
     /**
      * 设置滑块的值。
      *
-     * @param widget 控件对象。
      * @param value 值
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlider.prototype.setValue = function (value) {
@@ -15526,9 +15570,8 @@ var TSlider = /** @class */ (function (_super) {
     /**
      * 设置滑块的最小值。
      *
-     * @param widget 控件对象。
      * @param min 最小值
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlider.prototype.setMin = function (min) {
@@ -15537,9 +15580,8 @@ var TSlider = /** @class */ (function (_super) {
     /**
      * 设置滑块的最大值。
      *
-     * @param widget 控件对象。
      * @param max 最大值
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlider.prototype.setMax = function (max) {
@@ -15548,9 +15590,8 @@ var TSlider = /** @class */ (function (_super) {
     /**
      * 设置滑块的拖动的最小单位。
      *
-     * @param widget 控件对象。
      * @param step 拖动的最小单位。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlider.prototype.setStep = function (step) {
@@ -15559,9 +15600,8 @@ var TSlider = /** @class */ (function (_super) {
     /**
      * 设置bar的宽度或高度。
      *
-     * @param widget 控件对象。
      * @param bar_size bar的宽度或高度。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlider.prototype.setBarSize = function (bar_size) {
@@ -15570,9 +15610,8 @@ var TSlider = /** @class */ (function (_super) {
     /**
      * 设置滑块的方向。
      *
-     * @param widget 控件对象。
      * @param vertical 是否为垂直方向。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlider.prototype.setVertical = function (vertical) {
@@ -15697,36 +15736,37 @@ var TSlider = /** @class */ (function (_super) {
     });
     return TSlider;
 }(TWidget));
+;
 /**
  * 标签按钮分组控件。
  *
- *  一个简单的容器，主要用于对标签按钮进行布局和管理。
+ *一个简单的容器，主要用于对标签按钮进行布局和管理。
  *
- *  tab\_button\_group\_t是[widget\_t](widget_t.md)的子类控件，
- *  widget\_t的函数均适用于tab\_button\_group\_t控件。
+ *tab\_button\_group\_t是[widget\_t](widget_t.md)的子类控件，
+ *widget\_t的函数均适用于tab\_button\_group\_t控件。
  *
- *  在xml中使用"tab\_button\_group"标签创建标签按钮分组控件。如：
+ *在xml中使用"tab\_button\_group"标签创建标签按钮分组控件。如：
  *
- *  ```xml
- *    <tab_button_group x="c" y="bottom:10" w="90%" h="30" compact="true"
- *      <tab_button text="General"/>
- *      <tab_button text="Network" value="true" />
- *      <tab_button text="Security"/>
- *    </tab_button_group>
- *  ```
+ *```xml
+ *<tab_button_group x="c" y="bottom:10" w="90%" h="30" compact="true"
+ *<tab_button text="General"/>
+ *<tab_button text="Network" value="true" />
+ *<tab_button text="Security"/>
+ *</tab_button_group>
+ *```
  *
- * 更多用法请参考：
- *  [tab control](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/)
+ *> 更多用法请参考：
+ *[tab control](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/)
  *
- *  可用通过style来设置控件的显示风格，如颜色等等。如：
+ *可用通过style来设置控件的显示风格，如颜色等等。如：
  *
- *  ```xml
- *  <tab_button_group>
- *   <style name="default">
- *    <normal/>
- *   </style>
- *  </tab_button_group>
- *  ```
+ *```xml
+ *<tab_button_group>
+ *<style name="default">
+ *<normal/>
+ *</style>
+ *</tab_button_group>
+ *```
  *
  */
 var TTabButtonGroup = /** @class */ (function (_super) {
@@ -15742,7 +15782,7 @@ var TTabButtonGroup = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TTabButtonGroup.create = function (parent, x, y, w, h) {
@@ -15751,9 +15791,8 @@ var TTabButtonGroup = /** @class */ (function (_super) {
     /**
      * 设置compact。
      *
-     * @param widget 控件对象。
      * @param compact 是否使用紧凑布局(缺省FALSE)。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTabButtonGroup.prototype.setCompact = function (compact) {
@@ -15762,9 +15801,8 @@ var TTabButtonGroup = /** @class */ (function (_super) {
     /**
      * 设置scrollable。
      *
-     * @param widget 控件对象。
      * @param scrollable 是否允许滚动(缺省FALSE)。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTabButtonGroup.prototype.setScrollable = function (scrollable) {
@@ -15774,7 +15812,7 @@ var TTabButtonGroup = /** @class */ (function (_super) {
      * 转换tab_button_group对象(供脚本语言使用)。
      *
      * @param widget tab_button_group对象。
-     *
+     
      * @returns tab_button_group对象。
      */
     TTabButtonGroup.cast = function (widget) {
@@ -15798,7 +15836,7 @@ var TTabButtonGroup = /** @class */ (function (_super) {
         /**
          * 是否支持滚动(缺省FALSE)。
          *
-         * 紧凑型排版子控件时才支持滚动。
+         *> 紧凑型排版子控件时才支持滚动。
          *
          */
         get: function () {
@@ -15812,42 +15850,66 @@ var TTabButtonGroup = /** @class */ (function (_super) {
     });
     return TTabButtonGroup;
 }(TWidget));
+;
 /**
  * 标签按钮控件。
  *
- *  标签按钮有点类似单选按钮，但点击标签按钮之后会自动切换当前的标签页。
+ *标签按钮有点类似单选按钮，但点击标签按钮之后会自动切换当前的标签页。
  *
- *  tab\_button\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于tab\_button\_t控件。
+ *tab\_button\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于tab\_button\_t控件。
  *
- *  在xml中使用"tab\_button"标签创建标签按钮控件。如：
+ *在xml中使用"tab\_button"标签创建标签按钮控件。如：
  *
- *  ```xml
- *    <tab_button_group x="c" y="bottom:10" w="90%" h="30" compact="true"
- *      <tab_button text="General"/>
- *      <tab_button text="Network" value="true" />
- *      <tab_button text="Security"/>
- *    </tab_button_group>
- *  ```
+ *```xml
+ *<!-- tab_button_view_page1.xml -->
+ *<view w="100%" h="100%">
+ *<label x="c" y="m" w="100%" h="60" text="page1" />
+ *<button name="close" x="c" y="bottom:100" w="80" h="40" text="Close" />
+ *</view>
+ *```
  *
- *  标签按钮一般放在标签按钮分组中，布局由标签按钮分组控件决定，不需要指定自己的布局参数和坐标。
+ *```xml
+ *<!-- tab_button dynamic load UI -->
+ *<pages name="pages" x="right" y="0" w="70%" h="100%">
+ *</pages>
+ *<list_view x="0" y="0" w="30%" h="100%" item_height="40" auto_hide_scroll_bar="true">
+ *<scroll_view name="view" x="0"  y="0" w="-12" h="100%">
+ *<tab_button text="page1" load_ui="tab_button_view_page1" value="true"/>
+ *<tab_button text="page2" load_ui="tab_button_view_page2" />
+ *<tab_button text="page3" load_ui="tab_button_view_page3" />
+ *<scroll_view />
+ *<scroll_bar_d name="bar" x="right" y="0" w="12" h="100%" value="0"/>
+ *</list_view>
+ *```
  *
- * 更多用法请参考：
- *  [tab control](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/)
+ *```xml
+ *<!-- tab_button static load UI -->
+ *<tab_button_group x="c" y="bottom:10" w="90%" h="30" compact="true"
+ *<tab_button text="General"/>
+ *<tab_button text="Network" value="true" />
+ *<tab_button text="Security"/>
+ *</tab_button_group>
+ *```
  *
- *  可用通过style来设置控件的显示风格，如字体的大小和颜色等等。如：
+ *标签按钮一般放在标签按钮分组中，布局由标签按钮分组控件决定，不需要指定自己的布局参数和坐标。
  *
- *  ```xml
- *  <tab_button>
- *   <style name="default" border_color="#a0a0a0"  text_color="black">
- *    <normal     bg_color="#d0d0d0" />
- *    <pressed    bg_color="#f0f0f0" />
- *    <over       bg_color="#e0e0e0" />
- *    <normal_of_active     bg_color="#f0f0f0" />
- *    <pressed_of_active    bg_color="#f0f0f0" />
- *    <over_of_active       bg_color="#f0f0f0" />
- *  </style>
- *  </tab_button>
- *  ```
+ *> 更多用法请参考：
+ *[tab control](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/)
+ *
+ *可用通过style来设置控件的显示风格，如字体的大小和颜色等等。如：
+ *
+ *```xml
+ *<tab_button>
+ *<style name="default" border_color="#a0a0a0"  text_color="black">
+ *<normal     bg_color="#d0d0d0" />
+ *<pressed    bg_color="#f0f0f0" />
+ *<over       bg_color="#e0e0e0" />
+ *<normal_of_active     bg_color="#f0f0f0" />
+ *<pressed_of_active    bg_color="#f0f0f0" />
+ *<over_of_active       bg_color="#f0f0f0" />
+ *</style>
+ *</tab_button>
+ *```
  *
  */
 var TTabButton = /** @class */ (function (_super) {
@@ -15863,7 +15925,7 @@ var TTabButton = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TTabButton.create = function (parent, x, y, w, h) {
@@ -15873,7 +15935,7 @@ var TTabButton = /** @class */ (function (_super) {
      * 转换tab_button对象(供脚本语言使用)。
      *
      * @param widget tab_button对象。
-     *
+     
      * @returns tab_button对象。
      */
     TTabButton.cast = function (widget) {
@@ -15882,9 +15944,8 @@ var TTabButton = /** @class */ (function (_super) {
     /**
      * 设置为当前标签。
      *
-     * @param widget tab_button对象。
      * @param value 是否为当前标签。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTabButton.prototype.setValue = function (value) {
@@ -15893,9 +15954,8 @@ var TTabButton = /** @class */ (function (_super) {
     /**
      * 设置控件的图标。
      *
-     * @param widget tab_button对象。
      * @param name 当前项的图标。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTabButton.prototype.setIcon = function (name) {
@@ -15904,13 +15964,22 @@ var TTabButton = /** @class */ (function (_super) {
     /**
      * 设置控件的active图标。
      *
-     * @param widget tab_button对象。
      * @param name 当前项的图标。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTabButton.prototype.setActiveIcon = function (name) {
         return tab_button_set_active_icon(this != null ? (this.nativeObj || this) : null, name);
+    };
+    /**
+     * 设置控件动态加载显示UI。
+     *
+     * @param name 动态加载UI的资源名称。
+     
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TTabButton.prototype.setLoadUi = function (name) {
+        return tab_button_set_load_ui(this != null ? (this.nativeObj || this) : null, name);
     };
     Object.defineProperty(TTabButton.prototype, "value", {
         /**
@@ -15922,6 +15991,20 @@ var TTabButton = /** @class */ (function (_super) {
         },
         set: function (v) {
             this.setValue(v);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TTabButton.prototype, "loadUi", {
+        /**
+         * 激活后加载的UI名字。
+         *
+         */
+        get: function () {
+            return tab_button_t_get_prop_load_ui(this.nativeObj);
+        },
+        set: function (v) {
+            this.setLoadUi(v);
         },
         enumerable: true,
         configurable: true
@@ -15956,40 +16039,34 @@ var TTabButton = /** @class */ (function (_super) {
     });
     return TTabButton;
 }(TWidget));
+;
 /**
  * 标签控件。
  *
- *  它本身不提供布局功能，仅提供具有语义的标签，让xml更具有可读性。
+ *它本身不提供布局功能，仅提供具有语义的标签，让xml更具有可读性。
  *
- *  标签控件通常会包含一个pages控件和一个tab\_button\_group控件。
+ *标签控件通常会包含一个pages控件和一个tab\_button\_group控件。
  *
- *  ```graphviz
- *    [default_style]
  *
- *    pages_t -> tab_control_t[arrowhead = "ediamond"]
- *    tab_button_group_t -> tab_control_t[arrowhead = "ediamond"]
- *    view_t ->pages_t[arrowhead = "ediamond"]
- *    tab_button_t -> tab_button_group_t[arrowhead = "ediamond"]
- *  ```
  *
- *  tab\_control\_t是[widget\_t](widget_t.md)的子类控件，
- *  widget\_t的函数均适用于tab\_control\_t控件。
+ *tab\_control\_t是[widget\_t](widget_t.md)的子类控件，
+ *widget\_t的函数均适用于tab\_control\_t控件。
  *
- *  在xml中使用"tab\_control"标签创建标签控件。如：
+ *在xml中使用"tab\_control"标签创建标签控件。如：
  *
- *  ```xml
- *  <tab_control x="0" y="0" w="100%" h="100%"
- *    <pages x="c" y="20" w="90%" h="-60" value="1">
- *    ...
- *    </pages>
- *    <tab_button_group>
- *    ...
- *    </tab_button_group>
- *  </tab_control>
- *  ```
+ *```xml
+ *<tab_control x="0" y="0" w="100%" h="100%"
+ *<pages x="c" y="20" w="90%" h="-60" value="1">
+ *...
+ *</pages>
+ *<tab_button_group>
+ *...
+ *</tab_button_group>
+ *</tab_control>
+ *```
  *
- * 更多用法请参考：
- *  [tab control](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/)
+ *> 更多用法请参考：
+ *[tab control](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/)
  *
  */
 var TTabControl = /** @class */ (function (_super) {
@@ -16005,7 +16082,7 @@ var TTabControl = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TTabControl.create = function (parent, x, y, w, h) {
@@ -16015,7 +16092,7 @@ var TTabControl = /** @class */ (function (_super) {
      * 转换tab_control对象(供脚本语言使用)。
      *
      * @param widget tab_control对象。
-     *
+     
      * @returns tab_control对象。
      */
     TTabControl.cast = function (widget) {
@@ -16023,29 +16100,30 @@ var TTabControl = /** @class */ (function (_super) {
     };
     return TTabControl;
 }(TWidget));
+;
 /**
  * 一个通用的容器控件。
  *
- *  它本身不提供布局功能，仅提供具有语义的标签，让xml更具有可读性。
- *  子控件的布局可用layout\_children属性指定。
- *  请参考[布局参数](https://github.com/zlgopen/awtk/blob/master/docs/layout.md)。
+ *它本身不提供布局功能，仅提供具有语义的标签，让xml更具有可读性。
+ *子控件的布局可用layout\_children属性指定。
+ *请参考[布局参数](https://github.com/zlgopen/awtk/blob/master/docs/layout.md)。
  *
- *  view\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于view\_t控件。
+ *view\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于view\_t控件。
  *
- *  在xml中使用"view"标签创建view。如：
+ *在xml中使用"view"标签创建view。如：
  *
- *  ```xml
- *   <view x="0" y="0" w="100%" h="100%" children_layout="default(c=2,r=2,m=5,s=5)">
- *    </view>
- *  ```
+ *```xml
+ *<view x="0" y="0" w="100%" h="100%" children_layout="default(c=2,r=2,m=5,s=5)">
+ *</view>
+ *```
  *
- *  可用通过style来设置控件的显示风格，如背景颜色等。如：
+ *可用通过style来设置控件的显示风格，如背景颜色等。如：
  *
- *  ```xml
- *  <style name="default" border_color="#a0a0a0">
- *    <normal     bg_color="#f0f0f0" />
- *  </style>
- *  ```
+ *```xml
+ *<style name="default" border_color="#a0a0a0">
+ *<normal     bg_color="#f0f0f0" />
+ *</style>
+ *```
  *
  */
 var TView = /** @class */ (function (_super) {
@@ -16061,7 +16139,7 @@ var TView = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TView.create = function (parent, x, y, w, h) {
@@ -16071,7 +16149,7 @@ var TView = /** @class */ (function (_super) {
      * 转换为view对象(供脚本语言使用)。
      *
      * @param widget view对象。
-     *
+     
      * @returns view对象。
      */
     TView.cast = function (widget) {
@@ -16079,6 +16157,7 @@ var TView = /** @class */ (function (_super) {
     };
     return TView;
 }(TWidget));
+;
 /**
  * 单个idle的信息。
  *
@@ -16092,7 +16171,7 @@ var TIdleInfo = /** @class */ (function (_super) {
      * 转换为idle_info对象(供脚本语言使用)。
      *
      * @param idle idle_info对象。
-     *
+     
      * @returns idle_info对象。
      */
     TIdleInfo.cast = function (idle) {
@@ -16111,7 +16190,9 @@ var TIdleInfo = /** @class */ (function (_super) {
     });
     Object.defineProperty(TIdleInfo.prototype, "id", {
         /**
-         * idle的ID 为TK\_INVALID\_ID时表示无效idle。
+         * idle的ID
+         *
+         *> 为TK\_INVALID\_ID时表示无效idle。
          *
          */
         get: function () {
@@ -16122,40 +16203,37 @@ var TIdleInfo = /** @class */ (function (_super) {
     });
     return TIdleInfo;
 }(TObject));
+;
 /**
  * mutable图片控件。
  *
- *  像摄像头和视频的图像是变化的，每一帧都不同，我们把这类图片称为mutable image。
+ *像摄像头和视频的图像是变化的，每一帧都不同，我们把这类图片称为mutable image。
  *
- *  本控件辅助实现摄像头和视频的显示功能。
+ *本控件辅助实现摄像头和视频的显示功能。
  *
- *  mutable\_image\_t是[image\_base\_t](image_base_t.md)的子类控件，image\_base\_t的函数均适用于mutable\_image\_t控件。
+ *mutable\_image\_t是[image\_base\_t](image_base_t.md)的子类控件，image\_base\_t的函数均适用于mutable\_image\_t控件。
  *
- *  在xml中使用"mutable\_image"标签创建mutable图片控件。如：
+ *在xml中使用"mutable\_image"标签创建mutable图片控件。如：
  *
- *  ```xml
- *  <mutable_image w="100%" h="100%"/>
- *  ```
+ *```xml
+ *<mutable_image w="100%" h="100%"/>
+ *```
  *
- *更多用法请参考：
- *  [mutable
- *  image](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/mutable_image.xml)
+ *>更多用法请参考：
+ *[mutable
+ *image](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/mutable_image.xml)
  *
- *  在c代码中使用函数mutable\_image\_create创建mutable图片控件。如：
+ *在c代码中使用函数mutable\_image\_create创建mutable图片控件。如：
  *
- *  ```c
- *   widget_t* image = mutable_image_create(win, 10, 10, 200, 200);
- *   mutable_image_set_prepare_image(image, get_camera_image, camera);
- *  ```
  *
- * 创建之后:
+ *> 创建之后:
+ *>
+ *> 需要用mutable\_image\_set\_prepare\_image设置准备图片的回调函数。
  *
- * 需要用mutable\_image\_set\_prepare\_image设置准备图片的回调函数。
+ *> 完整示例请参考：[mutable image demo](
+ *https://github.com/zlgopen/awtk-c-demos/blob/master/demos/mutable_image.c)
  *
- * 完整示例请参考：[mutable image demo](
- *  https://github.com/zlgopen/awtk-c-demos/blob/master/demos/mutable_image.c)
- *
- *  一般不需通过style来设置控件的显示风格，如果在特殊情况下需要，可以参考其它控件。
+ *一般不需通过style来设置控件的显示风格，如果在特殊情况下需要，可以参考其它控件。
  *
  */
 var TMutableImage = /** @class */ (function (_super) {
@@ -16165,8 +16243,14 @@ var TMutableImage = /** @class */ (function (_super) {
     }
     return TMutableImage;
 }(TImageBase));
+;
 /**
- * 简单的动态数组，内部存放value对象。 访问时属性名称为： * "size"/"length" 用于获取数组的长度。 * index 用于访问属性，-1可以用来追加新元素。
+ * 简单的动态数组，内部存放value对象。
+ *
+ *访问时属性名称为：
+ *
+ ** "size"/"length" 用于获取数组的长度。
+ ** index 用于访问属性，-1可以用来追加新元素。
  *
  */
 var TObjectArray = /** @class */ (function (_super) {
@@ -16177,7 +16261,7 @@ var TObjectArray = /** @class */ (function (_super) {
     /**
      * 创建对象。
      *
-     *
+     
      * @returns 返回object对象。
      */
     TObjectArray.create = function () {
@@ -16186,8 +16270,7 @@ var TObjectArray = /** @class */ (function (_super) {
     /**
      * for script gc
      *
-     * @param obj 对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TObjectArray.prototype.unref = function () {
@@ -16196,8 +16279,7 @@ var TObjectArray = /** @class */ (function (_super) {
     /**
      * 清除全部属性。
      *
-     * @param obj 对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TObjectArray.prototype.clearProps = function () {
@@ -16216,50 +16298,47 @@ var TObjectArray = /** @class */ (function (_super) {
     });
     return TObjectArray;
 }(TObject));
+;
 /**
  * GIF图片控件。
  *
- * 注意：GIF图片的尺寸大于控件大小时会自动缩小图片，但一般的嵌入式系统的硬件加速都不支持图片缩放，
- *  所以缩放图片会导致性能明显下降。如果性能不满意时，请确认一下GIF图片的尺寸是否小余控件大小。
+ *> 注意：GIF图片的尺寸大于控件大小时会自动缩小图片，但一般的嵌入式系统的硬件加速都不支持图片缩放，
+ *所以缩放图片会导致性能明显下降。如果性能不满意时，请确认一下GIF图片的尺寸是否小余控件大小。
  *
- *  gif\_image\_t是[image\_base\_t](image_base_t.md)的子类控件，image\_base\_t的函数均适用于gif\_image\_t控件。
+ *gif\_image\_t是[image\_base\_t](image_base_t.md)的子类控件，image\_base\_t的函数均适用于gif\_image\_t控件。
  *
- *  在xml中使用"gif"标签创建GIF图片控件。如：
+ *在xml中使用"gif"标签创建GIF图片控件。如：
  *
- *  ```xml
- *  <gif image="bee"/>
- *  ```
+ *```xml
+ *<gif image="bee"/>
+ *```
  *
- *更多用法请参考：
- *  [gif
- *  image](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/gif_image.xml)
+ *>更多用法请参考：
+ *[gif
+ *image](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/gif_image.xml)
  *
- *  在c代码中使用函数gif\_image\_create创建GIF图片控件。如：
+ *在c代码中使用函数gif\_image\_create创建GIF图片控件。如：
  *
- *  ```c
- *   widget_t* image = gif_image_create(win, 10, 10, 200, 200);
- *   image_set_image(image, "bee");
- *  ```
  *
- * 创建之后:
+ *> 创建之后:
+ *>
+ *> 需要用widget\_set\_image设置图片名称。
  *
- * 需要用widget\_set\_image设置图片名称。
+ *> 完整示例请参考：[gif image demo](
+ *https://github.com/zlgopen/awtk-c-demos/blob/master/demos/gif_image.c)
  *
- * 完整示例请参考：[gif image demo](
- *  https://github.com/zlgopen/awtk-c-demos/blob/master/demos/gif_image.c)
+ *可用通过style来设置控件的显示风格，如背景和边框等。如：
  *
- *  可用通过style来设置控件的显示风格，如背景和边框等。如：
+ *```xml
+ *<gif>
+ *<style name="border">
+ *<normal border_color="#000000" bg_color="#e0e0e0" text_color="black"/>
+ *</style>
+ *</gif>
+ *```
  *
- *  ```xml
- *  <gif>
- *   <style name="border">
- *    <normal border_color="#000000" bg_color="#e0e0e0" text_color="black"/>
- *   </style>
- *  </gif>
- *  ```
- *
- * 更多用法请参考：[theme default](
- *  https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml)
+ *> 更多用法请参考：[theme default](
+ *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml)
  *
  */
 var TGifImage = /** @class */ (function (_super) {
@@ -16275,7 +16354,7 @@ var TGifImage = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TGifImage.create = function (parent, x, y, w, h) {
@@ -16285,7 +16364,7 @@ var TGifImage = /** @class */ (function (_super) {
      * 转换为gif_image对象(供脚本语言使用)。
      *
      * @param widget gif_image对象。
-     *
+     
      * @returns gif_image对象。
      */
     TGifImage.cast = function (widget) {
@@ -16293,8 +16372,11 @@ var TGifImage = /** @class */ (function (_super) {
     };
     return TGifImage;
 }(TImageBase));
+;
 /**
- * 对象接口的缺省实现。 内部使用有序数组保存所有属性，可以快速查找指定名称的属性。
+ * 对象接口的缺省实现。
+ *
+ *内部使用有序数组保存所有属性，可以快速查找指定名称的属性。
  *
  */
 var TObjectDefault = /** @class */ (function (_super) {
@@ -16305,7 +16387,7 @@ var TObjectDefault = /** @class */ (function (_super) {
     /**
      * 创建对象。
      *
-     *
+     
      * @returns 返回object对象。
      */
     TObjectDefault.create = function () {
@@ -16314,8 +16396,7 @@ var TObjectDefault = /** @class */ (function (_super) {
     /**
      * for script gc
      *
-     * @param obj 对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TObjectDefault.prototype.unref = function () {
@@ -16324,8 +16405,7 @@ var TObjectDefault = /** @class */ (function (_super) {
     /**
      * 清除全部属性。
      *
-     * @param obj 对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TObjectDefault.prototype.clearProps = function () {
@@ -16344,64 +16424,61 @@ var TObjectDefault = /** @class */ (function (_super) {
     });
     return TObjectDefault;
 }(TObject));
+;
 /**
  * 图片控件。
  *
- *  用来显示一张静态图片，目前支持bmp/png/jpg等格式。
+ *用来显示一张静态图片，目前支持bmp/png/jpg等格式。
  *
- *  如果要显示gif文件，请用[gif\_image](gif_image_t.md)。
+ *如果要显示gif文件，请用[gif\_image](gif_image_t.md)。
  *
- *  如果要显示svg文件，请用[svg\_image](svg_image_t.md)。
+ *如果要显示svg文件，请用[svg\_image](svg_image_t.md)。
  *
- *  如果需要支持勾选效果，请设置**selectable**属性。
+ *如果需要支持勾选效果，请设置**selectable**属性。
  *
- *  如果需要支持点击效果，请设置**clickable**属性。
+ *如果需要支持点击效果，请设置**clickable**属性。
  *
- *  image\_t是[image\_base\_t](image_base_t.md)的子类控件，image\_base\_t的函数均适用于image\_t控件。
+ *image\_t是[image\_base\_t](image_base_t.md)的子类控件，image\_base\_t的函数均适用于image\_t控件。
  *
- *  在xml中使用"image"标签创建图片控件。如：
+ *在xml中使用"image"标签创建图片控件。如：
  *
- *  ```xml
- *  <image style="border" image="earth" draw_type="icon" />
- *  ```
+ *```xml
+ *<image style="border" image="earth" draw_type="icon" />
+ *```
  *
- * 更多用法请参考：
- *  [image.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/images.xml)
+ *> 更多用法请参考：
+ *[image.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/images.xml)
  *
- *  在c代码中使用函数image\_create创建图片控件。如：
+ *在c代码中使用函数image\_create创建图片控件。如：
  *
- *  ```c
- *   widget_t* image = image_create(win, 10, 10, 128, 30);
- *   image_set_image(image, "earth");
- *  ```
  *
- * 创建之后:
+ *> 创建之后:
+ *>
+ *> 需要用widget\_set\_image设置图片名称。
+ *>
+ *> 可以用image\_set\_draw\_type设置图片的绘制方式。
  *
- * 需要用widget\_set\_image设置图片名称。
+ *> 绘制方式请参考[image\_draw\_type\_t](image_draw_type_t.md)
  *
- * 可以用image\_set\_draw\_type设置图片的绘制方式。
+ *> 绘制方式的属性值和枚举值:
+ *[image\_draw\_type\_name\_value](https://github.com/zlgopen/awtk/blob/master/src/base/enums.c#L98)
  *
- * 绘制方式请参考[image\_draw\_type\_t](image_draw_type_t.md)
+ *> 完整示例请参考：
+ *[image demo](https://github.com/zlgopen/awtk-c-demos/blob/master/demos/image.c)
  *
- * 绘制方式的属性值和枚举值:
- *  [image\_draw\_type\_name\_value](https://github.com/zlgopen/awtk/blob/master/src/base/enums.c#L98)
+ *可用通过style来设置控件的显示风格，如背景和边框等。如：
  *
- * 完整示例请参考：
- *  [image demo](https://github.com/zlgopen/awtk-c-demos/blob/master/demos/image.c)
+ *```xml
+ *<image>
+ *<style name="border">
+ *<normal border_color="#000000" bg_color="#e0e0e0" text_color="black"/>
+ *</style>
+ *</image>
+ *```
  *
- *  可用通过style来设置控件的显示风格，如背景和边框等。如：
- *
- *  ```xml
- *  <image>
- *   <style name="border">
- *    <normal border_color="#000000" bg_color="#e0e0e0" text_color="black"/>
- *   </style>
- *  </image>
- *  ```
- *
- * 更多用法请参考：
- *  [theme
- *  default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L313)
+ *> 更多用法请参考：
+ *[theme
+ *default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L313)
  *
  */
 var TImage = /** @class */ (function (_super) {
@@ -16417,7 +16494,7 @@ var TImage = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TImage.create = function (parent, x, y, w, h) {
@@ -16426,9 +16503,8 @@ var TImage = /** @class */ (function (_super) {
     /**
      * 设置图片的绘制方式。
      *
-     * @param widget image对象。
      * @param draw_type 绘制方式(仅在没有旋转和缩放时生效)。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImage.prototype.setDrawType = function (draw_type) {
@@ -16438,7 +16514,7 @@ var TImage = /** @class */ (function (_super) {
      * 转换为image对象(供脚本语言使用)。
      *
      * @param widget image对象。
-     *
+     
      * @returns image对象。
      */
     TImage.cast = function (widget) {
@@ -16460,6 +16536,7 @@ var TImage = /** @class */ (function (_super) {
     });
     return TImage;
 }(TImageBase));
+;
 /**
  * 可滚动的combo_box控件。
  *
@@ -16477,7 +16554,7 @@ var TComboBoxEx = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TComboBoxEx.create = function (parent, x, y, w, h) {
@@ -16485,53 +16562,50 @@ var TComboBoxEx = /** @class */ (function (_super) {
     };
     return TComboBoxEx;
 }(TComboBox));
+;
 /**
  * 弹出窗口。
  *
- *  弹出窗口是一种特殊的窗口，大小和位置可以自由设置，主要用来实现右键菜单和combo\_box的下列列表等功能。
+ *弹出窗口是一种特殊的窗口，大小和位置可以自由设置，主要用来实现右键菜单和combo\_box的下列列表等功能。
  *
- *  popup\_t是[window\_base\_t](window_base_t.md)的子类控件，window\_base\_t的函数均适用于popup\_t控件。
+ *popup\_t是[window\_base\_t](window_base_t.md)的子类控件，window\_base\_t的函数均适用于popup\_t控件。
  *
- *  在xml中使用"popup"标签创建弹出窗口。如：
+ *在xml中使用"popup"标签创建弹出窗口。如：
  *
- *  ```xml
- *  <popup close_when_click_outside="true" x="c" y="m" w="80%" h="80"
- *  <list_view x="0"  y="0" w="100%" h="100%" item_height="30">
- *    <scroll_view name="view" x="0"  y="0" w="-12" h="100%">
- *      <combo_box_item tr_text="english"/>
- *      <combo_box_item tr_text="chinese" />
- *    </scroll_view>
- *    <scroll_bar_d name="bar" x="right" y="0" w="12" h="100%" value="0"/>
- *  </list_view>
- *  </popup>
- *  ```
+ *```xml
+ *<popup close_when_click_outside="true" x="c" y="m" w="80%" h="80"
+ *<list_view x="0"  y="0" w="100%" h="100%" item_height="30">
+ *<scroll_view name="view" x="0"  y="0" w="-12" h="100%">
+ *<combo_box_item tr_text="english"/>
+ *<combo_box_item tr_text="chinese" />
+ *</scroll_view>
+ *<scroll_bar_d name="bar" x="right" y="0" w="12" h="100%" value="0"/>
+ *</list_view>
+ *</popup>
+ *```
+ *
+ *>
+ *更多用法请参考：[popup](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/)
+ *
+ *在c代码中使用函数popup\_create创建弹出窗口。如：
  *
  *
- *  更多用法请参考：[popup](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/)
+ *> 创建之后，和使用普通窗口是一样的。
  *
- *  在c代码中使用函数popup\_create创建弹出窗口。如：
+ *> 完整示例请参考：[combo_box.c](https://github.com/zlgopen/awtk-c-demos/blob/master/demos/combo_box.c)
  *
- *  ```c
- *  widget_t* win = popup_create(NULL, 0, 0, w, h);
- *  popup_set_close_when_click_outside(win, TRUE);
- *  ```
+ *可用通过style来设置控件的显示风格，如字体的大小和颜色等等。如：
  *
- * 创建之后，和使用普通窗口是一样的。
+ *```xml
+ *<popup>
+ *<style name="default" border_color="#a0a0a0">
+ *<normal bg_color="#f0f0f0"/>
+ *</style>
+ *</popup>
+ *```
  *
- * 完整示例请参考：[combo_box.c](https://github.com/zlgopen/awtk-c-demos/blob/master/demos/combo_box.c)
- *
- *  可用通过style来设置控件的显示风格，如字体的大小和颜色等等。如：
- *
- *  ```xml
- *  <popup>
- *   <style name="default" border_color="#a0a0a0">
- *     <normal bg_color="#f0f0f0"/>
- *   </style>
- *  </popup>
- *  ```
- *
- * 更多用法请参考：[theme
- *  default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L324)
+ *> 更多用法请参考：[theme
+ *default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L324)
  *
  */
 var TPopup = /** @class */ (function (_super) {
@@ -16547,7 +16621,7 @@ var TPopup = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns popup对象。
      */
     TPopup.create = function (parent, x, y, w, h) {
@@ -16557,7 +16631,7 @@ var TPopup = /** @class */ (function (_super) {
      * 转换为popup对象(供脚本语言使用)。
      *
      * @param widget popup对象。
-     *
+     
      * @returns popup对象。
      */
     TPopup.cast = function (widget) {
@@ -16566,9 +16640,8 @@ var TPopup = /** @class */ (function (_super) {
     /**
      * 设置点击时是否关闭窗口。
      *
-     * @param widget 控件对象。
      * @param close_when_click 点击时是否关闭窗口。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TPopup.prototype.setCloseWhenClick = function (close_when_click) {
@@ -16577,9 +16650,8 @@ var TPopup = /** @class */ (function (_super) {
     /**
      * 设置点击窗口外部时是否关闭窗口。
      *
-     * @param widget 控件对象。
      * @param close_when_click_outside 点击窗口外部时是否关闭窗口。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TPopup.prototype.setCloseWhenClickOutside = function (close_when_click_outside) {
@@ -16615,44 +16687,41 @@ var TPopup = /** @class */ (function (_super) {
     });
     return TPopup;
 }(TWindowBase));
+;
 /**
  * SVG图片控件。
  *
- *  svg\_image\_t是[image\_base\_t](image_base_t.md)的子类控件，image\_base\_t的函数均适用于svg\_image\_t控件。
+ *svg\_image\_t是[image\_base\_t](image_base_t.md)的子类控件，image\_base\_t的函数均适用于svg\_image\_t控件。
  *
- *  在xml中使用"svg"标签创建SVG图片控件。如：
+ *在xml中使用"svg"标签创建SVG图片控件。如：
  *
- *  ```xml
- *  <svg image="girl"/>
- *  ```
+ *```xml
+ *<svg image="girl"/>
+ *```
  *
- *更多用法请参考：[svg image](
- *  https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/svg_image.xml)
+ *>更多用法请参考：[svg image](
+ *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/svg_image.xml)
  *
- *  在c代码中使用函数svg\_image\_create创建SVG图片控件。如：
+ *在c代码中使用函数svg\_image\_create创建SVG图片控件。如：
  *
- *  ```c
- *   widget_t* image = svg_image_create(win, 10, 10, 200, 200);
- *   image_set_image(image, "girl");
- *  ```
  *
- * 创建之后: 需要用widget\_set\_image设置图片名称。
+ *> 创建之后: 需要用widget\_set\_image设置图片名称。
  *
- * 完整示例请参考：[svg image demo](
- *  https://github.com/zlgopen/awtk-c-demos/blob/master/demos/svg_image.c)
+ *> 完整示例请参考：[svg image demo](
+ *https://github.com/zlgopen/awtk-c-demos/blob/master/demos/svg_image.c)
  *
- *  可用通过style来设置控件的显示风格，如背景和边框等。如：
+ *可用通过style来设置控件的显示风格，如背景和边框等。如：
  *
- *  ```xml
- *  <svg>
- *  <style name="default">
- *    <normal border_color="green" fg_color="red" />
- *  </style>
- *  </svg>
- *  ```
+ *```xml
+ *<svg>
+ *<style name="default">
+ *<normal border_color="green" fg_color="red" />
+ *</style>
+ *</svg>
+ *```
  *
- * 更多用法请参考：[theme default](
- *  https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml)
+ *> 更多用法请参考：[theme default](
+ *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml)
  *
  */
 var TSvgImage = /** @class */ (function (_super) {
@@ -16668,7 +16737,7 @@ var TSvgImage = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TSvgImage.create = function (parent, x, y, w, h) {
@@ -16677,11 +16746,10 @@ var TSvgImage = /** @class */ (function (_super) {
     /**
      * 设置控件的图片名称。
      *
-     * 如果需要显示文件系统中的图片，只需将图片名称换成实际的文件名，并加上"file://"前缀即可。
+     *> 如果需要显示文件系统中的图片，只需将图片名称换成实际的文件名，并加上"file://"前缀即可。
      *
-     * @param widget image对象。
      * @param name 图片名称，该图片必须存在于资源管理器。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSvgImage.prototype.setImage = function (name) {
@@ -16691,7 +16759,7 @@ var TSvgImage = /** @class */ (function (_super) {
      * 转换为svg_image对象(供脚本语言使用)。
      *
      * @param widget svg_image对象。
-     *
+     
      * @returns svg_image对象。
      */
     TSvgImage.cast = function (widget) {
@@ -16699,6 +16767,7 @@ var TSvgImage = /** @class */ (function (_super) {
     };
     return TSvgImage;
 }(TImageBase));
+;
 /**
  * 单个定时器的信息。
  *
@@ -16712,7 +16781,7 @@ var TTimerInfo = /** @class */ (function (_super) {
      * 转换为timer_info对象(供脚本语言使用)。
      *
      * @param timer timer_info对象。
-     *
+     
      * @returns timer_info对象。
      */
     TTimerInfo.cast = function (timer) {
@@ -16731,7 +16800,9 @@ var TTimerInfo = /** @class */ (function (_super) {
     });
     Object.defineProperty(TTimerInfo.prototype, "id", {
         /**
-         * 定时器的ID 为TK\_INVALID\_ID时表示无效定时器。
+         * 定时器的ID
+         *
+         *> 为TK\_INVALID\_ID时表示无效定时器。
          *
          */
         get: function () {
@@ -16753,55 +16824,52 @@ var TTimerInfo = /** @class */ (function (_super) {
     });
     return TTimerInfo;
 }(TObject));
+;
 /**
  * spinbox控件。
  *
- *  一个特殊的数值编辑器，将edit\_t和button\_t进行组合，方便编辑数值。
+ *一个特殊的数值编辑器，将edit\_t和button\_t进行组合，方便编辑数值。
  *
- *  点击向上的按钮将数值增加一个step，点击向下的按钮将数值减小一个step。
- *  step的值可以通过step属性进行设置。
+ *点击向上的按钮将数值增加一个step，点击向下的按钮将数值减小一个step。
+ *step的值可以通过step属性进行设置。
  *
- *  spin_box\_t是[edit\_t](edit_t.md)的子类控件，edit\_t的函数均适用于spin\_box\_t控件。
+ *spin_box\_t是[edit\_t](edit_t.md)的子类控件，edit\_t的函数均适用于spin\_box\_t控件。
  *
- *  在xml中使用"spin_box"标签创建spinbox控件。如：
+ *在xml中使用"spin_box"标签创建spinbox控件。如：
  *
- *  ```xml
- *  <spin_box w="70%" input_type="int" min="-100" max="100" step="5">
- *  ```
+ *```xml
+ *<spin_box w="70%" input_type="int" min="-100" max="100" step="5">
+ *```
+ *
+ *>
+ *更多用法请参考：[spin_box.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/spinbox.xml)
+ *
+ *在c代码中使用函数spin_box\_create创建spinbox控件。如：
  *
  *
- *  更多用法请参考：[spin_box.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/spinbox.xml)
+ *> 创建之后:
+ *>
+ *> 可以用edit相关函数去设置它的各种属性。
  *
- *  在c代码中使用函数spin_box\_create创建spinbox控件。如：
+ *> 完整示例请参考：[spin_box
+ *demo](https://github.com/zlgopen/awtk-c-demos/blob/master/demos/spin_box.c)
  *
- *  ```c
- *   widget_t* spin_box = spin_box_create(win, 10, 10, 128, 30);
- *   edit_set_input_type(spin_box, type);
- *  ```
+ *可用通过style来设置控件的显示风格，如背景和边框等。如：
  *
- * 创建之后:
+ *```xml
+ *<spin_box>
+ *<style name="default" border_color="#a0a0a0"  text_color="black" text_align_h="left">
+ *<normal     bg_color="#f0f0f0" />
+ *<focused    bg_color="#f0f0f0" border_color="black"/>
+ *<disable    bg_color="gray" text_color="#d0d0d0" />
+ *<error      bg_color="#f0f0f0" text_color="red" />
+ *<empty      bg_color="#f0f0f0" text_color="#a0a0a0" />
+ *</style>
+ *</spin_box>
+ *```
  *
- * 可以用edit相关函数去设置它的各种属性。
- *
- * 完整示例请参考：[spin_box
- *  demo](https://github.com/zlgopen/awtk-c-demos/blob/master/demos/spin_box.c)
- *
- *  可用通过style来设置控件的显示风格，如背景和边框等。如：
- *
- *  ```xml
- *  <spin_box>
- *  <style name="default" border_color="#a0a0a0"  text_color="black" text_align_h="left">
- *    <normal     bg_color="#f0f0f0" />
- *    <focused    bg_color="#f0f0f0" border_color="black"/>
- *    <disable    bg_color="gray" text_color="#d0d0d0" />
- *    <error      bg_color="#f0f0f0" text_color="red" />
- *    <empty      bg_color="#f0f0f0" text_color="#a0a0a0" />
- *  </style>
- *  </spin_box>
- *  ```
- *
- * 更多用法请参考：[theme
- *  default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L128)
+ *> 更多用法请参考：[theme
+ *default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L128)
  *
  */
 var TSpinBox = /** @class */ (function (_super) {
@@ -16817,7 +16885,7 @@ var TSpinBox = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TSpinBox.create = function (parent, x, y, w, h) {
@@ -16827,7 +16895,7 @@ var TSpinBox = /** @class */ (function (_super) {
      * 转换为spin_box对象(供脚本语言使用)。
      *
      * @param widget spin_box对象。
-     *
+     
      * @returns spin_box对象。
      */
     TSpinBox.cast = function (widget) {
@@ -16835,56 +16903,54 @@ var TSpinBox = /** @class */ (function (_super) {
     };
     return TSpinBox;
 }(TEdit));
+;
 /**
  * system\_bar窗口。
  *
- *  system\_bar窗口是一种特殊的窗口，独占LCD顶部区域，用来显示当前窗口的标题和关闭按钮等内容。
+ *system\_bar窗口是一种特殊的窗口，独占LCD顶部区域，用来显示当前窗口的标题和关闭按钮等内容。
  *
- * system\_bar窗口需要在打开第一个应用程序窗口之前打开。
+ *> system\_bar窗口需要在打开第一个应用程序窗口之前打开。
  *
- *  system_bar对两个子控件会做特殊处理：
+ *system_bar对两个子控件会做特殊处理：
  *
- *  * 1.名为"title"的label控件，自动显示当前主窗口的name或text。
- *  * 2.名为"close"的button控件，点击之后向当前主窗口发送EVT\_REQUEST\_CLOSE\_WINDOW消息。
+ ** 1.名为"title"的label控件，自动显示当前主窗口的name或text。
+ ** 2.名为"close"的button控件，点击之后向当前主窗口发送EVT\_REQUEST\_CLOSE\_WINDOW消息。
  *
- * system\_bar\_t是[window\_base\_t](window_base_t.md)的子类控件，
- *  window\_base\_t的函数均适用于system\_bar\_t控件。
+ *system\_bar\_t是[window\_base\_t](window_base_t.md)的子类控件，
+ *window\_base\_t的函数均适用于system\_bar\_t控件。
  *
- *  在xml中使用"system\_bar"标签创建system\_bar窗口。如：
+ *在xml中使用"system\_bar"标签创建system\_bar窗口。如：
  *
- *  ```xml
- *  <system_bar h="30">
- *  <column x="0" y="0" w="-40" h="100%">
- *    <label style="title" x="10" y="m" w="55%" h="100%" name="title"/>
- *    <digit_clock style="time" x="r" y="m" w="40%" h="100%" format="hh:mm"/>
- *  </column>
- *  <button style="close" x="r:5" y="m" w="26" h="26" name="close" text="x"/>
- *  </system_bar>
- *  ```
+ *```xml
+ *<system_bar h="30">
+ *<column x="0" y="0" w="-40" h="100%">
+ *<label style="title" x="10" y="m" w="55%" h="100%" name="title"/>
+ *<digit_clock style="time" x="r" y="m" w="40%" h="100%" format="hh:mm"/>
+ *</column>
+ *<button style="close" x="r:5" y="m" w="26" h="26" name="close" text="x"/>
+ *</system_bar>
+ *```
  *
- * 更多用法请参考：
- *  [system_bar](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/system_bar.xml)
+ *> 更多用法请参考：
+ *[system_bar](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/system_bar.xml)
  *
- *  在c代码中使用函数system\_bar\_create创建system\_bar窗口。如：
+ *在c代码中使用函数system\_bar\_create创建system\_bar窗口。如：
  *
- *  ```c
- *  widget_t* win = system_bar_create(NULL, 0, 0, 320, 30);
- *  ```
  *
- * 创建之后，和使用普通窗口是一样的。
+ *> 创建之后，和使用普通窗口是一样的。
  *
- *  可用通过style来设置控件的显示风格，如背景颜色等等。如：
+ *可用通过style来设置控件的显示风格，如背景颜色等等。如：
  *
- *  ```xml
- *  <system_bar>
- *   <style name="default">
- *     <normal bg_color="#a0a0a0"/>
- *   </style>
- *  </system_bar>
- *  ```
+ *```xml
+ *<system_bar>
+ *<style name="default">
+ *<normal bg_color="#a0a0a0"/>
+ *</style>
+ *</system_bar>
+ *```
  *
- * 更多用法请参考：
- *  [system_bar.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/system_bar.xml)
+ *> 更多用法请参考：
+ *[system_bar.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/system_bar.xml)
  *
  */
 var TSystemBar = /** @class */ (function (_super) {
@@ -16900,7 +16966,7 @@ var TSystemBar = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns system_bar对象。
      */
     TSystemBar.create = function (parent, x, y, w, h) {
@@ -16910,7 +16976,7 @@ var TSystemBar = /** @class */ (function (_super) {
      * 转换为system_bar对象(供脚本语言使用)。
      *
      * @param widget system_bar对象。
-     *
+     
      * @returns system_bar对象。
      */
     TSystemBar.cast = function (widget) {
@@ -16918,8 +16984,43 @@ var TSystemBar = /** @class */ (function (_super) {
     };
     return TSystemBar;
 }(TWindowBase));
+;
 /**
- * 窗口。 缺省的应用程序窗口，占用除system\_bar\_t之外的整个区域，请不要修改它的位置和大小(除非你清楚后果)。 window\_t是[window\_base\_t](window_base_t.md)的子类控件，window\_base\_t的函数均适用于window\_t控件。 在xml中使用"window"标签创建窗口。无需指定坐标和大小，可以指定主题和动画名称。如： ```xml <window theme="basic" anim_hint="htranslate"> ... </window> ``` 更多用法请参考：[window.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/) 在c代码中使用函数window\_create创建窗口。如： ```c  widget_t* window = window_create(NULL, 0, 0, 0, 0); ``` 无需指定父控件、坐标和大小，使用0即可。 完整示例请参考：[window demo](https://github.com/zlgopen/awtk-c-demos/blob/master/demos/) 可用通过style来设置窗口的风格，如背景颜色或图片等。如： ```xml <style name="bricks">  <normal bg_image="bricks"  bg_image_draw_type="repeat"/> </style> ``` 更多用法请参考：[theme default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L0)
+ * 窗口。
+ *
+ *缺省的应用程序窗口，占用除system\_bar\_t之外的整个区域，请不要修改它的位置和大小(除非你清楚后果)。
+ *
+ *window\_t是[window\_base\_t](window_base_t.md)的子类控件，window\_base\_t的函数均适用于window\_t控件。
+ *
+ *在xml中使用"window"标签创建窗口。无需指定坐标和大小，可以指定主题和动画名称。如：
+ *
+ *```xml
+ *<window theme="basic" anim_hint="htranslate">
+ *...
+ *</window>
+ *```
+ *
+ *>
+ *更多用法请参考：[window.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/)
+ *
+ *在c代码中使用函数window\_create创建窗口。如：
+ *
+ *
+ *> 无需指定父控件、坐标和大小，使用0即可。
+ *
+ *> 完整示例请参考：[window
+ *demo](https://github.com/zlgopen/awtk-c-demos/blob/master/demos/)
+ *
+ *可用通过style来设置窗口的风格，如背景颜色或图片等。如：
+ *
+ *```xml
+ *<style name="bricks">
+ *<normal bg_image="bricks"  bg_image_draw_type="repeat"/>
+ *</style>
+ *```
+ *
+ *> 更多用法请参考：[theme
+ *default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L0)
  *
  */
 var TWindow = /** @class */ (function (_super) {
@@ -16935,18 +17036,28 @@ var TWindow = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TWindow.create = function (parent, x, y, w, h) {
         return new TWindow(window_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     /**
-     * 设置为全屏窗口。>这里全屏是指与LCD相同大小，而非让SDL窗口全屏。
+     * 以缺省的方式创建window对象。
      *
-     * @param widget window对象。
+     
+     * @returns 对象。
+     */
+    TWindow.createDefault = function () {
+        return new TWindow(window_create_default());
+    };
+    /**
+     * 设置为全屏窗口。
+     *
+     *>这里全屏是指与LCD相同大小，而非让SDL窗口全屏。
+     *
      * @param fullscreen 是否全屏。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWindow.prototype.setFullscreen = function (fullscreen) {
@@ -16956,7 +17067,7 @@ var TWindow = /** @class */ (function (_super) {
      * 从资源文件中加载并创建window_base对象。本函数在ui_loader/ui_builder_default里实现。
      *
      * @param name window的名称。
-     *
+     
      * @returns 对象。
      */
     TWindow.open = function (name) {
@@ -16967,7 +17078,7 @@ var TWindow = /** @class */ (function (_super) {
      *
      * @param name window的名称。
      * @param to_close 关闭该窗口。
-     *
+     
      * @returns 对象。
      */
     TWindow.openAndClose = function (name, to_close) {
@@ -16976,8 +17087,7 @@ var TWindow = /** @class */ (function (_super) {
     /**
      * 关闭窗口。
      *
-     * @param widget window对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWindow.prototype.close = function () {
@@ -16986,8 +17096,7 @@ var TWindow = /** @class */ (function (_super) {
     /**
      * 立即无条件关闭窗口(无动画)。
      *
-     * @param widget window对象。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWindow.prototype.closeForce = function () {
@@ -16997,7 +17106,7 @@ var TWindow = /** @class */ (function (_super) {
      * 转换为window对象(供脚本语言使用)。
      *
      * @param widget window对象。
-     *
+     
      * @returns window对象。
      */
     TWindow.cast = function (widget) {
@@ -17005,7 +17114,9 @@ var TWindow = /** @class */ (function (_super) {
     };
     Object.defineProperty(TWindow.prototype, "fullscreen", {
         /**
-         * 是否全屏。>这里全屏是指与LCD相同大小，而非让SDL窗口全屏。
+         * 是否全屏。
+         *
+         *>这里全屏是指与LCD相同大小，而非让SDL窗口全屏。
          *
          */
         get: function () {
@@ -17019,44 +17130,45 @@ var TWindow = /** @class */ (function (_super) {
     });
     return TWindow;
 }(TWindowBase));
+;
 /**
  * 软键盘。
  *
- *  软键盘是一个特殊的窗口，由编辑器通过输入法自动打开和关闭。
+ *软键盘是一个特殊的窗口，由编辑器通过输入法自动打开和关闭。
  *
- *  这里介绍一下定制软键盘的方法：
+ *这里介绍一下定制软键盘的方法：
  *
- *   编辑器输入类型和软键盘UI资源文件的对应关系:
+ *编辑器输入类型和软键盘UI资源文件的对应关系:
  *
- * | 输入类型       | 软键盘UI资源文件|
- * |----------------|:---------------:|
- * | INPUT\_PHONE    | kb\_phone.xml    |
- * | INPUT\_INT      | kb\_int.xml      |
- * | INPUT\_FLOAT    | kb\_float.xml    |
- * | INPUT\_UINT     | kb\_uint.xml     |
- * | INPUT\_UFLOAT   | kb\_ufloat.xml   |
- * | INPUT\_HEX      | kb\_hex.xml      |
- * | INPUT\_EMAIL    | kb\_ascii.xml    |
- * | INPUT\_PASSWORD | kb\_ascii.xml    |
- * | INPUT\_CUSTOM   | 使用自定义的键盘 |
- * | 其它            | kb\_default.xml  |
+ *| 输入类型       | 软键盘UI资源文件|
+ *|----------------|:---------------:|
+ *| INPUT\_PHONE    | kb\_phone.xml    |
+ *| INPUT\_INT      | kb\_int.xml      |
+ *| INPUT\_FLOAT    | kb\_float.xml    |
+ *| INPUT\_UINT     | kb\_uint.xml     |
+ *| INPUT\_UFLOAT   | kb\_ufloat.xml   |
+ *| INPUT\_HEX      | kb\_hex.xml      |
+ *| INPUT\_EMAIL    | kb\_ascii.xml    |
+ *| INPUT\_PASSWORD | kb\_ascii.xml    |
+ *| INPUT\_CUSTOM   | 使用自定义的键盘 |
+ *| 其它            | kb\_default.xml  |
  *
- *  keyboard中按钮子控件的名称有些特殊要求：
+ *keyboard中按钮子控件的名称有些特殊要求：
  *
- * |  名称          | 功能            |
- * |----------------|:---------------:|
- * | return         | 回车键          |
- * | action         | 定制按钮        |
- * | backspace      | 删除键          |
- * | tab            | tab键           |
- * | space          | 空格键          |
- * | close          | 关闭软键盘      |
- * | 前缀key:       | 键值            |
- * | 前缀page:      | 切换到页面      |
+ *|  名称          | 功能            |
+ *|----------------|:---------------:|
+ *| return         | 回车键          |
+ *| action         | 定制按钮        |
+ *| backspace      | 删除键          |
+ *| tab            | tab键           |
+ *| space          | 空格键          |
+ *| close          | 关闭软键盘      |
+ *| 前缀key:       | 键值            |
+ *| 前缀page:      | 切换到页面      |
  *
  *
- * 更多用法请参考：
- *  [kb_default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/kb_default.xml)
+ *> 更多用法请参考：
+ *[kb_default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/kb_default.xml)
  *
  */
 var TKeyboard = /** @class */ (function (_super) {
@@ -17072,7 +17184,7 @@ var TKeyboard = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns 对象。
      */
     TKeyboard.create = function (parent, x, y, w, h) {
@@ -17082,7 +17194,7 @@ var TKeyboard = /** @class */ (function (_super) {
      * 转换为keyboard对象(供脚本语言使用)。
      *
      * @param widget keyboard对象。
-     *
+     
      * @returns keyboard对象。
      */
     TKeyboard.cast = function (widget) {
@@ -17090,8 +17202,76 @@ var TKeyboard = /** @class */ (function (_super) {
     };
     return TKeyboard;
 }(TWindowBase));
+;
 /**
- * 对话框。 对话框是一种特殊的窗口，大小和位置可以自由设置。 AWTK中的对话框可以是模态的，也可以是非模态的。 如果dialog有透明或半透效果则不支持窗口动画。> 由于浏览器中无法实现主循环嵌套，因此无法实现模态对话框。 如果希望自己写的AWTK应用程序可以在浏览器(包括各种小程序)中运行或演示， 请避免使用模态对话框。 对话框通常由对话框标题和对话框客户区两部分组成： ```graphviz   [default_style]   dialog_title_t -> dialog_t[arrowhead = "ediamond"]   dialog_client_t -> dialog_t[arrowhead = "ediamond"] ``` dialog\_t是[window\_base\_t](window_base_t.md)的子类控件，window\_base\_t的函数均适用于dialog\_t控件。 在xml中使用"dialog"标签创建对话框。如： ```xml <dialog anim_hint="center_scale(duration=300)" x="c" y="m" w="80%" h="160" text="Dialog"> <dialog_title x="0" y="0" w="100%" h="30" text="Hello AWTK" /> <dialog_client x="0" y="bottom" w="100%" h="-30">   <label name="" x="center" y="middle:-20" w="200" h="30" text="Are you ready?"/>   <button name="quit" x="10" y="bottom:10" w="40%" h="30" text="确定"/>   <button name="quit" x="right:10" y="bottom:10" w="40%" h="30" text="取消"/> </dialog_client> </dialog> ``` 如果你不需要对话框的标题，可以这样写： ```xml <dialog anim_hint="center_scale(duration=300)" x="c" y="m" w="80%" h="160" text="Dialog">   <label name="" x="center" y="middle:-20" w="200" h="30" text="Are you ready?"/>   <button name="quit" x="10" y="bottom:10" w="40%" h="30" text="确定"/>   <button name="quit" x="right:10" y="bottom:10" w="40%" h="30" text="取消"/> </dialog> ``` 打开非模态对话框时，其用法与普通窗口一样。打开非模态对话框时，还需要调用dialog\_modal。 ```c  widget_t* dlg = dialog_open(name);  ret = dialog_modal(dlg); ``` 关闭模态对话框用dialog\_quit ```c static ret_t on_dialog_btn_click(void* ctx, event_t* evt) {   widget_t* win = widget_get_window(WIDGET(evt->target));   int code = (char*)ctx - (char*)NULL;   dialog_quit(win, code);    return RET_OK; } ``` 关闭非模态对话框用window\_close。 ```c static ret_t on_dialog_btn_click(void* ctx, event_t* evt) {   widget_t* win = widget_get_window(WIDGET(evt->target));   int code = (char*)ctx - (char*)NULL;   window_close(win);   return RET_OK; } ``` 更多用法请参考： [dialog.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/) 完整C代码示例请参考： * [非模态对话框](https://github.com/zlgopen/awtk-c-demos/blob/master/demos/dialog.c) * [模态对话框](https://github.com/zlgopen/awtk-c-demos/blob/master/demos/dialog_modal.c)可用通过style来设置控件的显示风格，如字体的大小和颜色等等。如： ```xml <style name="default">   <normal border_color="#606060" /> </style> ``` 更多用法请参考： [theme default] (https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L324)
+ * 对话框。 对话框是一种特殊的窗口，大小和位置可以自由设置。
+ *
+ *AWTK中的对话框可以是模态的，也可以是非模态的。
+ *
+ *如果dialog有透明或半透效果则不支持窗口动画。
+ *
+ *> 由于浏览器中无法实现主循环嵌套，因此无法实现模态对话框。
+ *如果希望自己写的AWTK应用程序可以在浏览器(包括各种小程序)中运行或演示，
+ *请避免使用模态对话框。
+ *
+ *对话框通常由对话框标题和对话框客户区两部分组成：
+ *
+ *
+ *
+ *dialog\_t是[window\_base\_t](window_base_t.md)的子类控件，window\_base\_t的函数均适用于dialog\_t控件。
+ *
+ *在xml中使用"dialog"标签创建对话框。如：
+ *
+ *```xml
+ *<dialog anim_hint="center_scale(duration=300)" x="c" y="m" w="80%" h="160" text="Dialog">
+ *<dialog_title x="0" y="0" w="100%" h="30" text="Hello AWTK" />
+ *<dialog_client x="0" y="bottom" w="100%" h="-30">
+ *<label name="" x="center" y="middle:-20" w="200" h="30" text="Are you ready?"/>
+ *<button name="quit" x="10" y="bottom:10" w="40%" h="30" text="确定"/>
+ *<button name="quit" x="right:10" y="bottom:10" w="40%" h="30" text="取消"/>
+ *</dialog_client>
+ *</dialog>
+ *```
+ *
+ *如果你不需要对话框的标题，可以这样写：
+ *
+ *```xml
+ *<dialog anim_hint="center_scale(duration=300)" x="c" y="m" w="80%" h="160" text="Dialog">
+ *<label name="" x="center" y="middle:-20" w="200" h="30" text="Are you ready?"/>
+ *<button name="quit" x="10" y="bottom:10" w="40%" h="30" text="确定"/>
+ *<button name="quit" x="right:10" y="bottom:10" w="40%" h="30" text="取消"/>
+ *</dialog>
+ *```
+ *
+ *打开非模态对话框时，其用法与普通窗口一样。打开非模态对话框时，还需要调用dialog\_modal。
+ *
+ *
+ *关闭模态对话框用dialog\_quit
+ *
+ *
+ *关闭非模态对话框用window\_close。
+ *
+ *
+ *> 更多用法请参考：
+ *[dialog.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/)
+ *
+ *> 完整C代码示例请参考：
+ *
+ ** [非模态对话框](https://github.com/zlgopen/awtk-c-demos/blob/master/demos/dialog.c)
+ *
+ ** [模态对话框](https://github.com/zlgopen/awtk-c-demos/blob/master/demos/dialog_modal.c)
+ *
+ *可用通过style来设置控件的显示风格，如字体的大小和颜色等等。如：
+ *
+ *```xml
+ *<style name="default">
+ *<normal border_color="#606060" />
+ *</style>
+ *```
+ *
+ *> 更多用法请参考：
+ *[theme default]
+ *(https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L324)
  *
  */
 var TDialog = /** @class */ (function (_super) {
@@ -17107,7 +17287,7 @@ var TDialog = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns dialog对象。
      */
     TDialog.create = function (parent, x, y, w, h) {
@@ -17121,7 +17301,7 @@ var TDialog = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     *
+     
      * @returns dialog对象。
      */
     TDialog.createSimple = function (parent, x, y, w, h) {
@@ -17131,7 +17311,7 @@ var TDialog = /** @class */ (function (_super) {
      * 转换dialog对象(供脚本语言使用)。
      *
      * @param widget dialog对象。
-     *
+     
      * @returns dialog对象。
      */
     TDialog.cast = function (widget) {
@@ -17140,8 +17320,7 @@ var TDialog = /** @class */ (function (_super) {
     /**
      * 获取title控件。
      *
-     * @param widget dialog对象。
-     *
+     
      * @returns title对象。
      */
     TDialog.prototype.getTitle = function () {
@@ -17150,18 +17329,19 @@ var TDialog = /** @class */ (function (_super) {
     /**
      * 获取client控件。
      *
-     * @param widget dialog对象。
-     *
+     
      * @returns client对象。
      */
     TDialog.prototype.getClient = function () {
         return new TWidget(dialog_get_client(this != null ? (this.nativeObj || this) : null));
     };
     /**
-     * 从资源文件中加载并创建Dialog对象。 本函数在ui\_loader/ui\_builder_default里实现。
+     * 从资源文件中加载并创建Dialog对象。
+     *
+     *本函数在ui\_loader/ui\_builder_default里实现。
      *
      * @param name dialog的名称。
-     *
+     
      * @returns 对象。
      */
     TDialog.open = function (name) {
@@ -17170,30 +17350,31 @@ var TDialog = /** @class */ (function (_super) {
     /**
      * 设置对话框的标题文本。
      *
-     * @param widget dialog对象。
      * @param title 标题。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TDialog.prototype.setTitle = function (title) {
         return dialog_set_title(this != null ? (this.nativeObj || this) : null, title);
     };
     /**
-     * 模态显示对话框。 dialog_modal返回后，dialog对象将在下一个idle函数中回收。 也就是在dialog_modal调用完成后仍然可以访问dialog中控件，直到本次事件结束。
+     * 模态显示对话框。
+     *dialog_modal返回后，dialog对象将在下一个idle函数中回收。
+     *也就是在dialog_modal调用完成后仍然可以访问dialog中控件，直到本次事件结束。
      *
-     * @param widget dialog对象。
-     *
+     
      * @returns 返回退出吗。
      */
     TDialog.prototype.modal = function () {
         return dialog_modal(this != null ? (this.nativeObj || this) : null);
     };
     /**
-     * 退出模态显示，关闭对话框。> 比如，在对话框中关闭按钮的事件处理函数中，调用本函数关闭对话框。
+     * 退出模态显示，关闭对话框。
      *
-     * @param widget dialog对象。
+     *> 比如，在对话框中关闭按钮的事件处理函数中，调用本函数关闭对话框。
+     *
      * @param code 退出码，作为dialog_modal的返回值(参考：[dialog_quit_code_t](dialog_quit_code_t.md))。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TDialog.prototype.quit = function (code) {
@@ -17202,8 +17383,7 @@ var TDialog = /** @class */ (function (_super) {
     /**
      * 检查对话框是否已经退出模态。
      *
-     * @param widget dialog对象。
-     *
+     
      * @returns 返回TRUE表示已经退出，否则表示没有。
      */
     TDialog.prototype.isQuited = function () {
@@ -17212,52 +17392,59 @@ var TDialog = /** @class */ (function (_super) {
     /**
      * 检查对话框是否为模态对话框。
      *
-     * @param widget dialog对象。
-     *
+     
      * @returns 返回TRUE表示是模态对话框，否则表示不是。
      */
     TDialog.prototype.isModal = function () {
         return dialog_is_modal(this != null ? (this.nativeObj || this) : null);
     };
     /**
-     * 显示『短暂提示信息』对话框。 主题由dialog_toast.xml文件决定。
+     * 显示『短暂提示信息』对话框。
+     *
+     *主题由dialog_toast.xml文件决定。
      *
      * @param text 文本内容。
      * @param duration 显示时间(单位为毫秒)。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TDialog.toast = function (text, duration) {
         return dialog_toast(text, duration);
     };
     /**
-     * 显示『提示信息』对话框。 主题由dialog_info.xml文件决定。
+     * 显示『提示信息』对话框。
+     *
+     *主题由dialog_info.xml文件决定。
      *
      * @param title 标题。
      * @param text 文本内容。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TDialog.info = function (title, text) {
         return dialog_info(title, text);
     };
     /**
-     * 显示『警告』对话框。 主题由dialog_warn.xml文件决定。
+     * 显示『警告』对话框。
+     *
+     *主题由dialog_warn.xml文件决定。
      *
      * @param title 标题。
      * @param text 文本内容。
-     *
+     
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TDialog.warn = function (title, text) {
         return dialog_warn(title, text);
     };
     /**
-     * 显示『确认』对话框。 主题由dialog_confirm.xml文件决定。
+     * 显示『确认』对话框。
+     *
+     *主题由dialog_confirm.xml文件决定。
      *
      * @param title 标题。
      * @param text 文本内容。
-     *
+     
      * @returns 返回RET_OK表示确认，否则表示取消。
      */
     TDialog.confirm = function (title, text) {
@@ -17265,7 +17452,9 @@ var TDialog = /** @class */ (function (_super) {
     };
     Object.defineProperty(TDialog.prototype, "highlight", {
         /**
-         * 对话框高亮策略。 请参考 [对话框高亮策略](https://github.com/zlgopen/awtk/blob/master/docs/dialog_highlight.md)
+         * 对话框高亮策略。
+         *
+         *> 请参考 [对话框高亮策略](https://github.com/zlgopen/awtk/blob/master/docs/dialog_highlight.md)
          *
          */
         get: function () {
@@ -17276,4 +17465,5 @@ var TDialog = /** @class */ (function (_super) {
     });
     return TDialog;
 }(TWindowBase));
+;
 //# sourceMappingURL=awtk.js.map

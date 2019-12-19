@@ -1,0 +1,46 @@
+<window anim_hint="htranslate" >
+  <list_view x="0"  y="0" w="100%" h="-50" item_height="128" auto_hide_scroll_bar="true">
+    <scroll_view name="view" x="0"  y="0" w="-12" h="100%">
+     <list_item style="empty" children_layout="default(r=1,c=3,s=2,m=2)">
+      <image style="border" image="1" draw_type="scale_auto"><label w="100%" h="100%" text="auto" /></image>
+      <image style="border" image="2" draw_type="scale_auto"><label w="100%" h="100%" text="auto" /></image>
+      <image style="border" image="3" draw_type="scale_auto"><label w="100%" h="100%" text="auto" /></image>
+     </list_item>
+     <list_item style="empty" children_layout="default(r=1,c=3,s=2,m=2)">
+      <image style="border" image="earth" draw_type="default"><label w="100%" h="100%" text="default" /></image>
+      <image style="border" image="earth" draw_type="icon"><label w="100%" h="100%" text="icon" /></image>
+      <image style="border" image="earth" draw_type="center"><label w="100%" h="100%" text="center" /></image>
+     </list_item>
+     <list_item style="empty" children_layout="default(r=1,c=3)">
+      <image style="border" image="1" draw_type="scale_w"><label w="100%" h="100%" text="scale_w" /></image>
+      <image style="border" image="1" draw_type="scale_h"><label w="100%" h="100%" text="scale_h" /></image>
+      <image style="border" image="1" draw_type="scale"><label w="100%" h="100%" text="scale" /></image>
+     </list_item>
+     <list_item style="empty" children_layout="default(r=1,c=2,s=2,m=2)">
+      <image style="border" image="bricks" draw_type="repeat"><label w="100%" h="100%" text="repeat" /></image>
+      <image style="border" image="bricks" draw_type="repeat_x"><label w="100%" h="100%" text="repeat_x" /></image>
+     </list_item>
+     <list_item style="empty" children_layout="default(r=1,c=2,s=2,m=2)">
+      <image style="border" image="bricks" draw_type="repeat_y"><label w="100%" h="100%" text="repeat_y" /></image>
+      <image style="border" image="bricks" draw_type="repeat_y_inverse"><label w="100%" h="100%" text="repeat_y_inverse" /></image>
+     </list_item>
+     <list_item style="empty" children_layout="default(r=1,c=3,s=2,m=2)">
+      <image style="border" image="green_btn_n" draw_type="patch9"><label w="100%" h="100%" text="patch9" /></image>
+      <image style="border" image="green_btn_n" draw_type="patch3_x"><label w="100%" h="100%" text="patch3_x" /></image>
+      <image style="border" image="green_btn_n" draw_type="patch3_y"><label w="100%" h="100%" text="patch3_y" /></image>
+     </list_item>
+     <list_item style="empty" children_layout="default(r=1,c=1)">
+      <image style="border" image="green_btn_n" draw_type="patch3_x_scale_y"><label w="100%" h="100%" text="patch3_x_scale_y" /></image>
+     </list_item>
+     <list_item style="empty" children_layout="default(r=1,c=10)">
+      <label/>
+      <label/>
+      <label/>
+      <label/>
+      <image style="border" image="green_btn_n" draw_type="patch3_y_scale_x"><label w="100%" h="100%" text="patch3_y_scale_x" /></image>
+     </list_item>
+    </scroll_view>
+    <scroll_bar_d name="bar" x="right" y="0" w="12" h="100%" value="0"/>
+  </list_view>
+  <button name="close" x="center" y="bottom:10" w="25%" h="30" text="Close"/>
+</window>

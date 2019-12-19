@@ -1,0 +1,11 @@
+<combo_box_item>
+  <style name="default" icon_at="left" text_color="black" bg_color="#f0f0f0" icon="empty">
+    <normal  icon="empty"/>
+    <pressed icon="empty" bg_color="#1296db" text_color="white" />
+    <over    icon="empty" bg_color="#1296db" text_color="white" />
+    <normal  icon="check"/>
+    <pressed icon="check" bg_color="#1296db" text_color="white" />
+    <over    icon="check" bg_color="#1296db" text_color="white" />
+  </style>
+</combo_box_item>
+
