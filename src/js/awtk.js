@@ -5740,6 +5740,42 @@ var TWidget = /** @class */ (function () {
         return widget_unref(this != null ? (this.nativeObj || this) : null);
     };
     /**
+     * 检查控件是否是system bar类型。
+     *
+     
+     * @returns 返回FALSE表示不是，否则表示是。
+     */
+    TWidget.prototype.isSystemBar = function () {
+        return widget_is_system_bar(this != null ? (this.nativeObj || this) : null);
+    };
+    /**
+     * 检查控件是否是普通窗口类型。
+     *
+     
+     * @returns 返回FALSE表示不是，否则表示是。
+     */
+    TWidget.prototype.isNormalWindow = function () {
+        return widget_is_normal_window(this != null ? (this.nativeObj || this) : null);
+    };
+    /**
+     * 检查控件是否是对话框类型。
+     *
+     
+     * @returns 返回FALSE表示不是，否则表示是。
+     */
+    TWidget.prototype.isDialog = function () {
+        return widget_is_dialog(this != null ? (this.nativeObj || this) : null);
+    };
+    /**
+     * 检查控件是否是弹出窗口类型。
+     *
+     
+     * @returns 返回FALSE表示不是，否则表示是。
+     */
+    TWidget.prototype.isPopup = function () {
+        return widget_is_popup(this != null ? (this.nativeObj || this) : null);
+    };
+    /**
      * 布局当前控件及子控件。
      *
      
@@ -14818,7 +14854,9 @@ var TEdit = /** @class */ (function (_super) {
  *<grid_item>
  *<button x="c" y="m" w="80%" h="30" name="3" text="3"/>
  *</grid_item>
- *</grid>```
+ *</grid>
+ *
+ *```
  *
  *可用通过style来设置控件的显示风格，如背景颜色等。如：
  *
@@ -16562,6 +16600,46 @@ var TComboBoxEx = /** @class */ (function (_super) {
     };
     return TComboBoxEx;
 }(TComboBox));
+;
+/**
+ * 电阻屏校准窗口。
+ *
+ *calibration\_win\_t是[window\_base\_t](window_base_t.md)的子类控件，
+ *window\_base\_t的函数均适用于calibration\_win\_t控件。
+ *
+ *在xml中使用"calibration\_win"标签创建电阻屏校准窗口。如：
+ *
+ *```xml
+ *<calibration_win name="cali" w="100%" h="100%" text="Please click the center of cross">
+ *</calibration_win>
+ *```
+ *
+ *> 更多用法请参考：
+ *[window.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/calibration_win.xml)
+ *
+ *在c代码中使用函数calibration\_win\_create创建窗口。如：
+ *
+ *
+ *通过calibration\_win\_set\_on\_done注册回调函数，用于保存校准数据。
+ *
+ */
+var TCalibrationWin = /** @class */ (function (_super) {
+    __extends(TCalibrationWin, _super);
+    function TCalibrationWin(nativeObj) {
+        return _super.call(this, nativeObj) || this;
+    }
+    /**
+     * 转换为calibration_win对象(供脚本语言使用)。
+     *
+     * @param widget calibration_win对象。
+     
+     * @returns calibration_win对象。
+     */
+    TCalibrationWin.cast = function (widget) {
+        return new TCalibrationWin(calibration_win_cast(widget != null ? (widget.nativeObj || widget) : null));
+    };
+    return TCalibrationWin;
+}(TWindowBase));
 ;
 /**
  * 弹出窗口。

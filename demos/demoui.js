@@ -96,6 +96,7 @@ function openWindow(name, toClose) {
 }
 
 function showPreloadResWindow() {
+  TWindow.open('system_bar');
   var win = TWindow.open('preload');
   var interval = 500 / sPreloadRes.length; 
   var bar = win.lookup('bar', true);
