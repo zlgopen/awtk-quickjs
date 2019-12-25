@@ -31,7 +31,7 @@ var TEvent = /** @class */ (function () {
      *> 供脚本语言使用
      *
      * @param event event对象。
-     
+     *
      * @returns event对象。
      */
     TEvent.cast = function (event) {
@@ -43,7 +43,7 @@ var TEvent = /** @class */ (function () {
      *主要给脚本语言使用。
      *
      * @param type 事件类型。
-     
+     *
      * @returns 返回事件对象。
      */
     TEvent.create = function (type) {
@@ -54,7 +54,7 @@ var TEvent = /** @class */ (function () {
      *
      *主要给脚本语言使用。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TEvent.prototype.destroy = function () {
@@ -113,7 +113,7 @@ var TRect = /** @class */ (function () {
      * @param y y坐标。
      * @param w 宽度。
      * @param h 高度。
-     
+     *
      * @returns rect对象。
      */
     TRect.create = function (x, y, w, h) {
@@ -128,7 +128,7 @@ var TRect = /** @class */ (function () {
      * @param y y坐标。
      * @param w 宽度。
      * @param h 高度。
-     
+     *
      * @returns rect对象。
      */
     TRect.prototype.set = function (x, y, w, h) {
@@ -140,7 +140,7 @@ var TRect = /** @class */ (function () {
      *> 供脚本语言使用。
      *
      * @param rect rect对象。
-     
+     *
      * @returns rect对象。
      */
     TRect.cast = function (rect) {
@@ -151,7 +151,7 @@ var TRect = /** @class */ (function () {
      *
      *> 主要供脚本语言使用。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TRect.prototype.destroy = function () {
@@ -237,7 +237,7 @@ var TEmitter = /** @class */ (function () {
     /**
      * 创建emitter对象。
      *
-     
+     *
      * @returns 对象。
      */
     TEmitter.create = function () {
@@ -248,7 +248,7 @@ var TEmitter = /** @class */ (function () {
      *禁用状态下，本函数不做任何事情。
      *
      * @param e 事件对象。
-     
+     *
      * @returns 如果当前分发的回调函数返回RET_STOP，dispatch中断分发，并返回RET_STOP，否则返回RET_OK。
      */
     TEmitter.prototype.dispatch = function (e) {
@@ -260,7 +260,7 @@ var TEmitter = /** @class */ (function () {
      *如果当前分发的回调函数返回RET_STOP，dispatch中断分发，并返回RET_STOP，否则返回RET_OK。
      *
      * @param type 事件类型。
-     
+     *
      * @returns
      */
     TEmitter.prototype.dispatchSimpleEvent = function (type) {
@@ -272,7 +272,7 @@ var TEmitter = /** @class */ (function () {
      * @param type 事件类型。
      * @param on_event 事件处理函数。
      * @param ctx 事件处理函数上下文。
-     
+     *
      * @returns 返回id，用于emitter_off。
      */
     TEmitter.prototype.on = function (type, on_event, ctx) {
@@ -282,7 +282,7 @@ var TEmitter = /** @class */ (function () {
      * 注销指定事件的处理函数。
      *
      * @param id emitter_on返回的ID。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TEmitter.prototype.off = function (id) {
@@ -291,7 +291,7 @@ var TEmitter = /** @class */ (function () {
     /**
      * 启用。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TEmitter.prototype.enable = function () {
@@ -302,7 +302,7 @@ var TEmitter = /** @class */ (function () {
      *
      *禁用后emitter_dispatch无效，但可以注册和注销。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TEmitter.prototype.disable = function () {
@@ -311,7 +311,7 @@ var TEmitter = /** @class */ (function () {
     /**
      * 获取注册的回调函数个数，主要用于辅助测试。
      *
-     
+     *
      * @returns 回调函数个数。
      */
     TEmitter.prototype.size = function () {
@@ -320,7 +320,7 @@ var TEmitter = /** @class */ (function () {
     /**
      * 销毁。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TEmitter.prototype.destroy = function () {
@@ -332,7 +332,7 @@ var TEmitter = /** @class */ (function () {
      *主要给脚本语言使用。
      *
      * @param emitter emitter对象。
-     
+     *
      * @returns 对象。
      */
     TEmitter.cast = function (emitter) {
@@ -352,7 +352,7 @@ var TBitmap = /** @class */ (function () {
     /**
      * 创建图片对象(一般供脚本语言中使用)。
      *
-     
+     *
      * @returns 返回bitmap对象。
      */
     TBitmap.create = function () {
@@ -365,7 +365,7 @@ var TBitmap = /** @class */ (function () {
      * @param h 高度。
      * @param line_length line_length。
      * @param format 格式。
-     
+     *
      * @returns 返回bitmap对象。
      */
     TBitmap.createEx = function (w, h, line_length, format) {
@@ -374,7 +374,7 @@ var TBitmap = /** @class */ (function () {
     /**
      * 获取图片一个像素占用的字节数。
      *
-     
+     *
      * @returns 返回一个像素占用的字节数。
      */
     TBitmap.prototype.getBpp = function () {
@@ -383,7 +383,7 @@ var TBitmap = /** @class */ (function () {
     /**
      * 销毁图片。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TBitmap.prototype.destroy = function () {
@@ -475,7 +475,7 @@ var TValue = /** @class */ (function () {
      * 设置类型为bool的值。
      *
      * @param value 待设置的值。
-     
+     *
      * @returns value对象本身。
      */
     TValue.prototype.setBool = function (value) {
@@ -484,7 +484,7 @@ var TValue = /** @class */ (function () {
     /**
      * 获取类型为bool的值。
      *
-     
+     *
      * @returns 值。
      */
     TValue.prototype.bool = function () {
@@ -494,7 +494,7 @@ var TValue = /** @class */ (function () {
      * 设置类型为int8的值。
      *
      * @param value 待设置的值。
-     
+     *
      * @returns value对象本身。
      */
     TValue.prototype.setInt8 = function (value) {
@@ -503,7 +503,7 @@ var TValue = /** @class */ (function () {
     /**
      * 获取类型为int8的值。
      *
-     
+     *
      * @returns 值。
      */
     TValue.prototype.int8 = function () {
@@ -513,7 +513,7 @@ var TValue = /** @class */ (function () {
      * 设置类型为uint8的值。
      *
      * @param value 待设置的值。
-     
+     *
      * @returns value对象本身。
      */
     TValue.prototype.setUint8 = function (value) {
@@ -522,7 +522,7 @@ var TValue = /** @class */ (function () {
     /**
      * 获取类型为uint8的值。
      *
-     
+     *
      * @returns 值。
      */
     TValue.prototype.uint8 = function () {
@@ -532,7 +532,7 @@ var TValue = /** @class */ (function () {
      * 设置类型为int16的值。
      *
      * @param value 待设置的值。
-     
+     *
      * @returns value对象本身。
      */
     TValue.prototype.setInt16 = function (value) {
@@ -541,7 +541,7 @@ var TValue = /** @class */ (function () {
     /**
      * 获取类型为int16的值。
      *
-     
+     *
      * @returns 值。
      */
     TValue.prototype.int16 = function () {
@@ -551,7 +551,7 @@ var TValue = /** @class */ (function () {
      * 设置类型为uint16的值。
      *
      * @param value 待设置的值。
-     
+     *
      * @returns value对象本身。
      */
     TValue.prototype.setUint16 = function (value) {
@@ -560,7 +560,7 @@ var TValue = /** @class */ (function () {
     /**
      * 获取类型为uint16的值。
      *
-     
+     *
      * @returns 值。
      */
     TValue.prototype.uint16 = function () {
@@ -570,7 +570,7 @@ var TValue = /** @class */ (function () {
      * 设置类型为int32的值。
      *
      * @param value 待设置的值。
-     
+     *
      * @returns value对象本身。
      */
     TValue.prototype.setInt32 = function (value) {
@@ -579,7 +579,7 @@ var TValue = /** @class */ (function () {
     /**
      * 获取类型为int32的值。
      *
-     
+     *
      * @returns 值。
      */
     TValue.prototype.int32 = function () {
@@ -589,7 +589,7 @@ var TValue = /** @class */ (function () {
      * 设置类型为uint32的值。
      *
      * @param value 待设置的值。
-     
+     *
      * @returns value对象本身。
      */
     TValue.prototype.setUint32 = function (value) {
@@ -599,7 +599,7 @@ var TValue = /** @class */ (function () {
      * 设置类型为int64的值。
      *
      * @param value 待设置的值。
-     
+     *
      * @returns value对象本身。
      */
     TValue.prototype.setInt64 = function (value) {
@@ -608,7 +608,7 @@ var TValue = /** @class */ (function () {
     /**
      * 获取类型为int64的值。
      *
-     
+     *
      * @returns 值。
      */
     TValue.prototype.int64 = function () {
@@ -618,7 +618,7 @@ var TValue = /** @class */ (function () {
      * 设置类型为uint64的值。
      *
      * @param value 待设置的值。
-     
+     *
      * @returns value对象本身。
      */
     TValue.prototype.setUint64 = function (value) {
@@ -627,7 +627,7 @@ var TValue = /** @class */ (function () {
     /**
      * 获取类型为uint64的值。
      *
-     
+     *
      * @returns 值。
      */
     TValue.prototype.uint64 = function () {
@@ -637,7 +637,7 @@ var TValue = /** @class */ (function () {
      * 设置类型为float\_t的值。
      *
      * @param value 待设置的值。
-     
+     *
      * @returns value对象本身。
      */
     TValue.prototype.setFloat = function (value) {
@@ -646,7 +646,7 @@ var TValue = /** @class */ (function () {
     /**
      * 获取类型为float的值。
      *
-     
+     *
      * @returns 值。
      */
     TValue.prototype.float32 = function () {
@@ -656,7 +656,7 @@ var TValue = /** @class */ (function () {
      * 设置类型为double的值。
      *
      * @param value 待设置的值。
-     
+     *
      * @returns value对象本身。
      */
     TValue.prototype.setFloat64 = function (value) {
@@ -665,7 +665,7 @@ var TValue = /** @class */ (function () {
     /**
      * 获取类型为double的值。
      *
-     
+     *
      * @returns 值。
      */
     TValue.prototype.float64 = function () {
@@ -677,7 +677,7 @@ var TValue = /** @class */ (function () {
      *> 供脚本语言使用。
      *
      * @param value 待设置的值。
-     
+     *
      * @returns value对象本身。
      */
     TValue.prototype.setStr = function (value) {
@@ -686,7 +686,7 @@ var TValue = /** @class */ (function () {
     /**
      * 获取类型为字符串的值。
      *
-     
+     *
      * @returns 值。
      */
     TValue.prototype.str = function () {
@@ -695,7 +695,7 @@ var TValue = /** @class */ (function () {
     /**
      * 判断value是否为空值。
      *
-     
+     *
      * @returns 为空值返回TRUE，否则返回FALSE。
      */
     TValue.prototype.isNull = function () {
@@ -705,7 +705,7 @@ var TValue = /** @class */ (function () {
      * 设置类型为int的值。
      *
      * @param value 待设置的值。
-     
+     *
      * @returns value对象本身。
      */
     TValue.prototype.setInt = function (value) {
@@ -715,7 +715,7 @@ var TValue = /** @class */ (function () {
      * 设置类型为object的值。
      *
      * @param value 待设置的值。
-     
+     *
      * @returns value对象本身。
      */
     TValue.prototype.setObject = function (value) {
@@ -724,7 +724,7 @@ var TValue = /** @class */ (function () {
     /**
      * 转换为object的值。
      *
-     
+     *
      * @returns 值。
      */
     TValue.prototype.object = function () {
@@ -734,7 +734,7 @@ var TValue = /** @class */ (function () {
      * 设置类型为token的值。
      *
      * @param value 待设置的值。
-     
+     *
      * @returns value对象本身。
      */
     TValue.prototype.setToken = function (value) {
@@ -743,7 +743,7 @@ var TValue = /** @class */ (function () {
     /**
      * 获取token的值。
      *
-     
+     *
      * @returns 值。
      */
     TValue.prototype.token = function () {
@@ -752,7 +752,7 @@ var TValue = /** @class */ (function () {
     /**
      * 创建value对象。
      *
-     
+     *
      * @returns 对象。
      */
     TValue.create = function () {
@@ -761,7 +761,7 @@ var TValue = /** @class */ (function () {
     /**
      * 销毁value对象。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TValue.prototype.destroy = function () {
@@ -770,7 +770,7 @@ var TValue = /** @class */ (function () {
     /**
      * 重置value对象。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TValue.prototype.reset = function () {
@@ -782,7 +782,7 @@ var TValue = /** @class */ (function () {
      *> 供脚本语言使用
      *
      * @param value value对象。
-     
+     *
      * @returns 对象。
      */
     TValue.cast = function (value) {
@@ -803,7 +803,7 @@ var TObject = /** @class */ (function (_super) {
     /**
      * 引用计数减1。引用计数为0时，销毁对象。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TObject.prototype.unref = function () {
@@ -813,7 +813,7 @@ var TObject = /** @class */ (function (_super) {
      * 引用计数加1。
      *
      * @param obj object对象。
-     
+     *
      * @returns 返回object对象。
      */
     TObject.ref = function (obj) {
@@ -822,7 +822,7 @@ var TObject = /** @class */ (function (_super) {
     /**
      * 获取对象的类型名称。
      *
-     
+     *
      * @returns 返回对象的类型名称。
      */
     TObject.prototype.getType = function () {
@@ -831,7 +831,7 @@ var TObject = /** @class */ (function (_super) {
     /**
      * 获取对象的描述信息。
      *
-     
+     *
      * @returns 返回对象的描述信息。
      */
     TObject.prototype.getDesc = function () {
@@ -840,7 +840,7 @@ var TObject = /** @class */ (function (_super) {
     /**
      * 获取对象占用内存的大小。
      *
-     
+     *
      * @returns 返回对象占用内存的大小。
      */
     TObject.prototype.getSize = function () {
@@ -849,7 +849,7 @@ var TObject = /** @class */ (function (_super) {
     /**
      * 判断对象是否是集合。
      *
-     
+     *
      * @returns 返回TRUE表示是集合，否则不是。
      */
     TObject.prototype.isCollection = function () {
@@ -859,7 +859,7 @@ var TObject = /** @class */ (function (_super) {
      * 设置对象的名称。
      *
      * @param name 对象的名称。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TObject.prototype.setName = function (name) {
@@ -869,7 +869,7 @@ var TObject = /** @class */ (function (_super) {
      * 比较两个对象。
      *
      * @param other 比较的object对象。
-     
+     *
      * @returns 返回比较结果。
      */
     TObject.prototype.compare = function (other) {
@@ -880,7 +880,7 @@ var TObject = /** @class */ (function (_super) {
      *
      * @param name 属性的名称。
      * @param v 返回属性的值。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TObject.prototype.getProp = function (name, v) {
@@ -890,7 +890,7 @@ var TObject = /** @class */ (function (_super) {
      * 获取指定属性的字符串类型的值。
      *
      * @param name 属性的名称。
-     
+     *
      * @returns 返回指定属性的字符串类型的值。
      */
     TObject.prototype.getPropStr = function (name) {
@@ -900,7 +900,7 @@ var TObject = /** @class */ (function (_super) {
      * 获取指定属性的指针类型的值。
      *
      * @param name 属性的名称。
-     
+     *
      * @returns 返回指定属性的指针类型的值。
      */
     TObject.prototype.getPropPointer = function (name) {
@@ -910,7 +910,7 @@ var TObject = /** @class */ (function (_super) {
      * 获取指定属性的object类型的值。
      *
      * @param name 属性的名称。
-     
+     *
      * @returns 返回指定属性的object类型的值。
      */
     TObject.prototype.getPropObject = function (name) {
@@ -921,7 +921,7 @@ var TObject = /** @class */ (function (_super) {
      *
      * @param name 属性的名称。
      * @param defval 缺省值。
-     
+     *
      * @returns 返回指定属性的整数类型的值。
      */
     TObject.prototype.getPropInt = function (name, defval) {
@@ -932,7 +932,7 @@ var TObject = /** @class */ (function (_super) {
      *
      * @param name 属性的名称。
      * @param defval 缺省值。
-     
+     *
      * @returns 返回指定属性的bool类型的值。
      */
     TObject.prototype.getPropBool = function (name, defval) {
@@ -943,7 +943,7 @@ var TObject = /** @class */ (function (_super) {
      *
      * @param name 属性的名称。
      * @param defval 缺省值。
-     
+     *
      * @returns 返回指定属性的浮点数类型的值。
      */
     TObject.prototype.getPropFloat = function (name, defval) {
@@ -953,7 +953,7 @@ var TObject = /** @class */ (function (_super) {
      * 删除指定属性。
      *
      * @param name 属性的名称。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TObject.prototype.removeProp = function (name) {
@@ -964,7 +964,7 @@ var TObject = /** @class */ (function (_super) {
      *
      * @param name 属性的名称。
      * @param value 属性的值。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TObject.prototype.setProp = function (name, value) {
@@ -975,7 +975,7 @@ var TObject = /** @class */ (function (_super) {
      *
      * @param name 属性的名称。
      * @param value 属性的值。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TObject.prototype.setPropStr = function (name, value) {
@@ -986,7 +986,7 @@ var TObject = /** @class */ (function (_super) {
      *
      * @param name 属性的名称。
      * @param value 属性的值。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TObject.prototype.setPropObject = function (name, value) {
@@ -997,7 +997,7 @@ var TObject = /** @class */ (function (_super) {
      *
      * @param name 属性的名称。
      * @param value 属性的值。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TObject.prototype.setPropInt = function (name, value) {
@@ -1008,7 +1008,7 @@ var TObject = /** @class */ (function (_super) {
      *
      * @param name 属性的名称。
      * @param value 属性的值。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TObject.prototype.setPropBool = function (name, value) {
@@ -1019,7 +1019,7 @@ var TObject = /** @class */ (function (_super) {
      *
      * @param name 属性的名称。
      * @param value 属性的值。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TObject.prototype.setPropFloat = function (name, value) {
@@ -1030,7 +1030,7 @@ var TObject = /** @class */ (function (_super) {
      *
      * @param src 源对象。
      * @param name 属性的名称。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TObject.prototype.copyProp = function (src, name) {
@@ -1040,7 +1040,7 @@ var TObject = /** @class */ (function (_super) {
      * 检查是否存在指定的属性。
      *
      * @param name 属性的名称。
-     
+     *
      * @returns 返回TRUE表示存在，否则表示不存在。
      */
     TObject.prototype.hasProp = function (name) {
@@ -1051,7 +1051,7 @@ var TObject = /** @class */ (function (_super) {
      *
      * @param expr 表达式。
      * @param v 返回计算结果。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TObject.prototype.eval = function (expr, v) {
@@ -1062,7 +1062,7 @@ var TObject = /** @class */ (function (_super) {
      *
      * @param name 命令的名称。
      * @param args 命令的参数。
-     
+     *
      * @returns 返回TRUE表示可以执行，否则表示不可以执行。
      */
     TObject.prototype.canExec = function (name, args) {
@@ -1073,7 +1073,7 @@ var TObject = /** @class */ (function (_super) {
      *
      * @param name 命令的名称。
      * @param args 命令的参数。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TObject.prototype.execute = function (name, args) {
@@ -1082,7 +1082,7 @@ var TObject = /** @class */ (function (_super) {
     /**
      * 触发EVT_PROPS_CHANGED事件。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TObject.prototype.notifyChanged = function () {
@@ -1092,7 +1092,7 @@ var TObject = /** @class */ (function (_super) {
      * 获取指定属性的字符串类型的值。
      *
      * @param path 属性的path。
-     
+     *
      * @returns 返回指定属性的字符串类型的值。
      */
     TObject.prototype.getPropStrByPath = function (path) {
@@ -1102,7 +1102,7 @@ var TObject = /** @class */ (function (_super) {
      * 获取指定属性的指针类型的值。
      *
      * @param path 属性的path。
-     
+     *
      * @returns 返回指定属性的指针类型的值。
      */
     TObject.prototype.getPropPointerByPath = function (path) {
@@ -1112,7 +1112,7 @@ var TObject = /** @class */ (function (_super) {
      * 获取指定属性的object类型的值。
      *
      * @param path 属性的path。
-     
+     *
      * @returns 返回指定属性的object类型的值。
      */
     TObject.prototype.getPropObjectByPath = function (path) {
@@ -1123,7 +1123,7 @@ var TObject = /** @class */ (function (_super) {
      *
      * @param path 属性的path。
      * @param defval 缺省值。
-     
+     *
      * @returns 返回指定属性的整数类型的值。
      */
     TObject.prototype.getPropIntByPath = function (path, defval) {
@@ -1134,7 +1134,7 @@ var TObject = /** @class */ (function (_super) {
      *
      * @param path 属性的path。
      * @param defval 缺省值。
-     
+     *
      * @returns 返回指定属性的bool类型的值。
      */
     TObject.prototype.getPropBoolByPath = function (path, defval) {
@@ -1145,7 +1145,7 @@ var TObject = /** @class */ (function (_super) {
      *
      * @param path 属性的path。
      * @param defval 缺省值。
-     
+     *
      * @returns 返回指定属性的浮点数类型的值。
      */
     TObject.prototype.getPropFloatByPath = function (path, defval) {
@@ -1194,7 +1194,7 @@ var TGlobal = /** @class */ (function () {
      * @param app_type 应用程序的类型。
      * @param app_name 应用程序的名称(必须为常量字符串)。
      * @param app_root 应用程序的根目录，用于定位资源文件(必须为常量字符串)。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TGlobal.init = function (w, h, app_type, app_name, app_root) {
@@ -1203,7 +1203,7 @@ var TGlobal = /** @class */ (function () {
     /**
      * 进入TK事件主循环。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TGlobal.run = function () {
@@ -1212,7 +1212,7 @@ var TGlobal = /** @class */ (function () {
     /**
      * 退出TK事件主循环。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TGlobal.quit = function () {
@@ -1221,7 +1221,7 @@ var TGlobal = /** @class */ (function () {
     /**
      * 获取全局指针的X坐标。
      *
-     
+     *
      * @returns 返回全局指针的X坐标。
      */
     TGlobal.getPointerX = function () {
@@ -1230,7 +1230,7 @@ var TGlobal = /** @class */ (function () {
     /**
      * 获取全局指针的Y坐标。
      *
-     
+     *
      * @returns 返回全局指针的X坐标。
      */
     TGlobal.getPointerY = function () {
@@ -1239,7 +1239,7 @@ var TGlobal = /** @class */ (function () {
     /**
      * 获取全局指针是否按下。
      *
-     
+     *
      * @returns 返回全局指针是否按下。
      */
     TGlobal.isPointerPressed = function () {
@@ -1695,7 +1695,7 @@ var TFontManager = /** @class */ (function () {
      *
      * @param name 字体名，为NULL时使用缺省字体。
      * @param size 字体的大小(矢量字体指定为0即可)。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TFontManager.prototype.unloadFont = function (name, size) {
@@ -1704,7 +1704,7 @@ var TFontManager = /** @class */ (function () {
     /**
      * 卸载全部字体。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TFontManager.prototype.unloadAll = function () {
@@ -1755,7 +1755,7 @@ var TIdle = /** @class */ (function () {
      *
      * @param on_idle idle回调函数，回调函数返回RET_REPEAT，则下次继续执行，否则自动移出。
      * @param ctx idle回调函数的上下文。
-     
+     *
      * @returns 返回idle的ID，0表示失败。
      */
     TIdle.add = function (on_idle, ctx) {
@@ -1765,7 +1765,7 @@ var TIdle = /** @class */ (function () {
      * 删除指定的idle。
      *
      * @param idle_id idleID。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TIdle.remove = function (idle_id) {
@@ -1785,7 +1785,7 @@ var TImageManager = /** @class */ (function () {
     /**
      * 获取缺省的图片管理器。
      *
-     
+     *
      * @returns 返回图片管理器对象。
      */
     TImageManager.instance = function () {
@@ -1797,7 +1797,7 @@ var TImageManager = /** @class */ (function () {
      *
      * @param name 图片名称。
      * @param image 用于返回图片。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageManager.prototype.getBitmap = function (name, image) {
@@ -2006,7 +2006,7 @@ var TInputMethod = /** @class */ (function () {
      * 提交输入文本。
      *
      * @param text 文本。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TInputMethod.prototype.commitText = function (text) {
@@ -2016,7 +2016,7 @@ var TInputMethod = /** @class */ (function () {
      * 提交按键。
      *
      * @param key 键值。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TInputMethod.prototype.dispatchKey = function (key) {
@@ -2025,7 +2025,7 @@ var TInputMethod = /** @class */ (function () {
     /**
      * 获取全局输入法对象。
      *
-     
+     *
      * @returns 成功返回输入法对象，失败返回NULL。
      */
     TInputMethod.instance = function () {
@@ -2708,7 +2708,7 @@ var TLocaleInfo = /** @class */ (function () {
     /**
      * 获取缺省locale_info。
      *
-     
+     *
      * @returns 返回locale_info对象。
      */
     TLocaleInfo.instance = function () {
@@ -2718,7 +2718,7 @@ var TLocaleInfo = /** @class */ (function () {
      * 翻译字符串。
      *
      * @param text 待翻译的文本。
-     
+     *
      * @returns 返回翻译之后的字符串。
      */
     TLocaleInfo.prototype.tr = function (text) {
@@ -2729,7 +2729,7 @@ var TLocaleInfo = /** @class */ (function () {
      *
      * @param language 语言。
      * @param country 国家或地区。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TLocaleInfo.prototype.change = function (language, country) {
@@ -2739,7 +2739,7 @@ var TLocaleInfo = /** @class */ (function () {
      * 注销指定事件的处理函数。
      *
      * @param id locale_info_on返回的ID。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TLocaleInfo.prototype.off = function (id) {
@@ -2943,7 +2943,7 @@ var TStyle = /** @class */ (function () {
      * widget状态改变时，通知style更新数据。
      *
      * @param widget 控件对象。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TStyle.prototype.notifyWidgetStateChanged = function (widget) {
@@ -2952,7 +2952,7 @@ var TStyle = /** @class */ (function () {
     /**
      * 检查style对象是否有效
      *
-     
+     *
      * @returns 返回是否有效。
      */
     TStyle.prototype.isValid = function () {
@@ -2963,7 +2963,7 @@ var TStyle = /** @class */ (function () {
      *
      * @param name 属性名。
      * @param defval 缺省值。
-     
+     *
      * @returns 返回整数格式的值。
      */
     TStyle.prototype.getInt = function (name, defval) {
@@ -2974,7 +2974,7 @@ var TStyle = /** @class */ (function () {
      *
      * @param name 属性名。
      * @param defval 缺省值。
-     
+     *
      * @returns 返回字符串格式的值。
      */
     TStyle.prototype.getStr = function (name, defval) {
@@ -2986,7 +2986,7 @@ var TStyle = /** @class */ (function () {
      * @param state 状态。
      * @param name 属性名。
      * @param value 值。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TStyle.prototype.set = function (state, name, value) {
@@ -2995,7 +2995,7 @@ var TStyle = /** @class */ (function () {
     /**
      * 检查style是否是mutable的。
      *
-     
+     *
      * @returns 返回TRUE表示是，否则表示不是。
      */
     TStyle.prototype.isMutable = function () {
@@ -3017,7 +3017,7 @@ var TTheme = /** @class */ (function () {
     /**
      * 获取缺省的主题对象。
      *
-     
+     *
      * @returns 返回主题对象。
      */
     TTheme.instance = function () {
@@ -3045,7 +3045,7 @@ var TTimer = /** @class */ (function () {
      * @param on_timer timer回调函数。
      * @param ctx timer回调函数的上下文。
      * @param duration 时间。
-     
+     *
      * @returns 返回timer的ID，TK_INVALID_ID表示失败。
      */
     TTimer.add = function (on_timer, ctx, duration) {
@@ -3055,7 +3055,7 @@ var TTimer = /** @class */ (function () {
      * 删除指定的timer。
      *
      * @param timer_id timerID。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTimer.remove = function (timer_id) {
@@ -3065,7 +3065,7 @@ var TTimer = /** @class */ (function () {
      * 重置指定的timer，重置之后定时器重新开始计时。
      *
      * @param timer_id timerID。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTimer.reset = function (timer_id) {
@@ -3076,7 +3076,7 @@ var TTimer = /** @class */ (function () {
      *
      * @param timer_id timerID。
      * @param duration 新的时间。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTimer.modify = function (timer_id, duration) {
@@ -3296,7 +3296,7 @@ var TVgcanvas = /** @class */ (function () {
      * 转换为vgcanvas对象(供脚本语言使用)。
      *
      * @param vg vgcanvas对象。
-     
+     *
      * @returns vgcanvas对象。
      */
     TVgcanvas.cast = function (vg) {
@@ -3305,7 +3305,7 @@ var TVgcanvas = /** @class */ (function () {
     /**
      * flush
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.flush = function () {
@@ -3314,7 +3314,7 @@ var TVgcanvas = /** @class */ (function () {
     /**
      * 清除之前的路径，并重新开始一条路径。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.beginPath = function () {
@@ -3325,7 +3325,7 @@ var TVgcanvas = /** @class */ (function () {
      *
      * @param x x坐标。
      * @param y y坐标。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.moveTo = function (x, y) {
@@ -3336,7 +3336,7 @@ var TVgcanvas = /** @class */ (function () {
      *
      * @param x x坐标。
      * @param y y坐标。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.lineTo = function (x, y) {
@@ -3349,7 +3349,7 @@ var TVgcanvas = /** @class */ (function () {
      * @param cpy 控制点y坐标。
      * @param x x坐标。
      * @param y y坐标。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.quadTo = function (cpx, cpy, x, y) {
@@ -3364,7 +3364,7 @@ var TVgcanvas = /** @class */ (function () {
      * @param cp2y 控制点3y坐标。
      * @param x x坐标。
      * @param y y坐标。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.bezierTo = function (cp1x, cp1y, cp2x, cp2y, x, y) {
@@ -3378,7 +3378,7 @@ var TVgcanvas = /** @class */ (function () {
      * @param x2 结束点x坐标。
      * @param y2 结束点y坐标。
      * @param r 半径。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.arcTo = function (x1, y1, x2, y2, r) {
@@ -3393,7 +3393,7 @@ var TVgcanvas = /** @class */ (function () {
      * @param start_angle 起始角度。
      * @param end_angle 结束角度。
      * @param ccw 是否逆时针。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.arc = function (x, y, r, start_angle, end_angle, ccw) {
@@ -3404,7 +3404,7 @@ var TVgcanvas = /** @class */ (function () {
      *
      * @param x x坐标。
      * @param y y坐标。
-     
+     *
      * @returns 返回TRUE表示在，否则表示不在。
      */
     TVgcanvas.prototype.isPointInPath = function (x, y) {
@@ -3417,7 +3417,7 @@ var TVgcanvas = /** @class */ (function () {
      * @param y y坐标。
      * @param w 宽度。
      * @param h 高度。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.rect = function (x, y, w, h) {
@@ -3431,7 +3431,7 @@ var TVgcanvas = /** @class */ (function () {
      * @param w 宽度。
      * @param h 高度。
      * @param r 圆角半径。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.roundedRect = function (x, y, w, h, r) {
@@ -3444,7 +3444,7 @@ var TVgcanvas = /** @class */ (function () {
      * @param y y坐标。
      * @param rx 圆角半径。
      * @param ry 圆角半径。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.ellipse = function (x, y, rx, ry) {
@@ -3455,7 +3455,7 @@ var TVgcanvas = /** @class */ (function () {
      *
      *>闭合路径是指把起点和终点连接起来，形成一个封闭的多边形。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.closePath = function () {
@@ -3465,7 +3465,7 @@ var TVgcanvas = /** @class */ (function () {
      * 旋转。
      *
      * @param rad 角度
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.rotate = function (rad) {
@@ -3476,7 +3476,7 @@ var TVgcanvas = /** @class */ (function () {
      *
      * @param x x方向缩放比例。
      * @param y y方向缩放比例。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.scale = function (x, y) {
@@ -3487,7 +3487,7 @@ var TVgcanvas = /** @class */ (function () {
      *
      * @param x x方向偏移。
      * @param y y方向偏移。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.translate = function (x, y) {
@@ -3502,7 +3502,7 @@ var TVgcanvas = /** @class */ (function () {
      * @param d d
      * @param e e
      * @param f f
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.transform = function (a, b, c, d, e, f) {
@@ -3517,7 +3517,7 @@ var TVgcanvas = /** @class */ (function () {
      * @param d d
      * @param e e
      * @param f f
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.setTransform = function (a, b, c, d, e, f) {
@@ -3530,7 +3530,7 @@ var TVgcanvas = /** @class */ (function () {
      * @param y y坐标。
      * @param w 宽度。
      * @param h 高度。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.clipRect = function (x, y, w, h) {
@@ -3539,7 +3539,7 @@ var TVgcanvas = /** @class */ (function () {
     /**
      * 填充多边形。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.fill = function () {
@@ -3548,7 +3548,7 @@ var TVgcanvas = /** @class */ (function () {
     /**
      * 画线。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.stroke = function () {
@@ -3560,7 +3560,7 @@ var TVgcanvas = /** @class */ (function () {
      *
      * @param stroke TRUE表示画线FALSE表示填充。
      * @param img 图片。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.paint = function (stroke, img) {
@@ -3570,7 +3570,7 @@ var TVgcanvas = /** @class */ (function () {
      * 设置字体的名称。
      *
      * @param font 字体名称。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.setFont = function (font) {
@@ -3580,7 +3580,7 @@ var TVgcanvas = /** @class */ (function () {
      * 设置字体的大小。
      *
      * @param font 字体大小。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.setFontSize = function (font) {
@@ -3590,7 +3590,7 @@ var TVgcanvas = /** @class */ (function () {
      * 设置文本水平对齐的方式。
      *
      * @param value 取值：left|center|right，必须为常量字符串。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.setTextAlign = function (value) {
@@ -3600,7 +3600,7 @@ var TVgcanvas = /** @class */ (function () {
      * 设置文本垂直对齐的方式。
      *
      * @param value 取值：top|middle|bottom，必须为常量字符串。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.setTextBaseline = function (value) {
@@ -3613,7 +3613,7 @@ var TVgcanvas = /** @class */ (function () {
      * @param x x坐标。
      * @param y y坐标。
      * @param max_width 最大宽度。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.fillText = function (text, x, y, max_width) {
@@ -3623,7 +3623,7 @@ var TVgcanvas = /** @class */ (function () {
      * 测量文本的宽度。
      *
      * @param text text
-     
+     *
      * @returns 返回text的宽度。
      */
     TVgcanvas.prototype.measureText = function (text) {
@@ -3641,7 +3641,7 @@ var TVgcanvas = /** @class */ (function () {
      * @param dy dy
      * @param dw dw
      * @param dh dh
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.drawImage = function (img, sx, sy, sw, sh, dx, dy, dw, dh) {
@@ -3661,7 +3661,7 @@ var TVgcanvas = /** @class */ (function () {
      * @param dy dy
      * @param dw dw
      * @param dh dh
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.drawIcon = function (img, sx, sy, sw, sh, dx, dy, dw, dh) {
@@ -3671,7 +3671,7 @@ var TVgcanvas = /** @class */ (function () {
      * 设置是否启用反走样。
      *
      * @param value 是否启用反走样。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.setAntialias = function (value) {
@@ -3681,7 +3681,7 @@ var TVgcanvas = /** @class */ (function () {
      * 设置全局透明度。
      *
      * @param alpha global alpha。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.setGlobalAlpha = function (alpha) {
@@ -3691,7 +3691,7 @@ var TVgcanvas = /** @class */ (function () {
      * 设置线条的宽度。
      *
      * @param value 线宽。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.setLineWidth = function (value) {
@@ -3701,7 +3701,7 @@ var TVgcanvas = /** @class */ (function () {
      * 设置填充颜色。
      *
      * @param color 颜色。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.setFillColor = function (color) {
@@ -3711,7 +3711,7 @@ var TVgcanvas = /** @class */ (function () {
      * 设置线条颜色。
      *
      * @param color 颜色。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.setStrokeColor = function (color) {
@@ -3721,7 +3721,7 @@ var TVgcanvas = /** @class */ (function () {
      * 设置line cap。
      *
      * @param value 取值：butt|round|square，必须为常量字符串。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.setLineCap = function (value) {
@@ -3731,7 +3731,7 @@ var TVgcanvas = /** @class */ (function () {
      * 设置line join。
      *
      * @param value 取值：bevel|round|miter，必须为常量字符串。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.setLineJoin = function (value) {
@@ -3741,7 +3741,7 @@ var TVgcanvas = /** @class */ (function () {
      * 设置miter limit。
      *
      * @param value miter limit
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.setMiterLimit = function (value) {
@@ -3752,7 +3752,7 @@ var TVgcanvas = /** @class */ (function () {
      *
      *> save/restore必须配套使用，否则可能导致状态混乱。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.save = function () {
@@ -3763,7 +3763,7 @@ var TVgcanvas = /** @class */ (function () {
      *
      *> save/restore必须配套使用，否则可能导致状态混乱。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TVgcanvas.prototype.restore = function () {
@@ -5051,7 +5051,7 @@ var TWidget = /** @class */ (function () {
     /**
      * 获取子控件的个数。
      *
-     
+     *
      * @returns 子控件的个数。
      */
     TWidget.prototype.countChildren = function () {
@@ -5061,7 +5061,7 @@ var TWidget = /** @class */ (function () {
      * 获取指定索引的子控件。
      *
      * @param index 索引。
-     
+     *
      * @returns 子控件。
      */
     TWidget.prototype.getChild = function (index) {
@@ -5070,7 +5070,7 @@ var TWidget = /** @class */ (function () {
     /**
      * 获取控件在父控件中的索引编号。
      *
-     
+     *
      * @returns 在父控件中的索引编号。
      */
     TWidget.prototype.indexOf = function () {
@@ -5081,7 +5081,7 @@ var TWidget = /** @class */ (function () {
      *
      * @param x x坐标
      * @param y y坐标
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.move = function (x, y) {
@@ -5092,7 +5092,7 @@ var TWidget = /** @class */ (function () {
      *
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.resize = function (w, h) {
@@ -5105,7 +5105,7 @@ var TWidget = /** @class */ (function () {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.moveResize = function (x, y, w, h) {
@@ -5116,7 +5116,7 @@ var TWidget = /** @class */ (function () {
      *只是对widget\_set\_prop的包装，值的意义由子类控件决定。
      *
      * @param value 值。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setValue = function (value) {
@@ -5128,7 +5128,7 @@ var TWidget = /** @class */ (function () {
      *
      * @param value 值。
      * @param duration 动画持续时间(毫秒)。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.animateValueTo = function (value, duration) {
@@ -5139,7 +5139,7 @@ var TWidget = /** @class */ (function () {
      *只是对widget\_set\_prop的包装，值的意义由子类控件决定。
      *
      * @param delta 增量。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.addValue = function (delta) {
@@ -5149,7 +5149,7 @@ var TWidget = /** @class */ (function () {
      * 启用指定的主题。
      *
      * @param style style的名称。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.useStyle = function (style) {
@@ -5160,7 +5160,7 @@ var TWidget = /** @class */ (function () {
      *只是对widget\_set\_prop的包装，文本的意义由子类控件决定。
      *
      * @param text 文本。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setText = function (text) {
@@ -5170,7 +5170,7 @@ var TWidget = /** @class */ (function () {
      * 获取翻译之后的文本，然后调用widget_set_text。
      *
      * @param text 文本。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setTrText = function (text) {
@@ -5179,7 +5179,7 @@ var TWidget = /** @class */ (function () {
     /**
      * 获取控件的值。只是对widget\_get\_prop的包装，值的意义由子类控件决定。
      *
-     
+     *
      * @returns 返回值。
      */
     TWidget.prototype.getValue = function () {
@@ -5189,7 +5189,7 @@ var TWidget = /** @class */ (function () {
      * 获取控件的文本。
      *只是对widget\_get\_prop的包装，文本的意义由子类控件决定。
      *
-     
+     *
      * @returns 返回文本。
      */
     TWidget.prototype.getText = function () {
@@ -5199,7 +5199,7 @@ var TWidget = /** @class */ (function () {
      * 设置控件的名称。
      *
      * @param name 名称。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setName = function (name) {
@@ -5211,7 +5211,7 @@ var TWidget = /** @class */ (function () {
      *> 目前只支持带有文件系统的平台。
      *
      * @param name 主题的名称。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setTheme = function (name) {
@@ -5221,7 +5221,7 @@ var TWidget = /** @class */ (function () {
      * 设置鼠标指针的图片名。
      *
      * @param cursor 图片名称(无扩展名)。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setPointerCursor = function (cursor) {
@@ -5232,7 +5232,7 @@ var TWidget = /** @class */ (function () {
      *请参考[控件动画](https://github.com/zlgopen/awtk/blob/master/docs/widget_animator.md)
      *
      * @param animation 动画参数。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setAnimation = function (animation) {
@@ -5246,7 +5246,7 @@ var TWidget = /** @class */ (function () {
      ** 除非指定auto_destroy=false，动画播放完成后自动销毁。
      *
      * @param animation 动画参数。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.createAnimator = function (animation) {
@@ -5261,7 +5261,7 @@ var TWidget = /** @class */ (function () {
      ** 3.widget和name均为NULL，播放所有动画。
      *
      * @param name 动画名称。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.startAnimator = function (name) {
@@ -5277,7 +5277,7 @@ var TWidget = /** @class */ (function () {
      *
      * @param name 动画名称。
      * @param time_scale 时间倍率。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setAnimatorTimeScale = function (name, time_scale) {
@@ -5292,7 +5292,7 @@ var TWidget = /** @class */ (function () {
      ** 3.widget和name均为NULL，暂停所有动画。
      *
      * @param name 动画名称。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.pauseAnimator = function (name) {
@@ -5307,7 +5307,7 @@ var TWidget = /** @class */ (function () {
      ** 3.widget和name均为NULL，停止所有动画。
      *
      * @param name 动画名称。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.stopAnimator = function (name) {
@@ -5322,7 +5322,7 @@ var TWidget = /** @class */ (function () {
      ** 3.widget和name均为NULL，销毁所有动画。
      *
      * @param name 动画名称。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.destroyAnimator = function (name) {
@@ -5332,7 +5332,7 @@ var TWidget = /** @class */ (function () {
      * 设置控件的可用性。
      *
      * @param enable 是否可用性。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setEnable = function (enable) {
@@ -5342,7 +5342,7 @@ var TWidget = /** @class */ (function () {
      * 设置控件是否启用反馈。
      *
      * @param feedback 是否启用反馈。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setFeedback = function (feedback) {
@@ -5353,7 +5353,7 @@ var TWidget = /** @class */ (function () {
      *> floating的控件不受父控件的子控件布局参数的影响。
      *
      * @param floating 是否启用floating布局。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setFloating = function (floating) {
@@ -5363,7 +5363,7 @@ var TWidget = /** @class */ (function () {
      * 设置控件是否获得焦点。
      *
      * @param focused 是否获得焦点。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setFocused = function (focused) {
@@ -5373,7 +5373,7 @@ var TWidget = /** @class */ (function () {
      * 设置控件是否可获得焦点。
      *
      * @param focusable 是否可获得焦点。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setFocusable = function (focusable) {
@@ -5383,7 +5383,7 @@ var TWidget = /** @class */ (function () {
      * 设置控件的状态。
      *
      * @param state 状态(必须为真正的常量字符串，在widget的整个生命周期有效)。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setState = function (state) {
@@ -5395,7 +5395,7 @@ var TWidget = /** @class */ (function () {
      *>在嵌入式平台，半透明效果会使性能大幅下降，请谨慎使用。
      *
      * @param opacity 不透明度(取值0-255，0表示完全透明，255表示完全不透明)。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setOpacity = function (opacity) {
@@ -5404,7 +5404,7 @@ var TWidget = /** @class */ (function () {
     /**
      * 销毁全部子控件。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.destroyChildren = function () {
@@ -5414,7 +5414,7 @@ var TWidget = /** @class */ (function () {
      * 加入一个子控件。
      *
      * @param child 子控件对象。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.addChild = function (child) {
@@ -5424,7 +5424,7 @@ var TWidget = /** @class */ (function () {
      * 移出指定的子控件(并不销毁)。
      *
      * @param child 子控件对象。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.removeChild = function (child) {
@@ -5435,7 +5435,7 @@ var TWidget = /** @class */ (function () {
      *
      * @param index 位置序数(大于等于总个数，则放到最后)。
      * @param child 子控件对象。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.insertChild = function (index, child) {
@@ -5445,7 +5445,7 @@ var TWidget = /** @class */ (function () {
      * 调整控件在父控件中的位置序数。
      *
      * @param index 位置序数(大于等于总个数，则放到最后)。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.restack = function (index) {
@@ -5455,7 +5455,7 @@ var TWidget = /** @class */ (function () {
      * 查找指定名称的子控件(同widget_lookup(widget, name, FALSE))。
      *
      * @param name 子控件的名称。
-     
+     *
      * @returns 子控件或NULL。
      */
     TWidget.prototype.child = function (name) {
@@ -5466,7 +5466,7 @@ var TWidget = /** @class */ (function () {
      *
      * @param name 子控件的名称。
      * @param recursive 是否递归查找全部子控件。
-     
+     *
      * @returns 子控件或NULL。
      */
     TWidget.prototype.lookup = function (name, recursive) {
@@ -5477,7 +5477,7 @@ var TWidget = /** @class */ (function () {
      *
      * @param type 子控件的名称。
      * @param recursive 是否递归查找全部子控件。
-     
+     *
      * @returns 子控件或NULL。
      */
     TWidget.prototype.lookupByType = function (type, recursive) {
@@ -5488,7 +5488,7 @@ var TWidget = /** @class */ (function () {
      *
      * @param visible 是否可见。
      * @param recursive 是否递归设置全部子控件。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setVisible = function (visible, recursive) {
@@ -5498,7 +5498,7 @@ var TWidget = /** @class */ (function () {
      * 设置控件的可见性(不触发repaint和relayout)。
      *
      * @param visible 是否可见。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setVisibleOnly = function (visible) {
@@ -5508,7 +5508,7 @@ var TWidget = /** @class */ (function () {
      * 设置控件是否接受用户事件。
      *
      * @param sensitive 是否接受用户事件。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setSensitive = function (sensitive) {
@@ -5523,7 +5523,7 @@ var TWidget = /** @class */ (function () {
      * @param type 事件类型。
      * @param on_event 事件处理函数。
      * @param ctx 事件处理函数上下文。
-     
+     *
      * @returns 返回id，用于widget_off。
      */
     TWidget.prototype.on = function (type, on_event, ctx) {
@@ -5533,7 +5533,7 @@ var TWidget = /** @class */ (function () {
      * 注销指定事件的处理函数。
      *
      * @param id widget_on返回的ID。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.off = function (id) {
@@ -5543,7 +5543,7 @@ var TWidget = /** @class */ (function () {
      * 请求强制重绘控件。
      *
      * @param r 矩形对象(widget本地坐标)。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.invalidateForce = function (r) {
@@ -5554,7 +5554,7 @@ var TWidget = /** @class */ (function () {
      *
      * @param name 属性的名称。
      * @param v 属性的值。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setPropStr = function (name, v) {
@@ -5565,7 +5565,7 @@ var TWidget = /** @class */ (function () {
      *
      * @param name 属性的名称。
      * @param defval 缺省值。
-     
+     *
      * @returns 返回属性的值。
      */
     TWidget.prototype.getPropStr = function (name, defval) {
@@ -5576,7 +5576,7 @@ var TWidget = /** @class */ (function () {
      *
      * @param name 属性的名称。
      * @param v 属性的值。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setPropInt = function (name, v) {
@@ -5587,7 +5587,7 @@ var TWidget = /** @class */ (function () {
      *
      * @param name 属性的名称。
      * @param defval 缺省值。
-     
+     *
      * @returns 返回属性的值。
      */
     TWidget.prototype.getPropInt = function (name, defval) {
@@ -5598,7 +5598,7 @@ var TWidget = /** @class */ (function () {
      *
      * @param name 属性的名称。
      * @param v 属性的值。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setPropBool = function (name, v) {
@@ -5609,7 +5609,7 @@ var TWidget = /** @class */ (function () {
      *
      * @param name 属性的名称。
      * @param defval 缺省值。
-     
+     *
      * @returns 返回属性的值。
      */
     TWidget.prototype.getPropBool = function (name, defval) {
@@ -5618,7 +5618,7 @@ var TWidget = /** @class */ (function () {
     /**
      * 判断当前控件所在的窗口是否已经打开。
      *
-     
+     *
      * @returns 返回当前控件所在的窗口是否已经打开。
      */
     TWidget.prototype.isWindowOpened = function () {
@@ -5627,7 +5627,7 @@ var TWidget = /** @class */ (function () {
     /**
      * 判断当前控件是否是窗口。
      *
-     
+     *
      * @returns 返回当前控件是否是窗口。
      */
     TWidget.prototype.isWindow = function () {
@@ -5636,7 +5636,7 @@ var TWidget = /** @class */ (function () {
     /**
      * 判断当前控件是否是设计窗口。
      *
-     
+     *
      * @returns 返回当前控件是否是设计窗口。
      */
     TWidget.prototype.isDesigningWindow = function () {
@@ -5645,7 +5645,7 @@ var TWidget = /** @class */ (function () {
     /**
      * 判断当前控件是否是窗口管理器。
      *
-     
+     *
      * @returns 返回当前控件是否是窗口管理器。
      */
     TWidget.prototype.isWindowManager = function () {
@@ -5656,7 +5656,7 @@ var TWidget = /** @class */ (function () {
      *
      * @param visit 遍历的回调函数。
      * @param ctx 回调函数的上下文。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.foreach = function (visit, ctx) {
@@ -5665,7 +5665,7 @@ var TWidget = /** @class */ (function () {
     /**
      * 获取当前控件所在的窗口。
      *
-     
+     *
      * @returns 窗口对象。
      */
     TWidget.prototype.getWindow = function () {
@@ -5674,7 +5674,7 @@ var TWidget = /** @class */ (function () {
     /**
      * 获取当前的窗口管理器。
      *
-     
+     *
      * @returns 窗口管理器对象。
      */
     TWidget.prototype.getWindowManager = function () {
@@ -5683,7 +5683,7 @@ var TWidget = /** @class */ (function () {
     /**
      * 获取当前控件的类型名称。
      *
-     
+     *
      * @returns 返回类型名。
      */
     TWidget.prototype.getType = function () {
@@ -5693,7 +5693,7 @@ var TWidget = /** @class */ (function () {
      * clone。
      *
      * @param parent clone新控件的parent对象。
-     
+     *
      * @returns 返回clone的对象。
      */
     TWidget.prototype.clone = function (parent) {
@@ -5703,7 +5703,7 @@ var TWidget = /** @class */ (function () {
      * 判断两个widget是否相同。
      *
      * @param other 要比较的控件对象。
-     
+     *
      * @returns 返回TRUE表示相同，否则表示不同。
      */
     TWidget.prototype.equal = function (other) {
@@ -5713,7 +5713,7 @@ var TWidget = /** @class */ (function () {
      * 转换为widget对象(供脚本语言使用)。
      *
      * @param widget widget对象。
-     
+     *
      * @returns widget对象。
      */
     TWidget.cast = function (widget) {
@@ -5724,7 +5724,7 @@ var TWidget = /** @class */ (function () {
      *
      *> 一般无需直接调用，关闭窗口时，自动销毁相关控件。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.destroy = function () {
@@ -5733,7 +5733,7 @@ var TWidget = /** @class */ (function () {
     /**
      * 减少控件的引用计数。引用计数为0时销毁控件。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.unref = function () {
@@ -5742,7 +5742,7 @@ var TWidget = /** @class */ (function () {
     /**
      * 检查控件是否是system bar类型。
      *
-     
+     *
      * @returns 返回FALSE表示不是，否则表示是。
      */
     TWidget.prototype.isSystemBar = function () {
@@ -5751,7 +5751,7 @@ var TWidget = /** @class */ (function () {
     /**
      * 检查控件是否是普通窗口类型。
      *
-     
+     *
      * @returns 返回FALSE表示不是，否则表示是。
      */
     TWidget.prototype.isNormalWindow = function () {
@@ -5760,7 +5760,7 @@ var TWidget = /** @class */ (function () {
     /**
      * 检查控件是否是对话框类型。
      *
-     
+     *
      * @returns 返回FALSE表示不是，否则表示是。
      */
     TWidget.prototype.isDialog = function () {
@@ -5769,7 +5769,7 @@ var TWidget = /** @class */ (function () {
     /**
      * 检查控件是否是弹出窗口类型。
      *
-     
+     *
      * @returns 返回FALSE表示不是，否则表示是。
      */
     TWidget.prototype.isPopup = function () {
@@ -5778,7 +5778,7 @@ var TWidget = /** @class */ (function () {
     /**
      * 布局当前控件及子控件。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.layout = function () {
@@ -5788,7 +5788,7 @@ var TWidget = /** @class */ (function () {
      * 设置控件自己的布局参数。
      *
      * @param params 布局参数。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setSelfLayout = function (params) {
@@ -5798,7 +5798,7 @@ var TWidget = /** @class */ (function () {
      * 设置子控件的布局参数。
      *
      * @param params 布局参数。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setChildrenLayout = function (params) {
@@ -5811,7 +5811,7 @@ var TWidget = /** @class */ (function () {
      * @param y y参数。
      * @param w w参数。
      * @param h h参数。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setSelfLayoutParams = function (x, y, w, h) {
@@ -5822,7 +5822,7 @@ var TWidget = /** @class */ (function () {
      *
      * @param state_and_name 状态和名字，用英文的冒号分隔。
      * @param value 值。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setStyleInt = function (state_and_name, value) {
@@ -5833,7 +5833,7 @@ var TWidget = /** @class */ (function () {
      *
      * @param state_and_name 状态和名字，用英文的冒号分隔。
      * @param value 值。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setStyleStr = function (state_and_name, value) {
@@ -5844,7 +5844,7 @@ var TWidget = /** @class */ (function () {
      *
      * @param state_and_name 状态和名字，用英文的冒号分隔。
      * @param value 值。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWidget.prototype.setStyleColor = function (state_and_name, value) {
@@ -6196,7 +6196,7 @@ var TTimeNow = /** @class */ (function () {
     /**
      * 获取当前时间(秒)。
      *
-     
+     *
      * @returns 返回当前时间(秒)。
      */
     TTimeNow.s = function () {
@@ -6205,7 +6205,7 @@ var TTimeNow = /** @class */ (function () {
     /**
      * 获取当前时间(毫秒)。
      *
-     
+     *
      * @returns 返回当前时间(毫秒)。
      */
     TTimeNow.ms = function () {
@@ -6323,7 +6323,7 @@ var TCanvas = /** @class */ (function () {
     /**
      * 获取画布的宽度。
      *
-     
+     *
      * @returns 返回画布的宽度。
      */
     TCanvas.prototype.getWidth = function () {
@@ -6332,7 +6332,7 @@ var TCanvas = /** @class */ (function () {
     /**
      * 获取画布的高度。
      *
-     
+     *
      * @returns 返回画布的高度。
      */
     TCanvas.prototype.getHeight = function () {
@@ -6342,7 +6342,7 @@ var TCanvas = /** @class */ (function () {
      * 获取裁剪区。
      *
      * @param r rect对象。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCanvas.prototype.getClipRect = function (r) {
@@ -6352,7 +6352,7 @@ var TCanvas = /** @class */ (function () {
      * 设置裁剪区。
      *
      * @param r rect对象。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCanvas.prototype.setClipRect = function (r) {
@@ -6363,7 +6363,7 @@ var TCanvas = /** @class */ (function () {
      *
      * @param r rect对象。
      * @param translate 是否将裁剪区的位置加上canvas当前的偏移。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCanvas.prototype.setClipRectEx = function (r, translate) {
@@ -6375,7 +6375,7 @@ var TCanvas = /** @class */ (function () {
      *> 供脚本语言使用。
      *
      * @param color 颜色。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCanvas.prototype.setFillColor = function (color) {
@@ -6387,7 +6387,7 @@ var TCanvas = /** @class */ (function () {
      *> 供脚本语言使用。
      *
      * @param color 颜色。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCanvas.prototype.setTextColor = function (color) {
@@ -6399,7 +6399,7 @@ var TCanvas = /** @class */ (function () {
      *> 供脚本语言使用。
      *
      * @param color 颜色。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCanvas.prototype.setStrokeColor = function (color) {
@@ -6409,7 +6409,7 @@ var TCanvas = /** @class */ (function () {
      * 设置全局alpha值。
      *
      * @param alpha alpha值。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCanvas.prototype.setGlobalAlpha = function (alpha) {
@@ -6420,7 +6420,7 @@ var TCanvas = /** @class */ (function () {
      *
      * @param dx x偏移。
      * @param dy y偏移。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCanvas.prototype.translate = function (dx, dy) {
@@ -6431,7 +6431,7 @@ var TCanvas = /** @class */ (function () {
      *
      * @param dx x偏移。
      * @param dy y偏移。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCanvas.prototype.untranslate = function (dx, dy) {
@@ -6443,7 +6443,7 @@ var TCanvas = /** @class */ (function () {
      * @param x x坐标。
      * @param y y坐标。
      * @param h 高度。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCanvas.prototype.drawVline = function (x, y, h) {
@@ -6455,7 +6455,7 @@ var TCanvas = /** @class */ (function () {
      * @param x x坐标。
      * @param y y坐标。
      * @param w 宽度。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCanvas.prototype.drawHline = function (x, y, w) {
@@ -6468,7 +6468,7 @@ var TCanvas = /** @class */ (function () {
      * @param y y坐标。
      * @param w 宽度。
      * @param h 高度。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCanvas.prototype.fillRect = function (x, y, w, h) {
@@ -6481,7 +6481,7 @@ var TCanvas = /** @class */ (function () {
      * @param y y坐标。
      * @param w 宽度。
      * @param h 高度。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCanvas.prototype.strokeRect = function (x, y, w, h) {
@@ -6492,7 +6492,7 @@ var TCanvas = /** @class */ (function () {
      *
      * @param name 字体名称。
      * @param size 字体大小。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCanvas.prototype.setFont = function (name, size) {
@@ -6504,7 +6504,7 @@ var TCanvas = /** @class */ (function () {
      *> 供脚本语言使用。
      *
      * @param str 字符串。
-     
+     *
      * @returns 返回文本所占的宽度。
      */
     TCanvas.prototype.measureText = function (str) {
@@ -6518,7 +6518,7 @@ var TCanvas = /** @class */ (function () {
      * @param str 字符串。
      * @param x x坐标。
      * @param y y坐标。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCanvas.prototype.drawText = function (str, x, y) {
@@ -6531,7 +6531,7 @@ var TCanvas = /** @class */ (function () {
      *
      * @param str 字符串。
      * @param r 矩形区域。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCanvas.prototype.drawTextInRect = function (str, r) {
@@ -6543,7 +6543,7 @@ var TCanvas = /** @class */ (function () {
      * @param img 图片对象。
      * @param cx 中心点x坐标。
      * @param cy 中心点y坐标。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCanvas.prototype.drawIcon = function (img, cx, cy) {
@@ -6555,7 +6555,7 @@ var TCanvas = /** @class */ (function () {
      * @param img 图片对象。
      * @param src 源区域。
      * @param dst 目的区域。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCanvas.prototype.drawImage = function (img, src, dst) {
@@ -6567,7 +6567,7 @@ var TCanvas = /** @class */ (function () {
      * @param img 图片对象。
      * @param draw_type 绘制类型。
      * @param dst 目的区域。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCanvas.prototype.drawImageEx = function (img, draw_type, dst) {
@@ -6576,7 +6576,7 @@ var TCanvas = /** @class */ (function () {
     /**
      * 获取vgcanvas对象。
      *
-     
+     *
      * @returns 返回vgcanvas对象。
      */
     TCanvas.prototype.getVgcanvas = function () {
@@ -6586,7 +6586,7 @@ var TCanvas = /** @class */ (function () {
      * 转换为canvas对象(供脚本语言使用)。
      *
      * @param c canvas对象。
-     
+     *
      * @returns canvas对象。
      */
     TCanvas.cast = function (c) {
@@ -6595,7 +6595,7 @@ var TCanvas = /** @class */ (function () {
     /**
      * 释放相关资源。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCanvas.prototype.reset = function () {
@@ -6673,7 +6673,7 @@ var TNamedValue = /** @class */ (function () {
     /**
      * 创建named_value对象。
      *
-     
+     *
      * @returns 返回named_value对象。
      */
     TNamedValue.create = function () {
@@ -6683,7 +6683,7 @@ var TNamedValue = /** @class */ (function () {
      * 转换为named_value对象(供脚本语言使用)。
      *
      * @param nv named_value对象。
-     
+     *
      * @returns 返回named_value对象。
      */
     TNamedValue.cast = function (nv) {
@@ -6693,7 +6693,7 @@ var TNamedValue = /** @class */ (function () {
      * 设置名称。
      *
      * @param name 名称。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TNamedValue.prototype.setName = function (name) {
@@ -6703,7 +6703,7 @@ var TNamedValue = /** @class */ (function () {
      * 设置值。
      *
      * @param value 值。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TNamedValue.prototype.setValue = function (value) {
@@ -6712,7 +6712,7 @@ var TNamedValue = /** @class */ (function () {
     /**
      * 获取值对象(主要给脚本语言使用)。
      *
-     
+     *
      * @returns 返回值对象。
      */
     TNamedValue.prototype.getValue = function () {
@@ -6721,7 +6721,7 @@ var TNamedValue = /** @class */ (function () {
     /**
      * 销毁named_value对象。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TNamedValue.prototype.destroy = function () {
@@ -7336,7 +7336,7 @@ var TClipBoard = /** @class */ (function () {
      * 设置文本(UTF8)数据到剪切板。
      *
      * @param text 文本。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TClipBoard.setText = function (text) {
@@ -7345,7 +7345,7 @@ var TClipBoard = /** @class */ (function () {
     /**
      * 从剪切板中获取文本(UTF8)数据。
      *
-     
+     *
      * @returns 返回文本数据。
      */
     TClipBoard.getText = function () {
@@ -7495,7 +7495,7 @@ var TDateTime = /** @class */ (function () {
     /**
      * 创建date_time对象，并初始为当前日期和时间(一般供脚本语言中使用)。
      *
-     
+     *
      * @returns 返回date_time对象。
      */
     TDateTime.create = function () {
@@ -7504,7 +7504,7 @@ var TDateTime = /** @class */ (function () {
     /**
      * 设置当前时间。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TDateTime.prototype.set = function () {
@@ -7513,7 +7513,7 @@ var TDateTime = /** @class */ (function () {
     /**
      * 销毁date_time对象(一般供脚本语言中使用)。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TDateTime.prototype.destroy = function () {
@@ -7616,7 +7616,7 @@ var TColor = /** @class */ (function () {
      * @param b 蓝色通道。
      * @param g 绿色通道。
      * @param a alpha通道。
-     
+     *
      * @returns color对象。
      */
     TColor.create = function (r, b, g, a) {
@@ -7628,7 +7628,7 @@ var TColor = /** @class */ (function () {
      *> 主要供脚本语言使用。
      *
      * @param str css类似的颜色值。
-     
+     *
      * @returns color对象。
      */
     TColor.prototype.fromStr = function (str) {
@@ -7639,7 +7639,7 @@ var TColor = /** @class */ (function () {
      *
      *> 主要供脚本语言使用。
      *
-     
+     *
      * @returns 返回红色通道的值。
      */
     TColor.prototype.r = function () {
@@ -7650,7 +7650,7 @@ var TColor = /** @class */ (function () {
      *
      *> 主要供脚本语言使用。
      *
-     
+     *
      * @returns 返回绿色通道的值。
      */
     TColor.prototype.g = function () {
@@ -7661,7 +7661,7 @@ var TColor = /** @class */ (function () {
      *
      *> 主要供脚本语言使用。
      *
-     
+     *
      * @returns 返回蓝色通道的值。
      */
     TColor.prototype.b = function () {
@@ -7672,7 +7672,7 @@ var TColor = /** @class */ (function () {
      *
      *> 主要供脚本语言使用。
      *
-     
+     *
      * @returns 返回alpha通道的值。
      */
     TColor.prototype.a = function () {
@@ -7684,7 +7684,7 @@ var TColor = /** @class */ (function () {
      *> 供脚本语言使用。
      *
      * @param color color对象。
-     
+     *
      * @returns color对象。
      */
     TColor.cast = function (color) {
@@ -7694,7 +7694,7 @@ var TColor = /** @class */ (function () {
      * 销毁color对象。
      *> 主要供脚本语言使用。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TColor.prototype.destroy = function () {
@@ -7887,7 +7887,7 @@ var TAssetsManager = /** @class */ (function () {
     /**
      * 获取缺省资源管理器。
      *
-     
+     *
      * @returns 返回asset manager对象。
      */
     TAssetsManager.instance = function () {
@@ -7898,7 +7898,7 @@ var TAssetsManager = /** @class */ (function () {
      *
      * @param type 资源的类型。
      * @param name 资源的名称。
-     
+     *
      * @returns 返回资源。
      */
     TAssetsManager.prototype.ref = function (type, name) {
@@ -7908,7 +7908,7 @@ var TAssetsManager = /** @class */ (function () {
      * 释放指定的资源。
      *
      * @param info 资源。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TAssetsManager.prototype.unref = function (info) {
@@ -7965,7 +7965,7 @@ var TCanvasWidget = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TCanvasWidget.create = function (parent, x, y, w, h) {
@@ -7975,7 +7975,7 @@ var TCanvasWidget = /** @class */ (function (_super) {
      * 转换为canvas_widget对象(供脚本语言使用)。
      *
      * @param widget canvas_widget对象。
-     
+     *
      * @returns canvas_widget对象。
      */
     TCanvasWidget.cast = function (widget) {
@@ -8021,7 +8021,7 @@ var TTimeClock = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TTimeClock.create = function (parent, x, y, w, h) {
@@ -8031,7 +8031,7 @@ var TTimeClock = /** @class */ (function (_super) {
      * 转换为time_clock对象(供脚本语言使用)。
      *
      * @param widget time_clock对象。
-     
+     *
      * @returns time_clock对象。
      */
     TTimeClock.cast = function (widget) {
@@ -8041,7 +8041,7 @@ var TTimeClock = /** @class */ (function (_super) {
      * 设置小时的值。
      *
      * @param hour 小时的值。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTimeClock.prototype.setHour = function (hour) {
@@ -8051,7 +8051,7 @@ var TTimeClock = /** @class */ (function (_super) {
      * 设置分钟的值。
      *
      * @param minute 分钟的值。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTimeClock.prototype.setMinute = function (minute) {
@@ -8061,7 +8061,7 @@ var TTimeClock = /** @class */ (function (_super) {
      * 设置秒的值。
      *
      * @param second 秒的值。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTimeClock.prototype.setSecond = function (second) {
@@ -8071,7 +8071,7 @@ var TTimeClock = /** @class */ (function (_super) {
      * 设置小时的图片。
      *
      * @param hour 小时的图片。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTimeClock.prototype.setHourImage = function (hour) {
@@ -8081,7 +8081,7 @@ var TTimeClock = /** @class */ (function (_super) {
      * 设置分钟的图片。
      *
      * @param minute_image 分钟的图片。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTimeClock.prototype.setMinuteImage = function (minute_image) {
@@ -8091,7 +8091,7 @@ var TTimeClock = /** @class */ (function (_super) {
      * 设置秒的图片。
      *
      * @param second_image 秒的图片。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTimeClock.prototype.setSecondImage = function (second_image) {
@@ -8101,7 +8101,7 @@ var TTimeClock = /** @class */ (function (_super) {
      * 设置背景图片。
      *
      * @param bg_image 背景图片。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTimeClock.prototype.setBgImage = function (bg_image) {
@@ -8111,7 +8111,7 @@ var TTimeClock = /** @class */ (function (_super) {
      * 设置中心图片。
      *
      * @param image 图片。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTimeClock.prototype.setImage = function (image) {
@@ -8123,7 +8123,7 @@ var TTimeClock = /** @class */ (function (_super) {
      *
      * @param anchor_x 指针的锚点坐标x。
      * @param anchor_y 指针的锚点坐标y。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTimeClock.prototype.setHourAnchor = function (anchor_x, anchor_y) {
@@ -8135,7 +8135,7 @@ var TTimeClock = /** @class */ (function (_super) {
      *
      * @param anchor_x 指针的锚点坐标x。
      * @param anchor_y 指针的锚点坐标y。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTimeClock.prototype.setMinuteAnchor = function (anchor_x, anchor_y) {
@@ -8147,7 +8147,7 @@ var TTimeClock = /** @class */ (function (_super) {
      *
      * @param anchor_x 指针的锚点坐标x。
      * @param anchor_y 指针的锚点坐标y。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTimeClock.prototype.setSecondAnchor = function (anchor_x, anchor_y) {
@@ -8381,7 +8381,7 @@ var TTextSelector = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TTextSelector.create = function (parent, x, y, w, h) {
@@ -8391,7 +8391,7 @@ var TTextSelector = /** @class */ (function (_super) {
      * 转换text_selector对象(供脚本语言使用)。
      *
      * @param widget text_selector对象。
-     
+     *
      * @returns text_selector对象。
      */
     TTextSelector.cast = function (widget) {
@@ -8400,7 +8400,7 @@ var TTextSelector = /** @class */ (function (_super) {
     /**
      * 重置所有选项。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTextSelector.prototype.resetOptions = function () {
@@ -8409,7 +8409,7 @@ var TTextSelector = /** @class */ (function (_super) {
     /**
      * 获取选项个数。
      *
-     
+     *
      * @returns 返回选项个数。
      */
     TTextSelector.prototype.countOptions = function () {
@@ -8420,7 +8420,7 @@ var TTextSelector = /** @class */ (function (_super) {
      *
      * @param value 值。
      * @param text 文本。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTextSelector.prototype.appendOption = function (value, text) {
@@ -8430,7 +8430,7 @@ var TTextSelector = /** @class */ (function (_super) {
      * 设置选项。
      *
      * @param options 选项。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTextSelector.prototype.setOptions = function (options) {
@@ -8442,7 +8442,7 @@ var TTextSelector = /** @class */ (function (_super) {
      * @param start 起始值。
      * @param nr 个数。
      * @param step 步长。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTextSelector.prototype.setRangeOptions = function (start, nr, step) {
@@ -8451,7 +8451,7 @@ var TTextSelector = /** @class */ (function (_super) {
     /**
      * 获取text_selector的值。
      *
-     
+     *
      * @returns 返回值。
      */
     TTextSelector.prototype.getValue = function () {
@@ -8461,7 +8461,7 @@ var TTextSelector = /** @class */ (function (_super) {
      * 设置text_selector的值。
      *
      * @param value 值。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTextSelector.prototype.setValue = function (value) {
@@ -8470,7 +8470,7 @@ var TTextSelector = /** @class */ (function (_super) {
     /**
      * 获取text_selector的文本。
      *
-     
+     *
      * @returns 返回文本。
      */
     TTextSelector.prototype.getTextValue = function () {
@@ -8480,7 +8480,7 @@ var TTextSelector = /** @class */ (function (_super) {
      * 设置text_selector的文本。
      *
      * @param text 文本。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTextSelector.prototype.setText = function (text) {
@@ -8490,7 +8490,7 @@ var TTextSelector = /** @class */ (function (_super) {
      * 设置第index个选项为当前选中的选项。
      *
      * @param index 选项的索引。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTextSelector.prototype.setSelectedIndex = function (index) {
@@ -8500,7 +8500,7 @@ var TTextSelector = /** @class */ (function (_super) {
      * 设置可见的选项数。
      *
      * @param visible_nr 选项数。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTextSelector.prototype.setVisibleNr = function (visible_nr) {
@@ -8566,7 +8566,7 @@ var TPropChangeEvent = /** @class */ (function (_super) {
      * 把event对象转prop_change_event_t对象，主要给脚本语言使用。
      *
      * @param event event对象。
-     
+     *
      * @returns 返回event对象。
      */
     TPropChangeEvent.cast = function (event) {
@@ -8610,7 +8610,7 @@ var TProgressEvent = /** @class */ (function (_super) {
      * 把event对象转progress_event_t对象，主要给脚本语言使用。
      *
      * @param event event对象。
-     
+     *
      * @returns 返回event对象。
      */
     TProgressEvent.cast = function (event) {
@@ -8675,7 +8675,7 @@ var TSwitch = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TSwitch.create = function (parent, x, y, w, h) {
@@ -8685,7 +8685,7 @@ var TSwitch = /** @class */ (function (_super) {
      * 设置控件的值。
      *
      * @param value 值
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSwitch.prototype.setValue = function (value) {
@@ -8695,7 +8695,7 @@ var TSwitch = /** @class */ (function (_super) {
      * 转换switch对象(供脚本语言使用)。
      *
      * @param widget switch对象。
-     
+     *
      * @returns switch对象。
      */
     TSwitch.cast = function (widget) {
@@ -8786,7 +8786,7 @@ var TSlideView = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TSlideView.create = function (parent, x, y, w, h) {
@@ -8796,7 +8796,7 @@ var TSlideView = /** @class */ (function (_super) {
      * 转换为slide_view对象(供脚本语言使用)。
      *
      * @param widget slide_view对象。
-     
+     *
      * @returns slide_view对象。
      */
     TSlideView.cast = function (widget) {
@@ -8806,7 +8806,7 @@ var TSlideView = /** @class */ (function (_super) {
      * 设置为自动播放模式。
      *
      * @param auto_play 0表示禁止自动播放，非0表示自动播放时每一页播放的时间。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlideView.prototype.setAutoPlay = function (auto_play) {
@@ -8816,7 +8816,7 @@ var TSlideView = /** @class */ (function (_super) {
      * 设置当前页的序号。
      *
      * @param index 当前页的序号。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlideView.prototype.setActive = function (index) {
@@ -8826,7 +8826,7 @@ var TSlideView = /** @class */ (function (_super) {
      * 设置为上下滑动(缺省为左右滑动)。
      *
      * @param vertical TRUE表示上下滑动，FALSE表示左右滑动。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlideView.prototype.setVertical = function (vertical) {
@@ -8847,7 +8847,7 @@ var TSlideView = /** @class */ (function (_super) {
      *> 或slideview的背景设置为透明，窗口的背景设置为黑色，以获得更好的视觉效果和性能。
      *
      * @param anim_hint 页面切换动画。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlideView.prototype.setAnimHint = function (anim_hint) {
@@ -8857,7 +8857,7 @@ var TSlideView = /** @class */ (function (_super) {
      * 设置循环切换模式。
      *
      * @param loop 是否启用循环切换模式。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlideView.prototype.setLoop = function (loop) {
@@ -8970,7 +8970,7 @@ var TSlideIndicator = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TSlideIndicator.create = function (parent, x, y, w, h) {
@@ -8984,7 +8984,7 @@ var TSlideIndicator = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TSlideIndicator.createLinear = function (parent, x, y, w, h) {
@@ -8998,7 +8998,7 @@ var TSlideIndicator = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TSlideIndicator.createArc = function (parent, x, y, w, h) {
@@ -9008,7 +9008,7 @@ var TSlideIndicator = /** @class */ (function (_super) {
      * 转换为slide_indicator对象(供脚本语言使用)。
      *
      * @param widget slide_indicator对象。
-     
+     *
      * @returns slide_indicator对象。
      */
     TSlideIndicator.cast = function (widget) {
@@ -9018,7 +9018,7 @@ var TSlideIndicator = /** @class */ (function (_super) {
      * 设置当前页的序号。
      *
      * @param value 当前项的序号。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlideIndicator.prototype.setValue = function (value) {
@@ -9028,7 +9028,7 @@ var TSlideIndicator = /** @class */ (function (_super) {
      * 设置指示器的数量。
      *
      * @param max 数量。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlideIndicator.prototype.setMax = function (max) {
@@ -9038,7 +9038,7 @@ var TSlideIndicator = /** @class */ (function (_super) {
      * 设置指示器的默认绘制类型。
      *
      * @param default_paint 默认绘制类型。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlideIndicator.prototype.setDefaultPaint = function (default_paint) {
@@ -9048,7 +9048,7 @@ var TSlideIndicator = /** @class */ (function (_super) {
      * 设置指示器是否自动隐藏。
      *
      * @param auto_hide 0表示禁止，非0表示无操作后延迟多久隐藏。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlideIndicator.prototype.setAutoHide = function (auto_hide) {
@@ -9058,7 +9058,7 @@ var TSlideIndicator = /** @class */ (function (_super) {
      * 设置指示器的边距(默认为10像素)。
      *
      * @param margin 指示器的边距。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlideIndicator.prototype.setMargin = function (margin) {
@@ -9068,7 +9068,7 @@ var TSlideIndicator = /** @class */ (function (_super) {
      * 设置指示器的间距(指示器有弧度时为角度值，否则为直线间距)。
      *
      * @param spacing 指示器的间距。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlideIndicator.prototype.setSpacing = function (spacing) {
@@ -9078,7 +9078,7 @@ var TSlideIndicator = /** @class */ (function (_super) {
      * 设置指示器的大小(默认为8)。
      *
      * @param size 指示器的大小。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlideIndicator.prototype.setSize = function (size) {
@@ -9089,7 +9089,7 @@ var TSlideIndicator = /** @class */ (function (_super) {
      *
      * @param anchor_x 锚点坐标x。(后面加上px为像素点，不加px为相对百分比坐标)
      * @param anchor_y 锚点坐标y。(后面加上px为像素点，不加px为相对百分比坐标)
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlideIndicator.prototype.setAnchor = function (anchor_x, anchor_y) {
@@ -9099,7 +9099,7 @@ var TSlideIndicator = /** @class */ (function (_super) {
      * 设置指示器指示的目标。
      *
      * @param indicated_target 指示器指示的目标
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlideIndicator.prototype.setIndicatedTarget = function (indicated_target) {
@@ -9301,7 +9301,7 @@ var TSlideMenu = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TSlideMenu.create = function (parent, x, y, w, h) {
@@ -9311,7 +9311,7 @@ var TSlideMenu = /** @class */ (function (_super) {
      * 转换slide_menu对象(供脚本语言使用)。
      *
      * @param widget slide_menu对象。
-     
+     *
      * @returns slide_menu对象。
      */
     TSlideMenu.cast = function (widget) {
@@ -9321,7 +9321,7 @@ var TSlideMenu = /** @class */ (function (_super) {
      * 设置当前项。
      *
      * @param value 当前项的索引。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlideMenu.prototype.setValue = function (value) {
@@ -9331,7 +9331,7 @@ var TSlideMenu = /** @class */ (function (_super) {
      * 设置垂直对齐方式。
      *
      * @param align_v 对齐方式。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlideMenu.prototype.setAlignV = function (align_v) {
@@ -9341,7 +9341,7 @@ var TSlideMenu = /** @class */ (function (_super) {
      * 设置最小缩放比例。
      *
      * @param min_scale 最小缩放比例，范围[0.5-1]。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlideMenu.prototype.setMinScale = function (min_scale) {
@@ -9437,7 +9437,7 @@ var TScrollView = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TScrollView.create = function (parent, x, y, w, h) {
@@ -9447,7 +9447,7 @@ var TScrollView = /** @class */ (function (_super) {
      * 转换为scroll_view对象(供脚本语言使用)。
      *
      * @param widget scroll_view对象。
-     
+     *
      * @returns scroll_view对象。
      */
     TScrollView.cast = function (widget) {
@@ -9457,7 +9457,7 @@ var TScrollView = /** @class */ (function (_super) {
      * 设置虚拟宽度。
      *
      * @param w 虚拟宽度。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TScrollView.prototype.setVirtualW = function (w) {
@@ -9467,7 +9467,7 @@ var TScrollView = /** @class */ (function (_super) {
      * 设置虚拟高度。
      *
      * @param h 虚拟高度。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TScrollView.prototype.setVirtualH = function (h) {
@@ -9477,7 +9477,7 @@ var TScrollView = /** @class */ (function (_super) {
      * 设置是否允许x方向滑动。
      *
      * @param xslidable 是否允许滑动。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TScrollView.prototype.setXslidable = function (xslidable) {
@@ -9487,7 +9487,7 @@ var TScrollView = /** @class */ (function (_super) {
      * 设置是否允许y方向滑动。
      *
      * @param yslidable 是否允许滑动。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TScrollView.prototype.setYslidable = function (yslidable) {
@@ -9498,7 +9498,7 @@ var TScrollView = /** @class */ (function (_super) {
      *
      * @param xoffset x偏移量。
      * @param yoffset y偏移量。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TScrollView.prototype.setOffset = function (xoffset, yoffset) {
@@ -9509,7 +9509,7 @@ var TScrollView = /** @class */ (function (_super) {
      *
      * @param xspeed_scale x偏移速度比例。。
      * @param yspeed_scale y偏移速度比例。。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TScrollView.prototype.setSpeedScale = function (xspeed_scale, yspeed_scale) {
@@ -9521,7 +9521,7 @@ var TScrollView = /** @class */ (function (_super) {
      * @param xoffset_end x偏移量。
      * @param yoffset_end y偏移量。
      * @param duration 时间。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TScrollView.prototype.scrollTo = function (xoffset_end, yoffset_end, duration) {
@@ -9533,7 +9533,7 @@ var TScrollView = /** @class */ (function (_super) {
      * @param xoffset_delta x偏移量。
      * @param yoffset_delta y偏移量。
      * @param duration 时间。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TScrollView.prototype.scrollDeltaTo = function (xoffset_delta, yoffset_delta, duration) {
@@ -9693,7 +9693,7 @@ var TScrollBar = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TScrollBar.create = function (parent, x, y, w, h) {
@@ -9703,7 +9703,7 @@ var TScrollBar = /** @class */ (function (_super) {
      * 转换为scroll_bar对象(供脚本语言使用)。
      *
      * @param widget scroll_bar对象。
-     
+     *
      * @returns scroll_bar对象。
      */
     TScrollBar.cast = function (widget) {
@@ -9717,7 +9717,7 @@ var TScrollBar = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TScrollBar.createMobile = function (parent, x, y, w, h) {
@@ -9731,7 +9731,7 @@ var TScrollBar = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TScrollBar.createDesktop = function (parent, x, y, w, h) {
@@ -9742,7 +9742,7 @@ var TScrollBar = /** @class */ (function (_super) {
      *
      * @param virtual_size 虚拟高度。
      * @param row 每一行的高度。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TScrollBar.prototype.setParams = function (virtual_size, row) {
@@ -9753,7 +9753,7 @@ var TScrollBar = /** @class */ (function (_super) {
      *
      * @param value 值。
      * @param duration 动画持续时间。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TScrollBar.prototype.scrollTo = function (value, duration) {
@@ -9763,7 +9763,7 @@ var TScrollBar = /** @class */ (function (_super) {
      * 设置值，并触发EVT_VALUE_CHANGED事件。
      *
      * @param value 值。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TScrollBar.prototype.setValue = function (value) {
@@ -9773,7 +9773,7 @@ var TScrollBar = /** @class */ (function (_super) {
      * 在当前的值上增加一个值，并触发EVT_VALUE_CHANGED事件。
      *
      * @param delta 值。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TScrollBar.prototype.addDelta = function (delta) {
@@ -9783,7 +9783,7 @@ var TScrollBar = /** @class */ (function (_super) {
      * 在当前的值上增加一个值，并滚动到新的值，并触发EVT_VALUE_CHANGED事件。
      *
      * @param delta 值。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TScrollBar.prototype.scrollDelta = function (delta) {
@@ -9793,7 +9793,7 @@ var TScrollBar = /** @class */ (function (_super) {
      * 设置值，但不触发EVT_VALUE_CHANGED事件。
      *
      * @param value 值。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TScrollBar.prototype.setValueOnly = function (value) {
@@ -9802,7 +9802,7 @@ var TScrollBar = /** @class */ (function (_super) {
     /**
      * 判断是否是mobile风格的滚动条。
      *
-     
+     *
      * @returns 返回TRUE表示是mobile风格的，否则表示不是mobile风格的。
      */
     TScrollBar.prototype.isMobile = function () {
@@ -9917,7 +9917,7 @@ var TListView = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TListView.create = function (parent, x, y, w, h) {
@@ -9927,7 +9927,7 @@ var TListView = /** @class */ (function (_super) {
      * 设置列表项的高度。
      *
      * @param item_height 列表项的高度。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TListView.prototype.setItemHeight = function (item_height) {
@@ -9937,7 +9937,7 @@ var TListView = /** @class */ (function (_super) {
      * 设置列表项的缺省高度。
      *
      * @param default_item_height 列表项的高度。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TListView.prototype.setDefaultItemHeight = function (default_item_height) {
@@ -9947,7 +9947,7 @@ var TListView = /** @class */ (function (_super) {
      * 设置是否自动隐藏滚动条。
      *
      * @param auto_hide_scroll_bar 是否自动隐藏滚动条。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TListView.prototype.setAutoHideScrollBar = function (auto_hide_scroll_bar) {
@@ -9957,7 +9957,7 @@ var TListView = /** @class */ (function (_super) {
      * 转换为list_view对象(供脚本语言使用)。
      *
      * @param widget list_view对象。
-     
+     *
      * @returns list_view对象。
      */
     TListView.cast = function (widget) {
@@ -10052,7 +10052,7 @@ var TListViewH = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TListViewH.create = function (parent, x, y, w, h) {
@@ -10062,7 +10062,7 @@ var TListViewH = /** @class */ (function (_super) {
      * 设置列表项的宽度。
      *
      * @param item_width 列表项的宽度。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TListViewH.prototype.setItemWidth = function (item_width) {
@@ -10072,7 +10072,7 @@ var TListViewH = /** @class */ (function (_super) {
      * 设置列表项的间距。
      *
      * @param spacing 列表项的间距。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TListViewH.prototype.setSpacing = function (spacing) {
@@ -10082,7 +10082,7 @@ var TListViewH = /** @class */ (function (_super) {
      * 转换为list_view_h对象(供脚本语言使用)。
      *
      * @param widget list_view_h对象。
-     
+     *
      * @returns list_view_h对象。
      */
     TListViewH.cast = function (widget) {
@@ -10177,7 +10177,7 @@ var TListItem = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TListItem.create = function (parent, x, y, w, h) {
@@ -10187,7 +10187,7 @@ var TListItem = /** @class */ (function (_super) {
      * 转换为list_item对象(供脚本语言使用)。
      *
      * @param widget list_item对象。
-     
+     *
      * @returns list_item对象。
      */
     TListItem.cast = function (widget) {
@@ -10237,7 +10237,7 @@ var THscrollLabel = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     THscrollLabel.create = function (parent, x, y, w, h) {
@@ -10247,7 +10247,7 @@ var THscrollLabel = /** @class */ (function (_super) {
      * 设置lull。
      *
      * @param lull 间歇时间(ms)。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     THscrollLabel.prototype.setLull = function (lull) {
@@ -10257,7 +10257,7 @@ var THscrollLabel = /** @class */ (function (_super) {
      * 设置duration。
      *
      * @param duration 滚动时间(ms)。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     THscrollLabel.prototype.setDuration = function (duration) {
@@ -10267,7 +10267,7 @@ var THscrollLabel = /** @class */ (function (_super) {
      * 设置only_focus。
      *
      * @param only_focus 是否只有处于focus时才滚动。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     THscrollLabel.prototype.setOnlyFocus = function (only_focus) {
@@ -10277,7 +10277,7 @@ var THscrollLabel = /** @class */ (function (_super) {
      * 设置only_parent_focus。
      *
      * @param only_parent_focus 是否只有处于focus时才滚动。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     THscrollLabel.prototype.setOnlyParentFocus = function (only_parent_focus) {
@@ -10287,7 +10287,7 @@ var THscrollLabel = /** @class */ (function (_super) {
      * 设置loop。
      *
      * @param loop 是否循环滚动。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     THscrollLabel.prototype.setLoop = function (loop) {
@@ -10297,7 +10297,7 @@ var THscrollLabel = /** @class */ (function (_super) {
      * 设置yoyo。
      *
      * @param yoyo 是否往返滚动。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     THscrollLabel.prototype.setYoyo = function (yoyo) {
@@ -10307,7 +10307,7 @@ var THscrollLabel = /** @class */ (function (_super) {
      * 设置ellipses。
      *
      * @param ellipses 是否在文本超长时在行尾显示"..."。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     THscrollLabel.prototype.setEllipses = function (ellipses) {
@@ -10317,7 +10317,7 @@ var THscrollLabel = /** @class */ (function (_super) {
      * 设置x偏移(一般无需用户调用)。。
      *
      * @param xoffset x偏移。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     THscrollLabel.prototype.setXoffset = function (xoffset) {
@@ -10326,7 +10326,7 @@ var THscrollLabel = /** @class */ (function (_super) {
     /**
      * 启动(一般无需用户调用)。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     THscrollLabel.prototype.start = function () {
@@ -10335,7 +10335,7 @@ var THscrollLabel = /** @class */ (function (_super) {
     /**
      * 停止(一般无需用户调用)。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     THscrollLabel.prototype.stop = function () {
@@ -10345,7 +10345,7 @@ var THscrollLabel = /** @class */ (function (_super) {
      * 转换为hscroll_label对象(供脚本语言使用)。
      *
      * @param widget hscroll_label对象。
-     
+     *
      * @returns hscroll_label对象。
      */
     THscrollLabel.cast = function (widget) {
@@ -10530,7 +10530,7 @@ var TRichText = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TRichText.create = function (parent, x, y, w, h) {
@@ -10540,7 +10540,7 @@ var TRichText = /** @class */ (function (_super) {
      * 设置文本。
      *
      * @param text 文本。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TRichText.prototype.setText = function (text) {
@@ -10550,7 +10550,7 @@ var TRichText = /** @class */ (function (_super) {
      * 转换为rich_text对象(供脚本语言使用)。
      *
      * @param widget rich_text对象。
-     
+     *
      * @returns rich_text对象。
      */
     TRichText.cast = function (widget) {
@@ -10628,7 +10628,7 @@ var TProgressCircle = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TProgressCircle.create = function (parent, x, y, w, h) {
@@ -10638,7 +10638,7 @@ var TProgressCircle = /** @class */ (function (_super) {
      * 转换为progress_circle对象(供脚本语言使用)。
      *
      * @param widget progress_circle对象。
-     
+     *
      * @returns progress_circle对象。
      */
     TProgressCircle.cast = function (widget) {
@@ -10648,7 +10648,7 @@ var TProgressCircle = /** @class */ (function (_super) {
      * 设置值。
      *
      * @param value 值。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TProgressCircle.prototype.setValue = function (value) {
@@ -10658,7 +10658,7 @@ var TProgressCircle = /** @class */ (function (_super) {
      * 设置最大值。
      *
      * @param max 最大值。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TProgressCircle.prototype.setMax = function (max) {
@@ -10668,7 +10668,7 @@ var TProgressCircle = /** @class */ (function (_super) {
      * 设置环线的厚度。
      *
      * @param line_width 环线的厚度。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TProgressCircle.prototype.setLineWidth = function (line_width) {
@@ -10678,7 +10678,7 @@ var TProgressCircle = /** @class */ (function (_super) {
      * 设置起始角度。
      *
      * @param start_angle 起始角度。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TProgressCircle.prototype.setStartAngle = function (start_angle) {
@@ -10688,7 +10688,7 @@ var TProgressCircle = /** @class */ (function (_super) {
      * 设置单位。
      *
      * @param unit 单位。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TProgressCircle.prototype.setUnit = function (unit) {
@@ -10698,7 +10698,7 @@ var TProgressCircle = /** @class */ (function (_super) {
      * 设置是否显示文本。
      *
      * @param show_text 是否显示文本。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TProgressCircle.prototype.setShowText = function (show_text) {
@@ -10708,7 +10708,7 @@ var TProgressCircle = /** @class */ (function (_super) {
      * 设置是否为逆时针方向。
      *
      * @param counter_clock_wise 是否为逆时针方向。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TProgressCircle.prototype.setCounterClockWise = function (counter_clock_wise) {
@@ -10851,7 +10851,7 @@ var TMledit = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TMledit.create = function (parent, x, y, w, h) {
@@ -10861,7 +10861,7 @@ var TMledit = /** @class */ (function (_super) {
      * 设置编辑器是否为只读。
      *
      * @param readonly 只读。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TMledit.prototype.setReadonly = function (readonly) {
@@ -10871,7 +10871,7 @@ var TMledit = /** @class */ (function (_super) {
      * 设置为焦点。
      *
      * @param focus 是否为焦点。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TMledit.prototype.setFocus = function (focus) {
@@ -10881,7 +10881,7 @@ var TMledit = /** @class */ (function (_super) {
      * 设置编辑器是否自动折行。
      *
      * @param wrap_word 是否自动折行。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TMledit.prototype.setWrapWord = function (wrap_word) {
@@ -10891,7 +10891,7 @@ var TMledit = /** @class */ (function (_super) {
      * 设置编辑器的最大行数。
      *
      * @param max_lines 最大行数。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TMledit.prototype.setMaxLines = function (max_lines) {
@@ -10901,7 +10901,7 @@ var TMledit = /** @class */ (function (_super) {
      * 设置编辑器的输入提示。
      *
      * @param tips 输入提示。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TMledit.prototype.setInputTips = function (tips) {
@@ -10911,7 +10911,7 @@ var TMledit = /** @class */ (function (_super) {
      * 设置编辑器光标位置。
      *
      * @param cursor 光标位置。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TMledit.prototype.setCursor = function (cursor) {
@@ -10921,7 +10921,7 @@ var TMledit = /** @class */ (function (_super) {
      * 设置编辑器滚动速度。
      *
      * @param scroll_line 滚动行数。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TMledit.prototype.setScrollLine = function (scroll_line) {
@@ -10931,7 +10931,7 @@ var TMledit = /** @class */ (function (_super) {
      * 转换为mledit对象(供脚本语言使用)。
      *
      * @param widget mledit对象。
-     
+     *
      * @returns mledit对象。
      */
     TMledit.cast = function (widget) {
@@ -11053,7 +11053,7 @@ var TLineNumber = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TLineNumber.create = function (parent, x, y, w, h) {
@@ -11063,7 +11063,7 @@ var TLineNumber = /** @class */ (function (_super) {
      * 设置顶部边距。
      *
      * @param top_margin 顶部边距。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TLineNumber.prototype.setTopMargin = function (top_margin) {
@@ -11073,7 +11073,7 @@ var TLineNumber = /** @class */ (function (_super) {
      * 设置顶部边距。
      *
      * @param bottom_margin 顶部边距。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TLineNumber.prototype.setBottomMargin = function (bottom_margin) {
@@ -11083,7 +11083,7 @@ var TLineNumber = /** @class */ (function (_super) {
      * 设置行高。
      *
      * @param line_height 行高。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TLineNumber.prototype.setLineHeight = function (line_height) {
@@ -11093,7 +11093,7 @@ var TLineNumber = /** @class */ (function (_super) {
      * 设置y偏移。
      *
      * @param yoffset 行高。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TLineNumber.prototype.setYoffset = function (yoffset) {
@@ -11103,7 +11103,7 @@ var TLineNumber = /** @class */ (function (_super) {
      * 转换为line_number对象(供脚本语言使用)。
      *
      * @param widget line_number对象。
-     
+     *
      * @returns line_number对象。
      */
     TLineNumber.cast = function (widget) {
@@ -11156,7 +11156,7 @@ var TImageValue = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TImageValue.create = function (parent, x, y, w, h) {
@@ -11166,7 +11166,7 @@ var TImageValue = /** @class */ (function (_super) {
      * 设置图片前缀。
      *
      * @param image 图片前缀。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageValue.prototype.setImage = function (image) {
@@ -11176,7 +11176,7 @@ var TImageValue = /** @class */ (function (_super) {
      * 设置格式。
      *
      * @param format 格式。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageValue.prototype.setFormat = function (format) {
@@ -11186,7 +11186,7 @@ var TImageValue = /** @class */ (function (_super) {
      * 设置值。
      *
      * @param value 值。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageValue.prototype.setValue = function (value) {
@@ -11196,7 +11196,7 @@ var TImageValue = /** @class */ (function (_super) {
      * 转换为image_value对象(供脚本语言使用)。
      *
      * @param widget image_value对象。
-     
+     *
      * @returns image_value对象。
      */
     TImageValue.cast = function (widget) {
@@ -11287,7 +11287,7 @@ var TImageAnimation = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TImageAnimation.create = function (parent, x, y, w, h) {
@@ -11297,7 +11297,7 @@ var TImageAnimation = /** @class */ (function (_super) {
      * 设置是否循环播放。
      *
      * @param loop 是否循环播放。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageAnimation.prototype.setLoop = function (loop) {
@@ -11307,7 +11307,7 @@ var TImageAnimation = /** @class */ (function (_super) {
      * 设置图片前缀。
      *
      * @param image 图片前缀。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageAnimation.prototype.setImage = function (image) {
@@ -11317,7 +11317,7 @@ var TImageAnimation = /** @class */ (function (_super) {
      * 设置播放间隔时间。
      *
      * @param interval 间隔时间(毫秒)。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageAnimation.prototype.setInterval = function (interval) {
@@ -11327,7 +11327,7 @@ var TImageAnimation = /** @class */ (function (_super) {
      * 设置延迟播放时间(仅适用于自动播放)。
      *
      * @param delay 延迟播放时间(毫秒)。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageAnimation.prototype.setDelay = function (delay) {
@@ -11337,7 +11337,7 @@ var TImageAnimation = /** @class */ (function (_super) {
      * 设置是否自动播放。
      *
      * @param auto_play 是否自动播放。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageAnimation.prototype.setAutoPlay = function (auto_play) {
@@ -11348,7 +11348,7 @@ var TImageAnimation = /** @class */ (function (_super) {
      *"fire3"。
      *
      * @param sequence 播放序列。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageAnimation.prototype.setSequence = function (sequence) {
@@ -11362,7 +11362,7 @@ var TImageAnimation = /** @class */ (function (_super) {
      *
      * @param start_index 图片起始序数。
      * @param end_index 图片结束序数。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageAnimation.prototype.setRangeSequence = function (start_index, end_index) {
@@ -11371,7 +11371,7 @@ var TImageAnimation = /** @class */ (function (_super) {
     /**
      * 播放。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageAnimation.prototype.play = function () {
@@ -11380,7 +11380,7 @@ var TImageAnimation = /** @class */ (function (_super) {
     /**
      * 停止(并重置index为-1)。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageAnimation.prototype.stop = function () {
@@ -11389,7 +11389,7 @@ var TImageAnimation = /** @class */ (function (_super) {
     /**
      * 暂停。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageAnimation.prototype.pause = function () {
@@ -11398,7 +11398,7 @@ var TImageAnimation = /** @class */ (function (_super) {
     /**
      * 手动切换到下一张图片。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageAnimation.prototype.next = function () {
@@ -11415,7 +11415,7 @@ var TImageAnimation = /** @class */ (function (_super) {
      *```
      *
      * @param format 格式。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageAnimation.prototype.setFormat = function (format) {
@@ -11425,7 +11425,7 @@ var TImageAnimation = /** @class */ (function (_super) {
      * 设置绘制完成后unload图片，以释放内存空间。
      *
      * @param unload_after_paint 是否绘制完成后unload图片。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageAnimation.prototype.setUnloadAfterPaint = function (unload_after_paint) {
@@ -11435,7 +11435,7 @@ var TImageAnimation = /** @class */ (function (_super) {
      * 转换为image_animation对象(供脚本语言使用)。
      *
      * @param widget image_animation对象。
-     
+     *
      * @returns image_animation对象。
      */
     TImageAnimation.cast = function (widget) {
@@ -11625,7 +11625,7 @@ var TGuage = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TGuage.create = function (parent, x, y, w, h) {
@@ -11635,7 +11635,7 @@ var TGuage = /** @class */ (function (_super) {
      * 转换为guage对象(供脚本语言使用)。
      *
      * @param widget guage对象。
-     
+     *
      * @returns guage对象。
      */
     TGuage.cast = function (widget) {
@@ -11645,7 +11645,7 @@ var TGuage = /** @class */ (function (_super) {
      * 设置背景图片的名称。
      *
      * @param name 图片名称，该图片必须存在于资源管理器。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TGuage.prototype.setImage = function (name) {
@@ -11658,7 +11658,7 @@ var TGuage = /** @class */ (function (_super) {
      *[image\_draw\_type\_name\_value](https://github.com/zlgopen/awtk/blob/master/src/base/enums.c#L98)
      *
      * @param draw_type 显示方式。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TGuage.prototype.setDrawType = function (draw_type) {
@@ -11732,7 +11732,7 @@ var TGuagePointer = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TGuagePointer.create = function (parent, x, y, w, h) {
@@ -11742,7 +11742,7 @@ var TGuagePointer = /** @class */ (function (_super) {
      * 转换为guage_pointer对象(供脚本语言使用)。
      *
      * @param widget guage_pointer对象。
-     
+     *
      * @returns guage_pointer对象。
      */
     TGuagePointer.cast = function (widget) {
@@ -11752,7 +11752,7 @@ var TGuagePointer = /** @class */ (function (_super) {
      * 设置指针角度。12点钟方向为0度，顺时钟方向为正，单位为度。
      *
      * @param angle 指针角度。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TGuagePointer.prototype.setAngle = function (angle) {
@@ -11762,7 +11762,7 @@ var TGuagePointer = /** @class */ (function (_super) {
      * 设置指针的图片。
      *
      * @param image 指针的图片。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TGuagePointer.prototype.setImage = function (image) {
@@ -11773,7 +11773,7 @@ var TGuagePointer = /** @class */ (function (_super) {
      *
      * @param anchor_x 指针的锚点坐标x。(后面加上px为像素点，不加px为相对百分比坐标)
      * @param anchor_y 指针的锚点坐标y。(后面加上px为像素点，不加px为相对百分比坐标)
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TGuagePointer.prototype.setAnchor = function (anchor_x, anchor_y) {
@@ -11877,7 +11877,7 @@ var TDraggable = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TDraggable.create = function (parent, x, y, w, h) {
@@ -11887,7 +11887,7 @@ var TDraggable = /** @class */ (function (_super) {
      * 转换为draggable对象(供脚本语言使用)。
      *
      * @param widget draggable对象。
-     
+     *
      * @returns draggable对象。
      */
     TDraggable.cast = function (widget) {
@@ -11897,7 +11897,7 @@ var TDraggable = /** @class */ (function (_super) {
      * 设置top。
      *
      * @param top 拖动范围的顶部限制。缺省为父控件的顶部。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TDraggable.prototype.setTop = function (top) {
@@ -11907,7 +11907,7 @@ var TDraggable = /** @class */ (function (_super) {
      * 设置bottom。
      *
      * @param bottom 拖动范围的底部限制。缺省为父控件的底部。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TDraggable.prototype.setBottom = function (bottom) {
@@ -11917,7 +11917,7 @@ var TDraggable = /** @class */ (function (_super) {
      * 设置left。
      *
      * @param left 拖动范围的左边限制。缺省为父控件的左边。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TDraggable.prototype.setLeft = function (left) {
@@ -11927,7 +11927,7 @@ var TDraggable = /** @class */ (function (_super) {
      * 设置right。
      *
      * @param right 拖动范围的右边限制。缺省为父控件的右边边。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TDraggable.prototype.setRight = function (right) {
@@ -11937,7 +11937,7 @@ var TDraggable = /** @class */ (function (_super) {
      * 设置vertical_only。
      *
      * @param vertical_only 只允许垂直拖动。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TDraggable.prototype.setVerticalOnly = function (vertical_only) {
@@ -11947,7 +11947,7 @@ var TDraggable = /** @class */ (function (_super) {
      * 设置horizontal_only。
      *
      * @param horizontal_only 只允许水平拖动。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TDraggable.prototype.setHorizontalOnly = function (horizontal_only) {
@@ -11958,7 +11958,7 @@ var TDraggable = /** @class */ (function (_super) {
      *拖动窗口而不是父控件。比如放在对话框的titlebar上，拖动titlebar其实是希望拖动对话框。
      *
      * @param drag_window drag_window
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TDraggable.prototype.setDragWindow = function (drag_window) {
@@ -12110,7 +12110,7 @@ var TColorPicker = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TColorPicker.create = function (parent, x, y, w, h) {
@@ -12120,7 +12120,7 @@ var TColorPicker = /** @class */ (function (_super) {
      * 设置颜色。
      *
      * @param color 颜色。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TColorPicker.prototype.setColor = function (color) {
@@ -12130,7 +12130,7 @@ var TColorPicker = /** @class */ (function (_super) {
      * 转换为color_picker对象(供脚本语言使用)。
      *
      * @param widget color_picker对象。
-     
+     *
      * @returns color_picker对象。
      */
     TColorPicker.cast = function (widget) {
@@ -12166,7 +12166,7 @@ var TColorComponent = /** @class */ (function (_super) {
      * 转换为color_component对象(供脚本语言使用)。
      *
      * @param widget color_component对象。
-     
+     *
      * @returns color_component对象。
      */
     TColorComponent.cast = function (widget) {
@@ -12187,7 +12187,7 @@ var TWindowManager = /** @class */ (function (_super) {
     /**
      * 获取全局window_manager对象
      *
-     
+     *
      * @returns 对象。
      */
     TWindowManager.instance = function () {
@@ -12197,7 +12197,7 @@ var TWindowManager = /** @class */ (function (_super) {
      * 转换为window_manager对象(供脚本语言使用)。
      *
      * @param widget window_manager对象。
-     
+     *
      * @returns window_manager对象。
      */
     TWindowManager.cast = function (widget) {
@@ -12206,7 +12206,7 @@ var TWindowManager = /** @class */ (function (_super) {
     /**
      * 获取最上面的主窗口。
      *
-     
+     *
      * @returns 返回窗口对象。
      */
     TWindowManager.prototype.getTopMainWindow = function () {
@@ -12215,7 +12215,7 @@ var TWindowManager = /** @class */ (function (_super) {
     /**
      * 获取最上面的窗口。
      *
-     
+     *
      * @returns 返回窗口对象。
      */
     TWindowManager.prototype.getTopWindow = function () {
@@ -12224,7 +12224,7 @@ var TWindowManager = /** @class */ (function (_super) {
     /**
      * 获取前一个的窗口。
      *
-     
+     *
      * @returns 返回窗口对象。
      */
     TWindowManager.prototype.getPrevWindow = function () {
@@ -12233,7 +12233,7 @@ var TWindowManager = /** @class */ (function (_super) {
     /**
      * 获取指针当前的X坐标。
      *
-     
+     *
      * @returns 返回指针当前的X坐标。
      */
     TWindowManager.prototype.getPointerX = function () {
@@ -12242,7 +12242,7 @@ var TWindowManager = /** @class */ (function (_super) {
     /**
      * 获取指针当前的Y坐标。
      *
-     
+     *
      * @returns 返回指针当前的X坐标。
      */
     TWindowManager.prototype.getPointerY = function () {
@@ -12251,7 +12251,7 @@ var TWindowManager = /** @class */ (function (_super) {
     /**
      * 获取指针当前是否按下。
      *
-     
+     *
      * @returns 返回指针当前是否按下。
      */
     TWindowManager.prototype.getPointerPressed = function () {
@@ -12261,7 +12261,7 @@ var TWindowManager = /** @class */ (function (_super) {
      * 设置是否显示FPS。
      *
      * @param show_fps 是否显示FPS。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWindowManager.prototype.setShowFps = function (show_fps) {
@@ -12271,7 +12271,7 @@ var TWindowManager = /** @class */ (function (_super) {
      * 设置屏保时间。
      *
      * @param screen_saver_time 屏保时间(单位毫秒)。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWindowManager.prototype.setScreenSaverTime = function (screen_saver_time) {
@@ -12281,7 +12281,7 @@ var TWindowManager = /** @class */ (function (_super) {
      * 设置鼠标指针。
      *
      * @param cursor 图片名称(从图片管理器中加载)。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWindowManager.prototype.setCursor = function (cursor) {
@@ -12292,7 +12292,7 @@ var TWindowManager = /** @class */ (function (_super) {
      *
      *> 如果顶层窗口时模态对话框，用DIALOG\_QUIT\_NONE调用dialog\_quit。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWindowManager.prototype.back = function () {
@@ -12303,7 +12303,7 @@ var TWindowManager = /** @class */ (function (_super) {
      *
      *> 如果顶层窗口时模态对话框，用DIALOG\_QUIT\_NONE调用dialog\_quit。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWindowManager.prototype.backToHome = function () {
@@ -12315,7 +12315,7 @@ var TWindowManager = /** @class */ (function (_super) {
      *> 如果顶层窗口时模态对话框，用DIALOG\_QUIT\_NONE调用dialog\_quit。
      *
      * @param target 目标窗口的名称。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWindowManager.prototype.backTo = function (target) {
@@ -12343,7 +12343,7 @@ var TWindowBase = /** @class */ (function (_super) {
      * 转换为window_base对象(供脚本语言使用)。
      *
      * @param widget window_base对象。
-     
+     *
      * @returns window_base对象。
      */
     TWindowBase.cast = function (widget) {
@@ -12400,7 +12400,7 @@ var TStyleMutable = /** @class */ (function (_super) {
      * 设置style的名称。
      *
      * @param name 名称。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TStyleMutable.prototype.setName = function (name) {
@@ -12412,7 +12412,7 @@ var TStyleMutable = /** @class */ (function (_super) {
      * @param state 控件状态。
      * @param name 属性名。
      * @param val 值。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TStyleMutable.prototype.setInt = function (state, name, val) {
@@ -12422,7 +12422,7 @@ var TStyleMutable = /** @class */ (function (_super) {
      * 转换为style_mutable对象。
      *
      * @param s style对象。
-     
+     *
      * @returns style对象。
      */
     TStyleMutable.cast = function (s) {
@@ -12435,7 +12435,7 @@ var TStyleMutable = /** @class */ (function (_super) {
      *
      * @param widget 控件
      * @param default_style 缺省的style。
-     
+     *
      * @returns style对象。
      */
     TStyleMutable.create = function (widget, default_style) {
@@ -12487,7 +12487,7 @@ var TImageBase = /** @class */ (function (_super) {
      *> 如果需要显示文件系统中的图片，只需将图片名称换成实际的文件名，并加上"file://"前缀即可。
      *
      * @param name 图片名称，该图片必须存在于资源管理器。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageBase.prototype.setImage = function (name) {
@@ -12497,7 +12497,7 @@ var TImageBase = /** @class */ (function (_super) {
      * 设置控件的旋转角度(仅在WITH_VGCANVAS定义时生效)。
      *
      * @param rotation 旋转角度(幅度)。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageBase.prototype.setRotation = function (rotation) {
@@ -12508,7 +12508,7 @@ var TImageBase = /** @class */ (function (_super) {
      *
      * @param scale_x X方向缩放比例。
      * @param scale_y Y方向缩放比例。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageBase.prototype.setScale = function (scale_x, scale_y) {
@@ -12519,7 +12519,7 @@ var TImageBase = /** @class */ (function (_super) {
      *
      * @param anchor_x 锚点X(0-1)。0在控件左边，0.5在控件中间，1在控件右边。
      * @param anchor_y 锚点Y(0-1)。0在控件顶部，0.5在控件中间，1在控件底部。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageBase.prototype.setAnchor = function (anchor_x, anchor_y) {
@@ -12529,7 +12529,7 @@ var TImageBase = /** @class */ (function (_super) {
      * 设置控件的选中状态。
      *
      * @param selected 是否被选中。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageBase.prototype.setSelected = function (selected) {
@@ -12539,7 +12539,7 @@ var TImageBase = /** @class */ (function (_super) {
      * 设置控件是否可以被选中。
      *
      * @param selectable 是否可以被选中。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageBase.prototype.setSelectable = function (selectable) {
@@ -12549,7 +12549,7 @@ var TImageBase = /** @class */ (function (_super) {
      * 设置控件是否可以被点击。
      *
      * @param clickable 是否可以被点击。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImageBase.prototype.setClickable = function (clickable) {
@@ -12559,7 +12559,7 @@ var TImageBase = /** @class */ (function (_super) {
      * 转换为image_base对象(供脚本语言使用)。
      *
      * @param widget image_base对象。
-     
+     *
      * @returns image_base对象。
      */
     TImageBase.cast = function (widget) {
@@ -12695,7 +12695,7 @@ var TWindowEvent = /** @class */ (function (_super) {
      * 把event对象转window_event_t对象。主要给脚本语言使用。
      *
      * @param event event对象。
-     
+     *
      * @returns 对象。
      */
     TWindowEvent.cast = function (event) {
@@ -12728,7 +12728,7 @@ var TPaintEvent = /** @class */ (function (_super) {
      * 把event对象转paint_event_t对象。主要给脚本语言使用。
      *
      * @param event event对象。
-     
+     *
      * @returns event 对象。
      */
     TPaintEvent.cast = function (event) {
@@ -12761,7 +12761,7 @@ var TKeyEvent = /** @class */ (function (_super) {
      * 把event对象转key_event_t对象，主要给脚本语言使用。
      *
      * @param event event对象。
-     
+     *
      * @returns event对象。
      */
     TKeyEvent.cast = function (event) {
@@ -12928,7 +12928,7 @@ var TPointerEvent = /** @class */ (function (_super) {
      * 把event对象转pointer_event_t对象，主要给脚本语言使用。
      *
      * @param event event对象。
-     
+     *
      * @returns event对象。
      */
     TPointerEvent.cast = function (event) {
@@ -13049,7 +13049,7 @@ var TOrientationEvent = /** @class */ (function (_super) {
      * 把event对象转orientation_event_t对象，主要给脚本语言使用。
      *
      * @param event event对象。
-     
+     *
      * @returns event对象。
      */
     TOrientationEvent.cast = function (event) {
@@ -13082,7 +13082,7 @@ var TWheelEvent = /** @class */ (function (_super) {
      * 把event对象转wheel_event_t对象，主要给脚本语言使用。
      *
      * @param event event对象。
-     
+     *
      * @returns event对象。
      */
     TWheelEvent.cast = function (event) {
@@ -13179,7 +13179,7 @@ var TAppBar = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TAppBar.create = function (parent, x, y, w, h) {
@@ -13189,7 +13189,7 @@ var TAppBar = /** @class */ (function (_super) {
      * 转换为app_bar对象(供脚本语言使用)。
      *
      * @param widget app_bar对象。
-     
+     *
      * @returns app_bar对象。
      */
     TAppBar.cast = function (widget) {
@@ -13240,7 +13240,7 @@ var TButtonGroup = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TButtonGroup.create = function (parent, x, y, w, h) {
@@ -13250,7 +13250,7 @@ var TButtonGroup = /** @class */ (function (_super) {
      * 转换为button_group对象(供脚本语言使用)。
      *
      * @param widget button_group对象。
-     
+     *
      * @returns button_group对象。
      */
     TButtonGroup.cast = function (widget) {
@@ -13314,7 +13314,7 @@ var TButton = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TButton.create = function (parent, x, y, w, h) {
@@ -13324,7 +13324,7 @@ var TButton = /** @class */ (function (_super) {
      * 转换为button对象(供脚本语言使用)。
      *
      * @param widget button对象。
-     
+     *
      * @returns button对象。
      */
     TButton.cast = function (widget) {
@@ -13334,7 +13334,7 @@ var TButton = /** @class */ (function (_super) {
      * 设置触发EVT\_CLICK事件的时间间隔。为0则不重复触发EVT\_CLICK事件。
      *
      * @param repeat 触发EVT_CLICK事件的时间间隔(毫秒)。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TButton.prototype.setRepeat = function (repeat) {
@@ -13344,7 +13344,7 @@ var TButton = /** @class */ (function (_super) {
      * 设置是否启用长按事件。
      *
      * @param enable_long_press 是否启用长按事件。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TButton.prototype.setEnableLongPress = function (enable_long_press) {
@@ -13446,7 +13446,7 @@ var TCheckButton = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TCheckButton.create = function (parent, x, y, w, h) {
@@ -13460,7 +13460,7 @@ var TCheckButton = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TCheckButton.createRadio = function (parent, x, y, w, h) {
@@ -13470,7 +13470,7 @@ var TCheckButton = /** @class */ (function (_super) {
      * 设置控件的值。
      *
      * @param value 值
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TCheckButton.prototype.setValue = function (value) {
@@ -13480,7 +13480,7 @@ var TCheckButton = /** @class */ (function (_super) {
      * 转换check_button对象(供脚本语言使用)。
      *
      * @param widget check_button对象。
-     
+     *
      * @returns check_button对象。
      */
     TCheckButton.cast = function (widget) {
@@ -13544,7 +13544,7 @@ var TClipView = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TClipView.create = function (parent, x, y, w, h) {
@@ -13554,7 +13554,7 @@ var TClipView = /** @class */ (function (_super) {
      * 转换为clip_view对象(供脚本语言使用)。
      *
      * @param widget clip_view对象。
-     
+     *
      * @returns clip_view对象。
      */
     TClipView.cast = function (widget) {
@@ -13599,7 +13599,7 @@ var TColorTile = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TColorTile.create = function (parent, x, y, w, h) {
@@ -13609,7 +13609,7 @@ var TColorTile = /** @class */ (function (_super) {
      * 转换为color_tile对象(供脚本语言使用)。
      *
      * @param widget color_tile对象。
-     
+     *
      * @returns color_tile对象。
      */
     TColorTile.cast = function (widget) {
@@ -13619,7 +13619,7 @@ var TColorTile = /** @class */ (function (_super) {
      * 设置背景颜色。
      *
      * @param color 背景颜色。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TColorTile.prototype.setBgColor = function (color) {
@@ -13695,7 +13695,7 @@ var TColumn = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TColumn.create = function (parent, x, y, w, h) {
@@ -13705,7 +13705,7 @@ var TColumn = /** @class */ (function (_super) {
      * 转换为column对象(供脚本语言使用)。
      *
      * @param widget column对象。
-     
+     *
      * @returns column对象。
      */
     TColumn.cast = function (widget) {
@@ -13733,7 +13733,7 @@ var TComboBoxItem = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TComboBoxItem.create = function (parent, x, y, w, h) {
@@ -13743,7 +13743,7 @@ var TComboBoxItem = /** @class */ (function (_super) {
      * 转换combo_box_item对象(供脚本语言使用)。
      *
      * @param widget combo_box_item对象。
-     
+     *
      * @returns combo_box_item对象。
      */
     TComboBoxItem.cast = function (widget) {
@@ -13753,7 +13753,7 @@ var TComboBoxItem = /** @class */ (function (_super) {
      * 设置控件是否被选中。
      *
      * @param checked 是否被选中。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TComboBoxItem.prototype.setChecked = function (checked) {
@@ -13763,7 +13763,7 @@ var TComboBoxItem = /** @class */ (function (_super) {
      * 设置控件的值。
      *
      * @param value 值
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TComboBoxItem.prototype.setValue = function (value) {
@@ -13919,7 +13919,7 @@ var TComboBox = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TComboBox.create = function (parent, x, y, w, h) {
@@ -13929,7 +13929,7 @@ var TComboBox = /** @class */ (function (_super) {
      * 转换combo_box对象(供脚本语言使用)。
      *
      * @param widget combo_box对象。
-     
+     *
      * @returns combo_box对象。
      */
     TComboBox.cast = function (widget) {
@@ -13939,7 +13939,7 @@ var TComboBox = /** @class */ (function (_super) {
      * 点击按钮时可以打开popup窗口，本函数可设置窗口的名称。
      *
      * @param open_window 弹出窗口的名称。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TComboBox.prototype.setOpenWindow = function (open_window) {
@@ -13948,7 +13948,7 @@ var TComboBox = /** @class */ (function (_super) {
     /**
      * 重置所有选项。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TComboBox.prototype.resetOptions = function () {
@@ -13957,7 +13957,7 @@ var TComboBox = /** @class */ (function (_super) {
     /**
      * 获取选项个数。
      *
-     
+     *
      * @returns 返回选项个数。
      */
     TComboBox.prototype.countOptions = function () {
@@ -13967,7 +13967,7 @@ var TComboBox = /** @class */ (function (_super) {
      * 设置第index个选项为当前选中的选项。
      *
      * @param index 选项的索引。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TComboBox.prototype.setSelectedIndex = function (index) {
@@ -13977,7 +13977,7 @@ var TComboBox = /** @class */ (function (_super) {
      * 设置是否本地化(翻译)选项。
      *
      * @param localize_options 是否本地化(翻译)选项。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TComboBox.prototype.setLocalizeOptions = function (localize_options) {
@@ -13987,7 +13987,7 @@ var TComboBox = /** @class */ (function (_super) {
      * 设置值。
      *
      * @param value 值。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TComboBox.prototype.setValue = function (value) {
@@ -13997,7 +13997,7 @@ var TComboBox = /** @class */ (function (_super) {
      * 设置item高度。
      *
      * @param item_height item的高度。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TComboBox.prototype.setItemHeight = function (item_height) {
@@ -14008,7 +14008,7 @@ var TComboBox = /** @class */ (function (_super) {
      *
      * @param value 值。
      * @param text 文本。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TComboBox.prototype.appendOption = function (value, text) {
@@ -14018,7 +14018,7 @@ var TComboBox = /** @class */ (function (_super) {
      * 设置选项。
      *
      * @param options 选项。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TComboBox.prototype.setOptions = function (options) {
@@ -14027,7 +14027,7 @@ var TComboBox = /** @class */ (function (_super) {
     /**
      * 获取combo_box的值。
      *
-     
+     *
      * @returns 返回值。
      */
     TComboBox.prototype.getValue = function () {
@@ -14036,7 +14036,7 @@ var TComboBox = /** @class */ (function (_super) {
     /**
      * 获取combo_box的文本。
      *
-     
+     *
      * @returns 返回文本。
      */
     TComboBox.prototype.getTextValue = function () {
@@ -14167,7 +14167,7 @@ var TDialogClient = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns dialog对象。
      */
     TDialogClient.create = function (parent, x, y, w, h) {
@@ -14177,7 +14177,7 @@ var TDialogClient = /** @class */ (function (_super) {
      * 转换为dialog_client对象(供脚本语言使用)。
      *
      * @param widget dialog_client对象。
-     
+     *
      * @returns dialog_client对象。
      */
     TDialogClient.cast = function (widget) {
@@ -14224,7 +14224,7 @@ var TDialogTitle = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns dialog对象。
      */
     TDialogTitle.create = function (parent, x, y, w, h) {
@@ -14234,7 +14234,7 @@ var TDialogTitle = /** @class */ (function (_super) {
      * 转换为dialog_title对象(供脚本语言使用)。
      *
      * @param widget dialog_title对象。
-     
+     *
      * @returns dialog_title对象。
      */
     TDialogTitle.cast = function (widget) {
@@ -14288,7 +14288,7 @@ var TDigitClock = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TDigitClock.create = function (parent, x, y, w, h) {
@@ -14298,7 +14298,7 @@ var TDigitClock = /** @class */ (function (_super) {
      * 转换为digit_clock对象(供脚本语言使用)。
      *
      * @param widget digit_clock对象。
-     
+     *
      * @returns digit_clock对象。
      */
     TDigitClock.cast = function (widget) {
@@ -14308,7 +14308,7 @@ var TDigitClock = /** @class */ (function (_super) {
      * 设置显示格式。
      *
      * @param format 格式。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TDigitClock.prototype.setFormat = function (format) {
@@ -14372,7 +14372,7 @@ var TDragger = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TDragger.create = function (parent, x, y, w, h) {
@@ -14382,7 +14382,7 @@ var TDragger = /** @class */ (function (_super) {
      * 转换为dragger对象(供脚本语言使用)。
      *
      * @param widget dragger对象。
-     
+     *
      * @returns dragger对象。
      */
     TDragger.cast = function (widget) {
@@ -14395,7 +14395,7 @@ var TDragger = /** @class */ (function (_super) {
      * @param y_min y坐标最小值。
      * @param x_max x坐标最大值。
      * @param y_max y坐标最大值。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TDragger.prototype.setRange = function (x_min, y_min, x_max, y_max) {
@@ -14514,7 +14514,7 @@ var TEdit = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TEdit.create = function (parent, x, y, w, h) {
@@ -14524,7 +14524,7 @@ var TEdit = /** @class */ (function (_super) {
      * 转换为edit对象(供脚本语言使用)。
      *
      * @param widget edit对象。
-     
+     *
      * @returns edit对象。
      */
     TEdit.cast = function (widget) {
@@ -14533,7 +14533,7 @@ var TEdit = /** @class */ (function (_super) {
     /**
      * 获取int类型的值。
      *
-     
+     *
      * @returns 返回int的值。
      */
     TEdit.prototype.getInt = function () {
@@ -14542,7 +14542,7 @@ var TEdit = /** @class */ (function (_super) {
     /**
      * 获取double类型的值。
      *
-     
+     *
      * @returns 返回double的值。
      */
     TEdit.prototype.getDouble = function () {
@@ -14552,7 +14552,7 @@ var TEdit = /** @class */ (function (_super) {
      * 设置int类型的值。
      *
      * @param value 值。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TEdit.prototype.setInt = function (value) {
@@ -14562,7 +14562,7 @@ var TEdit = /** @class */ (function (_super) {
      * 设置double类型的值。
      *
      * @param value 值。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TEdit.prototype.setDouble = function (value) {
@@ -14573,7 +14573,7 @@ var TEdit = /** @class */ (function (_super) {
      *
      * @param min 最小长度。
      * @param max 最大长度。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TEdit.prototype.setTextLimit = function (min, max) {
@@ -14585,7 +14585,7 @@ var TEdit = /** @class */ (function (_super) {
      * @param min 最小值。
      * @param max 最大值。
      * @param step 步长。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TEdit.prototype.setIntLimit = function (min, max, step) {
@@ -14597,7 +14597,7 @@ var TEdit = /** @class */ (function (_super) {
      * @param min 最小值。
      * @param max 最大值。
      * @param step 步长。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TEdit.prototype.setFloatLimit = function (min, max, step) {
@@ -14607,7 +14607,7 @@ var TEdit = /** @class */ (function (_super) {
      * 设置编辑器是否为只读。
      *
      * @param readonly 只读。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TEdit.prototype.setReadonly = function (readonly) {
@@ -14617,7 +14617,7 @@ var TEdit = /** @class */ (function (_super) {
      * 设置编辑器是否为自动改正。
      *
      * @param auto_fix 自动改正。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TEdit.prototype.setAutoFix = function (auto_fix) {
@@ -14627,7 +14627,7 @@ var TEdit = /** @class */ (function (_super) {
      * 设置编辑器是否在获得焦点时不选中文本。
      *
      * @param select_none_when_focused 是否在获得焦点时不选中文本。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TEdit.prototype.setSelectNoneWhenFocused = function (select_none_when_focused) {
@@ -14637,7 +14637,7 @@ var TEdit = /** @class */ (function (_super) {
      * 设置编辑器是否在获得焦点时打开输入法。
      *
      * @param open_im_when_focused 是否在获得焦点时打开输入法。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TEdit.prototype.setOpenImWhenFocused = function (open_im_when_focused) {
@@ -14647,7 +14647,7 @@ var TEdit = /** @class */ (function (_super) {
      * 设置编辑器的输入类型。
      *
      * @param type 输入类型。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TEdit.prototype.setInputType = function (type) {
@@ -14657,7 +14657,7 @@ var TEdit = /** @class */ (function (_super) {
      * 设置编辑器的输入提示。
      *
      * @param tips 输入提示。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TEdit.prototype.setInputTips = function (tips) {
@@ -14667,7 +14667,7 @@ var TEdit = /** @class */ (function (_super) {
      * 当编辑器输入类型为密码时，设置密码是否可见。
      *
      * @param password_visible 密码是否可见。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TEdit.prototype.setPasswordVisible = function (password_visible) {
@@ -14677,7 +14677,7 @@ var TEdit = /** @class */ (function (_super) {
      * 设置为焦点。
      *
      * @param focus 是否为焦点。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TEdit.prototype.setFocus = function (focus) {
@@ -14687,7 +14687,7 @@ var TEdit = /** @class */ (function (_super) {
      * 设置输入框的光标坐标。
      *
      * @param cursor 是否为焦点。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TEdit.prototype.setCursor = function (cursor) {
@@ -14880,7 +14880,7 @@ var TGridItem = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TGridItem.create = function (parent, x, y, w, h) {
@@ -14890,7 +14890,7 @@ var TGridItem = /** @class */ (function (_super) {
      * 转换为grid_item对象(供脚本语言使用)。
      *
      * @param widget grid_item对象。
-     
+     *
      * @returns grid_item对象。
      */
     TGridItem.cast = function (widget) {
@@ -14941,7 +14941,7 @@ var TGrid = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TGrid.create = function (parent, x, y, w, h) {
@@ -14951,7 +14951,7 @@ var TGrid = /** @class */ (function (_super) {
      * 转换为grid对象(供脚本语言使用)。
      *
      * @param widget grid对象。
-     
+     *
      * @returns grid对象。
      */
     TGrid.cast = function (widget) {
@@ -15003,7 +15003,7 @@ var TGroupBox = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TGroupBox.create = function (parent, x, y, w, h) {
@@ -15013,7 +15013,7 @@ var TGroupBox = /** @class */ (function (_super) {
      * 转换为group_box对象(供脚本语言使用)。
      *
      * @param widget group_box对象。
-     
+     *
      * @returns group_box对象。
      */
     TGroupBox.cast = function (widget) {
@@ -15074,7 +15074,7 @@ var TLabel = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TLabel.create = function (parent, x, y, w, h) {
@@ -15084,7 +15084,7 @@ var TLabel = /** @class */ (function (_super) {
      * 设置显示字符的个数(小余0时全部显示)。。
      *
      * @param length 最大可显示字符个数。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TLabel.prototype.setLength = function (length) {
@@ -15097,7 +15097,7 @@ var TLabel = /** @class */ (function (_super) {
      * @param max_w 最大宽度。
      * @param min_h 最小高度。
      * @param max_h 最大高度。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TLabel.prototype.resizeToContent = function (min_w, max_w, min_h, max_h) {
@@ -15107,7 +15107,7 @@ var TLabel = /** @class */ (function (_super) {
      * 转换为label对象(供脚本语言使用)。
      *
      * @param widget label对象。
-     
+     *
      * @returns label对象。
      */
     TLabel.cast = function (widget) {
@@ -15182,7 +15182,7 @@ var TOverlay = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TOverlay.create = function (parent, x, y, w, h) {
@@ -15192,7 +15192,7 @@ var TOverlay = /** @class */ (function (_super) {
      * 转换为overlay对象(供脚本语言使用)。
      *
      * @param widget overlay对象。
-     
+     *
      * @returns overlay对象。
      */
     TOverlay.cast = function (widget) {
@@ -15240,7 +15240,7 @@ var TPages = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TPages.create = function (parent, x, y, w, h) {
@@ -15250,7 +15250,7 @@ var TPages = /** @class */ (function (_super) {
      * 转换为pages对象(供脚本语言使用)。
      *
      * @param widget pages对象。
-     
+     *
      * @returns pages对象。
      */
     TPages.cast = function (widget) {
@@ -15260,7 +15260,7 @@ var TPages = /** @class */ (function (_super) {
      * 设置当前的Page。
      *
      * @param index 当前Page的序号。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TPages.prototype.setActive = function (index) {
@@ -15270,7 +15270,7 @@ var TPages = /** @class */ (function (_super) {
      * 通过页面的名字设置当前的Page。
      *
      * @param name 当前Page的名字。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TPages.prototype.setActiveByName = function (name) {
@@ -15342,7 +15342,7 @@ var TProgressBar = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TProgressBar.create = function (parent, x, y, w, h) {
@@ -15352,7 +15352,7 @@ var TProgressBar = /** @class */ (function (_super) {
      * 转换为progress_bar对象(供脚本语言使用)。
      *
      * @param widget progress_bar对象。
-     
+     *
      * @returns progress_bar对象。
      */
     TProgressBar.cast = function (widget) {
@@ -15362,7 +15362,7 @@ var TProgressBar = /** @class */ (function (_super) {
      * 设置进度条的进度。
      *
      * @param value 进度
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TProgressBar.prototype.setValue = function (value) {
@@ -15372,7 +15372,7 @@ var TProgressBar = /** @class */ (function (_super) {
      * 设置最大值。
      *
      * @param max 最大值。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TProgressBar.prototype.setMax = function (max) {
@@ -15382,7 +15382,7 @@ var TProgressBar = /** @class */ (function (_super) {
      * 设置进度条的方向。
      *
      * @param vertical 是否为垂直方向。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TProgressBar.prototype.setVertical = function (vertical) {
@@ -15392,7 +15392,7 @@ var TProgressBar = /** @class */ (function (_super) {
      * 设置进度条的是否显示文本。
      *
      * @param show_text 是否显示文本。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TProgressBar.prototype.setShowText = function (show_text) {
@@ -15403,7 +15403,7 @@ var TProgressBar = /** @class */ (function (_super) {
      *
      *> 当max为100时，percent和value取整后一致。
      *
-     
+     *
      * @returns 返回百分比。
      */
     TProgressBar.prototype.getPercent = function () {
@@ -15510,7 +15510,7 @@ var TRow = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TRow.create = function (parent, x, y, w, h) {
@@ -15520,7 +15520,7 @@ var TRow = /** @class */ (function (_super) {
      * 转换为row对象(供脚本语言使用)。
      *
      * @param widget row对象。
-     
+     *
      * @returns row对象。
      */
     TRow.cast = function (widget) {
@@ -15579,7 +15579,7 @@ var TSlider = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TSlider.create = function (parent, x, y, w, h) {
@@ -15589,7 +15589,7 @@ var TSlider = /** @class */ (function (_super) {
      * 转换为slider对象(供脚本语言使用)。
      *
      * @param widget slider对象。
-     
+     *
      * @returns slider对象。
      */
     TSlider.cast = function (widget) {
@@ -15599,7 +15599,7 @@ var TSlider = /** @class */ (function (_super) {
      * 设置滑块的值。
      *
      * @param value 值
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlider.prototype.setValue = function (value) {
@@ -15609,7 +15609,7 @@ var TSlider = /** @class */ (function (_super) {
      * 设置滑块的最小值。
      *
      * @param min 最小值
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlider.prototype.setMin = function (min) {
@@ -15619,7 +15619,7 @@ var TSlider = /** @class */ (function (_super) {
      * 设置滑块的最大值。
      *
      * @param max 最大值
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlider.prototype.setMax = function (max) {
@@ -15629,7 +15629,7 @@ var TSlider = /** @class */ (function (_super) {
      * 设置滑块的拖动的最小单位。
      *
      * @param step 拖动的最小单位。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlider.prototype.setStep = function (step) {
@@ -15639,7 +15639,7 @@ var TSlider = /** @class */ (function (_super) {
      * 设置bar的宽度或高度。
      *
      * @param bar_size bar的宽度或高度。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlider.prototype.setBarSize = function (bar_size) {
@@ -15649,7 +15649,7 @@ var TSlider = /** @class */ (function (_super) {
      * 设置滑块的方向。
      *
      * @param vertical 是否为垂直方向。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSlider.prototype.setVertical = function (vertical) {
@@ -15820,7 +15820,7 @@ var TTabButtonGroup = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TTabButtonGroup.create = function (parent, x, y, w, h) {
@@ -15830,7 +15830,7 @@ var TTabButtonGroup = /** @class */ (function (_super) {
      * 设置compact。
      *
      * @param compact 是否使用紧凑布局(缺省FALSE)。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTabButtonGroup.prototype.setCompact = function (compact) {
@@ -15840,7 +15840,7 @@ var TTabButtonGroup = /** @class */ (function (_super) {
      * 设置scrollable。
      *
      * @param scrollable 是否允许滚动(缺省FALSE)。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTabButtonGroup.prototype.setScrollable = function (scrollable) {
@@ -15850,7 +15850,7 @@ var TTabButtonGroup = /** @class */ (function (_super) {
      * 转换tab_button_group对象(供脚本语言使用)。
      *
      * @param widget tab_button_group对象。
-     
+     *
      * @returns tab_button_group对象。
      */
     TTabButtonGroup.cast = function (widget) {
@@ -15963,7 +15963,7 @@ var TTabButton = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TTabButton.create = function (parent, x, y, w, h) {
@@ -15973,7 +15973,7 @@ var TTabButton = /** @class */ (function (_super) {
      * 转换tab_button对象(供脚本语言使用)。
      *
      * @param widget tab_button对象。
-     
+     *
      * @returns tab_button对象。
      */
     TTabButton.cast = function (widget) {
@@ -15983,7 +15983,7 @@ var TTabButton = /** @class */ (function (_super) {
      * 设置为当前标签。
      *
      * @param value 是否为当前标签。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTabButton.prototype.setValue = function (value) {
@@ -15993,7 +15993,7 @@ var TTabButton = /** @class */ (function (_super) {
      * 设置控件的图标。
      *
      * @param name 当前项的图标。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTabButton.prototype.setIcon = function (name) {
@@ -16003,7 +16003,7 @@ var TTabButton = /** @class */ (function (_super) {
      * 设置控件的active图标。
      *
      * @param name 当前项的图标。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTabButton.prototype.setActiveIcon = function (name) {
@@ -16013,7 +16013,7 @@ var TTabButton = /** @class */ (function (_super) {
      * 设置控件动态加载显示UI。
      *
      * @param name 动态加载UI的资源名称。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TTabButton.prototype.setLoadUi = function (name) {
@@ -16120,7 +16120,7 @@ var TTabControl = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TTabControl.create = function (parent, x, y, w, h) {
@@ -16130,7 +16130,7 @@ var TTabControl = /** @class */ (function (_super) {
      * 转换tab_control对象(供脚本语言使用)。
      *
      * @param widget tab_control对象。
-     
+     *
      * @returns tab_control对象。
      */
     TTabControl.cast = function (widget) {
@@ -16177,7 +16177,7 @@ var TView = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TView.create = function (parent, x, y, w, h) {
@@ -16187,7 +16187,7 @@ var TView = /** @class */ (function (_super) {
      * 转换为view对象(供脚本语言使用)。
      *
      * @param widget view对象。
-     
+     *
      * @returns view对象。
      */
     TView.cast = function (widget) {
@@ -16209,7 +16209,7 @@ var TIdleInfo = /** @class */ (function (_super) {
      * 转换为idle_info对象(供脚本语言使用)。
      *
      * @param idle idle_info对象。
-     
+     *
      * @returns idle_info对象。
      */
     TIdleInfo.cast = function (idle) {
@@ -16299,7 +16299,7 @@ var TObjectArray = /** @class */ (function (_super) {
     /**
      * 创建对象。
      *
-     
+     *
      * @returns 返回object对象。
      */
     TObjectArray.create = function () {
@@ -16308,7 +16308,7 @@ var TObjectArray = /** @class */ (function (_super) {
     /**
      * for script gc
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TObjectArray.prototype.unref = function () {
@@ -16317,7 +16317,7 @@ var TObjectArray = /** @class */ (function (_super) {
     /**
      * 清除全部属性。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TObjectArray.prototype.clearProps = function () {
@@ -16392,7 +16392,7 @@ var TGifImage = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TGifImage.create = function (parent, x, y, w, h) {
@@ -16402,7 +16402,7 @@ var TGifImage = /** @class */ (function (_super) {
      * 转换为gif_image对象(供脚本语言使用)。
      *
      * @param widget gif_image对象。
-     
+     *
      * @returns gif_image对象。
      */
     TGifImage.cast = function (widget) {
@@ -16425,7 +16425,7 @@ var TObjectDefault = /** @class */ (function (_super) {
     /**
      * 创建对象。
      *
-     
+     *
      * @returns 返回object对象。
      */
     TObjectDefault.create = function () {
@@ -16434,7 +16434,7 @@ var TObjectDefault = /** @class */ (function (_super) {
     /**
      * for script gc
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TObjectDefault.prototype.unref = function () {
@@ -16443,7 +16443,7 @@ var TObjectDefault = /** @class */ (function (_super) {
     /**
      * 清除全部属性。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TObjectDefault.prototype.clearProps = function () {
@@ -16532,7 +16532,7 @@ var TImage = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TImage.create = function (parent, x, y, w, h) {
@@ -16542,7 +16542,7 @@ var TImage = /** @class */ (function (_super) {
      * 设置图片的绘制方式。
      *
      * @param draw_type 绘制方式(仅在没有旋转和缩放时生效)。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TImage.prototype.setDrawType = function (draw_type) {
@@ -16552,7 +16552,7 @@ var TImage = /** @class */ (function (_super) {
      * 转换为image对象(供脚本语言使用)。
      *
      * @param widget image对象。
-     
+     *
      * @returns image对象。
      */
     TImage.cast = function (widget) {
@@ -16592,7 +16592,7 @@ var TComboBoxEx = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TComboBoxEx.create = function (parent, x, y, w, h) {
@@ -16632,7 +16632,7 @@ var TCalibrationWin = /** @class */ (function (_super) {
      * 转换为calibration_win对象(供脚本语言使用)。
      *
      * @param widget calibration_win对象。
-     
+     *
      * @returns calibration_win对象。
      */
     TCalibrationWin.cast = function (widget) {
@@ -16699,7 +16699,7 @@ var TPopup = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns popup对象。
      */
     TPopup.create = function (parent, x, y, w, h) {
@@ -16709,7 +16709,7 @@ var TPopup = /** @class */ (function (_super) {
      * 转换为popup对象(供脚本语言使用)。
      *
      * @param widget popup对象。
-     
+     *
      * @returns popup对象。
      */
     TPopup.cast = function (widget) {
@@ -16719,7 +16719,7 @@ var TPopup = /** @class */ (function (_super) {
      * 设置点击时是否关闭窗口。
      *
      * @param close_when_click 点击时是否关闭窗口。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TPopup.prototype.setCloseWhenClick = function (close_when_click) {
@@ -16729,7 +16729,7 @@ var TPopup = /** @class */ (function (_super) {
      * 设置点击窗口外部时是否关闭窗口。
      *
      * @param close_when_click_outside 点击窗口外部时是否关闭窗口。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TPopup.prototype.setCloseWhenClickOutside = function (close_when_click_outside) {
@@ -16815,7 +16815,7 @@ var TSvgImage = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TSvgImage.create = function (parent, x, y, w, h) {
@@ -16827,7 +16827,7 @@ var TSvgImage = /** @class */ (function (_super) {
      *> 如果需要显示文件系统中的图片，只需将图片名称换成实际的文件名，并加上"file://"前缀即可。
      *
      * @param name 图片名称，该图片必须存在于资源管理器。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TSvgImage.prototype.setImage = function (name) {
@@ -16837,7 +16837,7 @@ var TSvgImage = /** @class */ (function (_super) {
      * 转换为svg_image对象(供脚本语言使用)。
      *
      * @param widget svg_image对象。
-     
+     *
      * @returns svg_image对象。
      */
     TSvgImage.cast = function (widget) {
@@ -16859,7 +16859,7 @@ var TTimerInfo = /** @class */ (function (_super) {
      * 转换为timer_info对象(供脚本语言使用)。
      *
      * @param timer timer_info对象。
-     
+     *
      * @returns timer_info对象。
      */
     TTimerInfo.cast = function (timer) {
@@ -16963,7 +16963,7 @@ var TSpinBox = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TSpinBox.create = function (parent, x, y, w, h) {
@@ -16973,7 +16973,7 @@ var TSpinBox = /** @class */ (function (_super) {
      * 转换为spin_box对象(供脚本语言使用)。
      *
      * @param widget spin_box对象。
-     
+     *
      * @returns spin_box对象。
      */
     TSpinBox.cast = function (widget) {
@@ -17044,7 +17044,7 @@ var TSystemBar = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns system_bar对象。
      */
     TSystemBar.create = function (parent, x, y, w, h) {
@@ -17054,7 +17054,7 @@ var TSystemBar = /** @class */ (function (_super) {
      * 转换为system_bar对象(供脚本语言使用)。
      *
      * @param widget system_bar对象。
-     
+     *
      * @returns system_bar对象。
      */
     TSystemBar.cast = function (widget) {
@@ -17114,7 +17114,7 @@ var TWindow = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TWindow.create = function (parent, x, y, w, h) {
@@ -17123,7 +17123,7 @@ var TWindow = /** @class */ (function (_super) {
     /**
      * 以缺省的方式创建window对象。
      *
-     
+     *
      * @returns 对象。
      */
     TWindow.createDefault = function () {
@@ -17135,7 +17135,7 @@ var TWindow = /** @class */ (function (_super) {
      *>这里全屏是指与LCD相同大小，而非让SDL窗口全屏。
      *
      * @param fullscreen 是否全屏。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWindow.prototype.setFullscreen = function (fullscreen) {
@@ -17145,7 +17145,7 @@ var TWindow = /** @class */ (function (_super) {
      * 从资源文件中加载并创建window_base对象。本函数在ui_loader/ui_builder_default里实现。
      *
      * @param name window的名称。
-     
+     *
      * @returns 对象。
      */
     TWindow.open = function (name) {
@@ -17156,7 +17156,7 @@ var TWindow = /** @class */ (function (_super) {
      *
      * @param name window的名称。
      * @param to_close 关闭该窗口。
-     
+     *
      * @returns 对象。
      */
     TWindow.openAndClose = function (name, to_close) {
@@ -17165,7 +17165,7 @@ var TWindow = /** @class */ (function (_super) {
     /**
      * 关闭窗口。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWindow.prototype.close = function () {
@@ -17174,7 +17174,7 @@ var TWindow = /** @class */ (function (_super) {
     /**
      * 立即无条件关闭窗口(无动画)。
      *
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TWindow.prototype.closeForce = function () {
@@ -17184,7 +17184,7 @@ var TWindow = /** @class */ (function (_super) {
      * 转换为window对象(供脚本语言使用)。
      *
      * @param widget window对象。
-     
+     *
      * @returns window对象。
      */
     TWindow.cast = function (widget) {
@@ -17262,7 +17262,7 @@ var TKeyboard = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns 对象。
      */
     TKeyboard.create = function (parent, x, y, w, h) {
@@ -17272,7 +17272,7 @@ var TKeyboard = /** @class */ (function (_super) {
      * 转换为keyboard对象(供脚本语言使用)。
      *
      * @param widget keyboard对象。
-     
+     *
      * @returns keyboard对象。
      */
     TKeyboard.cast = function (widget) {
@@ -17365,7 +17365,7 @@ var TDialog = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns dialog对象。
      */
     TDialog.create = function (parent, x, y, w, h) {
@@ -17379,7 +17379,7 @@ var TDialog = /** @class */ (function (_super) {
      * @param y y坐标
      * @param w 宽度
      * @param h 高度
-     
+     *
      * @returns dialog对象。
      */
     TDialog.createSimple = function (parent, x, y, w, h) {
@@ -17389,7 +17389,7 @@ var TDialog = /** @class */ (function (_super) {
      * 转换dialog对象(供脚本语言使用)。
      *
      * @param widget dialog对象。
-     
+     *
      * @returns dialog对象。
      */
     TDialog.cast = function (widget) {
@@ -17398,7 +17398,7 @@ var TDialog = /** @class */ (function (_super) {
     /**
      * 获取title控件。
      *
-     
+     *
      * @returns title对象。
      */
     TDialog.prototype.getTitle = function () {
@@ -17407,7 +17407,7 @@ var TDialog = /** @class */ (function (_super) {
     /**
      * 获取client控件。
      *
-     
+     *
      * @returns client对象。
      */
     TDialog.prototype.getClient = function () {
@@ -17419,7 +17419,7 @@ var TDialog = /** @class */ (function (_super) {
      *本函数在ui\_loader/ui\_builder_default里实现。
      *
      * @param name dialog的名称。
-     
+     *
      * @returns 对象。
      */
     TDialog.open = function (name) {
@@ -17429,7 +17429,7 @@ var TDialog = /** @class */ (function (_super) {
      * 设置对话框的标题文本。
      *
      * @param title 标题。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TDialog.prototype.setTitle = function (title) {
@@ -17440,7 +17440,7 @@ var TDialog = /** @class */ (function (_super) {
      *dialog_modal返回后，dialog对象将在下一个idle函数中回收。
      *也就是在dialog_modal调用完成后仍然可以访问dialog中控件，直到本次事件结束。
      *
-     
+     *
      * @returns 返回退出吗。
      */
     TDialog.prototype.modal = function () {
@@ -17452,7 +17452,7 @@ var TDialog = /** @class */ (function (_super) {
      *> 比如，在对话框中关闭按钮的事件处理函数中，调用本函数关闭对话框。
      *
      * @param code 退出码，作为dialog_modal的返回值(参考：[dialog_quit_code_t](dialog_quit_code_t.md))。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TDialog.prototype.quit = function (code) {
@@ -17461,7 +17461,7 @@ var TDialog = /** @class */ (function (_super) {
     /**
      * 检查对话框是否已经退出模态。
      *
-     
+     *
      * @returns 返回TRUE表示已经退出，否则表示没有。
      */
     TDialog.prototype.isQuited = function () {
@@ -17470,7 +17470,7 @@ var TDialog = /** @class */ (function (_super) {
     /**
      * 检查对话框是否为模态对话框。
      *
-     
+     *
      * @returns 返回TRUE表示是模态对话框，否则表示不是。
      */
     TDialog.prototype.isModal = function () {
@@ -17483,7 +17483,7 @@ var TDialog = /** @class */ (function (_super) {
      *
      * @param text 文本内容。
      * @param duration 显示时间(单位为毫秒)。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TDialog.toast = function (text, duration) {
@@ -17496,7 +17496,7 @@ var TDialog = /** @class */ (function (_super) {
      *
      * @param title 标题。
      * @param text 文本内容。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TDialog.info = function (title, text) {
@@ -17509,7 +17509,7 @@ var TDialog = /** @class */ (function (_super) {
      *
      * @param title 标题。
      * @param text 文本内容。
-     
+     *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TDialog.warn = function (title, text) {
@@ -17522,7 +17522,7 @@ var TDialog = /** @class */ (function (_super) {
      *
      * @param title 标题。
      * @param text 文本内容。
-     
+     *
      * @returns 返回RET_OK表示确认，否则表示取消。
      */
     TDialog.confirm = function (title, text) {
