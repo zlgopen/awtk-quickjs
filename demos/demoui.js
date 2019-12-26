@@ -23,7 +23,7 @@ function installOne(w) {
     console.log('open window:' + name);
   } else if(strContains(widgetName, 'close')) {
     iter.on(TEventType.CLICK, function(evt) {
-      TWindow.cast(iter.getWindow()).close();
+      iter.closeWindow();
     })
     console.log('close window: ' + widgetName);
   } else if(strContains(widgetName, 'quit')) {

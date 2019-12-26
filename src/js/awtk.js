@@ -3462,6 +3462,18 @@ var TVgcanvas = /** @class */ (function () {
         return vgcanvas_close_path(this != null ? (this.nativeObj || this) : null);
     };
     /**
+     * 设置路径填充实心与否。
+     *
+     *>CCW(1)为实心，CW(2)为镂空，设置其他则默认根据非零环绕规则判断(nonzero)。
+     *
+     * @param dir 填充方法。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TVgcanvas.prototype.pathWinding = function (dir) {
+        return vgcanvas_path_winding(this != null ? (this.nativeObj || this) : null, dir);
+    };
+    /**
      * 旋转。
      *
      * @param rad 角度
@@ -5075,6 +5087,15 @@ var TWidget = /** @class */ (function () {
      */
     TWidget.prototype.indexOf = function () {
         return widget_index_of(this != null ? (this.nativeObj || this) : null);
+    };
+    /**
+     * 关闭控件所在的窗口。
+     *
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TWidget.prototype.closeWindow = function () {
+        return widget_close_window(this != null ? (this.nativeObj || this) : null);
     };
     /**
      * 移动控件。

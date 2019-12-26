@@ -4551,6 +4551,20 @@ jsvalue_t wrap_vgcanvas_close_path(JSContext* ctx, jsvalue_const_t this_val, int
   return jret;
 }
 
+jsvalue_t wrap_vgcanvas_path_winding(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                     jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 2) {
+    ret_t ret = 0;
+    vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
+    bool_t dir = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
+    ret = (ret_t)vgcanvas_path_winding(vg, dir);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
 jsvalue_t wrap_vgcanvas_rotate(JSContext* ctx, jsvalue_const_t this_val, int argc,
                                jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
@@ -5126,6 +5140,8 @@ ret_t vgcanvas_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_vgcanvas_ellipse, "vgcanvas_ellipse", 1));
   JS_SetPropertyStr(ctx, global_obj, "vgcanvas_close_path",
                     JS_NewCFunction(ctx, wrap_vgcanvas_close_path, "vgcanvas_close_path", 1));
+  JS_SetPropertyStr(ctx, global_obj, "vgcanvas_path_winding",
+                    JS_NewCFunction(ctx, wrap_vgcanvas_path_winding, "vgcanvas_path_winding", 1));
   JS_SetPropertyStr(ctx, global_obj, "vgcanvas_rotate",
                     JS_NewCFunction(ctx, wrap_vgcanvas_rotate, "vgcanvas_rotate", 1));
   JS_SetPropertyStr(ctx, global_obj, "vgcanvas_scale",
@@ -6829,6 +6845,19 @@ jsvalue_t wrap_widget_index_of(JSContext* ctx, jsvalue_const_t this_val, int arg
   return jret;
 }
 
+jsvalue_t wrap_widget_close_window(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                   jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 1) {
+    ret_t ret = 0;
+    widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
+    ret = (ret_t)widget_close_window(widget);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
 jsvalue_t wrap_widget_move(JSContext* ctx, jsvalue_const_t this_val, int argc,
                            jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
@@ -8033,6 +8062,8 @@ ret_t widget_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_widget_get_child, "widget_get_child", 1));
   JS_SetPropertyStr(ctx, global_obj, "widget_index_of",
                     JS_NewCFunction(ctx, wrap_widget_index_of, "widget_index_of", 1));
+  JS_SetPropertyStr(ctx, global_obj, "widget_close_window",
+                    JS_NewCFunction(ctx, wrap_widget_close_window, "widget_close_window", 1));
   JS_SetPropertyStr(ctx, global_obj, "widget_move",
                     JS_NewCFunction(ctx, wrap_widget_move, "widget_move", 1));
   JS_SetPropertyStr(ctx, global_obj, "widget_resize",
