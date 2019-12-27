@@ -1,3 +1,4 @@
+"use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -11,6 +12,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+Object.defineProperty(exports, "__esModule", { value: true });
 if (this['console'] === undefined) {
     this.console = {};
     this.console.log = function (str) {
@@ -95,6 +97,7 @@ var TEvent = /** @class */ (function () {
     });
     return TEvent;
 }());
+exports.TEvent = TEvent;
 ;
 /**
  * 矩形。包括一个x坐标、y坐标、宽度和高度。
@@ -203,6 +206,7 @@ var TRect = /** @class */ (function () {
     });
     return TRect;
 }());
+exports.TRect = TRect;
 ;
 /**
  * 点(浮点数)。包括一个x坐标和一个y坐标。
@@ -214,6 +218,7 @@ var TPointf = /** @class */ (function () {
     }
     return TPointf;
 }());
+exports.TPointf = TPointf;
 ;
 /**
  * 点。包括一个x坐标和一个y坐标。
@@ -225,6 +230,7 @@ var TPoint = /** @class */ (function () {
     }
     return TPoint;
 }());
+exports.TPoint = TPoint;
 ;
 /**
  * 事件分发器, 用于实现观察者模式。
@@ -340,6 +346,7 @@ var TEmitter = /** @class */ (function () {
     };
     return TEmitter;
 }());
+exports.TEmitter = TEmitter;
 ;
 /**
  * 位图。
@@ -457,6 +464,7 @@ var TBitmap = /** @class */ (function () {
     });
     return TBitmap;
 }());
+exports.TBitmap = TBitmap;
 ;
 /**
  * 一个通用数据类型，用来存放整数、浮点数、字符串和其它对象。
@@ -790,6 +798,7 @@ var TValue = /** @class */ (function () {
     };
     return TValue;
 }());
+exports.TValue = TValue;
 ;
 /**
  * 对象接口。
@@ -1178,6 +1187,7 @@ var TObject = /** @class */ (function (_super) {
     });
     return TObject;
 }(TEmitter));
+exports.TObject = TObject;
 ;
 /**
  * TK全局对象。
@@ -1247,6 +1257,7 @@ var TGlobal = /** @class */ (function () {
     };
     return TGlobal;
 }());
+exports.TGlobal = TGlobal;
 ;
 /**
  * 对话框退出码。
@@ -1712,6 +1723,7 @@ var TFontManager = /** @class */ (function () {
     };
     return TFontManager;
 }());
+exports.TFontManager = TFontManager;
 ;
 /**
  * 字模格式常量定义。
@@ -1773,6 +1785,7 @@ var TIdle = /** @class */ (function () {
     };
     return TIdle;
 }());
+exports.TIdle = TIdle;
 ;
 /**
  * 图片管理器。负责加载，解码和缓存图片。
@@ -1805,6 +1818,7 @@ var TImageManager = /** @class */ (function () {
     };
     return TImageManager;
 }());
+exports.TImageManager = TImageManager;
 ;
 /**
  * 输入类型常量定义。
@@ -2033,6 +2047,7 @@ var TInputMethod = /** @class */ (function () {
     };
     return TInputMethod;
 }());
+exports.TInputMethod = TInputMethod;
 ;
 /**
  * key code。
@@ -2747,6 +2762,7 @@ var TLocaleInfo = /** @class */ (function () {
     };
     return TLocaleInfo;
 }());
+exports.TLocaleInfo = TLocaleInfo;
 ;
 /**
  * style常量定义。
@@ -3003,6 +3019,7 @@ var TStyle = /** @class */ (function () {
     };
     return TStyle;
 }());
+exports.TStyle = TStyle;
 ;
 /**
  * 主题。
@@ -3025,6 +3042,7 @@ var TTheme = /** @class */ (function () {
     };
     return TTheme;
 }());
+exports.TTheme = TTheme;
 ;
 /**
  * 定时器系统。
@@ -3084,6 +3102,7 @@ var TTimer = /** @class */ (function () {
     };
     return TTimer;
 }());
+exports.TTimer = TTimer;
 ;
 /**
  * 垂直对齐的常量定义。
@@ -3971,6 +3990,7 @@ var TVgcanvas = /** @class */ (function () {
     });
     return TVgcanvas;
 }());
+exports.TVgcanvas = TVgcanvas;
 ;
 /**
  * 控件的属性。
@@ -6080,6 +6100,7 @@ var TWidget = /** @class */ (function () {
     });
     return TWidget;
 }());
+exports.TWidget = TWidget;
 ;
 /**
  * 函数返回值常量定义。
@@ -6204,6 +6225,7 @@ var TTimerManager = /** @class */ (function () {
     }
     return TTimerManager;
 }());
+exports.TTimerManager = TTimerManager;
 ;
 /**
  * 获取当前时间的函数。
@@ -6234,6 +6256,7 @@ var TTimeNow = /** @class */ (function () {
     };
     return TTimeNow;
 }());
+exports.TTimeNow = TTimeNow;
 ;
 /**
  * 图片绘制方法常量定义。
@@ -6682,6 +6705,7 @@ var TCanvas = /** @class */ (function () {
     });
     return TCanvas;
 }());
+exports.TCanvas = TCanvas;
 ;
 /**
  * 命名的值。
@@ -6764,6 +6788,7 @@ var TNamedValue = /** @class */ (function () {
     });
     return TNamedValue;
 }());
+exports.TNamedValue = TNamedValue;
 ;
 /**
  * MIME_TYPE。
@@ -7293,6 +7318,7 @@ var TIdleManager = /** @class */ (function () {
     }
     return TIdleManager;
 }());
+exports.TIdleManager = TIdleManager;
 ;
 /**
  * 指示器默认绘制的类型。
@@ -7374,6 +7400,7 @@ var TClipBoard = /** @class */ (function () {
     };
     return TClipBoard;
 }());
+exports.TClipBoard = TClipBoard;
 ;
 /**
  * 缓动作动画常量定义。
@@ -7619,6 +7646,7 @@ var TDateTime = /** @class */ (function () {
     });
     return TDateTime;
 }());
+exports.TDateTime = TDateTime;
 ;
 /**
  * 颜色。
@@ -7737,6 +7765,7 @@ var TColor = /** @class */ (function () {
     });
     return TColor;
 }());
+exports.TColor = TColor;
 ;
 /**
  * 单个资源的描述信息。
@@ -7815,6 +7844,7 @@ var TAssetInfo = /** @class */ (function () {
     });
     return TAssetInfo;
 }());
+exports.TAssetInfo = TAssetInfo;
 ;
 /**
  * 资源类型常量定义。
@@ -7937,6 +7967,7 @@ var TAssetsManager = /** @class */ (function () {
     };
     return TAssetsManager;
 }());
+exports.TAssetsManager = TAssetsManager;
 ;
 /**
  * 画布控件。
@@ -8004,6 +8035,7 @@ var TCanvasWidget = /** @class */ (function (_super) {
     };
     return TCanvasWidget;
 }(TWidget));
+exports.TCanvasWidget = TCanvasWidget;
 ;
 /**
  * 模拟时钟控件。
@@ -8354,6 +8386,7 @@ var TTimeClock = /** @class */ (function (_super) {
     });
     return TTimeClock;
 }(TWidget));
+exports.TTimeClock = TTimeClock;
 ;
 /**
  * 文本选择器控件，通常用于选择日期和时间等。
@@ -8573,6 +8606,7 @@ var TTextSelector = /** @class */ (function (_super) {
     });
     return TTextSelector;
 }(TWidget));
+exports.TTextSelector = TTextSelector;
 ;
 /**
  * 对象属性变化事件。
@@ -8617,6 +8651,7 @@ var TPropChangeEvent = /** @class */ (function (_super) {
     });
     return TPropChangeEvent;
 }(TEvent));
+exports.TPropChangeEvent = TPropChangeEvent;
 ;
 /**
  * 进度变化事件。
@@ -8650,6 +8685,7 @@ var TProgressEvent = /** @class */ (function (_super) {
     });
     return TProgressEvent;
 }(TEvent));
+exports.TProgressEvent = TProgressEvent;
 ;
 /**
  * 开关控件。
@@ -8749,6 +8785,7 @@ var TSwitch = /** @class */ (function (_super) {
     });
     return TSwitch;
 }(TWidget));
+exports.TSwitch = TSwitch;
 ;
 /**
  * 滑动视图。
@@ -8945,6 +8982,7 @@ var TSlideView = /** @class */ (function (_super) {
     });
     return TSlideView;
 }(TWidget));
+exports.TSlideView = TSlideView;
 ;
 /**
  * slide_view的指示器控件。
@@ -9262,6 +9300,7 @@ var TSlideIndicator = /** @class */ (function (_super) {
     });
     return TSlideIndicator;
 }(TWidget));
+exports.TSlideIndicator = TSlideIndicator;
 ;
 /**
  * 左右滑动菜单控件。
@@ -9412,6 +9451,7 @@ var TSlideMenu = /** @class */ (function (_super) {
     });
     return TSlideMenu;
 }(TWidget));
+exports.TSlideMenu = TSlideMenu;
 ;
 /**
  * 滚动视图。
@@ -9662,6 +9702,7 @@ var TScrollView = /** @class */ (function (_super) {
     });
     return TScrollView;
 }(TWidget));
+exports.TScrollView = TScrollView;
 ;
 /**
  * 滚动条控件。
@@ -9878,6 +9919,7 @@ var TScrollBar = /** @class */ (function (_super) {
     });
     return TScrollBar;
 }(TWidget));
+exports.TScrollBar = TScrollBar;
 ;
 /**
  * 列表视图控件。
@@ -10028,6 +10070,7 @@ var TListView = /** @class */ (function (_super) {
     });
     return TListView;
 }(TWidget));
+exports.TListView = TListView;
 ;
 /**
  * 水平列表视图控件。
@@ -10139,6 +10182,7 @@ var TListViewH = /** @class */ (function (_super) {
     });
     return TListViewH;
 }(TWidget));
+exports.TListViewH = TListViewH;
 ;
 /**
  * 列表项控件。
@@ -10216,6 +10260,7 @@ var TListItem = /** @class */ (function (_super) {
     };
     return TListItem;
 }(TWidget));
+exports.TListItem = TListItem;
 ;
 /**
  * 可水平滚动的文本控件，方便实现长文本滚动。
@@ -10497,6 +10542,7 @@ var THscrollLabel = /** @class */ (function (_super) {
     });
     return THscrollLabel;
 }(TWidget));
+exports.THscrollLabel = THscrollLabel;
 ;
 /**
  * 图文混排控件，实现简单的图文混排。
@@ -10601,6 +10647,7 @@ var TRichText = /** @class */ (function (_super) {
     });
     return TRichText;
 }(TWidget));
+exports.TRichText = TRichText;
 ;
 /**
  * 进度圆环控件。
@@ -10835,6 +10882,7 @@ var TProgressCircle = /** @class */ (function (_super) {
     });
     return TProgressCircle;
 }(TWidget));
+exports.TProgressCircle = TProgressCircle;
 ;
 /**
  * 多行编辑器控件。
@@ -11027,6 +11075,7 @@ var TMledit = /** @class */ (function (_super) {
     });
     return TMledit;
 }(TWidget));
+exports.TMledit = TMledit;
 ;
 /**
  * 行号。多行编辑器的行号。
@@ -11132,6 +11181,7 @@ var TLineNumber = /** @class */ (function (_super) {
     };
     return TLineNumber;
 }(TWidget));
+exports.TLineNumber = TLineNumber;
 ;
 /**
  * 图片值控件。
@@ -11267,6 +11317,7 @@ var TImageValue = /** @class */ (function (_super) {
     });
     return TImageValue;
 }(TWidget));
+exports.TImageValue = TImageValue;
 ;
 /**
  * 图片动画控件，指定一个图片前缀，依次显示指定序列的图片，从而形成动画效果。
@@ -11598,6 +11649,7 @@ var TImageAnimation = /** @class */ (function (_super) {
     });
     return TImageAnimation;
 }(TWidget));
+exports.TImageAnimation = TImageAnimation;
 ;
 /**
  * 表盘控件。
@@ -11715,6 +11767,7 @@ var TGuage = /** @class */ (function (_super) {
     });
     return TGuage;
 }(TWidget));
+exports.TGuage = TGuage;
 ;
 /**
  * 仪表指针控件。
@@ -11854,6 +11907,7 @@ var TGuagePointer = /** @class */ (function (_super) {
     });
     return TGuagePointer;
 }(TWidget));
+exports.TGuagePointer = TGuagePointer;
 ;
 /**
  * 将draggable放入目标控件，即可让目标控件或当前窗口可以被拖动。
@@ -12085,6 +12139,7 @@ var TDraggable = /** @class */ (function (_super) {
     });
     return TDraggable;
 }(TWidget));
+exports.TDraggable = TDraggable;
 ;
 /**
  * 颜色选择器。
@@ -12170,6 +12225,7 @@ var TColorPicker = /** @class */ (function (_super) {
     });
     return TColorPicker;
 }(TWidget));
+exports.TColorPicker = TColorPicker;
 ;
 /**
  * 颜色选择器的颜色分量。
@@ -12195,6 +12251,7 @@ var TColorComponent = /** @class */ (function (_super) {
     };
     return TColorComponent;
 }(TWidget));
+exports.TColorComponent = TColorComponent;
 ;
 /**
  * 窗口管理器。
@@ -12344,6 +12401,7 @@ var TWindowManager = /** @class */ (function (_super) {
     };
     return TWindowManager;
 }(TWidget));
+exports.TWindowManager = TWindowManager;
 ;
 /**
  * 窗口。
@@ -12405,6 +12463,7 @@ var TWindowBase = /** @class */ (function (_super) {
     });
     return TWindowBase;
 }(TWidget));
+exports.TWindowBase = TWindowBase;
 ;
 /**
  * 可变的style(可实时修改并生效，主要用于在designer中被编辑的控件，或者一些特殊控件)。
@@ -12478,6 +12537,7 @@ var TStyleMutable = /** @class */ (function (_super) {
     });
     return TStyleMutable;
 }(TStyle));
+exports.TStyleMutable = TStyleMutable;
 ;
 /**
  * 图片控件基类。
@@ -12702,6 +12762,7 @@ var TImageBase = /** @class */ (function (_super) {
     });
     return TImageBase;
 }(TWidget));
+exports.TImageBase = TImageBase;
 ;
 /**
  * 窗口事件，由窗口管理器触发。
@@ -12735,6 +12796,7 @@ var TWindowEvent = /** @class */ (function (_super) {
     });
     return TWindowEvent;
 }(TEvent));
+exports.TWindowEvent = TWindowEvent;
 ;
 /**
  * 绘制事件。
@@ -12768,6 +12830,7 @@ var TPaintEvent = /** @class */ (function (_super) {
     });
     return TPaintEvent;
 }(TEvent));
+exports.TPaintEvent = TPaintEvent;
 ;
 /**
  * 按键事件。
@@ -12935,6 +12998,7 @@ var TKeyEvent = /** @class */ (function (_super) {
     });
     return TKeyEvent;
 }(TEvent));
+exports.TKeyEvent = TKeyEvent;
 ;
 /**
  * 指针事件。
@@ -13056,6 +13120,7 @@ var TPointerEvent = /** @class */ (function (_super) {
     });
     return TPointerEvent;
 }(TEvent));
+exports.TPointerEvent = TPointerEvent;
 ;
 /**
  * 滚轮事件。
@@ -13089,6 +13154,7 @@ var TOrientationEvent = /** @class */ (function (_super) {
     });
     return TOrientationEvent;
 }(TEvent));
+exports.TOrientationEvent = TOrientationEvent;
 ;
 /**
  * 滚轮事件。
@@ -13155,6 +13221,7 @@ var TWheelEvent = /** @class */ (function (_super) {
     });
     return TWheelEvent;
 }(TEvent));
+exports.TWheelEvent = TWheelEvent;
 ;
 /**
  * app_bar控件。
@@ -13218,6 +13285,7 @@ var TAppBar = /** @class */ (function (_super) {
     };
     return TAppBar;
 }(TWidget));
+exports.TAppBar = TAppBar;
 ;
 /**
  * Button Group控件。一个简单的容器控件，用于容纳一组按钮控件。
@@ -13279,6 +13347,7 @@ var TButtonGroup = /** @class */ (function (_super) {
     };
     return TButtonGroup;
 }(TWidget));
+exports.TButtonGroup = TButtonGroup;
 ;
 /**
  * 按钮控件。
@@ -13406,6 +13475,7 @@ var TButton = /** @class */ (function (_super) {
     });
     return TButton;
 }(TWidget));
+exports.TButton = TButton;
 ;
 /**
  * 勾选按钮控件(单选/多选)。
@@ -13523,6 +13593,7 @@ var TCheckButton = /** @class */ (function (_super) {
     });
     return TCheckButton;
 }(TWidget));
+exports.TCheckButton = TCheckButton;
 ;
 /**
  * 一个裁剪子控件的容器控件。
@@ -13583,6 +13654,7 @@ var TClipView = /** @class */ (function (_super) {
     };
     return TClipView;
 }(TWidget));
+exports.TClipView = TClipView;
 ;
 /**
  * 色块控件。
@@ -13673,6 +13745,7 @@ var TColorTile = /** @class */ (function (_super) {
     });
     return TColorTile;
 }(TWidget));
+exports.TColorTile = TColorTile;
 ;
 /**
  * column。一个简单的容器控件，垂直排列其子控件。
@@ -13734,6 +13807,7 @@ var TColumn = /** @class */ (function (_super) {
     };
     return TColumn;
 }(TWidget));
+exports.TColumn = TColumn;
 ;
 /**
  * ComboBox Item控件。
@@ -13820,6 +13894,7 @@ var TComboBoxItem = /** @class */ (function (_super) {
     });
     return TComboBoxItem;
 }(TWidget));
+exports.TComboBoxItem = TComboBoxItem;
 ;
 /**
  * 下拉列表控件。
@@ -14149,6 +14224,7 @@ var TComboBox = /** @class */ (function (_super) {
     });
     return TComboBox;
 }(TWidget));
+exports.TComboBox = TComboBox;
 ;
 /**
  * 对话框客户区控件。
@@ -14206,6 +14282,7 @@ var TDialogClient = /** @class */ (function (_super) {
     };
     return TDialogClient;
 }(TWidget));
+exports.TDialogClient = TDialogClient;
 ;
 /**
  * 对话框标题控件。
@@ -14263,6 +14340,7 @@ var TDialogTitle = /** @class */ (function (_super) {
     };
     return TDialogTitle;
 }(TWidget));
+exports.TDialogTitle = TDialogTitle;
 ;
 /**
  * 数字时钟控件。
@@ -14373,6 +14451,7 @@ var TDigitClock = /** @class */ (function (_super) {
     });
     return TDigitClock;
 }(TWidget));
+exports.TDigitClock = TDigitClock;
 ;
 /**
  * dragger控件。
@@ -14468,6 +14547,7 @@ var TDragger = /** @class */ (function (_super) {
     });
     return TDragger;
 }(TWidget));
+exports.TDragger = TDragger;
 ;
 /**
  * 单行编辑器控件。
@@ -14849,6 +14929,7 @@ var TEdit = /** @class */ (function (_super) {
     });
     return TEdit;
 }(TWidget));
+exports.TEdit = TEdit;
 ;
 /**
  * grid_item。一个简单的容器控件，一般作为grid的子控件。
@@ -14919,6 +15000,7 @@ var TGridItem = /** @class */ (function (_super) {
     };
     return TGridItem;
 }(TWidget));
+exports.TGridItem = TGridItem;
 ;
 /**
  * grid控件。一个简单的容器控件，用于网格排列一组控件。
@@ -14980,6 +15062,7 @@ var TGrid = /** @class */ (function (_super) {
     };
     return TGrid;
 }(TWidget));
+exports.TGrid = TGrid;
 ;
 /**
  * 分组控件。
@@ -15042,6 +15125,7 @@ var TGroupBox = /** @class */ (function (_super) {
     };
     return TGroupBox;
 }(TWidget));
+exports.TGroupBox = TGroupBox;
 ;
 /**
  * 文本控件。用于显示一行或多行文本。
@@ -15151,6 +15235,7 @@ var TLabel = /** @class */ (function (_super) {
     });
     return TLabel;
 }(TWidget));
+exports.TLabel = TLabel;
 ;
 /**
  * overlay窗口。
@@ -15221,6 +15306,7 @@ var TOverlay = /** @class */ (function (_super) {
     };
     return TOverlay;
 }(TWidget));
+exports.TOverlay = TOverlay;
 ;
 /**
  * 页面管理控件。
@@ -15313,6 +15399,7 @@ var TPages = /** @class */ (function (_super) {
     });
     return TPages;
 }(TWidget));
+exports.TPages = TPages;
 ;
 /**
  * 进度条控件。
@@ -15488,6 +15575,7 @@ var TProgressBar = /** @class */ (function (_super) {
     });
     return TProgressBar;
 }(TWidget));
+exports.TProgressBar = TProgressBar;
 ;
 /**
  * row。一个简单的容器控件，用于水平排列其子控件。
@@ -15549,6 +15637,7 @@ var TRow = /** @class */ (function (_super) {
     };
     return TRow;
 }(TWidget));
+exports.TRow = TRow;
 ;
 /**
  * 滑块控件。
@@ -15795,6 +15884,7 @@ var TSlider = /** @class */ (function (_super) {
     });
     return TSlider;
 }(TWidget));
+exports.TSlider = TSlider;
 ;
 /**
  * 标签按钮分组控件。
@@ -15909,6 +15999,7 @@ var TTabButtonGroup = /** @class */ (function (_super) {
     });
     return TTabButtonGroup;
 }(TWidget));
+exports.TTabButtonGroup = TTabButtonGroup;
 ;
 /**
  * 标签按钮控件。
@@ -16098,6 +16189,7 @@ var TTabButton = /** @class */ (function (_super) {
     });
     return TTabButton;
 }(TWidget));
+exports.TTabButton = TTabButton;
 ;
 /**
  * 标签控件。
@@ -16159,6 +16251,7 @@ var TTabControl = /** @class */ (function (_super) {
     };
     return TTabControl;
 }(TWidget));
+exports.TTabControl = TTabControl;
 ;
 /**
  * 一个通用的容器控件。
@@ -16216,6 +16309,7 @@ var TView = /** @class */ (function (_super) {
     };
     return TView;
 }(TWidget));
+exports.TView = TView;
 ;
 /**
  * 单个idle的信息。
@@ -16262,6 +16356,7 @@ var TIdleInfo = /** @class */ (function (_super) {
     });
     return TIdleInfo;
 }(TObject));
+exports.TIdleInfo = TIdleInfo;
 ;
 /**
  * mutable图片控件。
@@ -16302,6 +16397,7 @@ var TMutableImage = /** @class */ (function (_super) {
     }
     return TMutableImage;
 }(TImageBase));
+exports.TMutableImage = TMutableImage;
 ;
 /**
  * 简单的动态数组，内部存放value对象。
@@ -16357,6 +16453,7 @@ var TObjectArray = /** @class */ (function (_super) {
     });
     return TObjectArray;
 }(TObject));
+exports.TObjectArray = TObjectArray;
 ;
 /**
  * GIF图片控件。
@@ -16431,6 +16528,7 @@ var TGifImage = /** @class */ (function (_super) {
     };
     return TGifImage;
 }(TImageBase));
+exports.TGifImage = TGifImage;
 ;
 /**
  * 对象接口的缺省实现。
@@ -16483,6 +16581,7 @@ var TObjectDefault = /** @class */ (function (_super) {
     });
     return TObjectDefault;
 }(TObject));
+exports.TObjectDefault = TObjectDefault;
 ;
 /**
  * 图片控件。
@@ -16595,6 +16694,7 @@ var TImage = /** @class */ (function (_super) {
     });
     return TImage;
 }(TImageBase));
+exports.TImage = TImage;
 ;
 /**
  * 可滚动的combo_box控件。
@@ -16621,6 +16721,7 @@ var TComboBoxEx = /** @class */ (function (_super) {
     };
     return TComboBoxEx;
 }(TComboBox));
+exports.TComboBoxEx = TComboBoxEx;
 ;
 /**
  * 电阻屏校准窗口。
@@ -16661,6 +16762,7 @@ var TCalibrationWin = /** @class */ (function (_super) {
     };
     return TCalibrationWin;
 }(TWindowBase));
+exports.TCalibrationWin = TCalibrationWin;
 ;
 /**
  * 弹出窗口。
@@ -16786,6 +16888,7 @@ var TPopup = /** @class */ (function (_super) {
     });
     return TPopup;
 }(TWindowBase));
+exports.TPopup = TPopup;
 ;
 /**
  * SVG图片控件。
@@ -16866,6 +16969,7 @@ var TSvgImage = /** @class */ (function (_super) {
     };
     return TSvgImage;
 }(TImageBase));
+exports.TSvgImage = TSvgImage;
 ;
 /**
  * 单个定时器的信息。
@@ -16923,6 +17027,7 @@ var TTimerInfo = /** @class */ (function (_super) {
     });
     return TTimerInfo;
 }(TObject));
+exports.TTimerInfo = TTimerInfo;
 ;
 /**
  * spinbox控件。
@@ -17002,6 +17107,7 @@ var TSpinBox = /** @class */ (function (_super) {
     };
     return TSpinBox;
 }(TEdit));
+exports.TSpinBox = TSpinBox;
 ;
 /**
  * system\_bar窗口。
@@ -17083,6 +17189,7 @@ var TSystemBar = /** @class */ (function (_super) {
     };
     return TSystemBar;
 }(TWindowBase));
+exports.TSystemBar = TSystemBar;
 ;
 /**
  * 窗口。
@@ -17229,6 +17336,7 @@ var TWindow = /** @class */ (function (_super) {
     });
     return TWindow;
 }(TWindowBase));
+exports.TWindow = TWindow;
 ;
 /**
  * 软键盘。
@@ -17301,6 +17409,7 @@ var TKeyboard = /** @class */ (function (_super) {
     };
     return TKeyboard;
 }(TWindowBase));
+exports.TKeyboard = TKeyboard;
 ;
 /**
  * 对话框。 对话框是一种特殊的窗口，大小和位置可以自由设置。
@@ -17564,5 +17673,6 @@ var TDialog = /** @class */ (function (_super) {
     });
     return TDialog;
 }(TWindowBase));
+exports.TDialog = TDialog;
 ;
 //# sourceMappingURL=awtk.js.map

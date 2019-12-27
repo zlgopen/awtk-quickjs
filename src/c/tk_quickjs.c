@@ -317,7 +317,7 @@ jsvalue_t wrap_emitter_dispatch(JSContext* ctx, jsvalue_const_t this_val, int ar
                                 jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     emitter_t* emitter = (emitter_t*)jsvalue_get_pointer(ctx, argv[0], "emitter_t*");
     event_t* e = (event_t*)jsvalue_get_pointer(ctx, argv[1], "event_t*");
     ret = (ret_t)emitter_dispatch(emitter, e);
@@ -331,7 +331,7 @@ jsvalue_t wrap_emitter_dispatch_simple_event(JSContext* ctx, jsvalue_const_t thi
                                              jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     emitter_t* emitter = (emitter_t*)jsvalue_get_pointer(ctx, argv[0], "emitter_t*");
     event_type_t type = (event_type_t)jsvalue_get_number_value(ctx, argv[1]);
     ret = (ret_t)emitter_dispatch_simple_event(emitter, type);
@@ -345,7 +345,7 @@ jsvalue_t wrap_emitter_off(JSContext* ctx, jsvalue_const_t this_val, int argc,
                            jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     emitter_t* emitter = (emitter_t*)jsvalue_get_pointer(ctx, argv[0], "emitter_t*");
     uint32_t id = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)emitter_off(emitter, id);
@@ -359,7 +359,7 @@ jsvalue_t wrap_emitter_enable(JSContext* ctx, jsvalue_const_t this_val, int argc
                               jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     emitter_t* emitter = (emitter_t*)jsvalue_get_pointer(ctx, argv[0], "emitter_t*");
     ret = (ret_t)emitter_enable(emitter);
 
@@ -372,7 +372,7 @@ jsvalue_t wrap_emitter_disable(JSContext* ctx, jsvalue_const_t this_val, int arg
                                jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     emitter_t* emitter = (emitter_t*)jsvalue_get_pointer(ctx, argv[0], "emitter_t*");
     ret = (ret_t)emitter_disable(emitter);
 
@@ -385,7 +385,7 @@ jsvalue_t wrap_emitter_size(JSContext* ctx, jsvalue_const_t this_val, int argc,
                             jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    uint32_t ret = 0;
+    uint32_t ret = (uint32_t)0;
     emitter_t* emitter = (emitter_t*)jsvalue_get_pointer(ctx, argv[0], "emitter_t*");
     ret = (uint32_t)emitter_size(emitter);
 
@@ -466,7 +466,7 @@ jsvalue_t wrap_bitmap_get_bpp(JSContext* ctx, jsvalue_const_t this_val, int argc
                               jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    uint32_t ret = 0;
+    uint32_t ret = (uint32_t)0;
     bitmap_t* bitmap = (bitmap_t*)jsvalue_get_pointer(ctx, argv[0], "bitmap_t*");
     ret = (uint32_t)bitmap_get_bpp(bitmap);
 
@@ -576,7 +576,7 @@ jsvalue_t wrap_value_bool(JSContext* ctx, jsvalue_const_t this_val, int argc,
                           jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    bool_t ret = 0;
+    bool_t ret = (bool_t)0;
     value_t* v = (value_t*)jsvalue_get_pointer(ctx, argv[0], "value_t*");
     ret = (bool_t)value_bool(v);
 
@@ -603,7 +603,7 @@ jsvalue_t wrap_value_int8(JSContext* ctx, jsvalue_const_t this_val, int argc,
                           jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    int8_t ret = 0;
+    int8_t ret = (int8_t)0;
     value_t* v = (value_t*)jsvalue_get_pointer(ctx, argv[0], "value_t*");
     ret = (int8_t)value_int8(v);
 
@@ -630,7 +630,7 @@ jsvalue_t wrap_value_uint8(JSContext* ctx, jsvalue_const_t this_val, int argc,
                            jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    int8_t ret = 0;
+    int8_t ret = (int8_t)0;
     value_t* v = (value_t*)jsvalue_get_pointer(ctx, argv[0], "value_t*");
     ret = (int8_t)value_uint8(v);
 
@@ -657,7 +657,7 @@ jsvalue_t wrap_value_int16(JSContext* ctx, jsvalue_const_t this_val, int argc,
                            jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    int16_t ret = 0;
+    int16_t ret = (int16_t)0;
     value_t* v = (value_t*)jsvalue_get_pointer(ctx, argv[0], "value_t*");
     ret = (int16_t)value_int16(v);
 
@@ -684,7 +684,7 @@ jsvalue_t wrap_value_uint16(JSContext* ctx, jsvalue_const_t this_val, int argc,
                             jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    uint16_t ret = 0;
+    uint16_t ret = (uint16_t)0;
     value_t* v = (value_t*)jsvalue_get_pointer(ctx, argv[0], "value_t*");
     ret = (uint16_t)value_uint16(v);
 
@@ -711,7 +711,7 @@ jsvalue_t wrap_value_int32(JSContext* ctx, jsvalue_const_t this_val, int argc,
                            jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    int32_t ret = 0;
+    int32_t ret = (int32_t)0;
     value_t* v = (value_t*)jsvalue_get_pointer(ctx, argv[0], "value_t*");
     ret = (int32_t)value_int32(v);
 
@@ -752,7 +752,7 @@ jsvalue_t wrap_value_int64(JSContext* ctx, jsvalue_const_t this_val, int argc,
                            jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    int64_t ret = 0;
+    int64_t ret = (int64_t)0;
     value_t* v = (value_t*)jsvalue_get_pointer(ctx, argv[0], "value_t*");
     ret = (int64_t)value_int64(v);
 
@@ -779,7 +779,7 @@ jsvalue_t wrap_value_uint64(JSContext* ctx, jsvalue_const_t this_val, int argc,
                             jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    uint64_t ret = 0;
+    uint64_t ret = (uint64_t)0;
     value_t* v = (value_t*)jsvalue_get_pointer(ctx, argv[0], "value_t*");
     ret = (uint64_t)value_uint64(v);
 
@@ -806,7 +806,7 @@ jsvalue_t wrap_value_float32(JSContext* ctx, jsvalue_const_t this_val, int argc,
                              jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    float ret = 0;
+    float ret = (float)0;
     value_t* v = (value_t*)jsvalue_get_pointer(ctx, argv[0], "value_t*");
     ret = (float)value_float32(v);
 
@@ -833,7 +833,7 @@ jsvalue_t wrap_value_double(JSContext* ctx, jsvalue_const_t this_val, int argc,
                             jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    double ret = 0;
+    double ret = (double)0;
     value_t* v = (value_t*)jsvalue_get_pointer(ctx, argv[0], "value_t*");
     ret = (double)value_double(v);
 
@@ -874,7 +874,7 @@ jsvalue_t wrap_value_is_null(JSContext* ctx, jsvalue_const_t this_val, int argc,
                              jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    bool_t ret = 0;
+    bool_t ret = (bool_t)0;
     value_t* value = (value_t*)jsvalue_get_pointer(ctx, argv[0], "value_t*");
     ret = (bool_t)value_is_null(value);
 
@@ -942,7 +942,7 @@ jsvalue_t wrap_value_token(JSContext* ctx, jsvalue_const_t this_val, int argc,
                            jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    uint32_t ret = 0;
+    uint32_t ret = (uint32_t)0;
     value_t* v = (value_t*)jsvalue_get_pointer(ctx, argv[0], "value_t*");
     ret = (uint32_t)value_token(v);
 
@@ -967,7 +967,7 @@ jsvalue_t wrap_value_reset(JSContext* ctx, jsvalue_const_t this_val, int argc,
                            jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     value_t* v = (value_t*)jsvalue_get_pointer(ctx, argv[0], "value_t*");
     ret = (ret_t)value_reset(v);
 
@@ -1104,7 +1104,7 @@ jsvalue_t wrap_object_get_size(JSContext* ctx, jsvalue_const_t this_val, int arg
                                jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    uint32_t ret = 0;
+    uint32_t ret = (uint32_t)0;
     object_t* obj = (object_t*)jsvalue_get_pointer(ctx, argv[0], "object_t*");
     ret = (uint32_t)object_get_size(obj);
 
@@ -1117,7 +1117,7 @@ jsvalue_t wrap_object_is_collection(JSContext* ctx, jsvalue_const_t this_val, in
                                     jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    bool_t ret = 0;
+    bool_t ret = (bool_t)0;
     object_t* obj = (object_t*)jsvalue_get_pointer(ctx, argv[0], "object_t*");
     ret = (bool_t)object_is_collection(obj);
 
@@ -1130,7 +1130,7 @@ jsvalue_t wrap_object_set_name(JSContext* ctx, jsvalue_const_t this_val, int arg
                                jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     object_t* obj = (object_t*)jsvalue_get_pointer(ctx, argv[0], "object_t*");
     const char* name = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)object_set_name(obj, name);
@@ -1145,7 +1145,7 @@ jsvalue_t wrap_object_compare(JSContext* ctx, jsvalue_const_t this_val, int argc
                               jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    int ret = 0;
+    int ret = (int)0;
     object_t* obj = (object_t*)jsvalue_get_pointer(ctx, argv[0], "object_t*");
     object_t* other = (object_t*)jsvalue_get_pointer(ctx, argv[1], "object_t*");
     ret = (int)object_compare(obj, other);
@@ -1159,7 +1159,7 @@ jsvalue_t wrap_object_get_prop(JSContext* ctx, jsvalue_const_t this_val, int arg
                                jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     object_t* obj = (object_t*)jsvalue_get_pointer(ctx, argv[0], "object_t*");
     const char* name = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     value_t* v = (value_t*)jsvalue_get_pointer(ctx, argv[2], "value_t*");
@@ -1220,7 +1220,7 @@ jsvalue_t wrap_object_get_prop_int(JSContext* ctx, jsvalue_const_t this_val, int
                                    jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    int32_t ret = 0;
+    int32_t ret = (int32_t)0;
     object_t* obj = (object_t*)jsvalue_get_pointer(ctx, argv[0], "object_t*");
     const char* name = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     int32_t defval = (int32_t)jsvalue_get_int_value(ctx, argv[2]);
@@ -1236,7 +1236,7 @@ jsvalue_t wrap_object_get_prop_bool(JSContext* ctx, jsvalue_const_t this_val, in
                                     jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    bool_t ret = 0;
+    bool_t ret = (bool_t)0;
     object_t* obj = (object_t*)jsvalue_get_pointer(ctx, argv[0], "object_t*");
     const char* name = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     bool_t defval = (bool_t)jsvalue_get_boolean_value(ctx, argv[2]);
@@ -1252,7 +1252,7 @@ jsvalue_t wrap_object_get_prop_float(JSContext* ctx, jsvalue_const_t this_val, i
                                      jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    float_t ret = 0;
+    float_t ret = (float_t)0;
     object_t* obj = (object_t*)jsvalue_get_pointer(ctx, argv[0], "object_t*");
     const char* name = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     float_t defval = (float_t)jsvalue_get_number_value(ctx, argv[2]);
@@ -1268,7 +1268,7 @@ jsvalue_t wrap_object_remove_prop(JSContext* ctx, jsvalue_const_t this_val, int 
                                   jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     object_t* obj = (object_t*)jsvalue_get_pointer(ctx, argv[0], "object_t*");
     const char* name = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)object_remove_prop(obj, name);
@@ -1283,7 +1283,7 @@ jsvalue_t wrap_object_set_prop(JSContext* ctx, jsvalue_const_t this_val, int arg
                                jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     object_t* obj = (object_t*)jsvalue_get_pointer(ctx, argv[0], "object_t*");
     const char* name = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     value_t* value = (value_t*)jsvalue_get_pointer(ctx, argv[2], "value_t*");
@@ -1299,7 +1299,7 @@ jsvalue_t wrap_object_set_prop_str(JSContext* ctx, jsvalue_const_t this_val, int
                                    jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     object_t* obj = (object_t*)jsvalue_get_pointer(ctx, argv[0], "object_t*");
     const char* name = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     const char* value = (const char*)jsvalue_get_utf8_string(ctx, argv[2]);
@@ -1316,7 +1316,7 @@ jsvalue_t wrap_object_set_prop_object(JSContext* ctx, jsvalue_const_t this_val, 
                                       jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     object_t* obj = (object_t*)jsvalue_get_pointer(ctx, argv[0], "object_t*");
     const char* name = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     object_t* value = (object_t*)jsvalue_get_pointer(ctx, argv[2], "object_t*");
@@ -1332,7 +1332,7 @@ jsvalue_t wrap_object_set_prop_int(JSContext* ctx, jsvalue_const_t this_val, int
                                    jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     object_t* obj = (object_t*)jsvalue_get_pointer(ctx, argv[0], "object_t*");
     const char* name = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     int32_t value = (int32_t)jsvalue_get_int_value(ctx, argv[2]);
@@ -1348,7 +1348,7 @@ jsvalue_t wrap_object_set_prop_bool(JSContext* ctx, jsvalue_const_t this_val, in
                                     jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     object_t* obj = (object_t*)jsvalue_get_pointer(ctx, argv[0], "object_t*");
     const char* name = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     bool_t value = (bool_t)jsvalue_get_boolean_value(ctx, argv[2]);
@@ -1364,7 +1364,7 @@ jsvalue_t wrap_object_set_prop_float(JSContext* ctx, jsvalue_const_t this_val, i
                                      jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     object_t* obj = (object_t*)jsvalue_get_pointer(ctx, argv[0], "object_t*");
     const char* name = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     float_t value = (float_t)jsvalue_get_number_value(ctx, argv[2]);
@@ -1380,7 +1380,7 @@ jsvalue_t wrap_object_copy_prop(JSContext* ctx, jsvalue_const_t this_val, int ar
                                 jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     object_t* obj = (object_t*)jsvalue_get_pointer(ctx, argv[0], "object_t*");
     object_t* src = (object_t*)jsvalue_get_pointer(ctx, argv[1], "object_t*");
     const char* name = (const char*)jsvalue_get_utf8_string(ctx, argv[2]);
@@ -1396,7 +1396,7 @@ jsvalue_t wrap_object_has_prop(JSContext* ctx, jsvalue_const_t this_val, int arg
                                jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    bool_t ret = 0;
+    bool_t ret = (bool_t)0;
     object_t* obj = (object_t*)jsvalue_get_pointer(ctx, argv[0], "object_t*");
     const char* name = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (bool_t)object_has_prop(obj, name);
@@ -1411,7 +1411,7 @@ jsvalue_t wrap_object_eval(JSContext* ctx, jsvalue_const_t this_val, int argc,
                            jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     object_t* obj = (object_t*)jsvalue_get_pointer(ctx, argv[0], "object_t*");
     const char* expr = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     value_t* v = (value_t*)jsvalue_get_pointer(ctx, argv[2], "value_t*");
@@ -1427,7 +1427,7 @@ jsvalue_t wrap_object_can_exec(JSContext* ctx, jsvalue_const_t this_val, int arg
                                jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    bool_t ret = 0;
+    bool_t ret = (bool_t)0;
     object_t* obj = (object_t*)jsvalue_get_pointer(ctx, argv[0], "object_t*");
     const char* name = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     const char* args = (const char*)jsvalue_get_utf8_string(ctx, argv[2]);
@@ -1444,7 +1444,7 @@ jsvalue_t wrap_object_exec(JSContext* ctx, jsvalue_const_t this_val, int argc,
                            jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     object_t* obj = (object_t*)jsvalue_get_pointer(ctx, argv[0], "object_t*");
     const char* name = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     const char* args = (const char*)jsvalue_get_utf8_string(ctx, argv[2]);
@@ -1461,7 +1461,7 @@ jsvalue_t wrap_object_notify_changed(JSContext* ctx, jsvalue_const_t this_val, i
                                      jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     object_t* obj = (object_t*)jsvalue_get_pointer(ctx, argv[0], "object_t*");
     ret = (ret_t)object_notify_changed(obj);
 
@@ -1519,7 +1519,7 @@ jsvalue_t wrap_object_get_prop_int_by_path(JSContext* ctx, jsvalue_const_t this_
                                            jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    int32_t ret = 0;
+    int32_t ret = (int32_t)0;
     object_t* obj = (object_t*)jsvalue_get_pointer(ctx, argv[0], "object_t*");
     const char* path = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     int32_t defval = (int32_t)jsvalue_get_int_value(ctx, argv[2]);
@@ -1535,7 +1535,7 @@ jsvalue_t wrap_object_get_prop_bool_by_path(JSContext* ctx, jsvalue_const_t this
                                             jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    bool_t ret = 0;
+    bool_t ret = (bool_t)0;
     object_t* obj = (object_t*)jsvalue_get_pointer(ctx, argv[0], "object_t*");
     const char* path = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     bool_t defval = (bool_t)jsvalue_get_boolean_value(ctx, argv[2]);
@@ -1551,7 +1551,7 @@ jsvalue_t wrap_object_get_prop_float_by_path(JSContext* ctx, jsvalue_const_t thi
                                              jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    float_t ret = 0;
+    float_t ret = (float_t)0;
     object_t* obj = (object_t*)jsvalue_get_pointer(ctx, argv[0], "object_t*");
     const char* path = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     float_t defval = (float_t)jsvalue_get_number_value(ctx, argv[2]);
@@ -1670,7 +1670,7 @@ ret_t object_t_init(JSContext* ctx) {
 jsvalue_t wrap_tk_init(JSContext* ctx, jsvalue_const_t this_val, int argc, jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 5) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     wh_t w = (wh_t)jsvalue_get_int_value(ctx, argv[0]);
     wh_t h = (wh_t)jsvalue_get_int_value(ctx, argv[1]);
     app_type_t app_type = (app_type_t)jsvalue_get_number_value(ctx, argv[2]);
@@ -1688,7 +1688,7 @@ jsvalue_t wrap_tk_init(JSContext* ctx, jsvalue_const_t this_val, int argc, jsval
 jsvalue_t wrap_tk_run(JSContext* ctx, jsvalue_const_t this_val, int argc, jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 0) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     ret = (ret_t)tk_run();
 
     jret = jsvalue_create_int(ctx, ret);
@@ -1699,7 +1699,7 @@ jsvalue_t wrap_tk_run(JSContext* ctx, jsvalue_const_t this_val, int argc, jsvalu
 jsvalue_t wrap_tk_quit(JSContext* ctx, jsvalue_const_t this_val, int argc, jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 0) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     ret = (ret_t)tk_quit();
 
     jret = jsvalue_create_int(ctx, ret);
@@ -1711,7 +1711,7 @@ jsvalue_t wrap_tk_get_pointer_x(JSContext* ctx, jsvalue_const_t this_val, int ar
                                 jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 0) {
-    int32_t ret = 0;
+    int32_t ret = (int32_t)0;
     ret = (int32_t)tk_get_pointer_x();
 
     jret = jsvalue_create_int(ctx, ret);
@@ -1723,7 +1723,7 @@ jsvalue_t wrap_tk_get_pointer_y(JSContext* ctx, jsvalue_const_t this_val, int ar
                                 jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 0) {
-    int32_t ret = 0;
+    int32_t ret = (int32_t)0;
     ret = (int32_t)tk_get_pointer_y();
 
     jret = jsvalue_create_int(ctx, ret);
@@ -1735,7 +1735,7 @@ jsvalue_t wrap_tk_is_pointer_pressed(JSContext* ctx, jsvalue_const_t this_val, i
                                      jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 0) {
-    bool_t ret = 0;
+    bool_t ret = (bool_t)0;
     ret = (bool_t)tk_is_pointer_pressed();
 
     jret = jsvalue_create_bool(ctx, ret);
@@ -2354,7 +2354,7 @@ jsvalue_t wrap_font_manager_unload_font(JSContext* ctx, jsvalue_const_t this_val
                                         jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     font_manager_t* fm = (font_manager_t*)jsvalue_get_pointer(ctx, argv[0], "font_manager_t*");
     char* name = (char*)jsvalue_get_utf8_string(ctx, argv[1]);
     font_size_t size = (font_size_t)jsvalue_get_number_value(ctx, argv[2]);
@@ -2370,7 +2370,7 @@ jsvalue_t wrap_font_manager_unload_all(JSContext* ctx, jsvalue_const_t this_val,
                                        jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     font_manager_t* fm = (font_manager_t*)jsvalue_get_pointer(ctx, argv[0], "font_manager_t*");
     ret = (ret_t)font_manager_unload_all(fm);
 
@@ -2426,7 +2426,7 @@ jsvalue_t wrap_idle_remove(JSContext* ctx, jsvalue_const_t this_val, int argc,
                            jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     uint32_t idle_id = (uint32_t)jsvalue_get_int_value(ctx, argv[0]);
     ret = (ret_t)idle_remove(idle_id);
 
@@ -2463,7 +2463,7 @@ jsvalue_t wrap_image_manager_get_bitmap(JSContext* ctx, jsvalue_const_t this_val
                                         jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     image_manager_t* imm = (image_manager_t*)jsvalue_get_pointer(ctx, argv[0], "image_manager_t*");
     char* name = (char*)jsvalue_get_utf8_string(ctx, argv[1]);
     bitmap_t* image = (bitmap_t*)jsvalue_get_pointer(ctx, argv[2], "bitmap_t*");
@@ -2731,7 +2731,7 @@ jsvalue_t wrap_input_method_commit_text(JSContext* ctx, jsvalue_const_t this_val
                                         jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     input_method_t* im = (input_method_t*)jsvalue_get_pointer(ctx, argv[0], "input_method_t*");
     char* text = (char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)input_method_commit_text(im, text);
@@ -2746,7 +2746,7 @@ jsvalue_t wrap_input_method_dispatch_key(JSContext* ctx, jsvalue_const_t this_va
                                          jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     input_method_t* im = (input_method_t*)jsvalue_get_pointer(ctx, argv[0], "input_method_t*");
     uint32_t key = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)input_method_dispatch_key(im, key);
@@ -3606,7 +3606,7 @@ jsvalue_t wrap_locale_info_change(JSContext* ctx, jsvalue_const_t this_val, int 
                                   jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     locale_info_t* locale_info =
         (locale_info_t*)jsvalue_get_pointer(ctx, argv[0], "locale_info_t*");
     char* language = (char*)jsvalue_get_utf8_string(ctx, argv[1]);
@@ -3624,7 +3624,7 @@ jsvalue_t wrap_locale_info_off(JSContext* ctx, jsvalue_const_t this_val, int arg
                                jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     locale_info_t* locale_info =
         (locale_info_t*)jsvalue_get_pointer(ctx, argv[0], "locale_info_t*");
     uint32_t id = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
@@ -3908,7 +3908,7 @@ jsvalue_t wrap_style_notify_widget_state_changed(JSContext* ctx, jsvalue_const_t
                                                  jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     style_t* s = (style_t*)jsvalue_get_pointer(ctx, argv[0], "style_t*");
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[1], "widget_t*");
     ret = (ret_t)style_notify_widget_state_changed(s, widget);
@@ -3922,7 +3922,7 @@ jsvalue_t wrap_style_is_valid(JSContext* ctx, jsvalue_const_t this_val, int argc
                               jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    bool_t ret = 0;
+    bool_t ret = (bool_t)0;
     style_t* s = (style_t*)jsvalue_get_pointer(ctx, argv[0], "style_t*");
     ret = (bool_t)style_is_valid(s);
 
@@ -3935,7 +3935,7 @@ jsvalue_t wrap_style_get_int(JSContext* ctx, jsvalue_const_t this_val, int argc,
                              jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    int32_t ret = 0;
+    int32_t ret = (int32_t)0;
     style_t* s = (style_t*)jsvalue_get_pointer(ctx, argv[0], "style_t*");
     const char* name = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     int32_t defval = (int32_t)jsvalue_get_int_value(ctx, argv[2]);
@@ -3968,7 +3968,7 @@ jsvalue_t wrap_style_set(JSContext* ctx, jsvalue_const_t this_val, int argc,
                          jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 4) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     style_t* s = (style_t*)jsvalue_get_pointer(ctx, argv[0], "style_t*");
     const char* state = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     const char* name = (const char*)jsvalue_get_utf8_string(ctx, argv[2]);
@@ -3986,7 +3986,7 @@ jsvalue_t wrap_style_is_mutable(JSContext* ctx, jsvalue_const_t this_val, int ar
                                 jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    bool_t ret = 0;
+    bool_t ret = (bool_t)0;
     style_t* s = (style_t*)jsvalue_get_pointer(ctx, argv[0], "style_t*");
     ret = (bool_t)style_is_mutable(s);
 
@@ -4040,7 +4040,7 @@ jsvalue_t wrap_timer_remove(JSContext* ctx, jsvalue_const_t this_val, int argc,
                             jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     uint32_t timer_id = (uint32_t)jsvalue_get_int_value(ctx, argv[0]);
     ret = (ret_t)timer_remove(timer_id);
 
@@ -4053,7 +4053,7 @@ jsvalue_t wrap_timer_reset(JSContext* ctx, jsvalue_const_t this_val, int argc,
                            jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     uint32_t timer_id = (uint32_t)jsvalue_get_int_value(ctx, argv[0]);
     ret = (ret_t)timer_reset(timer_id);
 
@@ -4066,7 +4066,7 @@ jsvalue_t wrap_timer_modify(JSContext* ctx, jsvalue_const_t this_val, int argc,
                             jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     uint32_t timer_id = (uint32_t)jsvalue_get_int_value(ctx, argv[0]);
     uint32_t duration = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)timer_modify(timer_id, duration);
@@ -4346,7 +4346,7 @@ jsvalue_t wrap_vgcanvas_flush(JSContext* ctx, jsvalue_const_t this_val, int argc
                               jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
     ret = (ret_t)vgcanvas_flush(vg);
 
@@ -4359,7 +4359,7 @@ jsvalue_t wrap_vgcanvas_begin_path(JSContext* ctx, jsvalue_const_t this_val, int
                                    jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
     ret = (ret_t)vgcanvas_begin_path(vg);
 
@@ -4372,7 +4372,7 @@ jsvalue_t wrap_vgcanvas_move_to(JSContext* ctx, jsvalue_const_t this_val, int ar
                                 jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
     float_t x = (float_t)jsvalue_get_number_value(ctx, argv[1]);
     float_t y = (float_t)jsvalue_get_number_value(ctx, argv[2]);
@@ -4387,7 +4387,7 @@ jsvalue_t wrap_vgcanvas_line_to(JSContext* ctx, jsvalue_const_t this_val, int ar
                                 jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
     float_t x = (float_t)jsvalue_get_number_value(ctx, argv[1]);
     float_t y = (float_t)jsvalue_get_number_value(ctx, argv[2]);
@@ -4402,7 +4402,7 @@ jsvalue_t wrap_vgcanvas_quad_to(JSContext* ctx, jsvalue_const_t this_val, int ar
                                 jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 5) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
     float_t cpx = (float_t)jsvalue_get_number_value(ctx, argv[1]);
     float_t cpy = (float_t)jsvalue_get_number_value(ctx, argv[2]);
@@ -4419,7 +4419,7 @@ jsvalue_t wrap_vgcanvas_bezier_to(JSContext* ctx, jsvalue_const_t this_val, int 
                                   jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 7) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
     float_t cp1x = (float_t)jsvalue_get_number_value(ctx, argv[1]);
     float_t cp1y = (float_t)jsvalue_get_number_value(ctx, argv[2]);
@@ -4438,7 +4438,7 @@ jsvalue_t wrap_vgcanvas_arc_to(JSContext* ctx, jsvalue_const_t this_val, int arg
                                jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 6) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
     float_t x1 = (float_t)jsvalue_get_number_value(ctx, argv[1]);
     float_t y1 = (float_t)jsvalue_get_number_value(ctx, argv[2]);
@@ -4456,7 +4456,7 @@ jsvalue_t wrap_vgcanvas_arc(JSContext* ctx, jsvalue_const_t this_val, int argc,
                             jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 7) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
     float_t x = (float_t)jsvalue_get_number_value(ctx, argv[1]);
     float_t y = (float_t)jsvalue_get_number_value(ctx, argv[2]);
@@ -4475,7 +4475,7 @@ jsvalue_t wrap_vgcanvas_is_point_in_path(JSContext* ctx, jsvalue_const_t this_va
                                          jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    bool_t ret = 0;
+    bool_t ret = (bool_t)0;
     vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
     float_t x = (float_t)jsvalue_get_number_value(ctx, argv[1]);
     float_t y = (float_t)jsvalue_get_number_value(ctx, argv[2]);
@@ -4490,7 +4490,7 @@ jsvalue_t wrap_vgcanvas_rect(JSContext* ctx, jsvalue_const_t this_val, int argc,
                              jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 5) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
     float_t x = (float_t)jsvalue_get_number_value(ctx, argv[1]);
     float_t y = (float_t)jsvalue_get_number_value(ctx, argv[2]);
@@ -4507,7 +4507,7 @@ jsvalue_t wrap_vgcanvas_rounded_rect(JSContext* ctx, jsvalue_const_t this_val, i
                                      jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 6) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
     float_t x = (float_t)jsvalue_get_number_value(ctx, argv[1]);
     float_t y = (float_t)jsvalue_get_number_value(ctx, argv[2]);
@@ -4525,7 +4525,7 @@ jsvalue_t wrap_vgcanvas_ellipse(JSContext* ctx, jsvalue_const_t this_val, int ar
                                 jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 5) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
     float_t x = (float_t)jsvalue_get_number_value(ctx, argv[1]);
     float_t y = (float_t)jsvalue_get_number_value(ctx, argv[2]);
@@ -4542,7 +4542,7 @@ jsvalue_t wrap_vgcanvas_close_path(JSContext* ctx, jsvalue_const_t this_val, int
                                    jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
     ret = (ret_t)vgcanvas_close_path(vg);
 
@@ -4555,7 +4555,7 @@ jsvalue_t wrap_vgcanvas_path_winding(JSContext* ctx, jsvalue_const_t this_val, i
                                      jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
     bool_t dir = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)vgcanvas_path_winding(vg, dir);
@@ -4569,7 +4569,7 @@ jsvalue_t wrap_vgcanvas_rotate(JSContext* ctx, jsvalue_const_t this_val, int arg
                                jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
     float_t rad = (float_t)jsvalue_get_number_value(ctx, argv[1]);
     ret = (ret_t)vgcanvas_rotate(vg, rad);
@@ -4583,7 +4583,7 @@ jsvalue_t wrap_vgcanvas_scale(JSContext* ctx, jsvalue_const_t this_val, int argc
                               jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
     float_t x = (float_t)jsvalue_get_number_value(ctx, argv[1]);
     float_t y = (float_t)jsvalue_get_number_value(ctx, argv[2]);
@@ -4598,7 +4598,7 @@ jsvalue_t wrap_vgcanvas_translate(JSContext* ctx, jsvalue_const_t this_val, int 
                                   jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
     float_t x = (float_t)jsvalue_get_number_value(ctx, argv[1]);
     float_t y = (float_t)jsvalue_get_number_value(ctx, argv[2]);
@@ -4613,7 +4613,7 @@ jsvalue_t wrap_vgcanvas_transform(JSContext* ctx, jsvalue_const_t this_val, int 
                                   jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 7) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
     float_t a = (float_t)jsvalue_get_number_value(ctx, argv[1]);
     float_t b = (float_t)jsvalue_get_number_value(ctx, argv[2]);
@@ -4632,7 +4632,7 @@ jsvalue_t wrap_vgcanvas_set_transform(JSContext* ctx, jsvalue_const_t this_val, 
                                       jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 7) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
     float_t a = (float_t)jsvalue_get_number_value(ctx, argv[1]);
     float_t b = (float_t)jsvalue_get_number_value(ctx, argv[2]);
@@ -4651,7 +4651,7 @@ jsvalue_t wrap_vgcanvas_clip_rect(JSContext* ctx, jsvalue_const_t this_val, int 
                                   jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 5) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
     float_t x = (float_t)jsvalue_get_number_value(ctx, argv[1]);
     float_t y = (float_t)jsvalue_get_number_value(ctx, argv[2]);
@@ -4668,7 +4668,7 @@ jsvalue_t wrap_vgcanvas_fill(JSContext* ctx, jsvalue_const_t this_val, int argc,
                              jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
     ret = (ret_t)vgcanvas_fill(vg);
 
@@ -4681,7 +4681,7 @@ jsvalue_t wrap_vgcanvas_stroke(JSContext* ctx, jsvalue_const_t this_val, int arg
                                jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
     ret = (ret_t)vgcanvas_stroke(vg);
 
@@ -4694,7 +4694,7 @@ jsvalue_t wrap_vgcanvas_paint(JSContext* ctx, jsvalue_const_t this_val, int argc
                               jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
     bool_t stroke = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     bitmap_t* img = (bitmap_t*)jsvalue_get_pointer(ctx, argv[2], "bitmap_t*");
@@ -4709,7 +4709,7 @@ jsvalue_t wrap_vgcanvas_set_font(JSContext* ctx, jsvalue_const_t this_val, int a
                                  jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
     char* font = (char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)vgcanvas_set_font(vg, font);
@@ -4724,7 +4724,7 @@ jsvalue_t wrap_vgcanvas_set_font_size(JSContext* ctx, jsvalue_const_t this_val, 
                                       jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
     float_t font = (float_t)jsvalue_get_number_value(ctx, argv[1]);
     ret = (ret_t)vgcanvas_set_font_size(vg, font);
@@ -4738,7 +4738,7 @@ jsvalue_t wrap_vgcanvas_set_text_align(JSContext* ctx, jsvalue_const_t this_val,
                                        jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
     char* value = (char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)vgcanvas_set_text_align(vg, value);
@@ -4753,7 +4753,7 @@ jsvalue_t wrap_vgcanvas_set_text_baseline(JSContext* ctx, jsvalue_const_t this_v
                                           jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
     char* value = (char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)vgcanvas_set_text_baseline(vg, value);
@@ -4768,7 +4768,7 @@ jsvalue_t wrap_vgcanvas_fill_text(JSContext* ctx, jsvalue_const_t this_val, int 
                                   jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 5) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
     char* text = (char*)jsvalue_get_utf8_string(ctx, argv[1]);
     float_t x = (float_t)jsvalue_get_number_value(ctx, argv[2]);
@@ -4786,7 +4786,7 @@ jsvalue_t wrap_vgcanvas_measure_text(JSContext* ctx, jsvalue_const_t this_val, i
                                      jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    float_t ret = 0;
+    float_t ret = (float_t)0;
     vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
     char* text = (char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (float_t)vgcanvas_measure_text(vg, text);
@@ -4801,7 +4801,7 @@ jsvalue_t wrap_vgcanvas_draw_image(JSContext* ctx, jsvalue_const_t this_val, int
                                    jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 10) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
     bitmap_t* img = (bitmap_t*)jsvalue_get_pointer(ctx, argv[1], "bitmap_t*");
     float_t sx = (float_t)jsvalue_get_number_value(ctx, argv[2]);
@@ -4823,7 +4823,7 @@ jsvalue_t wrap_vgcanvas_draw_icon(JSContext* ctx, jsvalue_const_t this_val, int 
                                   jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 10) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
     bitmap_t* img = (bitmap_t*)jsvalue_get_pointer(ctx, argv[1], "bitmap_t*");
     float_t sx = (float_t)jsvalue_get_number_value(ctx, argv[2]);
@@ -4845,7 +4845,7 @@ jsvalue_t wrap_vgcanvas_set_antialias(JSContext* ctx, jsvalue_const_t this_val, 
                                       jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
     bool_t value = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)vgcanvas_set_antialias(vg, value);
@@ -4859,7 +4859,7 @@ jsvalue_t wrap_vgcanvas_set_global_alpha(JSContext* ctx, jsvalue_const_t this_va
                                          jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
     float_t alpha = (float_t)jsvalue_get_number_value(ctx, argv[1]);
     ret = (ret_t)vgcanvas_set_global_alpha(vg, alpha);
@@ -4873,7 +4873,7 @@ jsvalue_t wrap_vgcanvas_set_line_width(JSContext* ctx, jsvalue_const_t this_val,
                                        jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
     float_t value = (float_t)jsvalue_get_number_value(ctx, argv[1]);
     ret = (ret_t)vgcanvas_set_line_width(vg, value);
@@ -4887,7 +4887,7 @@ jsvalue_t wrap_vgcanvas_set_fill_color_str(JSContext* ctx, jsvalue_const_t this_
                                            jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
     const char* color = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)vgcanvas_set_fill_color_str(vg, color);
@@ -4902,7 +4902,7 @@ jsvalue_t wrap_vgcanvas_set_stroke_color_str(JSContext* ctx, jsvalue_const_t thi
                                              jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
     const char* color = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)vgcanvas_set_stroke_color_str(vg, color);
@@ -4917,7 +4917,7 @@ jsvalue_t wrap_vgcanvas_set_line_cap(JSContext* ctx, jsvalue_const_t this_val, i
                                      jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
     char* value = (char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)vgcanvas_set_line_cap(vg, value);
@@ -4932,7 +4932,7 @@ jsvalue_t wrap_vgcanvas_set_line_join(JSContext* ctx, jsvalue_const_t this_val, 
                                       jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
     char* value = (char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)vgcanvas_set_line_join(vg, value);
@@ -4947,7 +4947,7 @@ jsvalue_t wrap_vgcanvas_set_miter_limit(JSContext* ctx, jsvalue_const_t this_val
                                         jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
     float_t value = (float_t)jsvalue_get_number_value(ctx, argv[1]);
     ret = (ret_t)vgcanvas_set_miter_limit(vg, value);
@@ -4961,7 +4961,7 @@ jsvalue_t wrap_vgcanvas_save(JSContext* ctx, jsvalue_const_t this_val, int argc,
                              jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
     ret = (ret_t)vgcanvas_save(vg);
 
@@ -4974,7 +4974,7 @@ jsvalue_t wrap_vgcanvas_restore(JSContext* ctx, jsvalue_const_t this_val, int ar
                                 jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
     ret = (ret_t)vgcanvas_restore(vg);
 
@@ -6809,7 +6809,7 @@ jsvalue_t wrap_widget_count_children(JSContext* ctx, jsvalue_const_t this_val, i
                                      jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    int32_t ret = 0;
+    int32_t ret = (int32_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (int32_t)widget_count_children(widget);
 
@@ -6836,7 +6836,7 @@ jsvalue_t wrap_widget_index_of(JSContext* ctx, jsvalue_const_t this_val, int arg
                                jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    int32_t ret = 0;
+    int32_t ret = (int32_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (int32_t)widget_index_of(widget);
 
@@ -6849,7 +6849,7 @@ jsvalue_t wrap_widget_close_window(JSContext* ctx, jsvalue_const_t this_val, int
                                    jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (ret_t)widget_close_window(widget);
 
@@ -6862,7 +6862,7 @@ jsvalue_t wrap_widget_move(JSContext* ctx, jsvalue_const_t this_val, int argc,
                            jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     xy_t x = (xy_t)jsvalue_get_int_value(ctx, argv[1]);
     xy_t y = (xy_t)jsvalue_get_int_value(ctx, argv[2]);
@@ -6877,7 +6877,7 @@ jsvalue_t wrap_widget_resize(JSContext* ctx, jsvalue_const_t this_val, int argc,
                              jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     wh_t w = (wh_t)jsvalue_get_int_value(ctx, argv[1]);
     wh_t h = (wh_t)jsvalue_get_int_value(ctx, argv[2]);
@@ -6892,7 +6892,7 @@ jsvalue_t wrap_widget_move_resize(JSContext* ctx, jsvalue_const_t this_val, int 
                                   jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 5) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     xy_t x = (xy_t)jsvalue_get_int_value(ctx, argv[1]);
     xy_t y = (xy_t)jsvalue_get_int_value(ctx, argv[2]);
@@ -6909,7 +6909,7 @@ jsvalue_t wrap_widget_set_value(JSContext* ctx, jsvalue_const_t this_val, int ar
                                 jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t value = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)widget_set_value(widget, value);
@@ -6923,7 +6923,7 @@ jsvalue_t wrap_widget_animate_value_to(JSContext* ctx, jsvalue_const_t this_val,
                                        jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t value = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     uint32_t duration = (uint32_t)jsvalue_get_int_value(ctx, argv[2]);
@@ -6938,7 +6938,7 @@ jsvalue_t wrap_widget_add_value(JSContext* ctx, jsvalue_const_t this_val, int ar
                                 jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t delta = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)widget_add_value(widget, delta);
@@ -6952,7 +6952,7 @@ jsvalue_t wrap_widget_use_style(JSContext* ctx, jsvalue_const_t this_val, int ar
                                 jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     char* style = (char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)widget_use_style(widget, style);
@@ -6967,7 +6967,7 @@ jsvalue_t wrap_widget_set_text_utf8(JSContext* ctx, jsvalue_const_t this_val, in
                                     jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* text = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)widget_set_text_utf8(widget, text);
@@ -6982,7 +6982,7 @@ jsvalue_t wrap_widget_set_tr_text(JSContext* ctx, jsvalue_const_t this_val, int 
                                   jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     char* text = (char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)widget_set_tr_text(widget, text);
@@ -6997,7 +6997,7 @@ jsvalue_t wrap_widget_get_value(JSContext* ctx, jsvalue_const_t this_val, int ar
                                 jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    int32_t ret = 0;
+    int32_t ret = (int32_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (int32_t)widget_get_value(widget);
 
@@ -7023,7 +7023,7 @@ jsvalue_t wrap_widget_set_name(JSContext* ctx, jsvalue_const_t this_val, int arg
                                jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     char* name = (char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)widget_set_name(widget, name);
@@ -7038,7 +7038,7 @@ jsvalue_t wrap_widget_set_theme(JSContext* ctx, jsvalue_const_t this_val, int ar
                                 jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     char* name = (char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)widget_set_theme(widget, name);
@@ -7053,7 +7053,7 @@ jsvalue_t wrap_widget_set_pointer_cursor(JSContext* ctx, jsvalue_const_t this_va
                                          jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     char* cursor = (char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)widget_set_pointer_cursor(widget, cursor);
@@ -7068,7 +7068,7 @@ jsvalue_t wrap_widget_set_animation(JSContext* ctx, jsvalue_const_t this_val, in
                                     jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* animation = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)widget_set_animation(widget, animation);
@@ -7083,7 +7083,7 @@ jsvalue_t wrap_widget_create_animator(JSContext* ctx, jsvalue_const_t this_val, 
                                       jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* animation = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)widget_create_animator(widget, animation);
@@ -7098,7 +7098,7 @@ jsvalue_t wrap_widget_start_animator(JSContext* ctx, jsvalue_const_t this_val, i
                                      jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* name = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)widget_start_animator(widget, name);
@@ -7113,7 +7113,7 @@ jsvalue_t wrap_widget_set_animator_time_scale(JSContext* ctx, jsvalue_const_t th
                                               jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* name = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     float_t time_scale = (float_t)jsvalue_get_number_value(ctx, argv[2]);
@@ -7129,7 +7129,7 @@ jsvalue_t wrap_widget_pause_animator(JSContext* ctx, jsvalue_const_t this_val, i
                                      jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     char* name = (char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)widget_pause_animator(widget, name);
@@ -7144,7 +7144,7 @@ jsvalue_t wrap_widget_stop_animator(JSContext* ctx, jsvalue_const_t this_val, in
                                     jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     char* name = (char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)widget_stop_animator(widget, name);
@@ -7159,7 +7159,7 @@ jsvalue_t wrap_widget_destroy_animator(JSContext* ctx, jsvalue_const_t this_val,
                                        jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     char* name = (char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)widget_destroy_animator(widget, name);
@@ -7174,7 +7174,7 @@ jsvalue_t wrap_widget_set_enable(JSContext* ctx, jsvalue_const_t this_val, int a
                                  jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t enable = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)widget_set_enable(widget, enable);
@@ -7188,7 +7188,7 @@ jsvalue_t wrap_widget_set_feedback(JSContext* ctx, jsvalue_const_t this_val, int
                                    jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t feedback = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)widget_set_feedback(widget, feedback);
@@ -7202,7 +7202,7 @@ jsvalue_t wrap_widget_set_floating(JSContext* ctx, jsvalue_const_t this_val, int
                                    jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t floating = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)widget_set_floating(widget, floating);
@@ -7216,7 +7216,7 @@ jsvalue_t wrap_widget_set_focused(JSContext* ctx, jsvalue_const_t this_val, int 
                                   jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t focused = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)widget_set_focused(widget, focused);
@@ -7230,7 +7230,7 @@ jsvalue_t wrap_widget_set_focusable(JSContext* ctx, jsvalue_const_t this_val, in
                                     jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t focusable = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)widget_set_focusable(widget, focusable);
@@ -7244,7 +7244,7 @@ jsvalue_t wrap_widget_set_state(JSContext* ctx, jsvalue_const_t this_val, int ar
                                 jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* state = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)widget_set_state(widget, state);
@@ -7259,7 +7259,7 @@ jsvalue_t wrap_widget_set_opacity(JSContext* ctx, jsvalue_const_t this_val, int 
                                   jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     uint8_t opacity = (uint8_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)widget_set_opacity(widget, opacity);
@@ -7273,7 +7273,7 @@ jsvalue_t wrap_widget_destroy_children(JSContext* ctx, jsvalue_const_t this_val,
                                        jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (ret_t)widget_destroy_children(widget);
 
@@ -7286,7 +7286,7 @@ jsvalue_t wrap_widget_add_child(JSContext* ctx, jsvalue_const_t this_val, int ar
                                 jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     widget_t* child = (widget_t*)jsvalue_get_pointer(ctx, argv[1], "widget_t*");
     ret = (ret_t)widget_add_child(widget, child);
@@ -7300,7 +7300,7 @@ jsvalue_t wrap_widget_remove_child(JSContext* ctx, jsvalue_const_t this_val, int
                                    jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     widget_t* child = (widget_t*)jsvalue_get_pointer(ctx, argv[1], "widget_t*");
     ret = (ret_t)widget_remove_child(widget, child);
@@ -7314,7 +7314,7 @@ jsvalue_t wrap_widget_insert_child(JSContext* ctx, jsvalue_const_t this_val, int
                                    jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     uint32_t index = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
     widget_t* child = (widget_t*)jsvalue_get_pointer(ctx, argv[2], "widget_t*");
@@ -7329,7 +7329,7 @@ jsvalue_t wrap_widget_restack(JSContext* ctx, jsvalue_const_t this_val, int argc
                               jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     uint32_t index = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)widget_restack(widget, index);
@@ -7390,7 +7390,7 @@ jsvalue_t wrap_widget_set_visible(JSContext* ctx, jsvalue_const_t this_val, int 
                                   jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t visible = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     bool_t recursive = (bool_t)jsvalue_get_boolean_value(ctx, argv[2]);
@@ -7405,7 +7405,7 @@ jsvalue_t wrap_widget_set_visible_only(JSContext* ctx, jsvalue_const_t this_val,
                                        jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t visible = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)widget_set_visible_only(widget, visible);
@@ -7419,7 +7419,7 @@ jsvalue_t wrap_widget_set_sensitive(JSContext* ctx, jsvalue_const_t this_val, in
                                     jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t sensitive = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)widget_set_sensitive(widget, sensitive);
@@ -7433,7 +7433,7 @@ jsvalue_t wrap_widget_off(JSContext* ctx, jsvalue_const_t this_val, int argc,
                           jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t id = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)widget_off(widget, id);
@@ -7447,7 +7447,7 @@ jsvalue_t wrap_widget_invalidate_force(JSContext* ctx, jsvalue_const_t this_val,
                                        jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     rect_t* r = (rect_t*)jsvalue_get_pointer(ctx, argv[1], "rect_t*");
     ret = (ret_t)widget_invalidate_force(widget, r);
@@ -7461,7 +7461,7 @@ jsvalue_t wrap_widget_set_prop_str(JSContext* ctx, jsvalue_const_t this_val, int
                                    jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* name = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     const char* v = (const char*)jsvalue_get_utf8_string(ctx, argv[2]);
@@ -7495,7 +7495,7 @@ jsvalue_t wrap_widget_set_prop_int(JSContext* ctx, jsvalue_const_t this_val, int
                                    jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* name = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     int32_t v = (int32_t)jsvalue_get_int_value(ctx, argv[2]);
@@ -7511,7 +7511,7 @@ jsvalue_t wrap_widget_get_prop_int(JSContext* ctx, jsvalue_const_t this_val, int
                                    jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    int32_t ret = 0;
+    int32_t ret = (int32_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* name = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     int32_t defval = (int32_t)jsvalue_get_int_value(ctx, argv[2]);
@@ -7527,7 +7527,7 @@ jsvalue_t wrap_widget_set_prop_bool(JSContext* ctx, jsvalue_const_t this_val, in
                                     jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* name = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     bool_t v = (bool_t)jsvalue_get_boolean_value(ctx, argv[2]);
@@ -7543,7 +7543,7 @@ jsvalue_t wrap_widget_get_prop_bool(JSContext* ctx, jsvalue_const_t this_val, in
                                     jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    bool_t ret = 0;
+    bool_t ret = (bool_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* name = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     bool_t defval = (bool_t)jsvalue_get_boolean_value(ctx, argv[2]);
@@ -7559,7 +7559,7 @@ jsvalue_t wrap_widget_is_window_opened(JSContext* ctx, jsvalue_const_t this_val,
                                        jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    bool_t ret = 0;
+    bool_t ret = (bool_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (bool_t)widget_is_window_opened(widget);
 
@@ -7572,7 +7572,7 @@ jsvalue_t wrap_widget_is_window(JSContext* ctx, jsvalue_const_t this_val, int ar
                                 jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    bool_t ret = 0;
+    bool_t ret = (bool_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (bool_t)widget_is_window(widget);
 
@@ -7585,7 +7585,7 @@ jsvalue_t wrap_widget_is_designing_window(JSContext* ctx, jsvalue_const_t this_v
                                           jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    bool_t ret = 0;
+    bool_t ret = (bool_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (bool_t)widget_is_designing_window(widget);
 
@@ -7598,7 +7598,7 @@ jsvalue_t wrap_widget_is_window_manager(JSContext* ctx, jsvalue_const_t this_val
                                         jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    bool_t ret = 0;
+    bool_t ret = (bool_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (bool_t)widget_is_window_manager(widget);
 
@@ -7664,7 +7664,7 @@ jsvalue_t wrap_widget_equal(JSContext* ctx, jsvalue_const_t this_val, int argc,
                             jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    bool_t ret = 0;
+    bool_t ret = (bool_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     widget_t* other = (widget_t*)jsvalue_get_pointer(ctx, argv[1], "widget_t*");
     ret = (bool_t)widget_equal(widget, other);
@@ -7691,7 +7691,7 @@ jsvalue_t wrap_widget_destroy(JSContext* ctx, jsvalue_const_t this_val, int argc
                               jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (ret_t)widget_destroy(widget);
 
@@ -7704,7 +7704,7 @@ jsvalue_t wrap_widget_unref(JSContext* ctx, jsvalue_const_t this_val, int argc,
                             jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (ret_t)widget_unref(widget);
 
@@ -7717,7 +7717,7 @@ jsvalue_t wrap_widget_is_system_bar(JSContext* ctx, jsvalue_const_t this_val, in
                                     jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    bool_t ret = 0;
+    bool_t ret = (bool_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (bool_t)widget_is_system_bar(widget);
 
@@ -7730,7 +7730,7 @@ jsvalue_t wrap_widget_is_normal_window(JSContext* ctx, jsvalue_const_t this_val,
                                        jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    bool_t ret = 0;
+    bool_t ret = (bool_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (bool_t)widget_is_normal_window(widget);
 
@@ -7743,7 +7743,7 @@ jsvalue_t wrap_widget_is_dialog(JSContext* ctx, jsvalue_const_t this_val, int ar
                                 jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    bool_t ret = 0;
+    bool_t ret = (bool_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (bool_t)widget_is_dialog(widget);
 
@@ -7756,7 +7756,7 @@ jsvalue_t wrap_widget_is_popup(JSContext* ctx, jsvalue_const_t this_val, int arg
                                jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    bool_t ret = 0;
+    bool_t ret = (bool_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (bool_t)widget_is_popup(widget);
 
@@ -7769,7 +7769,7 @@ jsvalue_t wrap_widget_layout(JSContext* ctx, jsvalue_const_t this_val, int argc,
                              jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (ret_t)widget_layout(widget);
 
@@ -7782,7 +7782,7 @@ jsvalue_t wrap_widget_set_self_layout(JSContext* ctx, jsvalue_const_t this_val, 
                                       jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* params = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)widget_set_self_layout(widget, params);
@@ -7797,7 +7797,7 @@ jsvalue_t wrap_widget_set_children_layout(JSContext* ctx, jsvalue_const_t this_v
                                           jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* params = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)widget_set_children_layout(widget, params);
@@ -7812,7 +7812,7 @@ jsvalue_t wrap_widget_set_self_layout_params(JSContext* ctx, jsvalue_const_t thi
                                              jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 5) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* x = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     const char* y = (const char*)jsvalue_get_utf8_string(ctx, argv[2]);
@@ -7833,7 +7833,7 @@ jsvalue_t wrap_widget_set_style_int(JSContext* ctx, jsvalue_const_t this_val, in
                                     jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* state_and_name = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     int32_t value = (int32_t)jsvalue_get_int_value(ctx, argv[2]);
@@ -7849,7 +7849,7 @@ jsvalue_t wrap_widget_set_style_str(JSContext* ctx, jsvalue_const_t this_val, in
                                     jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* state_and_name = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     const char* value = (const char*)jsvalue_get_utf8_string(ctx, argv[2]);
@@ -7866,7 +7866,7 @@ jsvalue_t wrap_widget_set_style_color(JSContext* ctx, jsvalue_const_t this_val, 
                                       jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* state_and_name = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     uint32_t value = (uint32_t)jsvalue_get_int_value(ctx, argv[2]);
@@ -7970,10 +7970,13 @@ jsvalue_t wrap_widget_t_get_prop_feedback(JSContext* ctx, jsvalue_const_t this_v
 
 jsvalue_t wrap_widget_t_set_prop_visible(JSContext* ctx, jsvalue_const_t this_val, int argc,
                                          jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
   widget_t* obj = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
   bool_t visible = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
   obj->visible = visible;
-  return jsvalue_create_int(ctx, RET_OK);
+
+  jret = jsvalue_create_bool(ctx, obj->visible);
+  return jret;
 };
 
 jsvalue_t wrap_widget_t_get_prop_visible(JSContext* ctx, jsvalue_const_t this_val, int argc,
@@ -7987,10 +7990,13 @@ jsvalue_t wrap_widget_t_get_prop_visible(JSContext* ctx, jsvalue_const_t this_va
 
 jsvalue_t wrap_widget_t_set_prop_sensitive(JSContext* ctx, jsvalue_const_t this_val, int argc,
                                            jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
   widget_t* obj = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
   bool_t sensitive = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
   obj->sensitive = sensitive;
-  return jsvalue_create_int(ctx, RET_OK);
+
+  jret = jsvalue_create_bool(ctx, obj->sensitive);
+  return jret;
 };
 
 jsvalue_t wrap_widget_t_get_prop_sensitive(JSContext* ctx, jsvalue_const_t this_val, int argc,
@@ -8004,10 +8010,13 @@ jsvalue_t wrap_widget_t_get_prop_sensitive(JSContext* ctx, jsvalue_const_t this_
 
 jsvalue_t wrap_widget_t_set_prop_focusable(JSContext* ctx, jsvalue_const_t this_val, int argc,
                                            jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
   widget_t* obj = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
   bool_t focusable = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
   obj->focusable = focusable;
-  return jsvalue_create_int(ctx, RET_OK);
+
+  jret = jsvalue_create_bool(ctx, obj->focusable);
+  return jret;
 };
 
 jsvalue_t wrap_widget_t_get_prop_focusable(JSContext* ctx, jsvalue_const_t this_val, int argc,
@@ -8021,10 +8030,13 @@ jsvalue_t wrap_widget_t_get_prop_focusable(JSContext* ctx, jsvalue_const_t this_
 
 jsvalue_t wrap_widget_t_set_prop_with_focus_state(JSContext* ctx, jsvalue_const_t this_val,
                                                   int argc, jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
   widget_t* obj = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
   bool_t with_focus_state = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
   obj->with_focus_state = with_focus_state;
-  return jsvalue_create_int(ctx, RET_OK);
+
+  jret = jsvalue_create_bool(ctx, obj->with_focus_state);
+  return jret;
 };
 
 jsvalue_t wrap_widget_t_get_prop_with_focus_state(JSContext* ctx, jsvalue_const_t this_val,
@@ -8427,7 +8439,7 @@ jsvalue_t wrap_time_now_s(JSContext* ctx, jsvalue_const_t this_val, int argc,
                           jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 0) {
-    uint64_t ret = 0;
+    uint64_t ret = (uint64_t)0;
     ret = (uint64_t)time_now_s();
 
     jret = jsvalue_create_int(ctx, ret);
@@ -8439,7 +8451,7 @@ jsvalue_t wrap_time_now_ms(JSContext* ctx, jsvalue_const_t this_val, int argc,
                            jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 0) {
-    uint64_t ret = 0;
+    uint64_t ret = (uint64_t)0;
     ret = (uint64_t)time_now_ms();
 
     jret = jsvalue_create_int(ctx, ret);
@@ -8593,7 +8605,7 @@ jsvalue_t wrap_canvas_get_width(JSContext* ctx, jsvalue_const_t this_val, int ar
                                 jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    wh_t ret = 0;
+    wh_t ret = (wh_t)0;
     canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
     ret = (wh_t)canvas_get_width(c);
 
@@ -8606,7 +8618,7 @@ jsvalue_t wrap_canvas_get_height(JSContext* ctx, jsvalue_const_t this_val, int a
                                  jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    wh_t ret = 0;
+    wh_t ret = (wh_t)0;
     canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
     ret = (wh_t)canvas_get_height(c);
 
@@ -8619,7 +8631,7 @@ jsvalue_t wrap_canvas_get_clip_rect(JSContext* ctx, jsvalue_const_t this_val, in
                                     jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
     rect_t* r = (rect_t*)jsvalue_get_pointer(ctx, argv[1], "rect_t*");
     ret = (ret_t)canvas_get_clip_rect(c, r);
@@ -8633,7 +8645,7 @@ jsvalue_t wrap_canvas_set_clip_rect(JSContext* ctx, jsvalue_const_t this_val, in
                                     jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
     const rect_t* r = (const rect_t*)jsvalue_get_pointer(ctx, argv[1], "const rect_t*");
     ret = (ret_t)canvas_set_clip_rect(c, r);
@@ -8647,7 +8659,7 @@ jsvalue_t wrap_canvas_set_clip_rect_ex(JSContext* ctx, jsvalue_const_t this_val,
                                        jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
     const rect_t* r = (const rect_t*)jsvalue_get_pointer(ctx, argv[1], "const rect_t*");
     bool_t translate = (bool_t)jsvalue_get_boolean_value(ctx, argv[2]);
@@ -8662,7 +8674,7 @@ jsvalue_t wrap_canvas_set_fill_color_str(JSContext* ctx, jsvalue_const_t this_va
                                          jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
     const char* color = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)canvas_set_fill_color_str(c, color);
@@ -8677,7 +8689,7 @@ jsvalue_t wrap_canvas_set_text_color_str(JSContext* ctx, jsvalue_const_t this_va
                                          jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
     const char* color = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)canvas_set_text_color_str(c, color);
@@ -8692,7 +8704,7 @@ jsvalue_t wrap_canvas_set_stroke_color_str(JSContext* ctx, jsvalue_const_t this_
                                            jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
     const char* color = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)canvas_set_stroke_color_str(c, color);
@@ -8707,7 +8719,7 @@ jsvalue_t wrap_canvas_set_global_alpha(JSContext* ctx, jsvalue_const_t this_val,
                                        jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
     uint8_t alpha = (uint8_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)canvas_set_global_alpha(c, alpha);
@@ -8721,7 +8733,7 @@ jsvalue_t wrap_canvas_translate(JSContext* ctx, jsvalue_const_t this_val, int ar
                                 jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
     xy_t dx = (xy_t)jsvalue_get_int_value(ctx, argv[1]);
     xy_t dy = (xy_t)jsvalue_get_int_value(ctx, argv[2]);
@@ -8736,7 +8748,7 @@ jsvalue_t wrap_canvas_untranslate(JSContext* ctx, jsvalue_const_t this_val, int 
                                   jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
     xy_t dx = (xy_t)jsvalue_get_int_value(ctx, argv[1]);
     xy_t dy = (xy_t)jsvalue_get_int_value(ctx, argv[2]);
@@ -8751,7 +8763,7 @@ jsvalue_t wrap_canvas_draw_vline(JSContext* ctx, jsvalue_const_t this_val, int a
                                  jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 4) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
     xy_t x = (xy_t)jsvalue_get_int_value(ctx, argv[1]);
     xy_t y = (xy_t)jsvalue_get_int_value(ctx, argv[2]);
@@ -8767,7 +8779,7 @@ jsvalue_t wrap_canvas_draw_hline(JSContext* ctx, jsvalue_const_t this_val, int a
                                  jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 4) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
     xy_t x = (xy_t)jsvalue_get_int_value(ctx, argv[1]);
     xy_t y = (xy_t)jsvalue_get_int_value(ctx, argv[2]);
@@ -8783,7 +8795,7 @@ jsvalue_t wrap_canvas_fill_rect(JSContext* ctx, jsvalue_const_t this_val, int ar
                                 jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 5) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
     xy_t x = (xy_t)jsvalue_get_int_value(ctx, argv[1]);
     xy_t y = (xy_t)jsvalue_get_int_value(ctx, argv[2]);
@@ -8800,7 +8812,7 @@ jsvalue_t wrap_canvas_stroke_rect(JSContext* ctx, jsvalue_const_t this_val, int 
                                   jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 5) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
     xy_t x = (xy_t)jsvalue_get_int_value(ctx, argv[1]);
     xy_t y = (xy_t)jsvalue_get_int_value(ctx, argv[2]);
@@ -8817,7 +8829,7 @@ jsvalue_t wrap_canvas_set_font(JSContext* ctx, jsvalue_const_t this_val, int arg
                                jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
     const char* name = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     font_size_t size = (font_size_t)jsvalue_get_number_value(ctx, argv[2]);
@@ -8833,7 +8845,7 @@ jsvalue_t wrap_canvas_measure_utf8(JSContext* ctx, jsvalue_const_t this_val, int
                                    jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    float_t ret = 0;
+    float_t ret = (float_t)0;
     canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
     const char* str = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (float_t)canvas_measure_utf8(c, str);
@@ -8848,7 +8860,7 @@ jsvalue_t wrap_canvas_draw_utf8(JSContext* ctx, jsvalue_const_t this_val, int ar
                                 jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 4) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
     const char* str = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     xy_t x = (xy_t)jsvalue_get_int_value(ctx, argv[2]);
@@ -8865,7 +8877,7 @@ jsvalue_t wrap_canvas_draw_utf8_in_rect(JSContext* ctx, jsvalue_const_t this_val
                                         jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
     const char* str = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     const rect_t* r = (const rect_t*)jsvalue_get_pointer(ctx, argv[2], "const rect_t*");
@@ -8881,7 +8893,7 @@ jsvalue_t wrap_canvas_draw_icon(JSContext* ctx, jsvalue_const_t this_val, int ar
                                 jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 4) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
     bitmap_t* img = (bitmap_t*)jsvalue_get_pointer(ctx, argv[1], "bitmap_t*");
     xy_t cx = (xy_t)jsvalue_get_int_value(ctx, argv[2]);
@@ -8897,7 +8909,7 @@ jsvalue_t wrap_canvas_draw_image(JSContext* ctx, jsvalue_const_t this_val, int a
                                  jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 4) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
     bitmap_t* img = (bitmap_t*)jsvalue_get_pointer(ctx, argv[1], "bitmap_t*");
     rect_t* src = (rect_t*)jsvalue_get_pointer(ctx, argv[2], "rect_t*");
@@ -8913,7 +8925,7 @@ jsvalue_t wrap_canvas_draw_image_ex(JSContext* ctx, jsvalue_const_t this_val, in
                                     jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 4) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
     bitmap_t* img = (bitmap_t*)jsvalue_get_pointer(ctx, argv[1], "bitmap_t*");
     image_draw_type_t draw_type = (image_draw_type_t)jsvalue_get_number_value(ctx, argv[2]);
@@ -8955,7 +8967,7 @@ jsvalue_t wrap_canvas_reset(JSContext* ctx, jsvalue_const_t this_val, int argc,
                             jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
     ret = (ret_t)canvas_reset(c);
 
@@ -9115,7 +9127,7 @@ jsvalue_t wrap_named_value_set_name(JSContext* ctx, jsvalue_const_t this_val, in
                                     jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     named_value_t* nv = (named_value_t*)jsvalue_get_pointer(ctx, argv[0], "named_value_t*");
     const char* name = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)named_value_set_name(nv, name);
@@ -9130,7 +9142,7 @@ jsvalue_t wrap_named_value_set_value(JSContext* ctx, jsvalue_const_t this_val, i
                                      jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     named_value_t* nv = (named_value_t*)jsvalue_get_pointer(ctx, argv[0], "named_value_t*");
     const value_t* value = (const value_t*)jsvalue_get_pointer(ctx, argv[1], "const value_t*");
     ret = (ret_t)named_value_set_value(nv, value);
@@ -10070,7 +10082,7 @@ jsvalue_t wrap_clip_board_set_text(JSContext* ctx, jsvalue_const_t this_val, int
                                    jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     const char* text = (const char*)jsvalue_get_utf8_string(ctx, argv[0]);
     ret = (ret_t)clip_board_set_text(text);
     jsvalue_free_str(ctx, text);
@@ -10296,7 +10308,7 @@ jsvalue_t wrap_date_time_set(JSContext* ctx, jsvalue_const_t this_val, int argc,
                              jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     date_time_t* dt = (date_time_t*)jsvalue_get_pointer(ctx, argv[0], "date_time_t*");
     ret = (ret_t)date_time_set(dt);
 
@@ -10435,7 +10447,7 @@ jsvalue_t wrap_color_from_str(JSContext* ctx, jsvalue_const_t this_val, int argc
 jsvalue_t wrap_color_r(JSContext* ctx, jsvalue_const_t this_val, int argc, jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    uint8_t ret = 0;
+    uint8_t ret = (uint8_t)0;
     color_t* c = (color_t*)jsvalue_get_pointer(ctx, argv[0], "color_t*");
     ret = (uint8_t)color_r(c);
 
@@ -10447,7 +10459,7 @@ jsvalue_t wrap_color_r(JSContext* ctx, jsvalue_const_t this_val, int argc, jsval
 jsvalue_t wrap_color_g(JSContext* ctx, jsvalue_const_t this_val, int argc, jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    uint8_t ret = 0;
+    uint8_t ret = (uint8_t)0;
     color_t* c = (color_t*)jsvalue_get_pointer(ctx, argv[0], "color_t*");
     ret = (uint8_t)color_g(c);
 
@@ -10459,7 +10471,7 @@ jsvalue_t wrap_color_g(JSContext* ctx, jsvalue_const_t this_val, int argc, jsval
 jsvalue_t wrap_color_b(JSContext* ctx, jsvalue_const_t this_val, int argc, jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    uint8_t ret = 0;
+    uint8_t ret = (uint8_t)0;
     color_t* c = (color_t*)jsvalue_get_pointer(ctx, argv[0], "color_t*");
     ret = (uint8_t)color_b(c);
 
@@ -10471,7 +10483,7 @@ jsvalue_t wrap_color_b(JSContext* ctx, jsvalue_const_t this_val, int argc, jsval
 jsvalue_t wrap_color_a(JSContext* ctx, jsvalue_const_t this_val, int argc, jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    uint8_t ret = 0;
+    uint8_t ret = (uint8_t)0;
     color_t* c = (color_t*)jsvalue_get_pointer(ctx, argv[0], "color_t*");
     ret = (uint8_t)color_a(c);
 
@@ -10495,10 +10507,13 @@ jsvalue_t wrap_color_cast(JSContext* ctx, jsvalue_const_t this_val, int argc,
 
 jsvalue_t wrap_color_t_set_prop_color(JSContext* ctx, jsvalue_const_t this_val, int argc,
                                       jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
   color_t* obj = (color_t*)jsvalue_get_pointer(ctx, argv[0], "color_t*");
   uint32_t color = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
   obj->color = color;
-  return jsvalue_create_int(ctx, RET_OK);
+
+  jret = jsvalue_create_int(ctx, obj->color);
+  return jret;
 };
 
 jsvalue_t wrap_color_t_get_prop_color(JSContext* ctx, jsvalue_const_t this_val, int argc,
@@ -10716,7 +10731,7 @@ jsvalue_t wrap_assets_manager_unref(JSContext* ctx, jsvalue_const_t this_val, in
                                     jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     assets_manager_t* am =
         (assets_manager_t*)jsvalue_get_pointer(ctx, argv[0], "assets_manager_t*");
     asset_info_t* info = (asset_info_t*)jsvalue_get_pointer(ctx, argv[1], "asset_info_t*");
@@ -10817,7 +10832,7 @@ jsvalue_t wrap_time_clock_set_hour(JSContext* ctx, jsvalue_const_t this_val, int
                                    jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t hour = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)time_clock_set_hour(widget, hour);
@@ -10831,7 +10846,7 @@ jsvalue_t wrap_time_clock_set_minute(JSContext* ctx, jsvalue_const_t this_val, i
                                      jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t minute = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)time_clock_set_minute(widget, minute);
@@ -10845,7 +10860,7 @@ jsvalue_t wrap_time_clock_set_second(JSContext* ctx, jsvalue_const_t this_val, i
                                      jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t second = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)time_clock_set_second(widget, second);
@@ -10859,7 +10874,7 @@ jsvalue_t wrap_time_clock_set_hour_image(JSContext* ctx, jsvalue_const_t this_va
                                          jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* hour = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)time_clock_set_hour_image(widget, hour);
@@ -10874,7 +10889,7 @@ jsvalue_t wrap_time_clock_set_minute_image(JSContext* ctx, jsvalue_const_t this_
                                            jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* minute_image = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)time_clock_set_minute_image(widget, minute_image);
@@ -10889,7 +10904,7 @@ jsvalue_t wrap_time_clock_set_second_image(JSContext* ctx, jsvalue_const_t this_
                                            jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* second_image = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)time_clock_set_second_image(widget, second_image);
@@ -10904,7 +10919,7 @@ jsvalue_t wrap_time_clock_set_bg_image(JSContext* ctx, jsvalue_const_t this_val,
                                        jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* bg_image = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)time_clock_set_bg_image(widget, bg_image);
@@ -10919,7 +10934,7 @@ jsvalue_t wrap_time_clock_set_image(JSContext* ctx, jsvalue_const_t this_val, in
                                     jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* image = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)time_clock_set_image(widget, image);
@@ -10934,7 +10949,7 @@ jsvalue_t wrap_time_clock_set_hour_anchor(JSContext* ctx, jsvalue_const_t this_v
                                           jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* anchor_x = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     const char* anchor_y = (const char*)jsvalue_get_utf8_string(ctx, argv[2]);
@@ -10951,7 +10966,7 @@ jsvalue_t wrap_time_clock_set_minute_anchor(JSContext* ctx, jsvalue_const_t this
                                             jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* anchor_x = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     const char* anchor_y = (const char*)jsvalue_get_utf8_string(ctx, argv[2]);
@@ -10968,7 +10983,7 @@ jsvalue_t wrap_time_clock_set_second_anchor(JSContext* ctx, jsvalue_const_t this
                                             jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* anchor_x = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     const char* anchor_y = (const char*)jsvalue_get_utf8_string(ctx, argv[2]);
@@ -11224,7 +11239,7 @@ jsvalue_t wrap_text_selector_reset_options(JSContext* ctx, jsvalue_const_t this_
                                            jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (ret_t)text_selector_reset_options(widget);
 
@@ -11237,7 +11252,7 @@ jsvalue_t wrap_text_selector_count_options(JSContext* ctx, jsvalue_const_t this_
                                            jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    int32_t ret = 0;
+    int32_t ret = (int32_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (int32_t)text_selector_count_options(widget);
 
@@ -11250,7 +11265,7 @@ jsvalue_t wrap_text_selector_append_option(JSContext* ctx, jsvalue_const_t this_
                                            jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t value = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     char* text = (char*)jsvalue_get_utf8_string(ctx, argv[2]);
@@ -11266,7 +11281,7 @@ jsvalue_t wrap_text_selector_set_options(JSContext* ctx, jsvalue_const_t this_va
                                          jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     char* options = (char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)text_selector_set_options(widget, options);
@@ -11281,7 +11296,7 @@ jsvalue_t wrap_text_selector_set_range_options(JSContext* ctx, jsvalue_const_t t
                                                jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 4) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t start = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     uint32_t nr = (uint32_t)jsvalue_get_int_value(ctx, argv[2]);
@@ -11297,7 +11312,7 @@ jsvalue_t wrap_text_selector_get_value(JSContext* ctx, jsvalue_const_t this_val,
                                        jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    int32_t ret = 0;
+    int32_t ret = (int32_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (int32_t)text_selector_get_value(widget);
 
@@ -11310,7 +11325,7 @@ jsvalue_t wrap_text_selector_set_value(JSContext* ctx, jsvalue_const_t this_val,
                                        jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t value = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)text_selector_set_value(widget, value);
@@ -11337,7 +11352,7 @@ jsvalue_t wrap_text_selector_set_text(JSContext* ctx, jsvalue_const_t this_val, 
                                       jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* text = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)text_selector_set_text(widget, text);
@@ -11352,7 +11367,7 @@ jsvalue_t wrap_text_selector_set_selected_index(JSContext* ctx, jsvalue_const_t 
                                                 jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     uint32_t index = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)text_selector_set_selected_index(widget, index);
@@ -11366,7 +11381,7 @@ jsvalue_t wrap_text_selector_set_visible_nr(JSContext* ctx, jsvalue_const_t this
                                             jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     uint32_t visible_nr = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)text_selector_set_visible_nr(widget, visible_nr);
@@ -11560,7 +11575,7 @@ jsvalue_t wrap_switch_set_value(JSContext* ctx, jsvalue_const_t this_val, int ar
                                 jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t value = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)switch_set_value(widget, value);
@@ -11655,7 +11670,7 @@ jsvalue_t wrap_slide_view_set_auto_play(JSContext* ctx, jsvalue_const_t this_val
                                         jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     uint16_t auto_play = (uint16_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)slide_view_set_auto_play(widget, auto_play);
@@ -11669,7 +11684,7 @@ jsvalue_t wrap_slide_view_set_active(JSContext* ctx, jsvalue_const_t this_val, i
                                      jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     uint32_t index = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)slide_view_set_active(widget, index);
@@ -11683,7 +11698,7 @@ jsvalue_t wrap_slide_view_set_vertical(JSContext* ctx, jsvalue_const_t this_val,
                                        jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t vertical = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)slide_view_set_vertical(widget, vertical);
@@ -11697,7 +11712,7 @@ jsvalue_t wrap_slide_view_set_anim_hint(JSContext* ctx, jsvalue_const_t this_val
                                         jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* anim_hint = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)slide_view_set_anim_hint(widget, anim_hint);
@@ -11712,7 +11727,7 @@ jsvalue_t wrap_slide_view_set_loop(JSContext* ctx, jsvalue_const_t this_val, int
                                    jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t loop = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)slide_view_set_loop(widget, loop);
@@ -11863,7 +11878,7 @@ jsvalue_t wrap_slide_indicator_set_value(JSContext* ctx, jsvalue_const_t this_va
                                          jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     uint32_t value = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)slide_indicator_set_value(widget, value);
@@ -11877,7 +11892,7 @@ jsvalue_t wrap_slide_indicator_set_max(JSContext* ctx, jsvalue_const_t this_val,
                                        jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     uint32_t max = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)slide_indicator_set_max(widget, max);
@@ -11891,7 +11906,7 @@ jsvalue_t wrap_slide_indicator_set_default_paint(JSContext* ctx, jsvalue_const_t
                                                  jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     indicator_default_paint_t default_paint =
         (indicator_default_paint_t)jsvalue_get_int_value(ctx, argv[1]);
@@ -11906,7 +11921,7 @@ jsvalue_t wrap_slide_indicator_set_auto_hide(JSContext* ctx, jsvalue_const_t thi
                                              jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     uint16_t auto_hide = (uint16_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)slide_indicator_set_auto_hide(widget, auto_hide);
@@ -11920,7 +11935,7 @@ jsvalue_t wrap_slide_indicator_set_margin(JSContext* ctx, jsvalue_const_t this_v
                                           jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t margin = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)slide_indicator_set_margin(widget, margin);
@@ -11934,7 +11949,7 @@ jsvalue_t wrap_slide_indicator_set_spacing(JSContext* ctx, jsvalue_const_t this_
                                            jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     float_t spacing = (float_t)jsvalue_get_number_value(ctx, argv[1]);
     ret = (ret_t)slide_indicator_set_spacing(widget, spacing);
@@ -11948,7 +11963,7 @@ jsvalue_t wrap_slide_indicator_set_size(JSContext* ctx, jsvalue_const_t this_val
                                         jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     uint32_t size = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)slide_indicator_set_size(widget, size);
@@ -11962,7 +11977,7 @@ jsvalue_t wrap_slide_indicator_set_anchor(JSContext* ctx, jsvalue_const_t this_v
                                           jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* anchor_x = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     const char* anchor_y = (const char*)jsvalue_get_utf8_string(ctx, argv[2]);
@@ -11979,7 +11994,7 @@ jsvalue_t wrap_slide_indicator_set_indicated_target(JSContext* ctx, jsvalue_cons
                                                     int argc, jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* indicated_target = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)slide_indicator_set_indicated_target(widget, indicated_target);
@@ -12199,7 +12214,7 @@ jsvalue_t wrap_slide_menu_set_value(JSContext* ctx, jsvalue_const_t this_val, in
                                     jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     uint32_t value = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)slide_menu_set_value(widget, value);
@@ -12213,7 +12228,7 @@ jsvalue_t wrap_slide_menu_set_align_v(JSContext* ctx, jsvalue_const_t this_val, 
                                       jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     align_v_t align_v = (align_v_t)jsvalue_get_number_value(ctx, argv[1]);
     ret = (ret_t)slide_menu_set_align_v(widget, align_v);
@@ -12227,7 +12242,7 @@ jsvalue_t wrap_slide_menu_set_min_scale(JSContext* ctx, jsvalue_const_t this_val
                                         jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     float_t min_scale = (float_t)jsvalue_get_number_value(ctx, argv[1]);
     ret = (ret_t)slide_menu_set_min_scale(widget, min_scale);
@@ -12326,7 +12341,7 @@ jsvalue_t wrap_scroll_view_set_virtual_w(JSContext* ctx, jsvalue_const_t this_va
                                          jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     wh_t w = (wh_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)scroll_view_set_virtual_w(widget, w);
@@ -12340,7 +12355,7 @@ jsvalue_t wrap_scroll_view_set_virtual_h(JSContext* ctx, jsvalue_const_t this_va
                                          jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     wh_t h = (wh_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)scroll_view_set_virtual_h(widget, h);
@@ -12354,7 +12369,7 @@ jsvalue_t wrap_scroll_view_set_xslidable(JSContext* ctx, jsvalue_const_t this_va
                                          jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t xslidable = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)scroll_view_set_xslidable(widget, xslidable);
@@ -12368,7 +12383,7 @@ jsvalue_t wrap_scroll_view_set_yslidable(JSContext* ctx, jsvalue_const_t this_va
                                          jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t yslidable = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)scroll_view_set_yslidable(widget, yslidable);
@@ -12382,7 +12397,7 @@ jsvalue_t wrap_scroll_view_set_offset(JSContext* ctx, jsvalue_const_t this_val, 
                                       jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t xoffset = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     int32_t yoffset = (int32_t)jsvalue_get_int_value(ctx, argv[2]);
@@ -12397,7 +12412,7 @@ jsvalue_t wrap_scroll_view_set_speed_scale(JSContext* ctx, jsvalue_const_t this_
                                            jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     float_t xspeed_scale = (float_t)jsvalue_get_number_value(ctx, argv[1]);
     float_t yspeed_scale = (float_t)jsvalue_get_number_value(ctx, argv[2]);
@@ -12412,7 +12427,7 @@ jsvalue_t wrap_scroll_view_scroll_to(JSContext* ctx, jsvalue_const_t this_val, i
                                      jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 4) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t xoffset_end = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     int32_t yoffset_end = (int32_t)jsvalue_get_int_value(ctx, argv[2]);
@@ -12428,7 +12443,7 @@ jsvalue_t wrap_scroll_view_scroll_delta_to(JSContext* ctx, jsvalue_const_t this_
                                            jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 4) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t xoffset_delta = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     int32_t yoffset_delta = (int32_t)jsvalue_get_int_value(ctx, argv[2]);
@@ -12638,7 +12653,7 @@ jsvalue_t wrap_scroll_bar_set_params(JSContext* ctx, jsvalue_const_t this_val, i
                                      jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t virtual_size = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     int32_t row = (int32_t)jsvalue_get_int_value(ctx, argv[2]);
@@ -12653,7 +12668,7 @@ jsvalue_t wrap_scroll_bar_scroll_to(JSContext* ctx, jsvalue_const_t this_val, in
                                     jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t value = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     int32_t duration = (int32_t)jsvalue_get_int_value(ctx, argv[2]);
@@ -12668,7 +12683,7 @@ jsvalue_t wrap_scroll_bar_set_value(JSContext* ctx, jsvalue_const_t this_val, in
                                     jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t value = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)scroll_bar_set_value(widget, value);
@@ -12682,7 +12697,7 @@ jsvalue_t wrap_scroll_bar_add_delta(JSContext* ctx, jsvalue_const_t this_val, in
                                     jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t delta = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)scroll_bar_add_delta(widget, delta);
@@ -12696,7 +12711,7 @@ jsvalue_t wrap_scroll_bar_scroll_delta(JSContext* ctx, jsvalue_const_t this_val,
                                        jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t delta = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)scroll_bar_scroll_delta(widget, delta);
@@ -12710,7 +12725,7 @@ jsvalue_t wrap_scroll_bar_set_value_only(JSContext* ctx, jsvalue_const_t this_va
                                          jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t value = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)scroll_bar_set_value_only(widget, value);
@@ -12724,7 +12739,7 @@ jsvalue_t wrap_scroll_bar_is_mobile(JSContext* ctx, jsvalue_const_t this_val, in
                                     jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    bool_t ret = 0;
+    bool_t ret = (bool_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (bool_t)scroll_bar_is_mobile(widget);
 
@@ -12836,7 +12851,7 @@ jsvalue_t wrap_list_view_set_item_height(JSContext* ctx, jsvalue_const_t this_va
                                          jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t item_height = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)list_view_set_item_height(widget, item_height);
@@ -12850,7 +12865,7 @@ jsvalue_t wrap_list_view_set_default_item_height(JSContext* ctx, jsvalue_const_t
                                                  jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t default_item_height = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)list_view_set_default_item_height(widget, default_item_height);
@@ -12864,7 +12879,7 @@ jsvalue_t wrap_list_view_set_auto_hide_scroll_bar(JSContext* ctx, jsvalue_const_
                                                   int argc, jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t auto_hide_scroll_bar = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)list_view_set_auto_hide_scroll_bar(widget, auto_hide_scroll_bar);
@@ -12965,7 +12980,7 @@ jsvalue_t wrap_list_view_h_set_item_width(JSContext* ctx, jsvalue_const_t this_v
                                           jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t item_width = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)list_view_h_set_item_width(widget, item_width);
@@ -12979,7 +12994,7 @@ jsvalue_t wrap_list_view_h_set_spacing(JSContext* ctx, jsvalue_const_t this_val,
                                        jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t spacing = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)list_view_h_set_spacing(widget, spacing);
@@ -13107,7 +13122,7 @@ jsvalue_t wrap_hscroll_label_set_lull(JSContext* ctx, jsvalue_const_t this_val, 
                                       jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t lull = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)hscroll_label_set_lull(widget, lull);
@@ -13121,7 +13136,7 @@ jsvalue_t wrap_hscroll_label_set_duration(JSContext* ctx, jsvalue_const_t this_v
                                           jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t duration = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)hscroll_label_set_duration(widget, duration);
@@ -13135,7 +13150,7 @@ jsvalue_t wrap_hscroll_label_set_only_focus(JSContext* ctx, jsvalue_const_t this
                                             jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t only_focus = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)hscroll_label_set_only_focus(widget, only_focus);
@@ -13149,7 +13164,7 @@ jsvalue_t wrap_hscroll_label_set_only_parent_focus(JSContext* ctx, jsvalue_const
                                                    int argc, jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t only_parent_focus = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)hscroll_label_set_only_parent_focus(widget, only_parent_focus);
@@ -13163,7 +13178,7 @@ jsvalue_t wrap_hscroll_label_set_loop(JSContext* ctx, jsvalue_const_t this_val, 
                                       jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t loop = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)hscroll_label_set_loop(widget, loop);
@@ -13177,7 +13192,7 @@ jsvalue_t wrap_hscroll_label_set_yoyo(JSContext* ctx, jsvalue_const_t this_val, 
                                       jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t yoyo = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)hscroll_label_set_yoyo(widget, yoyo);
@@ -13191,7 +13206,7 @@ jsvalue_t wrap_hscroll_label_set_ellipses(JSContext* ctx, jsvalue_const_t this_v
                                           jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t ellipses = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)hscroll_label_set_ellipses(widget, ellipses);
@@ -13205,7 +13220,7 @@ jsvalue_t wrap_hscroll_label_set_xoffset(JSContext* ctx, jsvalue_const_t this_va
                                          jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t xoffset = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)hscroll_label_set_xoffset(widget, xoffset);
@@ -13219,7 +13234,7 @@ jsvalue_t wrap_hscroll_label_start(JSContext* ctx, jsvalue_const_t this_val, int
                                    jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (ret_t)hscroll_label_start(widget);
 
@@ -13232,7 +13247,7 @@ jsvalue_t wrap_hscroll_label_stop(JSContext* ctx, jsvalue_const_t this_val, int 
                                   jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (ret_t)hscroll_label_stop(widget);
 
@@ -13420,7 +13435,7 @@ jsvalue_t wrap_rich_text_set_text(JSContext* ctx, jsvalue_const_t this_val, int 
                                   jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     char* text = (char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)rich_text_set_text(widget, text);
@@ -13516,7 +13531,7 @@ jsvalue_t wrap_progress_circle_set_value(JSContext* ctx, jsvalue_const_t this_va
                                          jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     float_t value = (float_t)jsvalue_get_number_value(ctx, argv[1]);
     ret = (ret_t)progress_circle_set_value(widget, value);
@@ -13530,7 +13545,7 @@ jsvalue_t wrap_progress_circle_set_max(JSContext* ctx, jsvalue_const_t this_val,
                                        jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     uint32_t max = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)progress_circle_set_max(widget, max);
@@ -13544,7 +13559,7 @@ jsvalue_t wrap_progress_circle_set_line_width(JSContext* ctx, jsvalue_const_t th
                                               jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     uint32_t line_width = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)progress_circle_set_line_width(widget, line_width);
@@ -13558,7 +13573,7 @@ jsvalue_t wrap_progress_circle_set_start_angle(JSContext* ctx, jsvalue_const_t t
                                                jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t start_angle = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)progress_circle_set_start_angle(widget, start_angle);
@@ -13572,7 +13587,7 @@ jsvalue_t wrap_progress_circle_set_unit(JSContext* ctx, jsvalue_const_t this_val
                                         jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* unit = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)progress_circle_set_unit(widget, unit);
@@ -13587,7 +13602,7 @@ jsvalue_t wrap_progress_circle_set_show_text(JSContext* ctx, jsvalue_const_t thi
                                              jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t show_text = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)progress_circle_set_show_text(widget, show_text);
@@ -13601,7 +13616,7 @@ jsvalue_t wrap_progress_circle_set_counter_clock_wise(JSContext* ctx, jsvalue_co
                                                       int argc, jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t counter_clock_wise = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)progress_circle_set_counter_clock_wise(widget, counter_clock_wise);
@@ -13757,7 +13772,7 @@ jsvalue_t wrap_mledit_set_readonly(JSContext* ctx, jsvalue_const_t this_val, int
                                    jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t readonly = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)mledit_set_readonly(widget, readonly);
@@ -13771,7 +13786,7 @@ jsvalue_t wrap_mledit_set_focus(JSContext* ctx, jsvalue_const_t this_val, int ar
                                 jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t focus = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)mledit_set_focus(widget, focus);
@@ -13785,7 +13800,7 @@ jsvalue_t wrap_mledit_set_wrap_word(JSContext* ctx, jsvalue_const_t this_val, in
                                     jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t wrap_word = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)mledit_set_wrap_word(widget, wrap_word);
@@ -13799,7 +13814,7 @@ jsvalue_t wrap_mledit_set_max_lines(JSContext* ctx, jsvalue_const_t this_val, in
                                     jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     uint32_t max_lines = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)mledit_set_max_lines(widget, max_lines);
@@ -13813,7 +13828,7 @@ jsvalue_t wrap_mledit_set_input_tips(JSContext* ctx, jsvalue_const_t this_val, i
                                      jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     char* tips = (char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)mledit_set_input_tips(widget, tips);
@@ -13828,7 +13843,7 @@ jsvalue_t wrap_mledit_set_cursor(JSContext* ctx, jsvalue_const_t this_val, int a
                                  jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     uint32_t cursor = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)mledit_set_cursor(widget, cursor);
@@ -13842,7 +13857,7 @@ jsvalue_t wrap_mledit_set_scroll_line(JSContext* ctx, jsvalue_const_t this_val, 
                                       jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     uint32_t scroll_line = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)mledit_set_scroll_line(widget, scroll_line);
@@ -13971,7 +13986,7 @@ jsvalue_t wrap_line_number_set_top_margin(JSContext* ctx, jsvalue_const_t this_v
                                           jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t top_margin = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)line_number_set_top_margin(widget, top_margin);
@@ -13985,7 +14000,7 @@ jsvalue_t wrap_line_number_set_bottom_margin(JSContext* ctx, jsvalue_const_t thi
                                              jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t bottom_margin = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)line_number_set_bottom_margin(widget, bottom_margin);
@@ -13999,7 +14014,7 @@ jsvalue_t wrap_line_number_set_line_height(JSContext* ctx, jsvalue_const_t this_
                                            jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t line_height = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)line_number_set_line_height(widget, line_height);
@@ -14013,7 +14028,7 @@ jsvalue_t wrap_line_number_set_yoffset(JSContext* ctx, jsvalue_const_t this_val,
                                        jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t yoffset = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)line_number_set_yoffset(widget, yoffset);
@@ -14081,7 +14096,7 @@ jsvalue_t wrap_image_value_set_image(JSContext* ctx, jsvalue_const_t this_val, i
                                      jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* image = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)image_value_set_image(widget, image);
@@ -14096,7 +14111,7 @@ jsvalue_t wrap_image_value_set_format(JSContext* ctx, jsvalue_const_t this_val, 
                                       jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* format = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)image_value_set_format(widget, format);
@@ -14111,7 +14126,7 @@ jsvalue_t wrap_image_value_set_value(JSContext* ctx, jsvalue_const_t this_val, i
                                      jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     float_t value = (float_t)jsvalue_get_number_value(ctx, argv[1]);
     ret = (ret_t)image_value_set_value(widget, value);
@@ -14209,7 +14224,7 @@ jsvalue_t wrap_image_animation_set_loop(JSContext* ctx, jsvalue_const_t this_val
                                         jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t loop = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)image_animation_set_loop(widget, loop);
@@ -14223,7 +14238,7 @@ jsvalue_t wrap_image_animation_set_image(JSContext* ctx, jsvalue_const_t this_va
                                          jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* image = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)image_animation_set_image(widget, image);
@@ -14238,7 +14253,7 @@ jsvalue_t wrap_image_animation_set_interval(JSContext* ctx, jsvalue_const_t this
                                             jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     uint32_t interval = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)image_animation_set_interval(widget, interval);
@@ -14252,7 +14267,7 @@ jsvalue_t wrap_image_animation_set_delay(JSContext* ctx, jsvalue_const_t this_va
                                          jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     uint32_t delay = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)image_animation_set_delay(widget, delay);
@@ -14266,7 +14281,7 @@ jsvalue_t wrap_image_animation_set_auto_play(JSContext* ctx, jsvalue_const_t thi
                                              jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t auto_play = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)image_animation_set_auto_play(widget, auto_play);
@@ -14280,7 +14295,7 @@ jsvalue_t wrap_image_animation_set_sequence(JSContext* ctx, jsvalue_const_t this
                                             jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* sequence = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)image_animation_set_sequence(widget, sequence);
@@ -14295,7 +14310,7 @@ jsvalue_t wrap_image_animation_set_range_sequence(JSContext* ctx, jsvalue_const_
                                                   int argc, jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     uint32_t start_index = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
     uint32_t end_index = (uint32_t)jsvalue_get_int_value(ctx, argv[2]);
@@ -14310,7 +14325,7 @@ jsvalue_t wrap_image_animation_play(JSContext* ctx, jsvalue_const_t this_val, in
                                     jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (ret_t)image_animation_play(widget);
 
@@ -14323,7 +14338,7 @@ jsvalue_t wrap_image_animation_stop(JSContext* ctx, jsvalue_const_t this_val, in
                                     jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (ret_t)image_animation_stop(widget);
 
@@ -14336,7 +14351,7 @@ jsvalue_t wrap_image_animation_pause(JSContext* ctx, jsvalue_const_t this_val, i
                                      jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (ret_t)image_animation_pause(widget);
 
@@ -14349,7 +14364,7 @@ jsvalue_t wrap_image_animation_next(JSContext* ctx, jsvalue_const_t this_val, in
                                     jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (ret_t)image_animation_next(widget);
 
@@ -14362,7 +14377,7 @@ jsvalue_t wrap_image_animation_set_format(JSContext* ctx, jsvalue_const_t this_v
                                           jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* format = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)image_animation_set_format(widget, format);
@@ -14377,7 +14392,7 @@ jsvalue_t wrap_image_animation_set_unload_after_paint(JSContext* ctx, jsvalue_co
                                                       int argc, jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t unload_after_paint = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)image_animation_set_unload_after_paint(widget, unload_after_paint);
@@ -14612,7 +14627,7 @@ jsvalue_t wrap_guage_set_image(JSContext* ctx, jsvalue_const_t this_val, int arg
                                jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     char* name = (char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)guage_set_image(widget, name);
@@ -14627,7 +14642,7 @@ jsvalue_t wrap_guage_set_draw_type(JSContext* ctx, jsvalue_const_t this_val, int
                                    jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     image_draw_type_t draw_type = (image_draw_type_t)jsvalue_get_number_value(ctx, argv[1]);
     ret = (ret_t)guage_set_draw_type(widget, draw_type);
@@ -14710,7 +14725,7 @@ jsvalue_t wrap_guage_pointer_set_angle(JSContext* ctx, jsvalue_const_t this_val,
                                        jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t angle = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)guage_pointer_set_angle(widget, angle);
@@ -14724,7 +14739,7 @@ jsvalue_t wrap_guage_pointer_set_image(JSContext* ctx, jsvalue_const_t this_val,
                                        jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* image = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)guage_pointer_set_image(widget, image);
@@ -14739,7 +14754,7 @@ jsvalue_t wrap_guage_pointer_set_anchor(JSContext* ctx, jsvalue_const_t this_val
                                         jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* anchor_x = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     const char* anchor_y = (const char*)jsvalue_get_utf8_string(ctx, argv[2]);
@@ -14855,7 +14870,7 @@ jsvalue_t wrap_draggable_set_top(JSContext* ctx, jsvalue_const_t this_val, int a
                                  jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t top = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)draggable_set_top(widget, top);
@@ -14869,7 +14884,7 @@ jsvalue_t wrap_draggable_set_bottom(JSContext* ctx, jsvalue_const_t this_val, in
                                     jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t bottom = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)draggable_set_bottom(widget, bottom);
@@ -14883,7 +14898,7 @@ jsvalue_t wrap_draggable_set_left(JSContext* ctx, jsvalue_const_t this_val, int 
                                   jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t left = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)draggable_set_left(widget, left);
@@ -14897,7 +14912,7 @@ jsvalue_t wrap_draggable_set_right(JSContext* ctx, jsvalue_const_t this_val, int
                                    jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t right = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)draggable_set_right(widget, right);
@@ -14911,7 +14926,7 @@ jsvalue_t wrap_draggable_set_vertical_only(JSContext* ctx, jsvalue_const_t this_
                                            jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t vertical_only = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)draggable_set_vertical_only(widget, vertical_only);
@@ -14925,7 +14940,7 @@ jsvalue_t wrap_draggable_set_horizontal_only(JSContext* ctx, jsvalue_const_t thi
                                              jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t horizontal_only = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)draggable_set_horizontal_only(widget, horizontal_only);
@@ -14939,7 +14954,7 @@ jsvalue_t wrap_draggable_set_drag_window(JSContext* ctx, jsvalue_const_t this_va
                                          jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t drag_window = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)draggable_set_drag_window(widget, drag_window);
@@ -15083,7 +15098,7 @@ jsvalue_t wrap_color_picker_set_color(JSContext* ctx, jsvalue_const_t this_val, 
                                       jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* color = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)color_picker_set_color(widget, color);
@@ -15224,7 +15239,7 @@ jsvalue_t wrap_window_manager_get_pointer_x(JSContext* ctx, jsvalue_const_t this
                                             jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    xy_t ret = 0;
+    xy_t ret = (xy_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (xy_t)window_manager_get_pointer_x(widget);
 
@@ -15237,7 +15252,7 @@ jsvalue_t wrap_window_manager_get_pointer_y(JSContext* ctx, jsvalue_const_t this
                                             jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    xy_t ret = 0;
+    xy_t ret = (xy_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (xy_t)window_manager_get_pointer_y(widget);
 
@@ -15250,7 +15265,7 @@ jsvalue_t wrap_window_manager_get_pointer_pressed(JSContext* ctx, jsvalue_const_
                                                   int argc, jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    bool_t ret = 0;
+    bool_t ret = (bool_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (bool_t)window_manager_get_pointer_pressed(widget);
 
@@ -15263,7 +15278,7 @@ jsvalue_t wrap_window_manager_set_show_fps(JSContext* ctx, jsvalue_const_t this_
                                            jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t show_fps = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)window_manager_set_show_fps(widget, show_fps);
@@ -15277,7 +15292,7 @@ jsvalue_t wrap_window_manager_set_screen_saver_time(JSContext* ctx, jsvalue_cons
                                                     int argc, jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     uint32_t screen_saver_time = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)window_manager_set_screen_saver_time(widget, screen_saver_time);
@@ -15291,7 +15306,7 @@ jsvalue_t wrap_window_manager_set_cursor(JSContext* ctx, jsvalue_const_t this_va
                                          jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* cursor = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)window_manager_set_cursor(widget, cursor);
@@ -15306,7 +15321,7 @@ jsvalue_t wrap_window_manager_back(JSContext* ctx, jsvalue_const_t this_val, int
                                    jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (ret_t)window_manager_back(widget);
 
@@ -15319,7 +15334,7 @@ jsvalue_t wrap_window_manager_back_to_home(JSContext* ctx, jsvalue_const_t this_
                                            jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (ret_t)window_manager_back_to_home(widget);
 
@@ -15332,7 +15347,7 @@ jsvalue_t wrap_window_manager_back_to(JSContext* ctx, jsvalue_const_t this_val, 
                                       jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* target = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)window_manager_back_to(widget, target);
@@ -15440,7 +15455,7 @@ jsvalue_t wrap_style_mutable_set_name(JSContext* ctx, jsvalue_const_t this_val, 
                                       jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     style_t* s = (style_t*)jsvalue_get_pointer(ctx, argv[0], "style_t*");
     const char* name = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)style_mutable_set_name(s, name);
@@ -15455,7 +15470,7 @@ jsvalue_t wrap_style_mutable_set_int(JSContext* ctx, jsvalue_const_t this_val, i
                                      jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 4) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     style_t* s = (style_t*)jsvalue_get_pointer(ctx, argv[0], "style_t*");
     const char* state = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     const char* name = (const char*)jsvalue_get_utf8_string(ctx, argv[2]);
@@ -15528,7 +15543,7 @@ jsvalue_t wrap_image_base_set_image(JSContext* ctx, jsvalue_const_t this_val, in
                                     jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     char* name = (char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)image_base_set_image(widget, name);
@@ -15543,7 +15558,7 @@ jsvalue_t wrap_image_base_set_rotation(JSContext* ctx, jsvalue_const_t this_val,
                                        jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     float_t rotation = (float_t)jsvalue_get_number_value(ctx, argv[1]);
     ret = (ret_t)image_base_set_rotation(widget, rotation);
@@ -15557,7 +15572,7 @@ jsvalue_t wrap_image_base_set_scale(JSContext* ctx, jsvalue_const_t this_val, in
                                     jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     float_t scale_x = (float_t)jsvalue_get_number_value(ctx, argv[1]);
     float_t scale_y = (float_t)jsvalue_get_number_value(ctx, argv[2]);
@@ -15572,7 +15587,7 @@ jsvalue_t wrap_image_base_set_anchor(JSContext* ctx, jsvalue_const_t this_val, i
                                      jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     float_t anchor_x = (float_t)jsvalue_get_number_value(ctx, argv[1]);
     float_t anchor_y = (float_t)jsvalue_get_number_value(ctx, argv[2]);
@@ -15587,7 +15602,7 @@ jsvalue_t wrap_image_base_set_selected(JSContext* ctx, jsvalue_const_t this_val,
                                        jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t selected = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)image_base_set_selected(widget, selected);
@@ -15601,7 +15616,7 @@ jsvalue_t wrap_image_base_set_selectable(JSContext* ctx, jsvalue_const_t this_va
                                          jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t selectable = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)image_base_set_selectable(widget, selectable);
@@ -15615,7 +15630,7 @@ jsvalue_t wrap_image_base_set_clickable(JSContext* ctx, jsvalue_const_t this_val
                                         jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t clickable = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)image_base_set_clickable(widget, clickable);
@@ -16379,7 +16394,7 @@ jsvalue_t wrap_button_set_repeat(JSContext* ctx, jsvalue_const_t this_val, int a
                                  jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t repeat = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)button_set_repeat(widget, repeat);
@@ -16393,7 +16408,7 @@ jsvalue_t wrap_button_set_enable_long_press(JSContext* ctx, jsvalue_const_t this
                                             jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t enable_long_press = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)button_set_enable_long_press(widget, enable_long_press);
@@ -16482,7 +16497,7 @@ jsvalue_t wrap_check_button_set_value(JSContext* ctx, jsvalue_const_t this_val, 
                                       jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t value = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)check_button_set_value(widget, value);
@@ -16610,7 +16625,7 @@ jsvalue_t wrap_color_tile_set_bg_color(JSContext* ctx, jsvalue_const_t this_val,
                                        jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* color = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)color_tile_set_bg_color(widget, color);
@@ -16736,7 +16751,7 @@ jsvalue_t wrap_combo_box_item_set_checked(JSContext* ctx, jsvalue_const_t this_v
                                           jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t checked = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)combo_box_item_set_checked(widget, checked);
@@ -16750,7 +16765,7 @@ jsvalue_t wrap_combo_box_item_set_value(JSContext* ctx, jsvalue_const_t this_val
                                         jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t value = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)combo_box_item_set_value(widget, value);
@@ -16836,7 +16851,7 @@ jsvalue_t wrap_combo_box_set_open_window(JSContext* ctx, jsvalue_const_t this_va
                                          jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* open_window = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)combo_box_set_open_window(widget, open_window);
@@ -16851,7 +16866,7 @@ jsvalue_t wrap_combo_box_reset_options(JSContext* ctx, jsvalue_const_t this_val,
                                        jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (ret_t)combo_box_reset_options(widget);
 
@@ -16864,7 +16879,7 @@ jsvalue_t wrap_combo_box_count_options(JSContext* ctx, jsvalue_const_t this_val,
                                        jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    int32_t ret = 0;
+    int32_t ret = (int32_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (int32_t)combo_box_count_options(widget);
 
@@ -16877,7 +16892,7 @@ jsvalue_t wrap_combo_box_set_selected_index(JSContext* ctx, jsvalue_const_t this
                                             jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     uint32_t index = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)combo_box_set_selected_index(widget, index);
@@ -16891,7 +16906,7 @@ jsvalue_t wrap_combo_box_set_localize_options(JSContext* ctx, jsvalue_const_t th
                                               jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t localize_options = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)combo_box_set_localize_options(widget, localize_options);
@@ -16905,7 +16920,7 @@ jsvalue_t wrap_combo_box_set_value(JSContext* ctx, jsvalue_const_t this_val, int
                                    jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t value = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)combo_box_set_value(widget, value);
@@ -16919,7 +16934,7 @@ jsvalue_t wrap_combo_box_set_item_height(JSContext* ctx, jsvalue_const_t this_va
                                          jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     uint32_t item_height = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)combo_box_set_item_height(widget, item_height);
@@ -16933,7 +16948,7 @@ jsvalue_t wrap_combo_box_append_option(JSContext* ctx, jsvalue_const_t this_val,
                                        jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t value = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     const char* text = (const char*)jsvalue_get_utf8_string(ctx, argv[2]);
@@ -16949,7 +16964,7 @@ jsvalue_t wrap_combo_box_set_options(JSContext* ctx, jsvalue_const_t this_val, i
                                      jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* options = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)combo_box_set_options(widget, options);
@@ -16964,7 +16979,7 @@ jsvalue_t wrap_combo_box_get_value(JSContext* ctx, jsvalue_const_t this_val, int
                                    jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    int32_t ret = 0;
+    int32_t ret = (int32_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (int32_t)combo_box_get_value(widget);
 
@@ -17217,7 +17232,7 @@ jsvalue_t wrap_digit_clock_set_format(JSContext* ctx, jsvalue_const_t this_val, 
                                       jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     const char* format = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)digit_clock_set_format(widget, format);
@@ -17288,7 +17303,7 @@ jsvalue_t wrap_dragger_set_range(JSContext* ctx, jsvalue_const_t this_val, int a
                                  jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 5) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     xy_t x_min = (xy_t)jsvalue_get_int_value(ctx, argv[1]);
     xy_t y_min = (xy_t)jsvalue_get_int_value(ctx, argv[2]);
@@ -17397,7 +17412,7 @@ jsvalue_t wrap_edit_get_int(JSContext* ctx, jsvalue_const_t this_val, int argc,
                             jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    int32_t ret = 0;
+    int32_t ret = (int32_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (int32_t)edit_get_int(widget);
 
@@ -17410,7 +17425,7 @@ jsvalue_t wrap_edit_get_double(JSContext* ctx, jsvalue_const_t this_val, int arg
                                jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    double ret = 0;
+    double ret = (double)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (double)edit_get_double(widget);
 
@@ -17423,7 +17438,7 @@ jsvalue_t wrap_edit_set_int(JSContext* ctx, jsvalue_const_t this_val, int argc,
                             jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t value = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)edit_set_int(widget, value);
@@ -17437,7 +17452,7 @@ jsvalue_t wrap_edit_set_double(JSContext* ctx, jsvalue_const_t this_val, int arg
                                jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     double value = (double)jsvalue_get_number_value(ctx, argv[1]);
     ret = (ret_t)edit_set_double(widget, value);
@@ -17451,7 +17466,7 @@ jsvalue_t wrap_edit_set_text_limit(JSContext* ctx, jsvalue_const_t this_val, int
                                    jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 3) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     uint32_t min = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
     uint32_t max = (uint32_t)jsvalue_get_int_value(ctx, argv[2]);
@@ -17466,7 +17481,7 @@ jsvalue_t wrap_edit_set_int_limit(JSContext* ctx, jsvalue_const_t this_val, int 
                                   jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 4) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t min = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     int32_t max = (int32_t)jsvalue_get_int_value(ctx, argv[2]);
@@ -17482,7 +17497,7 @@ jsvalue_t wrap_edit_set_float_limit(JSContext* ctx, jsvalue_const_t this_val, in
                                     jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 4) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     double min = (double)jsvalue_get_number_value(ctx, argv[1]);
     double max = (double)jsvalue_get_number_value(ctx, argv[2]);
@@ -17498,7 +17513,7 @@ jsvalue_t wrap_edit_set_readonly(JSContext* ctx, jsvalue_const_t this_val, int a
                                  jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t readonly = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)edit_set_readonly(widget, readonly);
@@ -17512,7 +17527,7 @@ jsvalue_t wrap_edit_set_auto_fix(JSContext* ctx, jsvalue_const_t this_val, int a
                                  jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t auto_fix = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)edit_set_auto_fix(widget, auto_fix);
@@ -17526,7 +17541,7 @@ jsvalue_t wrap_edit_set_select_none_when_focused(JSContext* ctx, jsvalue_const_t
                                                  jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t select_none_when_focused = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)edit_set_select_none_when_focused(widget, select_none_when_focused);
@@ -17540,7 +17555,7 @@ jsvalue_t wrap_edit_set_open_im_when_focused(JSContext* ctx, jsvalue_const_t thi
                                              jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t open_im_when_focused = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)edit_set_open_im_when_focused(widget, open_im_when_focused);
@@ -17554,7 +17569,7 @@ jsvalue_t wrap_edit_set_input_type(JSContext* ctx, jsvalue_const_t this_val, int
                                    jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     input_type_t type = (input_type_t)jsvalue_get_number_value(ctx, argv[1]);
     ret = (ret_t)edit_set_input_type(widget, type);
@@ -17568,7 +17583,7 @@ jsvalue_t wrap_edit_set_input_tips(JSContext* ctx, jsvalue_const_t this_val, int
                                    jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     char* tips = (char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)edit_set_input_tips(widget, tips);
@@ -17583,7 +17598,7 @@ jsvalue_t wrap_edit_set_password_visible(JSContext* ctx, jsvalue_const_t this_va
                                          jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t password_visible = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)edit_set_password_visible(widget, password_visible);
@@ -17597,7 +17612,7 @@ jsvalue_t wrap_edit_set_focus(JSContext* ctx, jsvalue_const_t this_val, int argc
                               jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t focus = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)edit_set_focus(widget, focus);
@@ -17611,7 +17626,7 @@ jsvalue_t wrap_edit_set_cursor(JSContext* ctx, jsvalue_const_t this_val, int arg
                                jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     uint32_t cursor = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)edit_set_cursor(widget, cursor);
@@ -17931,7 +17946,7 @@ jsvalue_t wrap_label_set_length(JSContext* ctx, jsvalue_const_t this_val, int ar
                                 jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     int32_t length = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)label_set_length(widget, length);
@@ -17945,7 +17960,7 @@ jsvalue_t wrap_label_resize_to_content(JSContext* ctx, jsvalue_const_t this_val,
                                        jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 5) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     uint32_t min_w = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
     uint32_t max_w = (uint32_t)jsvalue_get_int_value(ctx, argv[2]);
@@ -18076,7 +18091,7 @@ jsvalue_t wrap_pages_set_active(JSContext* ctx, jsvalue_const_t this_val, int ar
                                 jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     uint32_t index = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)pages_set_active(widget, index);
@@ -18090,7 +18105,7 @@ jsvalue_t wrap_pages_set_active_by_name(JSContext* ctx, jsvalue_const_t this_val
                                         jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     char* name = (char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)pages_set_active_by_name(widget, name);
@@ -18164,7 +18179,7 @@ jsvalue_t wrap_progress_bar_set_value(JSContext* ctx, jsvalue_const_t this_val, 
                                       jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     float_t value = (float_t)jsvalue_get_number_value(ctx, argv[1]);
     ret = (ret_t)progress_bar_set_value(widget, value);
@@ -18178,7 +18193,7 @@ jsvalue_t wrap_progress_bar_set_max(JSContext* ctx, jsvalue_const_t this_val, in
                                     jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     uint32_t max = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)progress_bar_set_max(widget, max);
@@ -18192,7 +18207,7 @@ jsvalue_t wrap_progress_bar_set_vertical(JSContext* ctx, jsvalue_const_t this_va
                                          jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t vertical = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)progress_bar_set_vertical(widget, vertical);
@@ -18206,7 +18221,7 @@ jsvalue_t wrap_progress_bar_set_show_text(JSContext* ctx, jsvalue_const_t this_v
                                           jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t show_text = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)progress_bar_set_show_text(widget, show_text);
@@ -18220,7 +18235,7 @@ jsvalue_t wrap_progress_bar_get_percent(JSContext* ctx, jsvalue_const_t this_val
                                         jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    uint32_t ret = 0;
+    uint32_t ret = (uint32_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (uint32_t)progress_bar_get_percent(widget);
 
@@ -18377,7 +18392,7 @@ jsvalue_t wrap_slider_set_value(JSContext* ctx, jsvalue_const_t this_val, int ar
                                 jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     double value = (double)jsvalue_get_number_value(ctx, argv[1]);
     ret = (ret_t)slider_set_value(widget, value);
@@ -18391,7 +18406,7 @@ jsvalue_t wrap_slider_set_min(JSContext* ctx, jsvalue_const_t this_val, int argc
                               jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     double min = (double)jsvalue_get_number_value(ctx, argv[1]);
     ret = (ret_t)slider_set_min(widget, min);
@@ -18405,7 +18420,7 @@ jsvalue_t wrap_slider_set_max(JSContext* ctx, jsvalue_const_t this_val, int argc
                               jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     double max = (double)jsvalue_get_number_value(ctx, argv[1]);
     ret = (ret_t)slider_set_max(widget, max);
@@ -18419,7 +18434,7 @@ jsvalue_t wrap_slider_set_step(JSContext* ctx, jsvalue_const_t this_val, int arg
                                jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     double step = (double)jsvalue_get_number_value(ctx, argv[1]);
     ret = (ret_t)slider_set_step(widget, step);
@@ -18433,7 +18448,7 @@ jsvalue_t wrap_slider_set_bar_size(JSContext* ctx, jsvalue_const_t this_val, int
                                    jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     uint32_t bar_size = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)slider_set_bar_size(widget, bar_size);
@@ -18447,7 +18462,7 @@ jsvalue_t wrap_slider_set_vertical(JSContext* ctx, jsvalue_const_t this_val, int
                                    jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t vertical = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)slider_set_vertical(widget, vertical);
@@ -18607,7 +18622,7 @@ jsvalue_t wrap_tab_button_group_set_compact(JSContext* ctx, jsvalue_const_t this
                                             jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t compact = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)tab_button_group_set_compact(widget, compact);
@@ -18621,7 +18636,7 @@ jsvalue_t wrap_tab_button_group_set_scrollable(JSContext* ctx, jsvalue_const_t t
                                                jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t scrollable = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)tab_button_group_set_scrollable(widget, scrollable);
@@ -18723,7 +18738,7 @@ jsvalue_t wrap_tab_button_set_value(JSContext* ctx, jsvalue_const_t this_val, in
                                     jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     uint32_t value = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)tab_button_set_value(widget, value);
@@ -18737,7 +18752,7 @@ jsvalue_t wrap_tab_button_set_icon(JSContext* ctx, jsvalue_const_t this_val, int
                                    jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     char* name = (char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)tab_button_set_icon(widget, name);
@@ -18752,7 +18767,7 @@ jsvalue_t wrap_tab_button_set_active_icon(JSContext* ctx, jsvalue_const_t this_v
                                           jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     char* name = (char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)tab_button_set_active_icon(widget, name);
@@ -18767,7 +18782,7 @@ jsvalue_t wrap_tab_button_set_load_ui(JSContext* ctx, jsvalue_const_t this_val, 
                                       jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     char* name = (char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)tab_button_set_load_ui(widget, name);
@@ -19002,7 +19017,7 @@ jsvalue_t wrap_object_array_clear_props(JSContext* ctx, jsvalue_const_t this_val
                                         jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     object_t* obj = (object_t*)jsvalue_get_pointer(ctx, argv[0], "object_t*");
     ret = (ret_t)object_array_clear_props(obj);
 
@@ -19094,7 +19109,7 @@ jsvalue_t wrap_object_default_clear_props(JSContext* ctx, jsvalue_const_t this_v
                                           jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     object_t* obj = (object_t*)jsvalue_get_pointer(ctx, argv[0], "object_t*");
     ret = (ret_t)object_default_clear_props(obj);
 
@@ -19149,7 +19164,7 @@ jsvalue_t wrap_image_set_draw_type(JSContext* ctx, jsvalue_const_t this_val, int
                                    jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     image_draw_type_t draw_type = (image_draw_type_t)jsvalue_get_number_value(ctx, argv[1]);
     ret = (ret_t)image_set_draw_type(widget, draw_type);
@@ -19282,7 +19297,7 @@ jsvalue_t wrap_popup_set_close_when_click(JSContext* ctx, jsvalue_const_t this_v
                                           jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t close_when_click = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)popup_set_close_when_click(widget, close_when_click);
@@ -19296,7 +19311,7 @@ jsvalue_t wrap_popup_set_close_when_click_outside(JSContext* ctx, jsvalue_const_
                                                   int argc, jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t close_when_click_outside = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)popup_set_close_when_click_outside(widget, close_when_click_outside);
@@ -19369,7 +19384,7 @@ jsvalue_t wrap_svg_image_set_image(JSContext* ctx, jsvalue_const_t this_val, int
                                    jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     char* name = (char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)svg_image_set_image(widget, name);
@@ -19583,7 +19598,7 @@ jsvalue_t wrap_window_set_fullscreen(JSContext* ctx, jsvalue_const_t this_val, i
                                      jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     bool_t fullscreen = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
     ret = (ret_t)window_set_fullscreen(widget, fullscreen);
@@ -19626,7 +19641,7 @@ jsvalue_t wrap_window_close(JSContext* ctx, jsvalue_const_t this_val, int argc,
                             jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (ret_t)window_close(widget);
 
@@ -19639,7 +19654,7 @@ jsvalue_t wrap_window_close_force(JSContext* ctx, jsvalue_const_t this_val, int 
                                   jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (ret_t)window_close_force(widget);
 
@@ -19830,7 +19845,7 @@ jsvalue_t wrap_dialog_set_title(JSContext* ctx, jsvalue_const_t this_val, int ar
                                 jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     char* title = (char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)dialog_set_title(widget, title);
@@ -19845,7 +19860,7 @@ jsvalue_t wrap_dialog_modal(JSContext* ctx, jsvalue_const_t this_val, int argc,
                             jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    dialog_quit_code_t ret = 0;
+    dialog_quit_code_t ret = (dialog_quit_code_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (dialog_quit_code_t)dialog_modal(widget);
 
@@ -19858,7 +19873,7 @@ jsvalue_t wrap_dialog_quit(JSContext* ctx, jsvalue_const_t this_val, int argc,
                            jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     uint32_t code = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)dialog_quit(widget, code);
@@ -19872,7 +19887,7 @@ jsvalue_t wrap_dialog_is_quited(JSContext* ctx, jsvalue_const_t this_val, int ar
                                 jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    bool_t ret = 0;
+    bool_t ret = (bool_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (bool_t)dialog_is_quited(widget);
 
@@ -19885,7 +19900,7 @@ jsvalue_t wrap_dialog_is_modal(JSContext* ctx, jsvalue_const_t this_val, int arg
                                jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    bool_t ret = 0;
+    bool_t ret = (bool_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
     ret = (bool_t)dialog_is_modal(widget);
 
@@ -19898,7 +19913,7 @@ jsvalue_t wrap_dialog_toast(JSContext* ctx, jsvalue_const_t this_val, int argc,
                             jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     const char* text = (const char*)jsvalue_get_utf8_string(ctx, argv[0]);
     uint32_t duration = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)dialog_toast(text, duration);
@@ -19913,7 +19928,7 @@ jsvalue_t wrap_dialog_info(JSContext* ctx, jsvalue_const_t this_val, int argc,
                            jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     const char* title = (const char*)jsvalue_get_utf8_string(ctx, argv[0]);
     const char* text = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)dialog_info(title, text);
@@ -19929,7 +19944,7 @@ jsvalue_t wrap_dialog_warn(JSContext* ctx, jsvalue_const_t this_val, int argc,
                            jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     const char* title = (const char*)jsvalue_get_utf8_string(ctx, argv[0]);
     const char* text = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)dialog_warn(title, text);
@@ -19945,7 +19960,7 @@ jsvalue_t wrap_dialog_confirm(JSContext* ctx, jsvalue_const_t this_val, int argc
                               jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
-    ret_t ret = 0;
+    ret_t ret = (ret_t)0;
     const char* title = (const char*)jsvalue_get_utf8_string(ctx, argv[0]);
     const char* text = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)dialog_confirm(title, text);
