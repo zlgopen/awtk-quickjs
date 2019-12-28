@@ -1297,7 +1297,7 @@ var TDialogQuitCode;
      *
      */
     TDialogQuitCode[TDialogQuitCode["OTHER"] = DIALOG_QUIT_OTHER()] = "OTHER";
-})(TDialogQuitCode || (TDialogQuitCode = {}));
+})(TDialogQuitCode = exports.TDialogQuitCode || (exports.TDialogQuitCode = {}));
 ;
 /**
  * 类型常量定义。
@@ -1690,7 +1690,7 @@ var TEventType;
      *
      */
     TEventType[TEventType["DESTROY"] = EVT_DESTROY()] = "DESTROY";
-})(TEventType || (TEventType = {}));
+})(TEventType = exports.TEventType || (exports.TEventType = {}));
 ;
 /**
  * 字体管理器，负责字体的加载和缓存管理。
@@ -1746,7 +1746,7 @@ var TGlyphFormat;
      *
      */
     TGlyphFormat[TGlyphFormat["RGBA"] = GLYPH_FMT_RGBA()] = "RGBA";
-})(TGlyphFormat || (TGlyphFormat = {}));
+})(TGlyphFormat = exports.TGlyphFormat || (exports.TGlyphFormat = {}));
 ;
 /**
  * idle可以看作是duration为0的定时器。
@@ -1881,7 +1881,7 @@ var TInputType;
      *
      */
     TInputType[TInputType["CUSTOM_PASSWORD"] = INPUT_CUSTOM_PASSWORD()] = "CUSTOM_PASSWORD";
-})(TInputType || (TInputType = {}));
+})(TInputType = exports.TInputType || (exports.TInputType = {}));
 ;
 /**
  * 类型常量定义。
@@ -1994,7 +1994,7 @@ var TValueType;
      *
      */
     TValueType[TValueType["TOKEN"] = VALUE_TYPE_TOKEN()] = "TOKEN";
-})(TValueType || (TValueType = {}));
+})(TValueType = exports.TValueType || (exports.TValueType = {}));
 ;
 /**
  * 输入法接口。
@@ -2710,7 +2710,7 @@ var TKeyCode;
      *
      */
     TKeyCode[TKeyCode["KEY_CANCEL"] = TK_KEY_CANCEL()] = "KEY_CANCEL";
-})(TKeyCode || (TKeyCode = {}));
+})(TKeyCode = exports.TKeyCode || (exports.TKeyCode = {}));
 ;
 /**
  * 本地化信息。提供字符串翻译数据管理，当前语言改变的事件通知等等。
@@ -2940,7 +2940,7 @@ var TStyleId;
      *
      */
     TStyleId[TStyleId["_ID_SELF_LAYOUT"] = STYLE_ID_SELF_LAYOUT()] = "_ID_SELF_LAYOUT";
-})(TStyleId || (TStyleId = {}));
+})(TStyleId = exports.TStyleId || (exports.TStyleId = {}));
 ;
 /**
  * 控件风格。
@@ -3130,7 +3130,7 @@ var TAlignV;
      *
      */
     TAlignV[TAlignV["BOTTOM"] = ALIGN_V_BOTTOM()] = "BOTTOM";
-})(TAlignV || (TAlignV = {}));
+})(TAlignV = exports.TAlignV || (exports.TAlignV = {}));
 ;
 /**
  * 水平对齐的常量定义。
@@ -3158,7 +3158,7 @@ var TAlignH;
      *
      */
     TAlignH[TAlignH["RIGHT"] = ALIGN_H_RIGHT()] = "RIGHT";
-})(TAlignH || (TAlignH = {}));
+})(TAlignH = exports.TAlignH || (exports.TAlignH = {}));
 ;
 /**
  * 应用程序类型。
@@ -3181,7 +3181,7 @@ var TAppType;
      *
      */
     TAppType[TAppType["DESKTOP"] = APP_DESKTOP()] = "DESKTOP";
-})(TAppType || (TAppType = {}));
+})(TAppType = exports.TAppType || (exports.TAppType = {}));
 ;
 /**
  * 位图格式常量定义。
@@ -3244,7 +3244,7 @@ var TBitmapFormat;
      *
      */
     TBitmapFormat[TBitmapFormat["MONO"] = BITMAP_FMT_MONO()] = "MONO";
-})(TBitmapFormat || (TBitmapFormat = {}));
+})(TBitmapFormat = exports.TBitmapFormat || (exports.TBitmapFormat = {}));
 ;
 /**
  * 位图标志常量定义。
@@ -3282,7 +3282,7 @@ var TBitmapFlag;
      *
      */
     TBitmapFlag[TBitmapFlag["PREMULTI_ALPHA"] = BITMAP_FLAG_PREMULTI_ALPHA()] = "PREMULTI_ALPHA";
-})(TBitmapFlag || (TBitmapFlag = {}));
+})(TBitmapFlag = exports.TBitmapFlag || (exports.TBitmapFlag = {}));
 ;
 /**
  * 矢量图画布抽象基类。
@@ -4623,7 +4623,7 @@ var TWidgetProp;
      *
      */
     TWidgetProp[TWidgetProp["MOVE_FOCUS_RIGHT_KEY"] = WIDGET_PROP_MOVE_FOCUS_RIGHT_KEY()] = "MOVE_FOCUS_RIGHT_KEY";
-})(TWidgetProp || (TWidgetProp = {}));
+})(TWidgetProp = exports.TWidgetProp || (exports.TWidgetProp = {}));
 ;
 /**
  * 控件的类型。
@@ -4906,7 +4906,7 @@ var TWidgetType;
      *
      */
     TWidgetType[TWidgetType["CALIBRATION_WIN"] = WIDGET_TYPE_CALIBRATION_WIN()] = "CALIBRATION_WIN";
-})(TWidgetType || (TWidgetType = {}));
+})(TWidgetType = exports.TWidgetType || (exports.TWidgetType = {}));
 ;
 /**
  * 窗口的生命周期常量定义。
@@ -4934,7 +4934,7 @@ var TWindowStage;
      *
      */
     TWindowStage[TWindowStage["CLOSED"] = WINDOW_STAGE_CLOSED()] = "CLOSED";
-})(TWindowStage || (TWindowStage = {}));
+})(TWindowStage = exports.TWindowStage || (exports.TWindowStage = {}));
 ;
 /**
  * 窗口的closable常量定义。
@@ -4957,7 +4957,7 @@ var TWindowClosable;
      *
      */
     TWindowClosable[TWindowClosable["CONFIRM"] = WINDOW_CLOSABLE_CONFIRM()] = "CONFIRM";
-})(TWindowClosable || (TWindowClosable = {}));
+})(TWindowClosable = exports.TWindowClosable || (exports.TWindowClosable = {}));
 ;
 /**
  * 控件状态常量定义。
@@ -5067,7 +5067,7 @@ var TWidgetState;
      *
      */
     TWidgetState[TWidgetState["STATE_FOCUSED_OF_ACTIVE"] = WIDGET_STATE_FOCUSED_OF_ACTIVE()] = "STATE_FOCUSED_OF_ACTIVE";
-})(TWidgetState || (TWidgetState = {}));
+})(TWidgetState = exports.TWidgetState || (exports.TWidgetState = {}));
 ;
 /**
  * widget_t* button = button_create(win, 10, 10, 128, 30);
@@ -6213,7 +6213,7 @@ var TRet;
      *
      */
     TRet[TRet["EOS"] = RET_EOS()] = "EOS";
-})(TRet || (TRet = {}));
+})(TRet = exports.TRet || (exports.TRet = {}));
 ;
 /**
  * 定时器管理器。
@@ -6354,7 +6354,7 @@ var TImageDrawType;
      *
      */
     TImageDrawType[TImageDrawType["PATCH3_Y_SCALE_X"] = IMAGE_DRAW_PATCH3_Y_SCALE_X()] = "PATCH3_Y_SCALE_X";
-})(TImageDrawType || (TImageDrawType = {}));
+})(TImageDrawType = exports.TImageDrawType || (exports.TImageDrawType = {}));
 ;
 /**
  * 提供基本的绘图功能和状态管理。
@@ -7306,7 +7306,7 @@ var TMIME_TYPE;
      *
      */
     TMIME_TYPE[TMIME_TYPE["VIDEO_X_MSVIDEO"] = MIME_TYPE_VIDEO_X_MSVIDEO()] = "VIDEO_X_MSVIDEO";
-})(TMIME_TYPE || (TMIME_TYPE = {}));
+})(TMIME_TYPE = exports.TMIME_TYPE || (exports.TMIME_TYPE = {}));
 ;
 /**
  * idle_manager_t管理器。
@@ -7351,7 +7351,7 @@ var TIndicatorDefaultPaint;
      *
      */
     TIndicatorDefaultPaint[TIndicatorDefaultPaint["STROKE_RECT"] = INDICATOR_DEFAULT_PAINT_STROKE_RECT()] = "STROKE_RECT";
-})(TIndicatorDefaultPaint || (TIndicatorDefaultPaint = {}));
+})(TIndicatorDefaultPaint = exports.TIndicatorDefaultPaint || (exports.TIndicatorDefaultPaint = {}));
 ;
 /**
  * 剪切板数据类型定义。
@@ -7369,7 +7369,7 @@ var TClipBoardDataType;
      *
      */
     TClipBoardDataType[TClipBoardDataType["TEXT"] = CLIP_BOARD_DATA_TYPE_TEXT()] = "TEXT";
-})(TClipBoardDataType || (TClipBoardDataType = {}));
+})(TClipBoardDataType = exports.TClipBoardDataType || (exports.TClipBoardDataType = {}));
 ;
 /**
  * 剪切板接口。
@@ -7528,7 +7528,7 @@ var TEasingType;
      *
      */
     TEasingType[TEasingType["BOUNCE_INOUT"] = EASING_BOUNCE_INOUT()] = "BOUNCE_INOUT";
-})(TEasingType || (TEasingType = {}));
+})(TEasingType = exports.TEasingType || (exports.TEasingType = {}));
 ;
 /**
  * 日期时间。
@@ -7897,7 +7897,7 @@ var TAssetType;
      *
      */
     TAssetType[TAssetType["DATA"] = ASSET_TYPE_DATA()] = "DATA";
-})(TAssetType || (TAssetType = {}));
+})(TAssetType = exports.TAssetType || (exports.TAssetType = {}));
 ;
 /**
  * 资源管理器。
