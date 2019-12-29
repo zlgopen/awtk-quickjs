@@ -1,7 +1,7 @@
 ﻿/*XXX: GENERATED CODE, DONT EDIT IT.*/
+#include "quickjs.h"
 #include "tkc/utf8.h"
 #include "tkc/mem.h"
-#include "quickjs.h"
 #include "tkc/event.h"
 #include "tkc/rect.h"
 #include "tkc/emitter.h"
@@ -333,7 +333,7 @@ jsvalue_t wrap_emitter_dispatch_simple_event(JSContext* ctx, jsvalue_const_t thi
   if (argc >= 2) {
     ret_t ret = (ret_t)0;
     emitter_t* emitter = (emitter_t*)jsvalue_get_pointer(ctx, argv[0], "emitter_t*");
-    event_type_t type = (event_type_t)jsvalue_get_number_value(ctx, argv[1]);
+    event_type_t type = (event_type_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)emitter_dispatch_simple_event(emitter, type);
 
     jret = jsvalue_create_int(ctx, ret);
@@ -454,7 +454,7 @@ jsvalue_t wrap_bitmap_create_ex(JSContext* ctx, jsvalue_const_t this_val, int ar
     uint32_t w = (uint32_t)jsvalue_get_int_value(ctx, argv[0]);
     uint32_t h = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
     uint32_t line_length = (uint32_t)jsvalue_get_int_value(ctx, argv[2]);
-    bitmap_format_t format = (bitmap_format_t)jsvalue_get_number_value(ctx, argv[3]);
+    bitmap_format_t format = (bitmap_format_t)jsvalue_get_int_value(ctx, argv[3]);
     ret = (bitmap_t*)bitmap_create_ex(w, h, line_length, format);
 
     jret = jsvalue_create_object(ctx, ret, "bitmap_t*", (tk_destroy_t)bitmap_destroy);
@@ -1673,7 +1673,7 @@ jsvalue_t wrap_tk_init(JSContext* ctx, jsvalue_const_t this_val, int argc, jsval
     ret_t ret = (ret_t)0;
     wh_t w = (wh_t)jsvalue_get_int_value(ctx, argv[0]);
     wh_t h = (wh_t)jsvalue_get_int_value(ctx, argv[1]);
-    app_type_t app_type = (app_type_t)jsvalue_get_number_value(ctx, argv[2]);
+    app_type_t app_type = (app_type_t)jsvalue_get_int_value(ctx, argv[2]);
     const char* app_name = (const char*)jsvalue_get_utf8_string(ctx, argv[3]);
     const char* app_root = (const char*)jsvalue_get_utf8_string(ctx, argv[4]);
     ret = (ret_t)tk_init(w, h, app_type, app_name, app_root);
@@ -2357,7 +2357,7 @@ jsvalue_t wrap_font_manager_unload_font(JSContext* ctx, jsvalue_const_t this_val
     ret_t ret = (ret_t)0;
     font_manager_t* fm = (font_manager_t*)jsvalue_get_pointer(ctx, argv[0], "font_manager_t*");
     char* name = (char*)jsvalue_get_utf8_string(ctx, argv[1]);
-    font_size_t size = (font_size_t)jsvalue_get_number_value(ctx, argv[2]);
+    font_size_t size = (font_size_t)jsvalue_get_int_value(ctx, argv[2]);
     ret = (ret_t)font_manager_unload_font(fm, name, size);
     jsvalue_free_str(ctx, name);
 
@@ -8832,7 +8832,7 @@ jsvalue_t wrap_canvas_set_font(JSContext* ctx, jsvalue_const_t this_val, int arg
     ret_t ret = (ret_t)0;
     canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
     const char* name = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
-    font_size_t size = (font_size_t)jsvalue_get_number_value(ctx, argv[2]);
+    font_size_t size = (font_size_t)jsvalue_get_int_value(ctx, argv[2]);
     ret = (ret_t)canvas_set_font(c, name, size);
     jsvalue_free_str(ctx, name);
 
@@ -8928,7 +8928,7 @@ jsvalue_t wrap_canvas_draw_image_ex(JSContext* ctx, jsvalue_const_t this_val, in
     ret_t ret = (ret_t)0;
     canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
     bitmap_t* img = (bitmap_t*)jsvalue_get_pointer(ctx, argv[1], "bitmap_t*");
-    image_draw_type_t draw_type = (image_draw_type_t)jsvalue_get_number_value(ctx, argv[2]);
+    image_draw_type_t draw_type = (image_draw_type_t)jsvalue_get_int_value(ctx, argv[2]);
     rect_t* dst = (rect_t*)jsvalue_get_pointer(ctx, argv[3], "rect_t*");
     ret = (ret_t)canvas_draw_image_ex(c, img, draw_type, dst);
 
@@ -10717,7 +10717,7 @@ jsvalue_t wrap_assets_manager_ref(JSContext* ctx, jsvalue_const_t this_val, int 
     asset_info_t* ret = NULL;
     assets_manager_t* am =
         (assets_manager_t*)jsvalue_get_pointer(ctx, argv[0], "assets_manager_t*");
-    asset_type_t type = (asset_type_t)jsvalue_get_number_value(ctx, argv[1]);
+    asset_type_t type = (asset_type_t)jsvalue_get_int_value(ctx, argv[1]);
     char* name = (char*)jsvalue_get_utf8_string(ctx, argv[2]);
     ret = (asset_info_t*)assets_manager_ref(am, type, name);
     jsvalue_free_str(ctx, name);
@@ -12230,7 +12230,7 @@ jsvalue_t wrap_slide_menu_set_align_v(JSContext* ctx, jsvalue_const_t this_val, 
   if (argc >= 2) {
     ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
-    align_v_t align_v = (align_v_t)jsvalue_get_number_value(ctx, argv[1]);
+    align_v_t align_v = (align_v_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)slide_menu_set_align_v(widget, align_v);
 
     jret = jsvalue_create_int(ctx, ret);
@@ -14644,7 +14644,7 @@ jsvalue_t wrap_guage_set_draw_type(JSContext* ctx, jsvalue_const_t this_val, int
   if (argc >= 2) {
     ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
-    image_draw_type_t draw_type = (image_draw_type_t)jsvalue_get_number_value(ctx, argv[1]);
+    image_draw_type_t draw_type = (image_draw_type_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)guage_set_draw_type(widget, draw_type);
 
     jret = jsvalue_create_int(ctx, ret);
@@ -17571,7 +17571,7 @@ jsvalue_t wrap_edit_set_input_type(JSContext* ctx, jsvalue_const_t this_val, int
   if (argc >= 2) {
     ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
-    input_type_t type = (input_type_t)jsvalue_get_number_value(ctx, argv[1]);
+    input_type_t type = (input_type_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)edit_set_input_type(widget, type);
 
     jret = jsvalue_create_int(ctx, ret);
@@ -19166,7 +19166,7 @@ jsvalue_t wrap_image_set_draw_type(JSContext* ctx, jsvalue_const_t this_val, int
   if (argc >= 2) {
     ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
-    image_draw_type_t draw_type = (image_draw_type_t)jsvalue_get_number_value(ctx, argv[1]);
+    image_draw_type_t draw_type = (image_draw_type_t)jsvalue_get_int_value(ctx, argv[1]);
     ret = (ret_t)image_set_draw_type(widget, draw_type);
 
     jret = jsvalue_create_int(ctx, ret);
