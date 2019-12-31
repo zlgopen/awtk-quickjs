@@ -15,7 +15,6 @@ function application_init() {
 
   e = null;
   emitter = null;
-  gc();
 }
 
 application_init();

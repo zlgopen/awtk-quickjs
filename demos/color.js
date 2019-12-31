@@ -14,7 +14,6 @@ function application_init() {
   console.log(c.a());
   c = null;
 
-  gc();
 }
 
 application_init();

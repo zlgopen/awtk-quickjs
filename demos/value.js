@@ -21,7 +21,6 @@ function application_init() {
 
   v = null
 
-  gc()
 }
 
 application_init();

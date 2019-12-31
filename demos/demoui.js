@@ -1,8 +1,8 @@
 
 var sPreloadRes = [
-  {type : TAssetType.IMAGE, name : "bg800x480"},
+  {type : TAssetType.IMAGE, name : "1"},
+  {type : TAssetType.IMAGE, name : "2"},
   {type : TAssetType.IMAGE, name : "earth"},
-  {type : TAssetType.IMAGE, name : "dialogTitle"},
   {type : TAssetType.IMAGE, name : "rgb"},
   {type : TAssetType.IMAGE, name : "rgba"}
 ]
@@ -79,6 +79,21 @@ function installHandlers(win) {
 function openWindow(name, toClose) {
   var win = null;
   console.log('open ' + name);
+
+  if(name === "toast") {
+    TDialog.toast("Hello AWTK, This is Toast!", 3000);
+    return;
+  } else if(name === "info") {
+    TDialog.info("Info", "Hello AWTK, Timeout!");
+    return;
+  } else if(name === "warn") {
+    TDialog.warn("Warnning", "Hello AWTK, Timeout!");
+    return;
+  } else if(name === "confirm") {
+    TDialog.confirm("Confirm", "Hello AWTK, Are You Sure to Quit?");
+    return;
+  }
+
   if(toClose) {
     win = TWindow.openAndClose(name, toClose);
   } else {
@@ -103,7 +118,6 @@ function showPreloadResWindow() {
   var status = win.lookup('status', true);
   var total = sPreloadRes.length;
   var finish = 0;
-  var bitmap = TBitmap.create();
 
   status.setText('ready');
   bar.setValue(10);
@@ -111,9 +125,7 @@ function showPreloadResWindow() {
   TTimer.add(function(info) { 
     if(finish == total) {
       console.log('done')
-      TWindow.open('system_bar');
       openWindow('main', win);
-      bitmap = null;
 
       return TRet.REMOVE;
     } else {
@@ -121,7 +133,7 @@ function showPreloadResWindow() {
       var name = sPreloadRes[finish].name;
 
       if(type == TAssetType.IMAGE) {
-        TImageManager.instance().getBitmap(name, bitmap);
+        TImageManager.instance().preload(name);
       }
 
       finish = finish + 1;

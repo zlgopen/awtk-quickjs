@@ -13,7 +13,6 @@ function application_init() {
   console.log(dt.second);
 
   dt = null;
-  gc();
 }
 
 application_init();

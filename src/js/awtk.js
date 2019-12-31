@@ -5,7 +5,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -1815,6 +1815,16 @@ var TImageManager = /** @class */ (function () {
      */
     TImageManager.prototype.getBitmap = function (name, image) {
         return image_manager_get_bitmap(this != null ? (this.nativeObj || this) : null, name, image != null ? (image.nativeObj || image) : null);
+    };
+    /**
+     * 预加载指定的图片。
+     *
+     * @param name 图片名称。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TImageManager.prototype.preload = function (name) {
+        return image_manager_preload(this != null ? (this.nativeObj || this) : null, name);
     };
     return TImageManager;
 }());
@@ -11182,6 +11192,50 @@ var TLineNumber = /** @class */ (function (_super) {
     return TLineNumber;
 }(TWidget));
 exports.TLineNumber = TLineNumber;
+;
+/**
+ * 输入法候选字词控件。
+ *
+ *如果希望启用用数字选择对应的候选字，请设置属性grab_keys="true"。如：
+ *
+ *```xml
+ *<candidates x="0" y="0" w="100%" h="30" grab_keys="true"/>
+ *```
+ *
+ *>相关文件： assets/default/raw/ui/kb_default.xml
+ *
+ *如果希望通过左右键切换不同的候选字，除了设置属性grab_keys="true"，还需要设置按钮的focused状态的style。
+ *
+ *```xml
+ *<style name="candidates" text_color="black">
+ *<normal  />
+ *<pressed    bg_color="#c0c0c0" border_color="#a0a0a0"/>
+ *<over       bg_color="#e0e0e0" border_color="#a0a0a0"/>
+ *<focused    border_color="#a0a0a0"/>
+ *</style>
+ *```
+ *
+ *>相关文件：assets/default/raw/styles/keyboard.xml
+ *
+ */
+var TCandidates = /** @class */ (function (_super) {
+    __extends(TCandidates, _super);
+    function TCandidates(nativeObj) {
+        return _super.call(this, nativeObj) || this;
+    }
+    /**
+     * 转换为candidates对象(供脚本语言使用)。
+     *
+     * @param widget candidates对象。
+     *
+     * @returns candidates对象。
+     */
+    TCandidates.cast = function (widget) {
+        return new TCandidates(candidates_cast(widget != null ? (widget.nativeObj || widget) : null));
+    };
+    return TCandidates;
+}(TWidget));
+exports.TCandidates = TCandidates;
 ;
 /**
  * 图片值控件。

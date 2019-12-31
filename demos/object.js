@@ -17,7 +17,6 @@ function application_init() {
   v = null;
   obj = null;
 
-  gc();
 }
 
 application_init();

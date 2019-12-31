@@ -55,6 +55,7 @@
 #include "progress_circle/progress_circle.h"
 #include "mledit/mledit.h"
 #include "mledit/line_number.h"
+#include "keyboard/candidates.h"
 #include "image_value/image_value.h"
 #include "image_animation/image_animation.h"
 #include "guage/guage.h"
@@ -2475,6 +2476,21 @@ jsvalue_t wrap_image_manager_get_bitmap(JSContext* ctx, jsvalue_const_t this_val
   return jret;
 }
 
+jsvalue_t wrap_image_manager_preload(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                     jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 2) {
+    ret_t ret = (ret_t)0;
+    image_manager_t* imm = (image_manager_t*)jsvalue_get_pointer(ctx, argv[0], "image_manager_t*");
+    char* name = (char*)jsvalue_get_utf8_string(ctx, argv[1]);
+    ret = (ret_t)image_manager_preload(imm, name);
+    jsvalue_free_str(ctx, name);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
 ret_t image_manager_t_init(JSContext* ctx) {
   jsvalue_t global_obj = JS_GetGlobalObject(ctx);
   JS_SetPropertyStr(ctx, global_obj, "image_manager",
@@ -2482,6 +2498,8 @@ ret_t image_manager_t_init(JSContext* ctx) {
   JS_SetPropertyStr(
       ctx, global_obj, "image_manager_get_bitmap",
       JS_NewCFunction(ctx, wrap_image_manager_get_bitmap, "image_manager_get_bitmap", 1));
+  JS_SetPropertyStr(ctx, global_obj, "image_manager_preload",
+                    JS_NewCFunction(ctx, wrap_image_manager_preload, "image_manager_preload", 1));
 
   jsvalue_unref(ctx, global_obj);
 
@@ -14075,6 +14093,29 @@ ret_t line_number_t_init(JSContext* ctx) {
   return RET_OK;
 }
 
+jsvalue_t wrap_candidates_cast(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                               jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 1) {
+    widget_t* ret = NULL;
+    widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
+    ret = (widget_t*)candidates_cast(widget);
+
+    jret = jsvalue_create_pointer(ctx, ret, "candidates_t*");
+  }
+  return jret;
+}
+
+ret_t candidates_t_init(JSContext* ctx) {
+  jsvalue_t global_obj = JS_GetGlobalObject(ctx);
+  JS_SetPropertyStr(ctx, global_obj, "candidates_cast",
+                    JS_NewCFunction(ctx, wrap_candidates_cast, "candidates_cast", 1));
+
+  jsvalue_unref(ctx, global_obj);
+
+  return RET_OK;
+}
+
 jsvalue_t wrap_image_value_create(JSContext* ctx, jsvalue_const_t this_val, int argc,
                                   jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
@@ -20095,6 +20136,7 @@ ret_t awtk_js_init(JSContext* ctx) {
   progress_circle_t_init(ctx);
   mledit_t_init(ctx);
   line_number_t_init(ctx);
+  candidates_t_init(ctx);
   image_value_t_init(ctx);
   image_animation_t_init(ctx);
   guage_t_init(ctx);
