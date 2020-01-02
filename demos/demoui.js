@@ -145,7 +145,7 @@ function showPreloadResWindow() {
 
       return TRet.REPEAT;
     }
-  }, interval);
+  }, null, interval);
 }
 
 function applicationInit() {

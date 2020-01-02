@@ -140,8 +140,16 @@ JSFUNC_DECL(wrap_timer_add)
 uint32_t ret = TK_INVALID_ID;
 
 if (argc >= 2) {
+  uint32_t duration = 0;
   async_callback_info_t* info = async_callback_info_create(ctx, argv[0]);
-  uint32_t duration = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
+
+  if (argc > 2) {
+    duration = (uint32_t)jsvalue_get_int_value(ctx, argv[2]);
+  } else {
+    duration = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
+  }
+
+  log_debug("duration=%d\n", duration);
   ret = timer_add(call_on_timer, info, duration);
   if (ret == TK_INVALID_ID) {
     async_callback_info_destroy(info);

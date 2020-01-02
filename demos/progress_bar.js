@@ -35,7 +35,7 @@ function applicationInit() {
     } else {
       return TRet.REMOVE;
     }
-  }, 500);
+  }, null, 500);
 
   win.layout();
 }
