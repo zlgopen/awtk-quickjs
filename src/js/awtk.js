@@ -5,7 +5,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    };
+    }
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -4034,6 +4034,11 @@ var TWidgetProp;
      */
     TWidgetProp[TWidgetProp["H"] = WIDGET_PROP_H()] = "H";
     /**
+     * 脏矩形超出控件本身大小的最大范围。
+     *
+     */
+    TWidgetProp[TWidgetProp["DIRTY_RECT_TOLERANCE"] = WIDGET_PROP_DIRTY_RECT_TOLERANCE()] = "DIRTY_RECT_TOLERANCE";
+    /**
      * Canvas。
      *
      */
@@ -4935,7 +4940,7 @@ var TWindowStage;
      */
     TWindowStage[TWindowStage["CREATED"] = WINDOW_STAGE_CREATED()] = "CREATED";
     /**
-     * 窗口已经打开(窗口打开动画完成后，处于该状态，直到窗口被关闭)
+     * 窗口已经打开(窗口打开动画完成后)
      *
      */
     TWindowStage[TWindowStage["OPENED"] = WINDOW_STAGE_OPENED()] = "OPENED";
@@ -4944,6 +4949,11 @@ var TWindowStage;
      *
      */
     TWindowStage[TWindowStage["CLOSED"] = WINDOW_STAGE_CLOSED()] = "CLOSED";
+    /**
+     * 窗口挂起状态。
+     *
+     */
+    TWindowStage[TWindowStage["SUSPEND"] = WINDOW_STAGE_SUSPEND()] = "SUSPEND";
 })(TWindowStage = exports.TWindowStage || (exports.TWindowStage = {}));
 ;
 /**
@@ -5453,6 +5463,16 @@ var TWidget = /** @class */ (function () {
         return widget_set_opacity(this != null ? (this.nativeObj || this) : null, opacity);
     };
     /**
+     * 设置控件脏矩形超出控件本身大小的最大范围(一般不用指定)。
+     *
+     * @param dirty_rect_tolerance 控件脏脏矩形超出控件本身大小的最大范。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TWidget.prototype.setDirtyRectTolerance = function (dirty_rect_tolerance) {
+        return widget_set_dirty_rect_tolerance(this != null ? (this.nativeObj || this) : null, dirty_rect_tolerance);
+    };
+    /**
      * 销毁全部子控件。
      *
      *
@@ -5827,6 +5847,15 @@ var TWidget = /** @class */ (function () {
         return widget_is_popup(this != null ? (this.nativeObj || this) : null);
     };
     /**
+     * 检查控件弹出窗口控件是否已经打开了。
+     *
+     *
+     * @returns 返回FALSE表示不是，否则表示是。
+     */
+    TWidget.prototype.isOpenedPopup = function () {
+        return widget_is_opened_popup(this != null ? (this.nativeObj || this) : null);
+    };
+    /**
      * 布局当前控件及子控件。
      *
      *
@@ -6093,6 +6122,22 @@ var TWidget = /** @class */ (function () {
         },
         set: function (v) {
             this.setFloating(v);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TWidget.prototype, "dirtyRectTolerance", {
+        /**
+         * 脏矩形超出控件本身大小的最大范围(一般不用指定)。
+         *
+         *> 如果 border 太粗或 offset 太大等原因，导致脏矩形超出控件本身大小太多（大于缺省值）时，才需要指定。
+         *
+         */
+        get: function () {
+            return widget_t_get_prop_dirty_rect_tolerance(this.nativeObj);
+        },
+        set: function (v) {
+            this.setDirtyRectTolerance(v);
         },
         enumerable: true,
         configurable: true
@@ -6364,6 +6409,30 @@ var TImageDrawType;
      *
      */
     TImageDrawType[TImageDrawType["PATCH3_Y_SCALE_X"] = IMAGE_DRAW_PATCH3_Y_SCALE_X()] = "PATCH3_Y_SCALE_X";
+    /**
+     * 平铺9宫格显示。
+     *将图片分成4个角和5块平铺块，4个角按原大小显示在目标矩形的4个角，其余5块会平铺对应的目标区域。
+     *切割方法为（如下图）：
+     *如果图片宽度为奇数，则中间一块为一列数据，如果图片宽度为偶数，则中间一块为二列数据，其他数据分为左右块
+     *如果图片高度为奇数，则中间一块为一行数据，如果图片高度为偶数，则中间一块为二行数据，其他数据分为上下块
+     *中间一块数据根据上面两条规则组成4中情况，分别是一列一行数据，一列两行数据，两列一行数据和两行两列数据
+     *
+     */
+    TImageDrawType[TImageDrawType["REPEAT9"] = IMAGE_DRAW_REPEAT9()] = "REPEAT9";
+    /**
+     * 水平方向3宫格显示，垂直方向居中显示。
+     *将图片在水平方向上分成左右相等两块和中间一块，如果图片宽度为奇数，则中间一块为一列数据，如果图片宽度为偶数，则中间一块为二列数据，其他数据分为左右块。
+     *左右两块按原大小显示在目标矩形的左右，中间一列像素点平铺显示在目标区域中间剩余部分。
+     *
+     */
+    TImageDrawType[TImageDrawType["REPEAT3_X"] = IMAGE_DRAW_REPEAT3_X()] = "REPEAT3_X";
+    /**
+     * 垂直方向3宫格显示，水平方向居中显示。
+     *将图片在垂直方向上分成上下相等两块和中间一块，如果图片高度为奇数，则中间一块为一行数据，如果图片高度为偶数，则中间一块为二行数据，其他数据分为上下块
+     *上下两块按原大小显示在目标矩形的上下，中间一块平铺显示在目标区域中间剩余部分。
+     *
+     */
+    TImageDrawType[TImageDrawType["REPEAT3_Y"] = IMAGE_DRAW_REPEAT3_Y()] = "REPEAT3_Y";
 })(TImageDrawType = exports.TImageDrawType || (exports.TImageDrawType = {}));
 ;
 /**
@@ -10036,6 +10105,15 @@ var TListView = /** @class */ (function (_super) {
     TListView.cast = function (widget) {
         return new TListView(list_view_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
+    /**
+     * list_view重新初始化。
+     *
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TListView.prototype.reinit = function () {
+        return list_view_reinit(this != null ? (this.nativeObj || this) : null);
+    };
     Object.defineProperty(TListView.prototype, "itemHeight", {
         /**
          * 列表项的高度。如果 item_height 0，所有列表项使用固定高度，否则使用列表项自身的高度。
@@ -11939,7 +12017,7 @@ var TGuagePointer = /** @class */ (function (_super) {
     });
     Object.defineProperty(TGuagePointer.prototype, "anchorX", {
         /**
-         * 旋转锚点x坐标。
+         * 图片旋转锚点x坐标。(后面加上px为像素点，不加px为相对百分比坐标0.0f到1.0f)
          *
          */
         get: function () {
@@ -11950,7 +12028,7 @@ var TGuagePointer = /** @class */ (function (_super) {
     });
     Object.defineProperty(TGuagePointer.prototype, "anchorY", {
         /**
-         * 旋转锚点y坐标。
+         * 图片旋转锚点x坐标。(后面加上px为像素点，不加px为相对百分比坐标0.0f到1.0f)
          *
          */
         get: function () {
@@ -12390,6 +12468,15 @@ var TWindowManager = /** @class */ (function (_super) {
         return window_manager_get_pointer_pressed(this != null ? (this.nativeObj || this) : null);
     };
     /**
+     * 获取当前窗口动画是否正在播放。
+     *
+     *
+     * @returns 返回TRUE表示正在播放，FALSE表示没有播放。
+     */
+    TWindowManager.prototype.isAnimating = function () {
+        return window_manager_is_animating(this != null ? (this.nativeObj || this) : null);
+    };
+    /**
      * 设置是否显示FPS。
      *
      * @param show_fps 是否显示FPS。
@@ -12452,6 +12539,17 @@ var TWindowManager = /** @class */ (function (_super) {
      */
     TWindowManager.prototype.backTo = function (target) {
         return window_manager_back_to(this != null ? (this.nativeObj || this) : null, target);
+    };
+    /**
+     * 调整原生窗口的大小。
+     *
+     * @param w 宽度
+     * @param h 高度
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TWindowManager.prototype.resize = function (w, h) {
+        return window_manager_resize(this != null ? (this.nativeObj || this) : null, w, h);
     };
     return TWindowManager;
 }(TWidget));
@@ -17424,9 +17522,29 @@ exports.TWindow = TWindow;
  *| tab            | tab键           |
  *| space          | 空格键          |
  *| close          | 关闭软键盘      |
- *| 前缀key:       | 键值            |
- *| 前缀page:      | 切换到页面      |
+ *| 前缀key:        | 键值           |
+ *| 前缀hard_key:   | 模拟物理键盘    |
+ *| 前缀page:       | 切换到页面      |
  *
+ *示例：
+ *
+ ** 按键"a"，提交输入法处理。
+ *
+ *```xml
+ *<button repeat="300" name="key:a" text="a"/>
+ *```
+ *
+ ** 字符"a"，直接提交到编辑器。
+ *
+ *```xml
+ *<button repeat="300" name="a" text="a"/>
+ *```
+ *
+ ** 模拟物理键盘数字"1"，触发key down/up事件（可以用来选择候选字）。
+ *
+ *```xml
+ *<button repeat="300" name="hard_key:1" text="1"/>
+ *```
  *
  *> 更多用法请参考：
  *[kb_default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/kb_default.xml)
