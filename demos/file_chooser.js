@@ -12,8 +12,9 @@ function applicationInit() {
   quit.setSelfLayoutParams("center", "middle", "50%", "30");
 
   choose.on(TEventType.CLICK, function(evt) {
-    var chooser = TFileChooser.create("./", ".txt.md");
+    var chooser = TFileChooser.create();
 
+    chooser.setInitDir("./");
     chooser.on(TEventType.DONE, function(data) {
       console.log('dir:' + chooser.getDir());
       console.log('filename:' + chooser.getFilename());

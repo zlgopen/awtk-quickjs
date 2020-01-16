@@ -12096,7 +12096,7 @@ var TProgressBar = /** @class */ (function (_super) {
     };
     Object.defineProperty(TProgressBar.prototype, "value", {
         /**
-         * 进度条的值[0-100]。
+         * 进度条的值[0-max]。
          *
          */
         get: function () {
@@ -13210,23 +13210,41 @@ var TFileChooser = /** @class */ (function (_super) {
     /**
      * 创建file_chooser对象
      *
-     * @param init_dir 初始目录
-     * @param filter 过滤规则(如".jpg.png.gif")。
      *
      * @returns 对象。
      */
-    TFileChooser.create = function (init_dir, filter) {
-        return new TFileChooser(file_chooser_create(init_dir, filter));
+    TFileChooser.create = function () {
+        return new TFileChooser(file_chooser_create());
+    };
+    /**
+     * 设置初始目录。
+     *
+     * @param init_dir 初始目录
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TFileChooser.prototype.setInitDir = function (init_dir) {
+        return file_chooser_set_init_dir(this != null ? (this.nativeObj || this) : null, init_dir);
+    };
+    /**
+     * 设置过滤规则。
+     *
+     * @param filter 过滤规则(如".jpg.png.gif")。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TFileChooser.prototype.setFilter = function (filter) {
+        return file_chooser_set_filter(this != null ? (this.nativeObj || this) : null, filter);
     };
     /**
      * 转换为file_chooser对象(供脚本语言使用)。
      *
-     * @param data file_chooser对象。
+     * @param chooser file_chooser对象。
      *
      * @returns 对象。
      */
-    TFileChooser.cast = function (data) {
-        return new TFileChooser(file_chooser_cast(data != null ? (data.nativeObj || data) : null));
+    TFileChooser.cast = function (chooser) {
+        return new TFileChooser(file_chooser_cast(chooser != null ? (chooser.nativeObj || chooser) : null));
     };
     /**
      * 为了保存而选择文件。
