@@ -5,7 +5,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    };
+    }
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -1686,10 +1686,15 @@ var TEventType;
      */
     TEventType[TEventType["PROGRESS"] = EVT_PROGRESS()] = "PROGRESS";
     /**
-     * 完成(event_t)。
+     * 完成(done_event_t)。
      *
      */
     TEventType[TEventType["DONE"] = EVT_DONE()] = "DONE";
+    /**
+     * 错误(error_event_t)。
+     *
+     */
+    TEventType[TEventType["ERROR"] = EVT_ERROR()] = "ERROR";
     /**
      * 对象销毁事件名(event_t)。
      *
@@ -8064,30 +8069,164 @@ var TAssetsManager = /** @class */ (function () {
 exports.TAssetsManager = TAssetsManager;
 ;
 /**
- * 颜色选择器的颜色分量。
- *控件的名称有严格规定：
- *COLOR_PICKER_CHILD_SV: 水平为Value/Brightness(递增)，垂直为Saturation(递减)。
- *COLOR_PICKER_CHILD_H: 水平为同色，垂直为Hue(递减)。
+ * 可变的style(可实时修改并生效，主要用于在designer中被编辑的控件，或者一些特殊控件)。
+ *
+ *style\_mutable也对style\_const进行了包装，当用户没修改某个值时，便从style\_const中获取。
  *
  */
-var TColorComponent = /** @class */ (function (_super) {
-    __extends(TColorComponent, _super);
-    function TColorComponent(nativeObj) {
+var TStyleMutable = /** @class */ (function (_super) {
+    __extends(TStyleMutable, _super);
+    function TStyleMutable(nativeObj) {
         return _super.call(this, nativeObj) || this;
     }
     /**
-     * 转换为color_component对象(供脚本语言使用)。
+     * 设置style的名称。
      *
-     * @param widget color_component对象。
+     * @param name 名称。
      *
-     * @returns color_component对象。
+     * @returns 返回RET_OK表示成功，否则表示失败。
      */
-    TColorComponent.cast = function (widget) {
-        return new TColorComponent(color_component_cast(widget != null ? (widget.nativeObj || widget) : null));
+    TStyleMutable.prototype.setName = function (name) {
+        return style_mutable_set_name(this != null ? (this.nativeObj || this) : null, name);
     };
-    return TColorComponent;
+    /**
+     * 设置指定名称整数格式的值。
+     *
+     * @param state 控件状态。
+     * @param name 属性名。
+     * @param val 值。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TStyleMutable.prototype.setInt = function (state, name, val) {
+        return style_mutable_set_int(this != null ? (this.nativeObj || this) : null, state, name, val);
+    };
+    /**
+     * 转换为style_mutable对象。
+     *
+     * @param s style对象。
+     *
+     * @returns style对象。
+     */
+    TStyleMutable.cast = function (s) {
+        return new TStyleMutable(style_mutable_cast(s != null ? (s.nativeObj || s) : null));
+    };
+    /**
+     * 创建style\_mutable对象。
+     *
+     *> 除了测试程序外不需要直接调用，widget会通过style\_factory\_create创建。
+     *
+     * @param widget 控件
+     * @param default_style 缺省的style。
+     *
+     * @returns style对象。
+     */
+    TStyleMutable.create = function (widget, default_style) {
+        return new TStyleMutable(style_mutable_create(widget != null ? (widget.nativeObj || widget) : null, default_style != null ? (default_style.nativeObj || default_style) : null));
+    };
+    Object.defineProperty(TStyleMutable.prototype, "name", {
+        /**
+         * 名称。
+         *
+         */
+        get: function () {
+            return style_mutable_t_get_prop_name(this.nativeObj);
+        },
+        set: function (v) {
+            this.setName(v);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return TStyleMutable;
+}(TStyle));
+exports.TStyleMutable = TStyleMutable;
+;
+/**
+ * 颜色选择器。
+ *
+ *color\_picker\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于color\_picker\_t控件。
+ *
+ *在xml中使用"color\_picker"标签创建颜色选择器控件。如：
+ *
+ *```xml
+ *<color_picker x="0" y="0" w="100%" h="100%" value="orange">
+ *<color_component x="0" y="0" w="200" h="200" name="sv"/>
+ *<color_component x="210" y="0" w="20" h="200" name="h"/>
+ *<color_tile x="0" y="210" w="50%" h="20" name="new" bg_color="green"/>
+ *<color_tile x="right" y="210" w="50%" h="20" name="old" bg_color="blue"/>
+ *</color_picker>
+ *```
+ *
+ *> 更多用法请参考：
+ *[color\_picker](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/color_picker.xml)
+ *
+ *其中的子控件必须按下列规则命名：
+ *
+ ** r 红色分量。可以是spin_box、edit和slider。
+ ** g 绿色分量。可以是spin_box、edit和slider。
+ ** b 蓝色分量。可以是spin_box、edit和slider。
+ ** h Hue分量。可以是spin_box、edit、slider和color_component。
+ ** s Saturation分量。可以是spin_box、edit和slider。
+ ** v Value/Brightness分量。可以是spin_box、edit和slider。
+ ** sv Saturation和Value/Brightness分量。可以是color_component。
+ ** old 旧的值。可以是spin_box、edit和color_tile。
+ ** new 新的值。可以是spin_box、edit和color_tile。
+ *
+ */
+var TColorPicker = /** @class */ (function (_super) {
+    __extends(TColorPicker, _super);
+    function TColorPicker(nativeObj) {
+        return _super.call(this, nativeObj) || this;
+    }
+    /**
+     * 创建color_picker对象
+     *
+     * @param parent 父控件
+     * @param x x坐标
+     * @param y y坐标
+     * @param w 宽度
+     * @param h 高度
+     *
+     * @returns 对象。
+     */
+    TColorPicker.create = function (parent, x, y, w, h) {
+        return new TColorPicker(color_picker_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
+    };
+    /**
+     * 设置颜色。
+     *
+     * @param color 颜色。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TColorPicker.prototype.setColor = function (color) {
+        return color_picker_set_color(this != null ? (this.nativeObj || this) : null, color);
+    };
+    /**
+     * 转换为color_picker对象(供脚本语言使用)。
+     *
+     * @param widget color_picker对象。
+     *
+     * @returns color_picker对象。
+     */
+    TColorPicker.cast = function (widget) {
+        return new TColorPicker(color_picker_cast(widget != null ? (widget.nativeObj || widget) : null));
+    };
+    Object.defineProperty(TColorPicker.prototype, "value", {
+        /**
+         * 颜色。
+         *
+         */
+        get: function () {
+            return color_picker_t_get_prop_value(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return TColorPicker;
 }(TWidget));
-exports.TColorComponent = TColorComponent;
+exports.TColorPicker = TColorPicker;
 ;
 /**
  * 模拟时钟控件。
@@ -8761,64 +8900,6 @@ var TSwitch = /** @class */ (function (_super) {
 exports.TSwitch = TSwitch;
 ;
 /**
- * 一个通用的容器控件。
- *
- *它本身不提供布局功能，仅提供具有语义的标签，让xml更具有可读性。
- *子控件的布局可用layout\_children属性指定。
- *请参考[布局参数](https://github.com/zlgopen/awtk/blob/master/docs/layout.md)。
- *
- *view\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于view\_t控件。
- *
- *在xml中使用"view"标签创建view。如：
- *
- *```xml
- *<view x="0" y="0" w="100%" h="100%" children_layout="default(c=2,r=2,m=5,s=5)">
- *</view>
- *```
- *
- *可用通过style来设置控件的显示风格，如背景颜色等。如：
- *
- *```xml
- *<style name="default" border_color="#a0a0a0">
- *<normal     bg_color="#f0f0f0" />
- *</style>
- *```
- *
- */
-var TView = /** @class */ (function (_super) {
-    __extends(TView, _super);
-    function TView(nativeObj) {
-        return _super.call(this, nativeObj) || this;
-    }
-    /**
-     * 创建view对象
-     *
-     * @param parent 父控件
-     * @param x x坐标
-     * @param y y坐标
-     * @param w 宽度
-     * @param h 高度
-     *
-     * @returns 对象。
-     */
-    TView.create = function (parent, x, y, w, h) {
-        return new TView(view_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
-    };
-    /**
-     * 转换为view对象(供脚本语言使用)。
-     *
-     * @param widget view对象。
-     *
-     * @returns view对象。
-     */
-    TView.cast = function (widget) {
-        return new TView(view_cast(widget != null ? (widget.nativeObj || widget) : null));
-    };
-    return TView;
-}(TWidget));
-exports.TView = TView;
-;
-/**
  * 对象属性变化事件。
  *
  */
@@ -8896,6 +8977,143 @@ var TProgressEvent = /** @class */ (function (_super) {
     return TProgressEvent;
 }(TEvent));
 exports.TProgressEvent = TProgressEvent;
+;
+/**
+ * 执行完成事件。
+ *
+ */
+var TDoneEvent = /** @class */ (function (_super) {
+    __extends(TDoneEvent, _super);
+    function TDoneEvent(nativeObj) {
+        return _super.call(this, nativeObj) || this;
+    }
+    /**
+     * 把event对象转done_event_t对象，主要给脚本语言使用。
+     *
+     * @param event event对象。
+     *
+     * @returns 返回event对象。
+     */
+    TDoneEvent.cast = function (event) {
+        return new TDoneEvent(done_event_cast(event != null ? (event.nativeObj || event) : null));
+    };
+    Object.defineProperty(TDoneEvent.prototype, "result", {
+        /**
+         * 执行结果。
+         *
+         */
+        get: function () {
+            return done_event_t_get_prop_result(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return TDoneEvent;
+}(TEvent));
+exports.TDoneEvent = TDoneEvent;
+;
+/**
+ * 执行完成事件。
+ *
+ */
+var TErrorEvent = /** @class */ (function (_super) {
+    __extends(TErrorEvent, _super);
+    function TErrorEvent(nativeObj) {
+        return _super.call(this, nativeObj) || this;
+    }
+    /**
+     * 把event对象转error_event_t对象，主要给脚本语言使用。
+     *
+     * @param event event对象。
+     *
+     * @returns 返回event对象。
+     */
+    TErrorEvent.cast = function (event) {
+        return new TErrorEvent(error_event_cast(event != null ? (event.nativeObj || event) : null));
+    };
+    Object.defineProperty(TErrorEvent.prototype, "code", {
+        /**
+         * 错误码。
+         *
+         */
+        get: function () {
+            return error_event_t_get_prop_code(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TErrorEvent.prototype, "message", {
+        /**
+         * 错误信息。
+         *
+         */
+        get: function () {
+            return error_event_t_get_prop_message(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return TErrorEvent;
+}(TEvent));
+exports.TErrorEvent = TErrorEvent;
+;
+/**
+ * 一个通用的容器控件。
+ *
+ *它本身不提供布局功能，仅提供具有语义的标签，让xml更具有可读性。
+ *子控件的布局可用layout\_children属性指定。
+ *请参考[布局参数](https://github.com/zlgopen/awtk/blob/master/docs/layout.md)。
+ *
+ *view\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于view\_t控件。
+ *
+ *在xml中使用"view"标签创建view。如：
+ *
+ *```xml
+ *<view x="0" y="0" w="100%" h="100%" children_layout="default(c=2,r=2,m=5,s=5)">
+ *</view>
+ *```
+ *
+ *可用通过style来设置控件的显示风格，如背景颜色等。如：
+ *
+ *```xml
+ *<style name="default" border_color="#a0a0a0">
+ *<normal     bg_color="#f0f0f0" />
+ *</style>
+ *```
+ *
+ */
+var TView = /** @class */ (function (_super) {
+    __extends(TView, _super);
+    function TView(nativeObj) {
+        return _super.call(this, nativeObj) || this;
+    }
+    /**
+     * 创建view对象
+     *
+     * @param parent 父控件
+     * @param x x坐标
+     * @param y y坐标
+     * @param w 宽度
+     * @param h 高度
+     *
+     * @returns 对象。
+     */
+    TView.create = function (parent, x, y, w, h) {
+        return new TView(view_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
+    };
+    /**
+     * 转换为view对象(供脚本语言使用)。
+     *
+     * @param widget view对象。
+     *
+     * @returns view对象。
+     */
+    TView.cast = function (widget) {
+        return new TView(view_cast(widget != null ? (widget.nativeObj || widget) : null));
+    };
+    return TView;
+}(TWidget));
+exports.TView = TView;
 ;
 /**
  * 滑动视图。
@@ -10032,6 +10250,68 @@ var TScrollBar = /** @class */ (function (_super) {
 exports.TScrollBar = TScrollBar;
 ;
 /**
+ * 标签控件。
+ *
+ *它本身不提供布局功能，仅提供具有语义的标签，让xml更具有可读性。
+ *
+ *标签控件通常会包含一个pages控件和一个tab\_button\_group控件。
+ *
+ *
+ *
+ *tab\_control\_t是[widget\_t](widget_t.md)的子类控件，
+ *widget\_t的函数均适用于tab\_control\_t控件。
+ *
+ *在xml中使用"tab\_control"标签创建标签控件。如：
+ *
+ *```xml
+ *<tab_control x="0" y="0" w="100%" h="100%"
+ *<pages x="c" y="20" w="90%" h="-60" value="1">
+ *...
+ *</pages>
+ *<tab_button_group>
+ *...
+ *</tab_button_group>
+ *</tab_control>
+ *```
+ *
+ *> 更多用法请参考：
+ *[tab control](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/)
+ *
+ */
+var TTabControl = /** @class */ (function (_super) {
+    __extends(TTabControl, _super);
+    function TTabControl(nativeObj) {
+        return _super.call(this, nativeObj) || this;
+    }
+    /**
+     * 创建tab_control对象
+     *
+     * @param parent 父控件
+     * @param x x坐标
+     * @param y y坐标
+     * @param w 宽度
+     * @param h 高度
+     *
+     * @returns 对象。
+     */
+    TTabControl.create = function (parent, x, y, w, h) {
+        return new TTabControl(tab_control_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
+    };
+    /**
+     * 转换tab_control对象(供脚本语言使用)。
+     *
+     * @param widget tab_control对象。
+     *
+     * @returns tab_control对象。
+     */
+    TTabControl.cast = function (widget) {
+        return new TTabControl(tab_control_cast(widget != null ? (widget.nativeObj || widget) : null));
+    };
+    return TTabControl;
+}(TWidget));
+exports.TTabControl = TTabControl;
+;
+/**
  * 列表视图控件。
  *
  *列表视图控件是一个可以垂直滚动的列表控件。
@@ -10192,68 +10472,6 @@ var TListView = /** @class */ (function (_super) {
 exports.TListView = TListView;
 ;
 /**
- * 标签控件。
- *
- *它本身不提供布局功能，仅提供具有语义的标签，让xml更具有可读性。
- *
- *标签控件通常会包含一个pages控件和一个tab\_button\_group控件。
- *
- *
- *
- *tab\_control\_t是[widget\_t](widget_t.md)的子类控件，
- *widget\_t的函数均适用于tab\_control\_t控件。
- *
- *在xml中使用"tab\_control"标签创建标签控件。如：
- *
- *```xml
- *<tab_control x="0" y="0" w="100%" h="100%"
- *<pages x="c" y="20" w="90%" h="-60" value="1">
- *...
- *</pages>
- *<tab_button_group>
- *...
- *</tab_button_group>
- *</tab_control>
- *```
- *
- *> 更多用法请参考：
- *[tab control](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/)
- *
- */
-var TTabControl = /** @class */ (function (_super) {
-    __extends(TTabControl, _super);
-    function TTabControl(nativeObj) {
-        return _super.call(this, nativeObj) || this;
-    }
-    /**
-     * 创建tab_control对象
-     *
-     * @param parent 父控件
-     * @param x x坐标
-     * @param y y坐标
-     * @param w 宽度
-     * @param h 高度
-     *
-     * @returns 对象。
-     */
-    TTabControl.create = function (parent, x, y, w, h) {
-        return new TTabControl(tab_control_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
-    };
-    /**
-     * 转换tab_control对象(供脚本语言使用)。
-     *
-     * @param widget tab_control对象。
-     *
-     * @returns tab_control对象。
-     */
-    TTabControl.cast = function (widget) {
-        return new TTabControl(tab_control_cast(widget != null ? (widget.nativeObj || widget) : null));
-    };
-    return TTabControl;
-}(TWidget));
-exports.TTabControl = TTabControl;
-;
-/**
  * 水平列表视图控件。
  *
  *list\_view\_h\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于list\_view\_h\_t控件。
@@ -10364,84 +10582,6 @@ var TListViewH = /** @class */ (function (_super) {
     return TListViewH;
 }(TWidget));
 exports.TListViewH = TListViewH;
-;
-/**
- * 列表项控件。
- *
- *列表项控件是一个简单的容器控件，一般作为列表视图中滚动视图的子控件。
- *
- *list\_item\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于list\_item\_t控件。
- *
- *在xml中使用"list\_item"标签创建列表项控件。如：
- *
- *```xml
- *<list_view x="0"  y="30" w="100%" h="-80" item_height="60">
- *<scroll_view name="view" x="0"  y="0" w="100%" h="100%">
- *<list_item style="odd" children_layout="default(rows=1,cols=0)">
- *<image draw_type="icon" w="30" image="earth"/>
- *<label w="-30" text="1.Hello AWTK !">
- *<switch x="r:10" y="m" w="60" h="20"/>
- *</label>
- *</list_item>
- *...
- *</scroll_view>
- *</list_view>
- *```
- *
- *> 更多用法请参考：[list\_view\_m.xml](
- *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/list_view_m.xml)
- *
- *在c代码中使用函数list\_item\_create创建列表项控件。如：
- *
- *
- *> 列表项控件大小一般由列表控制，不需指定xywh参数。
- *
- *可以用style来实现可点击或不可点击的效果。如：
- *
- *```xml
- *<style name="odd_clickable" border_color="#a0a0a0"  border="bottom" text_color="black">
- *<normal     bg_color="#f5f5f5" />
- *<pressed    bg_color="#c0c0c0" />
- *<over       bg_color="#f5f5f5" />
- *</style>
- *```
- *
- *> 更多用法请参考：[theme default](
- *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L372)
- *
- */
-var TListItem = /** @class */ (function (_super) {
-    __extends(TListItem, _super);
-    function TListItem(nativeObj) {
-        return _super.call(this, nativeObj) || this;
-    }
-    /**
-     * 创建list_item对象
-     *
-     * @param parent 父控件
-     * @param x x坐标
-     * @param y y坐标
-     * @param w 宽度
-     * @param h 高度
-     *
-     * @returns 对象。
-     */
-    TListItem.create = function (parent, x, y, w, h) {
-        return new TListItem(list_item_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
-    };
-    /**
-     * 转换为list_item对象(供脚本语言使用)。
-     *
-     * @param widget list_item对象。
-     *
-     * @returns list_item对象。
-     */
-    TListItem.cast = function (widget) {
-        return new TListItem(list_item_cast(widget != null ? (widget.nativeObj || widget) : null));
-    };
-    return TListItem;
-}(TWidget));
-exports.TListItem = TListItem;
 ;
 /**
  * 标签按钮控件。
@@ -10747,6 +10887,84 @@ var TTabButtonGroup = /** @class */ (function (_super) {
     return TTabButtonGroup;
 }(TWidget));
 exports.TTabButtonGroup = TTabButtonGroup;
+;
+/**
+ * 列表项控件。
+ *
+ *列表项控件是一个简单的容器控件，一般作为列表视图中滚动视图的子控件。
+ *
+ *list\_item\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于list\_item\_t控件。
+ *
+ *在xml中使用"list\_item"标签创建列表项控件。如：
+ *
+ *```xml
+ *<list_view x="0"  y="30" w="100%" h="-80" item_height="60">
+ *<scroll_view name="view" x="0"  y="0" w="100%" h="100%">
+ *<list_item style="odd" children_layout="default(rows=1,cols=0)">
+ *<image draw_type="icon" w="30" image="earth"/>
+ *<label w="-30" text="1.Hello AWTK !">
+ *<switch x="r:10" y="m" w="60" h="20"/>
+ *</label>
+ *</list_item>
+ *...
+ *</scroll_view>
+ *</list_view>
+ *```
+ *
+ *> 更多用法请参考：[list\_view\_m.xml](
+ *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/list_view_m.xml)
+ *
+ *在c代码中使用函数list\_item\_create创建列表项控件。如：
+ *
+ *
+ *> 列表项控件大小一般由列表控制，不需指定xywh参数。
+ *
+ *可以用style来实现可点击或不可点击的效果。如：
+ *
+ *```xml
+ *<style name="odd_clickable" border_color="#a0a0a0"  border="bottom" text_color="black">
+ *<normal     bg_color="#f5f5f5" />
+ *<pressed    bg_color="#c0c0c0" />
+ *<over       bg_color="#f5f5f5" />
+ *</style>
+ *```
+ *
+ *> 更多用法请参考：[theme default](
+ *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L372)
+ *
+ */
+var TListItem = /** @class */ (function (_super) {
+    __extends(TListItem, _super);
+    function TListItem(nativeObj) {
+        return _super.call(this, nativeObj) || this;
+    }
+    /**
+     * 创建list_item对象
+     *
+     * @param parent 父控件
+     * @param x x坐标
+     * @param y y坐标
+     * @param w 宽度
+     * @param h 高度
+     *
+     * @returns 对象。
+     */
+    TListItem.create = function (parent, x, y, w, h) {
+        return new TListItem(list_item_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
+    };
+    /**
+     * 转换为list_item对象(供脚本语言使用)。
+     *
+     * @param widget list_item对象。
+     *
+     * @returns list_item对象。
+     */
+    TListItem.cast = function (widget) {
+        return new TListItem(list_item_cast(widget != null ? (widget.nativeObj || widget) : null));
+    };
+    return TListItem;
+}(TWidget));
+exports.TListItem = TListItem;
 ;
 /**
  * 可水平滚动的文本控件，方便实现长文本滚动。
@@ -11753,6 +11971,50 @@ var TMledit = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(TMledit.prototype, "topMargin", {
+        /**
+         * 上边距。
+         *
+         */
+        get: function () {
+            return mledit_t_get_prop_top_margin(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TMledit.prototype, "bottomMargin", {
+        /**
+         * 下边距。
+         *
+         */
+        get: function () {
+            return mledit_t_get_prop_bottom_margin(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TMledit.prototype, "leftMargin", {
+        /**
+         * 左边距。
+         *
+         */
+        get: function () {
+            return mledit_t_get_prop_left_margin(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TMledit.prototype, "rightMargin", {
+        /**
+         * 右边距。
+         *
+         */
+        get: function () {
+            return mledit_t_get_prop_right_margin(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(TMledit.prototype, "tips", {
         /**
          * 输入提示。
@@ -11809,112 +12071,6 @@ var TMledit = /** @class */ (function (_super) {
     return TMledit;
 }(TWidget));
 exports.TMledit = TMledit;
-;
-/**
- * 行号。多行编辑器的行号。
- *
- *line\_number\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于line\_number\_t控件。
- *
- *在xml中使用"lin\e_number"标签创建行号控件，一般配合mledit使用。如：
- *
- *```xml
- *<mledit x="c" y="10" h="40%" w="90%" focus="true" left_margin="36" right_margin="16"
- *wrap_word="true">
- *<line_number x="0" y="0" w="32" h="100%" value="0"/>
- *<scroll_bar_d x="right" y="0" w="14" h="100%" value="0"/>
- *</mledit>
- *```
- *
- *> 更多用法请参考：[mledit.xml](
- *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/mledit.xml)
- *
- *可用通过style来设置控件的显示风格，如字体的大小和颜色等等。如：
- *
- *```xml
- *<line_number>
- *<style name="default">
- *<normal text_color="black" bg_color="#d0d0d0" text_align_h="right"/>
- *</style>
- *</line_number>
- *```
- *
- *> 更多用法请参考：
- *[theme default](
- *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L556)
- *
- */
-var TLineNumber = /** @class */ (function (_super) {
-    __extends(TLineNumber, _super);
-    function TLineNumber(nativeObj) {
-        return _super.call(this, nativeObj) || this;
-    }
-    /**
-     * 创建line_number对象
-     *
-     * @param parent 父控件
-     * @param x x坐标
-     * @param y y坐标
-     * @param w 宽度
-     * @param h 高度
-     *
-     * @returns 对象。
-     */
-    TLineNumber.create = function (parent, x, y, w, h) {
-        return new TLineNumber(line_number_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
-    };
-    /**
-     * 设置顶部边距。
-     *
-     * @param top_margin 顶部边距。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TLineNumber.prototype.setTopMargin = function (top_margin) {
-        return line_number_set_top_margin(this != null ? (this.nativeObj || this) : null, top_margin);
-    };
-    /**
-     * 设置顶部边距。
-     *
-     * @param bottom_margin 顶部边距。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TLineNumber.prototype.setBottomMargin = function (bottom_margin) {
-        return line_number_set_bottom_margin(this != null ? (this.nativeObj || this) : null, bottom_margin);
-    };
-    /**
-     * 设置行高。
-     *
-     * @param line_height 行高。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TLineNumber.prototype.setLineHeight = function (line_height) {
-        return line_number_set_line_height(this != null ? (this.nativeObj || this) : null, line_height);
-    };
-    /**
-     * 设置y偏移。
-     *
-     * @param yoffset 行高。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TLineNumber.prototype.setYoffset = function (yoffset) {
-        return line_number_set_yoffset(this != null ? (this.nativeObj || this) : null, yoffset);
-    };
-    /**
-     * 转换为line_number对象(供脚本语言使用)。
-     *
-     * @param widget line_number对象。
-     *
-     * @returns line_number对象。
-     */
-    TLineNumber.cast = function (widget) {
-        return new TLineNumber(line_number_cast(widget != null ? (widget.nativeObj || widget) : null));
-    };
-    return TLineNumber;
-}(TWidget));
-exports.TLineNumber = TLineNumber;
 ;
 /**
  * row。一个简单的容器控件，用于水平排列其子控件。
@@ -12153,6 +12309,112 @@ var TProgressBar = /** @class */ (function (_super) {
     return TProgressBar;
 }(TWidget));
 exports.TProgressBar = TProgressBar;
+;
+/**
+ * 行号。多行编辑器的行号。
+ *
+ *line\_number\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于line\_number\_t控件。
+ *
+ *在xml中使用"lin\e_number"标签创建行号控件，一般配合mledit使用。如：
+ *
+ *```xml
+ *<mledit x="c" y="10" h="40%" w="90%" focus="true" left_margin="36" right_margin="16"
+ *wrap_word="true">
+ *<line_number x="0" y="0" w="32" h="100%" value="0"/>
+ *<scroll_bar_d x="right" y="0" w="14" h="100%" value="0"/>
+ *</mledit>
+ *```
+ *
+ *> 更多用法请参考：[mledit.xml](
+ *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/mledit.xml)
+ *
+ *可用通过style来设置控件的显示风格，如字体的大小和颜色等等。如：
+ *
+ *```xml
+ *<line_number>
+ *<style name="default">
+ *<normal text_color="black" bg_color="#d0d0d0" text_align_h="right"/>
+ *</style>
+ *</line_number>
+ *```
+ *
+ *> 更多用法请参考：
+ *[theme default](
+ *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L556)
+ *
+ */
+var TLineNumber = /** @class */ (function (_super) {
+    __extends(TLineNumber, _super);
+    function TLineNumber(nativeObj) {
+        return _super.call(this, nativeObj) || this;
+    }
+    /**
+     * 创建line_number对象
+     *
+     * @param parent 父控件
+     * @param x x坐标
+     * @param y y坐标
+     * @param w 宽度
+     * @param h 高度
+     *
+     * @returns 对象。
+     */
+    TLineNumber.create = function (parent, x, y, w, h) {
+        return new TLineNumber(line_number_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
+    };
+    /**
+     * 设置顶部边距。
+     *
+     * @param top_margin 顶部边距。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TLineNumber.prototype.setTopMargin = function (top_margin) {
+        return line_number_set_top_margin(this != null ? (this.nativeObj || this) : null, top_margin);
+    };
+    /**
+     * 设置顶部边距。
+     *
+     * @param bottom_margin 顶部边距。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TLineNumber.prototype.setBottomMargin = function (bottom_margin) {
+        return line_number_set_bottom_margin(this != null ? (this.nativeObj || this) : null, bottom_margin);
+    };
+    /**
+     * 设置行高。
+     *
+     * @param line_height 行高。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TLineNumber.prototype.setLineHeight = function (line_height) {
+        return line_number_set_line_height(this != null ? (this.nativeObj || this) : null, line_height);
+    };
+    /**
+     * 设置y偏移。
+     *
+     * @param yoffset 行高。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TLineNumber.prototype.setYoffset = function (yoffset) {
+        return line_number_set_yoffset(this != null ? (this.nativeObj || this) : null, yoffset);
+    };
+    /**
+     * 转换为line_number对象(供脚本语言使用)。
+     *
+     * @param widget line_number对象。
+     *
+     * @returns line_number对象。
+     */
+    TLineNumber.cast = function (widget) {
+        return new TLineNumber(line_number_cast(widget != null ? (widget.nativeObj || widget) : null));
+    };
+    return TLineNumber;
+}(TWidget));
+exports.TLineNumber = TLineNumber;
 ;
 /**
  * 页面管理控件。
@@ -13759,90 +14021,30 @@ var TDraggable = /** @class */ (function (_super) {
 exports.TDraggable = TDraggable;
 ;
 /**
- * 颜色选择器。
- *
- *color\_picker\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于color\_picker\_t控件。
- *
- *在xml中使用"color\_picker"标签创建颜色选择器控件。如：
- *
- *```xml
- *<color_picker x="0" y="0" w="100%" h="100%" value="orange">
- *<color_component x="0" y="0" w="200" h="200" name="sv"/>
- *<color_component x="210" y="0" w="20" h="200" name="h"/>
- *<color_tile x="0" y="210" w="50%" h="20" name="new" bg_color="green"/>
- *<color_tile x="right" y="210" w="50%" h="20" name="old" bg_color="blue"/>
- *</color_picker>
- *```
- *
- *> 更多用法请参考：
- *[color\_picker](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/color_picker.xml)
- *
- *其中的子控件必须按下列规则命名：
- *
- ** r 红色分量。可以是spin_box、edit和slider。
- ** g 绿色分量。可以是spin_box、edit和slider。
- ** b 蓝色分量。可以是spin_box、edit和slider。
- ** h Hue分量。可以是spin_box、edit、slider和color_component。
- ** s Saturation分量。可以是spin_box、edit和slider。
- ** v Value/Brightness分量。可以是spin_box、edit和slider。
- ** sv Saturation和Value/Brightness分量。可以是color_component。
- ** old 旧的值。可以是spin_box、edit和color_tile。
- ** new 新的值。可以是spin_box、edit和color_tile。
+ * 颜色选择器的颜色分量。
+ *控件的名称有严格规定：
+ *COLOR_PICKER_CHILD_SV: 水平为Value/Brightness(递增)，垂直为Saturation(递减)。
+ *COLOR_PICKER_CHILD_H: 水平为同色，垂直为Hue(递减)。
  *
  */
-var TColorPicker = /** @class */ (function (_super) {
-    __extends(TColorPicker, _super);
-    function TColorPicker(nativeObj) {
+var TColorComponent = /** @class */ (function (_super) {
+    __extends(TColorComponent, _super);
+    function TColorComponent(nativeObj) {
         return _super.call(this, nativeObj) || this;
     }
     /**
-     * 创建color_picker对象
+     * 转换为color_component对象(供脚本语言使用)。
      *
-     * @param parent 父控件
-     * @param x x坐标
-     * @param y y坐标
-     * @param w 宽度
-     * @param h 高度
+     * @param widget color_component对象。
      *
-     * @returns 对象。
+     * @returns color_component对象。
      */
-    TColorPicker.create = function (parent, x, y, w, h) {
-        return new TColorPicker(color_picker_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
+    TColorComponent.cast = function (widget) {
+        return new TColorComponent(color_component_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
-    /**
-     * 设置颜色。
-     *
-     * @param color 颜色。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TColorPicker.prototype.setColor = function (color) {
-        return color_picker_set_color(this != null ? (this.nativeObj || this) : null, color);
-    };
-    /**
-     * 转换为color_picker对象(供脚本语言使用)。
-     *
-     * @param widget color_picker对象。
-     *
-     * @returns color_picker对象。
-     */
-    TColorPicker.cast = function (widget) {
-        return new TColorPicker(color_picker_cast(widget != null ? (widget.nativeObj || widget) : null));
-    };
-    Object.defineProperty(TColorPicker.prototype, "value", {
-        /**
-         * 颜色。
-         *
-         */
-        get: function () {
-            return color_picker_t_get_prop_value(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return TColorPicker;
+    return TColorComponent;
 }(TWidget));
-exports.TColorPicker = TColorPicker;
+exports.TColorComponent = TColorComponent;
 ;
 /**
  * 画布控件。
@@ -14443,80 +14645,6 @@ var TGridItem = /** @class */ (function (_super) {
 exports.TGridItem = TGridItem;
 ;
 /**
- * 可变的style(可实时修改并生效，主要用于在designer中被编辑的控件，或者一些特殊控件)。
- *
- *style\_mutable也对style\_const进行了包装，当用户没修改某个值时，便从style\_const中获取。
- *
- */
-var TStyleMutable = /** @class */ (function (_super) {
-    __extends(TStyleMutable, _super);
-    function TStyleMutable(nativeObj) {
-        return _super.call(this, nativeObj) || this;
-    }
-    /**
-     * 设置style的名称。
-     *
-     * @param name 名称。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TStyleMutable.prototype.setName = function (name) {
-        return style_mutable_set_name(this != null ? (this.nativeObj || this) : null, name);
-    };
-    /**
-     * 设置指定名称整数格式的值。
-     *
-     * @param state 控件状态。
-     * @param name 属性名。
-     * @param val 值。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TStyleMutable.prototype.setInt = function (state, name, val) {
-        return style_mutable_set_int(this != null ? (this.nativeObj || this) : null, state, name, val);
-    };
-    /**
-     * 转换为style_mutable对象。
-     *
-     * @param s style对象。
-     *
-     * @returns style对象。
-     */
-    TStyleMutable.cast = function (s) {
-        return new TStyleMutable(style_mutable_cast(s != null ? (s.nativeObj || s) : null));
-    };
-    /**
-     * 创建style\_mutable对象。
-     *
-     *> 除了测试程序外不需要直接调用，widget会通过style\_factory\_create创建。
-     *
-     * @param widget 控件
-     * @param default_style 缺省的style。
-     *
-     * @returns style对象。
-     */
-    TStyleMutable.create = function (widget, default_style) {
-        return new TStyleMutable(style_mutable_create(widget != null ? (widget.nativeObj || widget) : null, default_style != null ? (default_style.nativeObj || default_style) : null));
-    };
-    Object.defineProperty(TStyleMutable.prototype, "name", {
-        /**
-         * 名称。
-         *
-         */
-        get: function () {
-            return style_mutable_t_get_prop_name(this.nativeObj);
-        },
-        set: function (v) {
-            this.setName(v);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return TStyleMutable;
-}(TStyle));
-exports.TStyleMutable = TStyleMutable;
-;
-/**
  * 单行编辑器控件。
  *
  *在基于SDL的平台，单行编辑器控件使用平台原生的输入法，对于嵌入式平台使用内置的输入法。
@@ -14831,6 +14959,50 @@ var TEdit = /** @class */ (function (_super) {
         },
         set: function (v) {
             this.setOpenImWhenFocused(v);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TEdit.prototype, "topMargin", {
+        /**
+         * 上边距。
+         *
+         */
+        get: function () {
+            return edit_t_get_prop_top_margin(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TEdit.prototype, "bottomMargin", {
+        /**
+         * 下边距。
+         *
+         */
+        get: function () {
+            return edit_t_get_prop_bottom_margin(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TEdit.prototype, "leftMargin", {
+        /**
+         * 左边距。
+         *
+         */
+        get: function () {
+            return edit_t_get_prop_left_margin(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TEdit.prototype, "rightMargin", {
+        /**
+         * 右边距。
+         *
+         */
+        get: function () {
+            return edit_t_get_prop_right_margin(this.nativeObj);
         },
         enumerable: true,
         configurable: true
