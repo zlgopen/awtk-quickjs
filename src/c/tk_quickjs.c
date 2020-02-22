@@ -97,6 +97,7 @@
 #include "widgets/dialog_title.h"
 #include "tkc/object_default.h"
 #include "widgets/combo_box.h"
+#include "base/native_window.h"
 #include "base/window.h"
 #include "tkc/timer_info.h"
 #include "widgets/image.h"
@@ -4695,6 +4696,23 @@ jsvalue_t wrap_vgcanvas_clip_rect(JSContext* ctx, jsvalue_const_t this_val, int 
   return jret;
 }
 
+jsvalue_t wrap_vgcanvas_intersect_clip_rect(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                            jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 5) {
+    ret_t ret = (ret_t)0;
+    vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
+    float_t x = (float_t)jsvalue_get_number_value(ctx, argv[1]);
+    float_t y = (float_t)jsvalue_get_number_value(ctx, argv[2]);
+    float_t w = (float_t)jsvalue_get_number_value(ctx, argv[3]);
+    float_t h = (float_t)jsvalue_get_number_value(ctx, argv[4]);
+    ret = (ret_t)vgcanvas_intersect_clip_rect(vg, x, y, w, h);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
 jsvalue_t wrap_vgcanvas_fill(JSContext* ctx, jsvalue_const_t this_val, int argc,
                              jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
@@ -5185,6 +5203,9 @@ ret_t vgcanvas_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_vgcanvas_set_transform, "vgcanvas_set_transform", 1));
   JS_SetPropertyStr(ctx, global_obj, "vgcanvas_clip_rect",
                     JS_NewCFunction(ctx, wrap_vgcanvas_clip_rect, "vgcanvas_clip_rect", 1));
+  JS_SetPropertyStr(
+      ctx, global_obj, "vgcanvas_intersect_clip_rect",
+      JS_NewCFunction(ctx, wrap_vgcanvas_intersect_clip_rect, "vgcanvas_intersect_clip_rect", 1));
   JS_SetPropertyStr(ctx, global_obj, "vgcanvas_fill",
                     JS_NewCFunction(ctx, wrap_vgcanvas_fill, "vgcanvas_fill", 1));
   JS_SetPropertyStr(ctx, global_obj, "vgcanvas_stroke",
@@ -6878,6 +6899,19 @@ jsvalue_t wrap_widget_get_child(JSContext* ctx, jsvalue_const_t this_val, int ar
   return jret;
 }
 
+jsvalue_t wrap_widget_get_native_window(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                        jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 1) {
+    native_window_t* ret = NULL;
+    widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
+    ret = (native_window_t*)widget_get_native_window(widget);
+
+    jret = jsvalue_create_pointer(ctx, ret, "native_window_t*");
+  }
+  return jret;
+}
+
 jsvalue_t wrap_widget_index_of(JSContext* ctx, jsvalue_const_t this_val, int argc,
                                jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
@@ -8154,6 +8188,9 @@ ret_t widget_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_widget_count_children, "widget_count_children", 1));
   JS_SetPropertyStr(ctx, global_obj, "widget_get_child",
                     JS_NewCFunction(ctx, wrap_widget_get_child, "widget_get_child", 1));
+  JS_SetPropertyStr(
+      ctx, global_obj, "widget_get_native_window",
+      JS_NewCFunction(ctx, wrap_widget_get_native_window, "widget_get_native_window", 1));
   JS_SetPropertyStr(ctx, global_obj, "widget_index_of",
                     JS_NewCFunction(ctx, wrap_widget_index_of, "widget_index_of", 1));
   JS_SetPropertyStr(ctx, global_obj, "widget_close_window",
@@ -19888,6 +19925,144 @@ ret_t combo_box_t_init(JSContext* ctx) {
   return RET_OK;
 }
 
+jsvalue_t wrap_native_window_move(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                  jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 4) {
+    ret_t ret = (ret_t)0;
+    native_window_t* win = (native_window_t*)jsvalue_get_pointer(ctx, argv[0], "native_window_t*");
+    xy_t x = (xy_t)jsvalue_get_int_value(ctx, argv[1]);
+    xy_t y = (xy_t)jsvalue_get_int_value(ctx, argv[2]);
+    bool_t force = (bool_t)jsvalue_get_boolean_value(ctx, argv[3]);
+    ret = (ret_t)native_window_move(win, x, y, force);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_native_window_resize(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                    jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 4) {
+    ret_t ret = (ret_t)0;
+    native_window_t* win = (native_window_t*)jsvalue_get_pointer(ctx, argv[0], "native_window_t*");
+    wh_t w = (wh_t)jsvalue_get_int_value(ctx, argv[1]);
+    wh_t h = (wh_t)jsvalue_get_int_value(ctx, argv[2]);
+    bool_t force = (bool_t)jsvalue_get_boolean_value(ctx, argv[3]);
+    ret = (ret_t)native_window_resize(win, w, h, force);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_native_window_minimize(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                      jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 1) {
+    ret_t ret = (ret_t)0;
+    native_window_t* win = (native_window_t*)jsvalue_get_pointer(ctx, argv[0], "native_window_t*");
+    ret = (ret_t)native_window_minimize(win);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_native_window_maximize(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                      jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 1) {
+    ret_t ret = (ret_t)0;
+    native_window_t* win = (native_window_t*)jsvalue_get_pointer(ctx, argv[0], "native_window_t*");
+    ret = (ret_t)native_window_maximize(win);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_native_window_restore(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                     jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 1) {
+    ret_t ret = (ret_t)0;
+    native_window_t* win = (native_window_t*)jsvalue_get_pointer(ctx, argv[0], "native_window_t*");
+    ret = (ret_t)native_window_restore(win);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_native_window_center(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                    jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 1) {
+    ret_t ret = (ret_t)0;
+    native_window_t* win = (native_window_t*)jsvalue_get_pointer(ctx, argv[0], "native_window_t*");
+    ret = (ret_t)native_window_center(win);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_native_window_show_border(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                         jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 2) {
+    ret_t ret = (ret_t)0;
+    native_window_t* win = (native_window_t*)jsvalue_get_pointer(ctx, argv[0], "native_window_t*");
+    bool_t show = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
+    ret = (ret_t)native_window_show_border(win, show);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_native_window_set_fullscreen(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                            jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 2) {
+    ret_t ret = (ret_t)0;
+    native_window_t* win = (native_window_t*)jsvalue_get_pointer(ctx, argv[0], "native_window_t*");
+    bool_t fullscreen = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
+    ret = (ret_t)native_window_set_fullscreen(win, fullscreen);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+ret_t native_window_t_init(JSContext* ctx) {
+  jsvalue_t global_obj = JS_GetGlobalObject(ctx);
+  JS_SetPropertyStr(ctx, global_obj, "native_window_move",
+                    JS_NewCFunction(ctx, wrap_native_window_move, "native_window_move", 1));
+  JS_SetPropertyStr(ctx, global_obj, "native_window_resize",
+                    JS_NewCFunction(ctx, wrap_native_window_resize, "native_window_resize", 1));
+  JS_SetPropertyStr(ctx, global_obj, "native_window_minimize",
+                    JS_NewCFunction(ctx, wrap_native_window_minimize, "native_window_minimize", 1));
+  JS_SetPropertyStr(ctx, global_obj, "native_window_maximize",
+                    JS_NewCFunction(ctx, wrap_native_window_maximize, "native_window_maximize", 1));
+  JS_SetPropertyStr(ctx, global_obj, "native_window_restore",
+                    JS_NewCFunction(ctx, wrap_native_window_restore, "native_window_restore", 1));
+  JS_SetPropertyStr(ctx, global_obj, "native_window_center",
+                    JS_NewCFunction(ctx, wrap_native_window_center, "native_window_center", 1));
+  JS_SetPropertyStr(
+      ctx, global_obj, "native_window_show_border",
+      JS_NewCFunction(ctx, wrap_native_window_show_border, "native_window_show_border", 1));
+  JS_SetPropertyStr(
+      ctx, global_obj, "native_window_set_fullscreen",
+      JS_NewCFunction(ctx, wrap_native_window_set_fullscreen, "native_window_set_fullscreen", 1));
+
+  jsvalue_unref(ctx, global_obj);
+
+  return RET_OK;
+}
+
 jsvalue_t wrap_window_create(JSContext* ctx, jsvalue_const_t this_val, int argc,
                              jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
@@ -21037,6 +21212,7 @@ ret_t awtk_js_init(JSContext* ctx) {
   dialog_title_t_init(ctx);
   object_default_t_init(ctx);
   combo_box_t_init(ctx);
+  native_window_t_init(ctx);
   window_t_init(ctx);
   timer_info_t_init(ctx);
   image_t_init(ctx);
