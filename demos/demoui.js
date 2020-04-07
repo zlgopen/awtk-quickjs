@@ -47,11 +47,11 @@ function installOne(w) {
     })
   } else if(strContains(widgetName, 'chinese')) {
     iter.on(TEventType.CLICK, function(evt) {
-      Tklocale.instance().change('zh', 'CN');
+      TLocaleInfo.instance().change('zh', 'CN');
     })
   } else if(strContains(widgetName, 'english')) {
     iter.on(TEventType.CLICK, function(evt) {
-      Tklocale.instance().change('en', 'US');
+      TLocaleInfo.instance().change('en', 'US');
     })
   } else if(strContains(widgetName, 'show_fps')) {
     iter.on(TEventType.CLICK, function(evt) {
