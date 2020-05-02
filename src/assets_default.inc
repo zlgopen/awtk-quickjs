@@ -53,6 +53,8 @@
 #include "assets/default/inc/ui/edit.data"
 #include "assets/default/inc/ui/menu_up_left.data"
 #include "assets/default/inc/ui/locale.data"
+#include "assets/default/inc/ui/kb_ascii_t9.data"
+#include "assets/default/inc/ui/kb_default_t9.data"
 #include "assets/default/inc/ui/kb_int.data"
 #include "assets/default/inc/ui/tab_control.data"
 #include "assets/default/inc/ui/slide_view_v2.data"
@@ -65,6 +67,7 @@
 #include "assets/default/inc/ui/switch.data"
 #include "assets/default/inc/ui/back_to_home.data"
 #include "assets/default/inc/ui/menu_right_middle.data"
+#include "assets/default/inc/ui/kb_default_t9ext.data"
 #include "assets/default/inc/ui/dragger.data"
 #include "assets/default/inc/ui/dialog2.data"
 #include "assets/default/inc/ui/color_picker_hsv.data"
@@ -107,6 +110,7 @@
 #include "assets/default/inc/ui/auto_play_portrait.data"
 #include "assets/default/inc/ui/system_bar_bottom.data"
 #include "assets/default/inc/ui/text_selector.data"
+#include "assets/default/inc/ui/rich_text_view.data"
 #include "assets/default/inc/ui/big_font.data"
 #include "assets/default/inc/ui/tab_top_compact.data"
 #include "assets/default/inc/ui/slide_view_h.data"
@@ -512,6 +516,8 @@ ret_t assets_init_default(void) {
   assets_manager_add(am, ui_edit);
   assets_manager_add(am, ui_menu_up_left);
   assets_manager_add(am, ui_locale);
+  assets_manager_add(am, ui_kb_ascii_t9);
+  assets_manager_add(am, ui_kb_default_t9);
   assets_manager_add(am, ui_kb_int);
   assets_manager_add(am, ui_tab_control);
   assets_manager_add(am, ui_slide_view_v2);
@@ -524,6 +530,7 @@ ret_t assets_init_default(void) {
   assets_manager_add(am, ui_switch);
   assets_manager_add(am, ui_back_to_home);
   assets_manager_add(am, ui_menu_right_middle);
+  assets_manager_add(am, ui_kb_default_t9ext);
   assets_manager_add(am, ui_dragger);
   assets_manager_add(am, ui_dialog2);
   assets_manager_add(am, ui_color_picker_hsv);
@@ -566,6 +573,7 @@ ret_t assets_init_default(void) {
   assets_manager_add(am, ui_auto_play_portrait);
   assets_manager_add(am, ui_system_bar_bottom);
   assets_manager_add(am, ui_text_selector);
+  assets_manager_add(am, ui_rich_text_view);
   assets_manager_add(am, ui_big_font);
   assets_manager_add(am, ui_tab_top_compact);
   assets_manager_add(am, ui_slide_view_h);
