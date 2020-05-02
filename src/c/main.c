@@ -93,23 +93,32 @@ static ret_t quickjs_on_idle(const idle_info_t* info) {
   return RET_REPEAT;
 }
 
-int main(int argc, char* argv[]) {
-  JSValue global_obj;
-  JSRuntime* rt = NULL;
-  JSContext* ctx = NULL;
-  const char* script_file = argc == 2 ? argv[1] : "./demos/demoui.js";
+static JSValue global_obj;
+static JSRuntime* rt = NULL;
+static JSContext* ctx = NULL;
+static const char* script_file = "./demos/demoui.js";
+
+static ret_t on_cmd_line(int argc, char* argv[]) {
+  if (argc > 1) {
+    script_file = argv[1];
+  }
+
+  return RET_OK;
+}
+
+static ret_t application_init(void) {
+  const char* STR_LOAD_STD =
+      "import * as std from 'std';\n"
+      "import * as os from 'os';\n"
+      "globalThis.std = std;\n"
+      "globalThis.os = os;\n";
+  const char* STR_BOOT_JS = "var exports = {};\n";
 
   rt = JS_NewRuntime();
   ctx = JS_NewContext(rt);
-
-  tk_init(320, 480, APP_SIMULATOR, "AWTK-QUCKJS", NULL);
-
-  assets_init();
-  tk_ext_widgets_init();
-
   awtk_quickjs_init(ctx);
-
   global_obj = JS_GetGlobalObject(ctx);
+
 #ifdef WITH_QUICKJS_LIBC
   JS_SetModuleLoaderFunc(rt, NULL, js_module_loader, NULL);
   js_std_add_helpers(ctx, 0, NULL);
@@ -119,22 +128,18 @@ int main(int argc, char* argv[]) {
   JS_SetPropertyStr(ctx, global_obj, "print", JS_NewCFunction(ctx, js_print, "print", 1));
 #endif /*WITH_QUICKJS_LIBC*/
   JS_SetPropertyStr(ctx, global_obj, "gc", JS_NewCFunction(ctx, js_gc, "gc", 1));
-  const char *STR_BOOT_JS = "var exports = {};\n var a = globalThis;\n";
-  awtk_quickjs_eval_script(ctx, "boot.js", STR_BOOT_JS, strlen(STR_BOOT_JS), TRUE);
-  
-  const char *STR_LOAD_STD = "import * as std from 'std';\n"
-                "import * as os from 'os';\n"
-                "globalThis.std = std;\n"
-                "globalThis.os = os;\n";
-  awtk_quickjs_eval_script(ctx, "load_std.js", STR_LOAD_STD, strlen(STR_LOAD_STD), FALSE);
 
+  awtk_quickjs_eval_script(ctx, "boot.js", STR_BOOT_JS, strlen(STR_BOOT_JS), TRUE);
+  awtk_quickjs_eval_script(ctx, "load_std.js", STR_LOAD_STD, strlen(STR_LOAD_STD), FALSE);
   return_value_if_fail(awtk_quickjs_eval_awtk_js(ctx, "src/js/awtk.js") == RET_OK, 0);
   return_value_if_fail(awtk_quickjs_eval(ctx, script_file) == RET_OK, 0);
 
   idle_add(quickjs_on_idle, ctx);
 
-  tk_run();
+  return RET_OK;
+}
 
+static ret_t application_exit(void) {
   awtk_quickjs_deinit(ctx);
 
 #ifdef WITH_QUICKJS_LIBC
@@ -145,5 +150,9 @@ int main(int argc, char* argv[]) {
   JS_FreeContext(ctx);
   JS_FreeRuntime(rt);
 
-  return 0;
+  return RET_OK;
 }
+
+#define ON_CMD_LINE(argc, argv) on_cmd_line(argc, argv)
+
+#include "awtk_main.inc"
