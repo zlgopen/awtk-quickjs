@@ -35,7 +35,7 @@ ret_t awtk_iotjs_quickjs_init(JSContext* ctx);
 ret_t awtk_quickjs_eval(JSContext* ctx, const char* filename);
 ret_t awtk_quickjs_eval_awtk_js(JSContext* ctx, const char* filename);
 ret_t awtk_quickjs_eval_script(JSContext* ctx, const char* filename, const char* script,
-                               uint32_t size);
+                               uint32_t size, bool_t global);
 
 END_C_DECLS
 

@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+console.log(this)
 if (this['console'] === undefined) {
     this.console = {};
     this.console.log = function (str) {

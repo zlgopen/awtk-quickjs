@@ -119,8 +119,15 @@ int main(int argc, char* argv[]) {
   JS_SetPropertyStr(ctx, global_obj, "print", JS_NewCFunction(ctx, js_print, "print", 1));
 #endif /*WITH_QUICKJS_LIBC*/
   JS_SetPropertyStr(ctx, global_obj, "gc", JS_NewCFunction(ctx, js_gc, "gc", 1));
-#define STR_BOOT_JS "var exports = {};\n"
-  awtk_quickjs_eval_script(ctx, "boot.js", STR_BOOT_JS, strlen(STR_BOOT_JS));
+  const char *STR_BOOT_JS = "var exports = {};\n var a = globalThis;\n";
+  awtk_quickjs_eval_script(ctx, "boot.js", STR_BOOT_JS, strlen(STR_BOOT_JS), TRUE);
+  
+  const char *STR_LOAD_STD = "import * as std from 'std';\n"
+                "import * as os from 'os';\n"
+                "globalThis.std = std;\n"
+                "globalThis.os = os;\n";
+  awtk_quickjs_eval_script(ctx, "load_std.js", STR_LOAD_STD, strlen(STR_LOAD_STD), FALSE);
+
   return_value_if_fail(awtk_quickjs_eval_awtk_js(ctx, "src/js/awtk.js") == RET_OK, 0);
   return_value_if_fail(awtk_quickjs_eval(ctx, script_file) == RET_OK, 0);
 
