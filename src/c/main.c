@@ -155,4 +155,5 @@ static ret_t application_exit(void) {
 
 #define ON_CMD_LINE(argc, argv) on_cmd_line(argc, argv)
 
+#define APP_DEFAULT_FONT "default_full"
 #include "awtk_main.inc"
