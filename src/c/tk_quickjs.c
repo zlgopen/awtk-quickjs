@@ -8994,33 +8994,6 @@ jsvalue_t wrap_app_conf_save(JSContext* ctx, jsvalue_const_t this_val, int argc,
   return jret;
 }
 
-jsvalue_t wrap_app_conf_on_changed(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                   jsvalue_const_t* argv) {
-  jsvalue_t jret = JS_NULL;
-  if (argc >= 2) {
-    uint32_t ret = (uint32_t)0;
-    event_func_t on_event = (event_func_t)jsvalue_get_pointer(ctx, argv[0], "event_func_t");
-    void* ctx = NULL;
-    ret = (uint32_t)app_conf_on_changed(on_event, ctx);
-
-    jret = jsvalue_create_int(ctx, ret);
-  }
-  return jret;
-}
-
-jsvalue_t wrap_app_conf_off_changed(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                    jsvalue_const_t* argv) {
-  jsvalue_t jret = JS_NULL;
-  if (argc >= 1) {
-    ret_t ret = (ret_t)0;
-    uint32_t id = (uint32_t)jsvalue_get_int_value(ctx, argv[0]);
-    ret = (ret_t)app_conf_off_changed(id);
-
-    jret = jsvalue_create_int(ctx, ret);
-  }
-  return jret;
-}
-
 jsvalue_t wrap_app_conf_deinit(JSContext* ctx, jsvalue_const_t this_val, int argc,
                                jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
@@ -9217,10 +9190,6 @@ ret_t app_conf_t_init(JSContext* ctx) {
   jsvalue_t global_obj = JS_GetGlobalObject(ctx);
   JS_SetPropertyStr(ctx, global_obj, "app_conf_save",
                     JS_NewCFunction(ctx, wrap_app_conf_save, "app_conf_save", 1));
-  JS_SetPropertyStr(ctx, global_obj, "app_conf_on_changed",
-                    JS_NewCFunction(ctx, wrap_app_conf_on_changed, "app_conf_on_changed", 1));
-  JS_SetPropertyStr(ctx, global_obj, "app_conf_off_changed",
-                    JS_NewCFunction(ctx, wrap_app_conf_off_changed, "app_conf_off_changed", 1));
   JS_SetPropertyStr(ctx, global_obj, "app_conf_deinit",
                     JS_NewCFunction(ctx, wrap_app_conf_deinit, "app_conf_deinit", 1));
   JS_SetPropertyStr(ctx, global_obj, "app_conf_exist",
