@@ -161,7 +161,9 @@
 #include "default/inc/ui/scroll_view_v.data"
 #include "default/inc/xml/test.data"
 #include "default/inc/data/com_zlg_app_json.data"
+#include "default/inc/data/gpinyin_dat.data"
 #include "default/inc/data/test_dat.data"
+#include "default/inc/data/suggest_words_zh_cn_dat.data"
 #include "default/inc/data/test_json.data"
 #include "default/inc/data/a_b_c_any.data"
 #ifdef WITH_STB_IMAGE
@@ -195,6 +197,7 @@
 #include "default/inc/images/me_active.res"
 #include "default/inc/images/file.res"
 #include "default/inc/images/arrow_up_n.res"
+#include "default/inc/images/cursor_hand.res"
 #include "default/inc/images/left_on.res"
 #include "default/inc/images/num_1.res"
 #include "default/inc/images/battery_1.res"
@@ -263,6 +266,7 @@
 #include "default/inc/images/red_btn_o.res"
 #include "default/inc/images/slider_drag.res"
 #include "default/inc/images/bg_portrait_1.res"
+#include "default/inc/images/cursor_text.res"
 #include "default/inc/images/unchecked.res"
 #include "default/inc/images/red_btn_n.res"
 #include "default/inc/images/arrow_down_p.res"
@@ -378,6 +382,7 @@
 #include "default/inc/images/contact.data"
 #include "default/inc/images/bricks.data"
 #include "default/inc/images/dialog_title.data"
+#include "default/inc/images/cursor_hand.data"
 #include "default/inc/images/ani7.data"
 #include "default/inc/images/play_p.data"
 #include "default/inc/images/battery_5.data"
@@ -428,6 +433,7 @@
 #include "default/inc/images/flag_US.data"
 #include "default/inc/images/msg.data"
 #include "default/inc/images/num_7.data"
+#include "default/inc/images/cursor_text.data"
 #include "default/inc/images/3.data"
 #include "default/inc/images/arrow_left_n.data"
 #include "default/inc/images/edit_clear_p.data"
@@ -618,7 +624,9 @@ ret_t assets_init_default(void) {
   assets_manager_add(am, ui_scroll_view_v);
   assets_manager_add(am, xml_test);
   assets_manager_add(am, data_com_zlg_app_json);
+  assets_manager_add(am, data_gpinyin_dat);
   assets_manager_add(am, data_test_dat);
+  assets_manager_add(am, data_suggest_words_zh_cn_dat);
   assets_manager_add(am, data_test_json);
   assets_manager_add(am, data_a_b_c_any);
   assets_manager_add(am, image_ani6);
@@ -651,6 +659,7 @@ ret_t assets_init_default(void) {
   assets_manager_add(am, image_me_active);
   assets_manager_add(am, image_file);
   assets_manager_add(am, image_arrow_up_n);
+  assets_manager_add(am, image_cursor_hand);
   assets_manager_add(am, image_left_on);
   assets_manager_add(am, image_num_1);
   assets_manager_add(am, image_battery_1);
@@ -719,6 +728,7 @@ ret_t assets_init_default(void) {
   assets_manager_add(am, image_red_btn_o);
   assets_manager_add(am, image_slider_drag);
   assets_manager_add(am, image_bg_portrait_1);
+  assets_manager_add(am, image_cursor_text);
   assets_manager_add(am, image_unchecked);
   assets_manager_add(am, image_red_btn_n);
   assets_manager_add(am, image_arrow_down_p);

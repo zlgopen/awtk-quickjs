@@ -1697,6 +1697,21 @@ var TEventType;
      */
     TEventType[TEventType["WIDGET_REMOVE_CHILD"] = EVT_WIDGET_REMOVE_CHILD()] = "WIDGET_REMOVE_CHILD";
     /**
+     * scroll view开始滚动(event_t)。
+     *
+     */
+    TEventType[TEventType["SCROLL_START"] = EVT_SCROLL_START()] = "SCROLL_START";
+    /**
+     * scroll view滚动(event_t)。
+     *
+     */
+    TEventType[TEventType["SCROLL"] = EVT_SCROLL()] = "SCROLL";
+    /**
+     * scroll view结束滚动(event_t)。
+     *
+     */
+    TEventType[TEventType["SCROLL_END"] = EVT_SCROLL_END()] = "SCROLL_END";
+    /**
      * event queue其它请求编号起始值。
      *
      */
@@ -14284,6 +14299,70 @@ var TButtonGroup = /** @class */ (function (_super) {
 exports.TButtonGroup = TButtonGroup;
 ;
 /**
+ * app_bar控件。
+ *
+ *一个简单的容器控件，一般在窗口的顶部，用于显示本窗口的状态和信息。
+ *
+ *它本身不提供布局功能，仅提供具有语义的标签，让xml更具有可读性。
+ *子控件的布局可用layout\_children属性指定。
+ *请参考[布局参数](https://github.com/zlgopen/awtk/blob/master/docs/layout.md)。
+ *
+ *app\_bar\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于app\_bar\_t控件。
+ *
+ *在xml中使用"app\_bar"标签创建app\_bar。如：
+ *
+ *```xml
+ *<app_bar x="0" y="0" w="100%" h="30"
+ *<label x="0" y="0" w="100%" h="100%" text="Basic Controls" />
+ *</app_bar>
+ *```
+ *
+ *在c代码中使用函数app\_bar\_create创建app\_bar。如：
+ *
+ *
+ *可用通过style来设置控件的显示风格，如背景颜色等。如：
+ *
+ *```xml
+ *<style name="default" border_color="#a0a0a0">
+ *<normal     bg_color="#f0f0f0" />
+ *</style>
+ *```
+ *
+ */
+var TAppBar = /** @class */ (function (_super) {
+    __extends(TAppBar, _super);
+    function TAppBar(nativeObj) {
+        return _super.call(this, nativeObj) || this;
+    }
+    /**
+     * 创建app_bar对象
+     *
+     * @param parent 父控件
+     * @param x x坐标
+     * @param y y坐标
+     * @param w 宽度
+     * @param h 高度
+     *
+     * @returns 对象。
+     */
+    TAppBar.create = function (parent, x, y, w, h) {
+        return new TAppBar(app_bar_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
+    };
+    /**
+     * 转换为app_bar对象(供脚本语言使用)。
+     *
+     * @param widget app_bar对象。
+     *
+     * @returns app_bar对象。
+     */
+    TAppBar.cast = function (widget) {
+        return new TAppBar(app_bar_cast(widget != null ? (widget.nativeObj || widget) : null));
+    };
+    return TAppBar;
+}(TWidget));
+exports.TAppBar = TAppBar;
+;
+/**
  * 图文混排控件，实现简单的图文混排。
  *
  *rich\_text\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于rich\_text\_t控件。
@@ -14389,68 +14468,38 @@ var TRichText = /** @class */ (function (_super) {
 exports.TRichText = TRichText;
 ;
 /**
- * app_bar控件。
- *
- *一个简单的容器控件，一般在窗口的顶部，用于显示本窗口的状态和信息。
- *
- *它本身不提供布局功能，仅提供具有语义的标签，让xml更具有可读性。
- *子控件的布局可用layout\_children属性指定。
- *请参考[布局参数](https://github.com/zlgopen/awtk/blob/master/docs/layout.md)。
- *
- *app\_bar\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于app\_bar\_t控件。
- *
- *在xml中使用"app\_bar"标签创建app\_bar。如：
- *
- *```xml
- *<app_bar x="0" y="0" w="100%" h="30"
- *<label x="0" y="0" w="100%" h="100%" text="Basic Controls" />
- *</app_bar>
- *```
- *
- *在c代码中使用函数app\_bar\_create创建app\_bar。如：
- *
- *
- *可用通过style来设置控件的显示风格，如背景颜色等。如：
- *
- *```xml
- *<style name="default" border_color="#a0a0a0">
- *<normal     bg_color="#f0f0f0" />
- *</style>
- *```
+ * 滚轮事件。
  *
  */
-var TAppBar = /** @class */ (function (_super) {
-    __extends(TAppBar, _super);
-    function TAppBar(nativeObj) {
+var TOrientationEvent = /** @class */ (function (_super) {
+    __extends(TOrientationEvent, _super);
+    function TOrientationEvent(nativeObj) {
         return _super.call(this, nativeObj) || this;
     }
     /**
-     * 创建app_bar对象
+     * 把event对象转orientation_event_t对象，主要给脚本语言使用。
      *
-     * @param parent 父控件
-     * @param x x坐标
-     * @param y y坐标
-     * @param w 宽度
-     * @param h 高度
+     * @param event event对象。
      *
-     * @returns 对象。
+     * @returns event对象。
      */
-    TAppBar.create = function (parent, x, y, w, h) {
-        return new TAppBar(app_bar_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
+    TOrientationEvent.cast = function (event) {
+        return new TOrientationEvent(orientation_event_cast(event != null ? (event.nativeObj || event) : null));
     };
-    /**
-     * 转换为app_bar对象(供脚本语言使用)。
-     *
-     * @param widget app_bar对象。
-     *
-     * @returns app_bar对象。
-     */
-    TAppBar.cast = function (widget) {
-        return new TAppBar(app_bar_cast(widget != null ? (widget.nativeObj || widget) : null));
-    };
-    return TAppBar;
-}(TWidget));
-exports.TAppBar = TAppBar;
+    Object.defineProperty(TOrientationEvent.prototype, "orientation", {
+        /**
+         * 屏幕方向。
+         *
+         */
+        get: function () {
+            return orientation_event_t_get_prop_orientation(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return TOrientationEvent;
+}(TEvent));
+exports.TOrientationEvent = TOrientationEvent;
 ;
 /**
  * rich_text_view是一个专用容器，用来放rich text和 scroll bar，并在两者之间建立联系。
@@ -14770,38 +14819,126 @@ var TProgressCircle = /** @class */ (function (_super) {
 exports.TProgressCircle = TProgressCircle;
 ;
 /**
- * 滚轮事件。
+ * 指针事件。
  *
  */
-var TOrientationEvent = /** @class */ (function (_super) {
-    __extends(TOrientationEvent, _super);
-    function TOrientationEvent(nativeObj) {
+var TPointerEvent = /** @class */ (function (_super) {
+    __extends(TPointerEvent, _super);
+    function TPointerEvent(nativeObj) {
         return _super.call(this, nativeObj) || this;
     }
     /**
-     * 把event对象转orientation_event_t对象，主要给脚本语言使用。
+     * 把event对象转pointer_event_t对象，主要给脚本语言使用。
      *
      * @param event event对象。
      *
      * @returns event对象。
      */
-    TOrientationEvent.cast = function (event) {
-        return new TOrientationEvent(orientation_event_cast(event != null ? (event.nativeObj || event) : null));
+    TPointerEvent.cast = function (event) {
+        return new TPointerEvent(pointer_event_cast(event != null ? (event.nativeObj || event) : null));
     };
-    Object.defineProperty(TOrientationEvent.prototype, "orientation", {
+    Object.defineProperty(TPointerEvent.prototype, "x", {
         /**
-         * 屏幕方向。
+         * x坐标。
          *
          */
         get: function () {
-            return orientation_event_t_get_prop_orientation(this.nativeObj);
+            return pointer_event_t_get_prop_x(this.nativeObj);
         },
         enumerable: true,
         configurable: true
     });
-    return TOrientationEvent;
+    Object.defineProperty(TPointerEvent.prototype, "y", {
+        /**
+         * y坐标。
+         *
+         */
+        get: function () {
+            return pointer_event_t_get_prop_y(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TPointerEvent.prototype, "button", {
+        /**
+         * button。
+         *
+         */
+        get: function () {
+            return pointer_event_t_get_prop_button(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TPointerEvent.prototype, "pressed", {
+        /**
+         * 指针是否按下。
+         *
+         */
+        get: function () {
+            return pointer_event_t_get_prop_pressed(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TPointerEvent.prototype, "alt", {
+        /**
+         * alt键是否按下。
+         *
+         */
+        get: function () {
+            return pointer_event_t_get_prop_alt(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TPointerEvent.prototype, "ctrl", {
+        /**
+         * ctrl键是否按下。
+         *
+         */
+        get: function () {
+            return pointer_event_t_get_prop_ctrl(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TPointerEvent.prototype, "cmd", {
+        /**
+         * cmd键是否按下。
+         *
+         */
+        get: function () {
+            return pointer_event_t_get_prop_cmd(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TPointerEvent.prototype, "menu", {
+        /**
+         * menu键是否按下。
+         *
+         */
+        get: function () {
+            return pointer_event_t_get_prop_menu(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TPointerEvent.prototype, "shift", {
+        /**
+         * shift键是否按下。
+         *
+         */
+        get: function () {
+            return pointer_event_t_get_prop_shift(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return TPointerEvent;
 }(TEvent));
-exports.TOrientationEvent = TOrientationEvent;
+exports.TPointerEvent = TPointerEvent;
 ;
 /**
  * 多行编辑器控件。
@@ -15278,126 +15415,172 @@ var TLangIndicator = /** @class */ (function (_super) {
 exports.TLangIndicator = TLangIndicator;
 ;
 /**
- * 指针事件。
+ * 按键事件。
  *
  */
-var TPointerEvent = /** @class */ (function (_super) {
-    __extends(TPointerEvent, _super);
-    function TPointerEvent(nativeObj) {
+var TKeyEvent = /** @class */ (function (_super) {
+    __extends(TKeyEvent, _super);
+    function TKeyEvent(nativeObj) {
         return _super.call(this, nativeObj) || this;
     }
     /**
-     * 把event对象转pointer_event_t对象，主要给脚本语言使用。
+     * 把event对象转key_event_t对象，主要给脚本语言使用。
      *
      * @param event event对象。
      *
      * @returns event对象。
      */
-    TPointerEvent.cast = function (event) {
-        return new TPointerEvent(pointer_event_cast(event != null ? (event.nativeObj || event) : null));
+    TKeyEvent.cast = function (event) {
+        return new TKeyEvent(key_event_cast(event != null ? (event.nativeObj || event) : null));
     };
-    Object.defineProperty(TPointerEvent.prototype, "x", {
+    Object.defineProperty(TKeyEvent.prototype, "key", {
         /**
-         * x坐标。
+         * 键值。
          *
          */
         get: function () {
-            return pointer_event_t_get_prop_x(this.nativeObj);
+            return key_event_t_get_prop_key(this.nativeObj);
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(TPointerEvent.prototype, "y", {
-        /**
-         * y坐标。
-         *
-         */
-        get: function () {
-            return pointer_event_t_get_prop_y(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TPointerEvent.prototype, "button", {
-        /**
-         * button。
-         *
-         */
-        get: function () {
-            return pointer_event_t_get_prop_button(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TPointerEvent.prototype, "pressed", {
-        /**
-         * 指针是否按下。
-         *
-         */
-        get: function () {
-            return pointer_event_t_get_prop_pressed(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TPointerEvent.prototype, "alt", {
+    Object.defineProperty(TKeyEvent.prototype, "alt", {
         /**
          * alt键是否按下。
          *
          */
         get: function () {
-            return pointer_event_t_get_prop_alt(this.nativeObj);
+            return key_event_t_get_prop_alt(this.nativeObj);
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(TPointerEvent.prototype, "ctrl", {
+    Object.defineProperty(TKeyEvent.prototype, "lalt", {
         /**
-         * ctrl键是否按下。
+         * left alt键是否按下。
          *
          */
         get: function () {
-            return pointer_event_t_get_prop_ctrl(this.nativeObj);
+            return key_event_t_get_prop_lalt(this.nativeObj);
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(TPointerEvent.prototype, "cmd", {
+    Object.defineProperty(TKeyEvent.prototype, "ralt", {
         /**
-         * cmd键是否按下。
+         * right alt键是否按下。
          *
          */
         get: function () {
-            return pointer_event_t_get_prop_cmd(this.nativeObj);
+            return key_event_t_get_prop_ralt(this.nativeObj);
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(TPointerEvent.prototype, "menu", {
+    Object.defineProperty(TKeyEvent.prototype, "ctrl", {
         /**
-         * menu键是否按下。
+         * right alt键是否按下。
+         *ctrl键是否按下。
          *
          */
         get: function () {
-            return pointer_event_t_get_prop_menu(this.nativeObj);
+            return key_event_t_get_prop_ctrl(this.nativeObj);
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(TPointerEvent.prototype, "shift", {
+    Object.defineProperty(TKeyEvent.prototype, "lctrl", {
+        /**
+         * left ctrl键是否按下。
+         *
+         */
+        get: function () {
+            return key_event_t_get_prop_lctrl(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TKeyEvent.prototype, "rctrl", {
+        /**
+         * right ctrl键是否按下。
+         *
+         */
+        get: function () {
+            return key_event_t_get_prop_rctrl(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TKeyEvent.prototype, "shift", {
         /**
          * shift键是否按下。
          *
          */
         get: function () {
-            return pointer_event_t_get_prop_shift(this.nativeObj);
+            return key_event_t_get_prop_shift(this.nativeObj);
         },
         enumerable: true,
         configurable: true
     });
-    return TPointerEvent;
+    Object.defineProperty(TKeyEvent.prototype, "lshift", {
+        /**
+         * left shift键是否按下。
+         *
+         */
+        get: function () {
+            return key_event_t_get_prop_lshift(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TKeyEvent.prototype, "rshift", {
+        /**
+         * right shift键是否按下。
+         *
+         */
+        get: function () {
+            return key_event_t_get_prop_rshift(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TKeyEvent.prototype, "cmd", {
+        /**
+         * left shift键是否按下。
+         *cmd/win键是否按下。
+         *
+         */
+        get: function () {
+            return key_event_t_get_prop_cmd(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TKeyEvent.prototype, "menu", {
+        /**
+         * menu键是否按下。
+         *
+         */
+        get: function () {
+            return key_event_t_get_prop_menu(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TKeyEvent.prototype, "capslock", {
+        /**
+         * capslock键是否按下。
+         *
+         */
+        get: function () {
+            return key_event_t_get_prop_capslock(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return TKeyEvent;
 }(TEvent));
-exports.TPointerEvent = TPointerEvent;
+exports.TKeyEvent = TKeyEvent;
 ;
 /**
  * 输入法候选字词控件。
@@ -16344,174 +16527,6 @@ var TGuagePointer = /** @class */ (function (_super) {
     return TGuagePointer;
 }(TWidget));
 exports.TGuagePointer = TGuagePointer;
-;
-/**
- * 按键事件。
- *
- */
-var TKeyEvent = /** @class */ (function (_super) {
-    __extends(TKeyEvent, _super);
-    function TKeyEvent(nativeObj) {
-        return _super.call(this, nativeObj) || this;
-    }
-    /**
-     * 把event对象转key_event_t对象，主要给脚本语言使用。
-     *
-     * @param event event对象。
-     *
-     * @returns event对象。
-     */
-    TKeyEvent.cast = function (event) {
-        return new TKeyEvent(key_event_cast(event != null ? (event.nativeObj || event) : null));
-    };
-    Object.defineProperty(TKeyEvent.prototype, "key", {
-        /**
-         * 键值。
-         *
-         */
-        get: function () {
-            return key_event_t_get_prop_key(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TKeyEvent.prototype, "alt", {
-        /**
-         * alt键是否按下。
-         *
-         */
-        get: function () {
-            return key_event_t_get_prop_alt(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TKeyEvent.prototype, "lalt", {
-        /**
-         * left alt键是否按下。
-         *
-         */
-        get: function () {
-            return key_event_t_get_prop_lalt(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TKeyEvent.prototype, "ralt", {
-        /**
-         * right alt键是否按下。
-         *
-         */
-        get: function () {
-            return key_event_t_get_prop_ralt(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TKeyEvent.prototype, "ctrl", {
-        /**
-         * right alt键是否按下。
-         *ctrl键是否按下。
-         *
-         */
-        get: function () {
-            return key_event_t_get_prop_ctrl(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TKeyEvent.prototype, "lctrl", {
-        /**
-         * left ctrl键是否按下。
-         *
-         */
-        get: function () {
-            return key_event_t_get_prop_lctrl(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TKeyEvent.prototype, "rctrl", {
-        /**
-         * right ctrl键是否按下。
-         *
-         */
-        get: function () {
-            return key_event_t_get_prop_rctrl(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TKeyEvent.prototype, "shift", {
-        /**
-         * shift键是否按下。
-         *
-         */
-        get: function () {
-            return key_event_t_get_prop_shift(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TKeyEvent.prototype, "lshift", {
-        /**
-         * left shift键是否按下。
-         *
-         */
-        get: function () {
-            return key_event_t_get_prop_lshift(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TKeyEvent.prototype, "rshift", {
-        /**
-         * right shift键是否按下。
-         *
-         */
-        get: function () {
-            return key_event_t_get_prop_rshift(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TKeyEvent.prototype, "cmd", {
-        /**
-         * left shift键是否按下。
-         *cmd/win键是否按下。
-         *
-         */
-        get: function () {
-            return key_event_t_get_prop_cmd(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TKeyEvent.prototype, "menu", {
-        /**
-         * menu键是否按下。
-         *
-         */
-        get: function () {
-            return key_event_t_get_prop_menu(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TKeyEvent.prototype, "capslock", {
-        /**
-         * capslock键是否按下。
-         *
-         */
-        get: function () {
-            return key_event_t_get_prop_capslock(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return TKeyEvent;
-}(TEvent));
-exports.TKeyEvent = TKeyEvent;
 ;
 /**
  * 文件/目录选择器
@@ -17745,6 +17760,47 @@ var TStyleMutable = /** @class */ (function (_super) {
 exports.TStyleMutable = TStyleMutable;
 ;
 /**
+ * 电阻屏校准窗口。
+ *
+ *calibration\_win\_t是[window\_base\_t](window_base_t.md)的子类控件，
+ *window\_base\_t的函数均适用于calibration\_win\_t控件。
+ *
+ *在xml中使用"calibration\_win"标签创建电阻屏校准窗口。如：
+ *
+ *```xml
+ *<calibration_win name="cali" w="100%" h="100%" text="Please click the center of cross">
+ *</calibration_win>
+ *```
+ *
+ *> 更多用法请参考：
+ *[window.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/calibration_win.xml)
+ *
+ *在c代码中使用函数calibration\_win\_create创建窗口。如：
+ *
+ *
+ *通过calibration\_win\_set\_on\_done注册回调函数，用于保存校准数据。
+ *
+ */
+var TCalibrationWin = /** @class */ (function (_super) {
+    __extends(TCalibrationWin, _super);
+    function TCalibrationWin(nativeObj) {
+        return _super.call(this, nativeObj) || this;
+    }
+    /**
+     * 转换为calibration_win对象(供脚本语言使用)。
+     *
+     * @param widget calibration_win对象。
+     *
+     * @returns calibration_win对象。
+     */
+    TCalibrationWin.cast = function (widget) {
+        return new TCalibrationWin(calibration_win_cast(widget != null ? (widget.nativeObj || widget) : null));
+    };
+    return TCalibrationWin;
+}(TWindowBase));
+exports.TCalibrationWin = TCalibrationWin;
+;
+/**
  * 原生窗口。
  *
  */
@@ -18254,47 +18310,6 @@ var TObjectArray = /** @class */ (function (_super) {
     return TObjectArray;
 }(TObject));
 exports.TObjectArray = TObjectArray;
-;
-/**
- * 电阻屏校准窗口。
- *
- *calibration\_win\_t是[window\_base\_t](window_base_t.md)的子类控件，
- *window\_base\_t的函数均适用于calibration\_win\_t控件。
- *
- *在xml中使用"calibration\_win"标签创建电阻屏校准窗口。如：
- *
- *```xml
- *<calibration_win name="cali" w="100%" h="100%" text="Please click the center of cross">
- *</calibration_win>
- *```
- *
- *> 更多用法请参考：
- *[window.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/calibration_win.xml)
- *
- *在c代码中使用函数calibration\_win\_create创建窗口。如：
- *
- *
- *通过calibration\_win\_set\_on\_done注册回调函数，用于保存校准数据。
- *
- */
-var TCalibrationWin = /** @class */ (function (_super) {
-    __extends(TCalibrationWin, _super);
-    function TCalibrationWin(nativeObj) {
-        return _super.call(this, nativeObj) || this;
-    }
-    /**
-     * 转换为calibration_win对象(供脚本语言使用)。
-     *
-     * @param widget calibration_win对象。
-     *
-     * @returns calibration_win对象。
-     */
-    TCalibrationWin.cast = function (widget) {
-        return new TCalibrationWin(calibration_win_cast(widget != null ? (widget.nativeObj || widget) : null));
-    };
-    return TCalibrationWin;
-}(TWindowBase));
-exports.TCalibrationWin = TCalibrationWin;
 ;
 /**
  * 窗口。
