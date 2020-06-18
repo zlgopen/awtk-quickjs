@@ -6642,6 +6642,15 @@ var TAppConf = /** @class */ (function () {
         return app_conf_save();
     };
     /**
+     * 重新加载配置(内存中的配置丢失)。
+     *
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TAppConf.reload = function () {
+        return app_conf_reload();
+    };
+    /**
      * 释放conf对象。
      *
      *
@@ -8585,50 +8594,36 @@ var TAssetType;
 })(TAssetType = exports.TAssetType || (exports.TAssetType = {}));
 ;
 /**
- * 文件管理/浏览/选择控件。
+ * 仪表指针控件。
  *
- *file\_browser\_view\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于file\_browser\_view\_t控件。
+ *仪表指针就是一张旋转的图片，图片可以是普通图片也可以是SVG图片。
  *
- *考虑到文件浏览器界面呈现的多样性，界面呈现工作完全有子控件来完成。
+ *在嵌入式平台上，对于旋转的图片，SVG图片的效率比位图高数倍，所以推荐使用SVG图片。
  *
- *file\_browser\_view\_t负责关联文件/文件夹数据到子控件上，子控件需要特定的规范命名。
+ *guage\_pointer\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于guage\_pointer\_t控件。
  *
- ** 名为 "cwd" 的子控件用于显示当前路径。
+ *在xml中使用"guage\_pointer"标签创建仪表指针控件。如：
  *
- ** 名为 "selected_file" 的子控件用于显示当前选择的文件。
+ *```xml
+ *<guage_pointer x="c" y="50" w="24" h="140" value="-128" image="guage_pointer" />
+ *```
  *
- ** 名为 "file" 的子控件用于显示文件项的模板控件。
+ *> 更多用法请参考：
+ *[guage.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/guage.xml)
  *
- ** 名为 "folder" 的子控件用于显示文件夹项的模板控件。
+ *在c代码中使用函数guage\_pointer\_create创建仪表指针控件。如：
  *
- ** 名为 "return_up" 的子控件用于返回上一级文件夹的模板控件。
  *
- ** 名为 "container" 的子控件为容器控件，通常是scrollview。
- *
- ** 名为 "name" 的子控件用于显示文件和文件夹的名称(放在列表项目内)。
- *
- ** 名为 "size" 的子控件用于显示文件和文件夹的大小(放在列表项目内)。
- *
- ** 名为 "mtime" 的子控件用于显示文件和文件夹的修改时间(放在列表项目内)。
- *
- ** 名为 "ctime" 的子控件用于显示文件和文件夹的创建时间(放在列表项目内)。
- *
- ** 名为 "icon" 的子控件用于显示文件和文件夹的图标(放在列表项目内)。
- *
- ** 类型为 "check_button" 的子控件用于选择(放在列表项目内)。
- *
- *完整示例请参考：
- *
- *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/file_chooser_for_open.xml
+ *> 创建之后，需要用guage\_pointer\_set\_image设置仪表指针图片。
  *
  */
-var TFileBrowserView = /** @class */ (function (_super) {
-    __extends(TFileBrowserView, _super);
-    function TFileBrowserView(nativeObj) {
+var TGuagePointer = /** @class */ (function (_super) {
+    __extends(TGuagePointer, _super);
+    function TGuagePointer(nativeObj) {
         return _super.call(this, nativeObj) || this;
     }
     /**
-     * 创建file_browser_view对象
+     * 创建guage_pointer对象
      *
      * @param parent 父控件
      * @param x x坐标
@@ -8638,207 +8633,105 @@ var TFileBrowserView = /** @class */ (function (_super) {
      *
      * @returns 对象。
      */
-    TFileBrowserView.create = function (parent, x, y, w, h) {
-        return new TFileBrowserView(file_browser_view_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
+    TGuagePointer.create = function (parent, x, y, w, h) {
+        return new TGuagePointer(guage_pointer_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     /**
-     * 转换为file_browser_view对象(供脚本语言使用)。
+     * 转换为guage_pointer对象(供脚本语言使用)。
      *
-     * @param widget file_browser_view对象。
+     * @param widget guage_pointer对象。
      *
-     * @returns file_browser_view对象。
+     * @returns guage_pointer对象。
      */
-    TFileBrowserView.cast = function (widget) {
-        return new TFileBrowserView(file_browser_view_cast(widget != null ? (widget.nativeObj || widget) : null));
+    TGuagePointer.cast = function (widget) {
+        return new TGuagePointer(guage_pointer_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     /**
-     * 设置 初始文件夹。
+     * 设置指针角度。12点钟方向为0度，顺时钟方向为正，单位为度。
      *
-     * @param init_dir 初始文件夹。
+     * @param angle 指针角度。
      *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
-    TFileBrowserView.prototype.setInitDir = function (init_dir) {
-        return file_browser_view_set_init_dir(this != null ? (this.nativeObj || this) : null, init_dir);
+    TGuagePointer.prototype.setAngle = function (angle) {
+        return guage_pointer_set_angle(this != null ? (this.nativeObj || this) : null, angle);
     };
     /**
-     * 设置 过滤规则。
-     *> files_only 表示只列出文件，dir_only 表示只列出目录，其它表示只列出满足扩展名文件集合(如：.jpg.png.gif)。
+     * 设置指针的图片。
      *
-     * @param filter 过滤规则。
+     * @param image 指针的图片。
      *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
-    TFileBrowserView.prototype.setFilter = function (filter) {
-        return file_browser_view_set_filter(this != null ? (this.nativeObj || this) : null, filter);
+    TGuagePointer.prototype.setImage = function (image) {
+        return guage_pointer_set_image(this != null ? (this.nativeObj || this) : null, image);
     };
     /**
-     * 重新加载。
+     * 设置指针的旋转锚点。
      *
+     * @param anchor_x 指针的锚点坐标x。(后面加上px为像素点，不加px为相对百分比坐标)
+     * @param anchor_y 指针的锚点坐标y。(后面加上px为像素点，不加px为相对百分比坐标)
      *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
-    TFileBrowserView.prototype.reload = function () {
-        return file_browser_view_reload(this != null ? (this.nativeObj || this) : null);
+    TGuagePointer.prototype.setAnchor = function (anchor_x, anchor_y) {
+        return guage_pointer_set_anchor(this != null ? (this.nativeObj || this) : null, anchor_x, anchor_y);
     };
-    /**
-     * 设置 忽略隐藏文件。
-     *
-     * @param ignore_hidden_files 忽略隐藏文件。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TFileBrowserView.prototype.setIgnoreHiddenFiles = function (ignore_hidden_files) {
-        return file_browser_view_set_ignore_hidden_files(this != null ? (this.nativeObj || this) : null, ignore_hidden_files);
-    };
-    /**
-     * 设置 是否为升序排序。
-     *
-     * @param sort_ascending 是否为升序排序。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TFileBrowserView.prototype.setSortAscending = function (sort_ascending) {
-        return file_browser_view_set_sort_ascending(this != null ? (this.nativeObj || this) : null, sort_ascending);
-    };
-    /**
-     * 设置 是否显示checkbutton。
-     *
-     * @param show_check_button 是否显示checkbutton。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TFileBrowserView.prototype.setShowCheckButton = function (show_check_button) {
-        return file_browser_view_set_show_check_button(this != null ? (this.nativeObj || this) : null, show_check_button);
-    };
-    /**
-     * 设置 排序方式。可选值(name, size, mtime, type)。
-     *
-     * @param sort_by 排序方式。可选值(name, size, mtime, type)。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TFileBrowserView.prototype.setSortBy = function (sort_by) {
-        return file_browser_view_set_sort_by(this != null ? (this.nativeObj || this) : null, sort_by);
-    };
-    /**
-     * 获取当前路径。
-     *
-     *
-     * @returns 返回当前路径。
-     */
-    TFileBrowserView.prototype.getCwd = function () {
-        return file_browser_view_get_cwd(this != null ? (this.nativeObj || this) : null);
-    };
-    /**
-     * 在当前文件夹创建子文件夹。
-     *
-     * @param name 子文件夹名。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TFileBrowserView.prototype.createDir = function (name) {
-        return file_browser_view_create_dir(this != null ? (this.nativeObj || this) : null, name);
-    };
-    /**
-     * 在当前文件夹创建文件。
-     *
-     * @param name 文件名。
-     * @param data 数据。
-     * @param size 数据长度。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TFileBrowserView.prototype.createFile = function (name, data, size) {
-        return file_browser_view_create_file(this != null ? (this.nativeObj || this) : null, name, data, size);
-    };
-    Object.defineProperty(TFileBrowserView.prototype, "initDir", {
+    Object.defineProperty(TGuagePointer.prototype, "angle", {
         /**
-         * 初始文件夹。
+         * 指针角度。12点钟方向为0度，顺时钟方向为正，单位为度。
          *
          */
         get: function () {
-            return file_browser_view_t_get_prop_init_dir(this.nativeObj);
+            return guage_pointer_t_get_prop_angle(this.nativeObj);
         },
         set: function (v) {
-            this.setInitDir(v);
+            this.setAngle(v);
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(TFileBrowserView.prototype, "filter", {
+    Object.defineProperty(TGuagePointer.prototype, "image", {
         /**
-         * 过滤规则。
+         * 指针图片。
+         *
+         *图片须垂直向上，图片的中心点为旋转方向。
          *
          */
         get: function () {
-            return file_browser_view_t_get_prop_filter(this.nativeObj);
+            return guage_pointer_t_get_prop_image(this.nativeObj);
         },
         set: function (v) {
-            this.setFilter(v);
+            this.setImage(v);
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(TFileBrowserView.prototype, "ignoreHiddenFiles", {
+    Object.defineProperty(TGuagePointer.prototype, "anchorX", {
         /**
-         * 是否忽略隐藏文件。
+         * 图片旋转锚点x坐标。(后面加上px为像素点，不加px为相对百分比坐标0.0f到1.0f)
          *
          */
         get: function () {
-            return file_browser_view_t_get_prop_ignore_hidden_files(this.nativeObj);
-        },
-        set: function (v) {
-            this.setIgnoreHiddenFiles(v);
+            return guage_pointer_t_get_prop_anchor_x(this.nativeObj);
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(TFileBrowserView.prototype, "sortAscending", {
+    Object.defineProperty(TGuagePointer.prototype, "anchorY", {
         /**
-         * 是否为升序排序。
+         * 图片旋转锚点x坐标。(后面加上px为像素点，不加px为相对百分比坐标0.0f到1.0f)
          *
          */
         get: function () {
-            return file_browser_view_t_get_prop_sort_ascending(this.nativeObj);
-        },
-        set: function (v) {
-            this.setSortAscending(v);
+            return guage_pointer_t_get_prop_anchor_y(this.nativeObj);
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(TFileBrowserView.prototype, "showCheckButton", {
-        /**
-         * 是否显示checkbutton。
-         *
-         */
-        get: function () {
-            return file_browser_view_t_get_prop_show_check_button(this.nativeObj);
-        },
-        set: function (v) {
-            this.setShowCheckButton(v);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TFileBrowserView.prototype, "sortBy", {
-        /**
-         * 排序方式。可选值(name, size, mtime, type)。
-         *
-         */
-        get: function () {
-            return file_browser_view_t_get_prop_sort_by(this.nativeObj);
-        },
-        set: function (v) {
-            this.setSortBy(v);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return TFileBrowserView;
+    return TGuagePointer;
 }(TWidget));
-exports.TFileBrowserView = TFileBrowserView;
+exports.TGuagePointer = TGuagePointer;
 ;
 /**
  * 滚轮事件。
@@ -12052,6 +11945,97 @@ var TColumn = /** @class */ (function (_super) {
 exports.TColumn = TColumn;
 ;
 /**
+ * 色块控件。
+ *
+ *用来显示一个颜色块，它通过属性而不是主题来设置颜色，方便在运行时动态改变颜色。
+ *
+ *可以使用value属性访问背景颜色的颜色值。
+ *
+ *color\_tile\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于color\_tile\_t控件。
+ *
+ *在xml中使用"color_tile"标签创建色块控件。如：
+ *
+ *```xml
+ *<color_tile x="c" y="m" w="80" h="30" bg_color="green" />
+ *```
+ *
+ *> 更多用法请参考：
+ *[color_tile](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/color_picker_rgb.xml)
+ *
+ *在c代码中使用函数color_tile\_create创建色块控件。如：
+ *
+ *> 创建之后，用color\_tile\_set\_bg\_color设置背景颜色。
+ *
+ */
+var TColorTile = /** @class */ (function (_super) {
+    __extends(TColorTile, _super);
+    function TColorTile(nativeObj) {
+        return _super.call(this, nativeObj) || this;
+    }
+    /**
+     * 创建color_tile对象
+     *
+     * @param parent 父控件
+     * @param x x坐标
+     * @param y y坐标
+     * @param w 宽度
+     * @param h 高度
+     *
+     * @returns 对象。
+     */
+    TColorTile.create = function (parent, x, y, w, h) {
+        return new TColorTile(color_tile_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
+    };
+    /**
+     * 转换为color_tile对象(供脚本语言使用)。
+     *
+     * @param widget color_tile对象。
+     *
+     * @returns color_tile对象。
+     */
+    TColorTile.cast = function (widget) {
+        return new TColorTile(color_tile_cast(widget != null ? (widget.nativeObj || widget) : null));
+    };
+    /**
+     * 设置背景颜色。
+     *
+     * @param color 背景颜色。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TColorTile.prototype.setBgColor = function (color) {
+        return color_tile_set_bg_color(this != null ? (this.nativeObj || this) : null, color);
+    };
+    Object.defineProperty(TColorTile.prototype, "bgColor", {
+        /**
+         * 背景颜色。
+         *
+         */
+        get: function () {
+            return color_tile_t_get_prop_bg_color(this.nativeObj);
+        },
+        set: function (v) {
+            this.setBgColor(v);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TColorTile.prototype, "borderColor", {
+        /**
+         * 边框颜色。
+         *
+         */
+        get: function () {
+            return color_tile_t_get_prop_border_color(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return TColorTile;
+}(TWidget));
+exports.TColorTile = TColorTile;
+;
+/**
  * 滑动视图。
  *
  *滑动视图可以管理多个页面，并通过滑动来切换当前页面。也可以管理多张图片，让它们自动切换。
@@ -12247,97 +12231,6 @@ var TSlideView = /** @class */ (function (_super) {
     return TSlideView;
 }(TWidget));
 exports.TSlideView = TSlideView;
-;
-/**
- * 色块控件。
- *
- *用来显示一个颜色块，它通过属性而不是主题来设置颜色，方便在运行时动态改变颜色。
- *
- *可以使用value属性访问背景颜色的颜色值。
- *
- *color\_tile\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于color\_tile\_t控件。
- *
- *在xml中使用"color_tile"标签创建色块控件。如：
- *
- *```xml
- *<color_tile x="c" y="m" w="80" h="30" bg_color="green" />
- *```
- *
- *> 更多用法请参考：
- *[color_tile](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/color_picker_rgb.xml)
- *
- *在c代码中使用函数color_tile\_create创建色块控件。如：
- *
- *> 创建之后，用color\_tile\_set\_bg\_color设置背景颜色。
- *
- */
-var TColorTile = /** @class */ (function (_super) {
-    __extends(TColorTile, _super);
-    function TColorTile(nativeObj) {
-        return _super.call(this, nativeObj) || this;
-    }
-    /**
-     * 创建color_tile对象
-     *
-     * @param parent 父控件
-     * @param x x坐标
-     * @param y y坐标
-     * @param w 宽度
-     * @param h 高度
-     *
-     * @returns 对象。
-     */
-    TColorTile.create = function (parent, x, y, w, h) {
-        return new TColorTile(color_tile_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
-    };
-    /**
-     * 转换为color_tile对象(供脚本语言使用)。
-     *
-     * @param widget color_tile对象。
-     *
-     * @returns color_tile对象。
-     */
-    TColorTile.cast = function (widget) {
-        return new TColorTile(color_tile_cast(widget != null ? (widget.nativeObj || widget) : null));
-    };
-    /**
-     * 设置背景颜色。
-     *
-     * @param color 背景颜色。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TColorTile.prototype.setBgColor = function (color) {
-        return color_tile_set_bg_color(this != null ? (this.nativeObj || this) : null, color);
-    };
-    Object.defineProperty(TColorTile.prototype, "bgColor", {
-        /**
-         * 背景颜色。
-         *
-         */
-        get: function () {
-            return color_tile_t_get_prop_bg_color(this.nativeObj);
-        },
-        set: function (v) {
-            this.setBgColor(v);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TColorTile.prototype, "borderColor", {
-        /**
-         * 边框颜色。
-         *
-         */
-        get: function () {
-            return color_tile_t_get_prop_border_color(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return TColorTile;
-}(TWidget));
-exports.TColorTile = TColorTile;
 ;
 /**
  * slide_view的指示器控件。
@@ -12658,6 +12551,185 @@ var TSlideIndicator = /** @class */ (function (_super) {
 exports.TSlideIndicator = TSlideIndicator;
 ;
 /**
+ * 一个裁剪子控件的容器控件。
+ *
+ *它本身不提供布局功能，仅提供具有语义的标签，让xml更具有可读性。
+ *子控件的布局可用layout\_children属性指定。
+ *请参考[布局参数](https://github.com/zlgopen/awtk/blob/master/docs/layout.md)。
+ *
+ *clip\_view\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于clip\_view\_t控件。
+ *
+ *在xml中使用"clip_view"标签创建clip_view，在clip_view控件下的所有子控件都会被裁剪。如下button控件会被裁剪，无法画出clip_view控件 ：
+ *
+ *```xml
+ *<clip_view x="0" y="0" w="100" h="100">
+ *<button x="50" y="10" w="100" h="50" />
+ *</clip_view>
+ *```
+ *
+ *备注：在clip_view控件下的所有子控件都会被裁剪，如果子控件本身会设置裁剪区的话，在子控件中计算裁剪区的交集，具体请参考scroll_view控件的scroll_view_on_paint_children函数。
+ *
+ *可用通过style来设置控件的显示风格，如背景颜色等。如：
+ *
+ *```xml
+ *<style name="default" border_color="#a0a0a0">
+ *<normal     bg_color="#f0f0f0" />
+ *</style>
+ *```
+ *
+ */
+var TClipView = /** @class */ (function (_super) {
+    __extends(TClipView, _super);
+    function TClipView(nativeObj) {
+        return _super.call(this, nativeObj) || this;
+    }
+    /**
+     * 创建clip_view对象
+     *
+     * @param parent 父控件
+     * @param x x坐标
+     * @param y y坐标
+     * @param w 宽度
+     * @param h 高度
+     *
+     * @returns 对象。
+     */
+    TClipView.create = function (parent, x, y, w, h) {
+        return new TClipView(clip_view_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
+    };
+    /**
+     * 转换为clip_view对象(供脚本语言使用)。
+     *
+     * @param widget clip_view对象。
+     *
+     * @returns clip_view对象。
+     */
+    TClipView.cast = function (widget) {
+        return new TClipView(clip_view_cast(widget != null ? (widget.nativeObj || widget) : null));
+    };
+    return TClipView;
+}(TWidget));
+exports.TClipView = TClipView;
+;
+/**
+ * 勾选按钮控件(单选/多选)。
+ *
+ *check\_button\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于check\_button\_t控件。
+ *
+ *在xml中使用"check_button"标签创建多选按钮控件。如：
+ *
+ *```xml
+ *<check_button name="c1" text="Book"/>
+ *```
+ *
+ *在xml中使用"radio_button"标签创建单选按钮控件。如：
+ *
+ *```xml
+ *<radio_button name="r1" text="Book"/>
+ *```
+ *
+ *> 更多用法请参考：
+ *[button.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/basic.xml)
+ *
+ *在c代码中使用函数check\_button\_create创建多选按钮控件。如：
+ *
+ *
+ *在c代码中使用函数check\_button\_create\_radio创建单选按钮控件。如：
+ *
+ *
+ *> 完整示例请参考：
+ *[button demo](https://github.com/zlgopen/awtk-c-demos/blob/master/demos/check_button.c)
+ *
+ *可用通过style来设置控件的显示风格，如字体的大小和颜色等等。如：
+ *
+ *```xml
+ *<style name="default" icon_at="left">
+ *<normal  icon="unchecked" />
+ *<pressed icon="unchecked" />
+ *<over    icon="unchecked" text_color="green"/>
+ *<normal_of_checked icon="checked" text_color="blue"/>
+ *<pressed_of_checked icon="checked" text_color="blue"/>
+ *<over_of_checked icon="checked" text_color="green"/>
+ *</style>
+ *```
+ *
+ *> 更多用法请参考：
+ *[theme
+ *default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L227)
+ *
+ */
+var TCheckButton = /** @class */ (function (_super) {
+    __extends(TCheckButton, _super);
+    function TCheckButton(nativeObj) {
+        return _super.call(this, nativeObj) || this;
+    }
+    /**
+     * 创建多选按钮对象
+     *
+     * @param parent 父控件
+     * @param x x坐标
+     * @param y y坐标
+     * @param w 宽度
+     * @param h 高度
+     *
+     * @returns widget对象。
+     */
+    TCheckButton.create = function (parent, x, y, w, h) {
+        return new TCheckButton(check_button_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
+    };
+    /**
+     * 创建单选按钮对象
+     *
+     * @param parent 父控件
+     * @param x x坐标
+     * @param y y坐标
+     * @param w 宽度
+     * @param h 高度
+     *
+     * @returns widget对象。
+     */
+    TCheckButton.createRadio = function (parent, x, y, w, h) {
+        return new TCheckButton(check_button_create_radio(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
+    };
+    /**
+     * 设置控件的值。
+     *
+     * @param value 值(勾选为TRUE，非勾选为FALSE)。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TCheckButton.prototype.setValue = function (value) {
+        return check_button_set_value(this != null ? (this.nativeObj || this) : null, value);
+    };
+    /**
+     * 转换check_button对象(供脚本语言使用)。
+     *
+     * @param widget check_button对象。
+     *
+     * @returns check_button对象。
+     */
+    TCheckButton.cast = function (widget) {
+        return new TCheckButton(check_button_cast(widget != null ? (widget.nativeObj || widget) : null));
+    };
+    Object.defineProperty(TCheckButton.prototype, "value", {
+        /**
+         * 值(勾选为TRUE，非勾选为FALSE)。
+         *
+         */
+        get: function () {
+            return check_button_t_get_prop_value(this.nativeObj);
+        },
+        set: function (v) {
+            this.setValue(v);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return TCheckButton;
+}(TWidget));
+exports.TCheckButton = TCheckButton;
+;
+/**
  * 左右滑动菜单控件。
  *
  *一般用一组按钮作为子控件，通过左右滑动改变当前的项。除了当菜单使用外，也可以用来切换页面。
@@ -12807,185 +12879,6 @@ var TSlideMenu = /** @class */ (function (_super) {
     return TSlideMenu;
 }(TWidget));
 exports.TSlideMenu = TSlideMenu;
-;
-/**
- * 一个裁剪子控件的容器控件。
- *
- *它本身不提供布局功能，仅提供具有语义的标签，让xml更具有可读性。
- *子控件的布局可用layout\_children属性指定。
- *请参考[布局参数](https://github.com/zlgopen/awtk/blob/master/docs/layout.md)。
- *
- *clip\_view\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于clip\_view\_t控件。
- *
- *在xml中使用"clip_view"标签创建clip_view，在clip_view控件下的所有子控件都会被裁剪。如下button控件会被裁剪，无法画出clip_view控件 ：
- *
- *```xml
- *<clip_view x="0" y="0" w="100" h="100">
- *<button x="50" y="10" w="100" h="50" />
- *</clip_view>
- *```
- *
- *备注：在clip_view控件下的所有子控件都会被裁剪，如果子控件本身会设置裁剪区的话，在子控件中计算裁剪区的交集，具体请参考scroll_view控件的scroll_view_on_paint_children函数。
- *
- *可用通过style来设置控件的显示风格，如背景颜色等。如：
- *
- *```xml
- *<style name="default" border_color="#a0a0a0">
- *<normal     bg_color="#f0f0f0" />
- *</style>
- *```
- *
- */
-var TClipView = /** @class */ (function (_super) {
-    __extends(TClipView, _super);
-    function TClipView(nativeObj) {
-        return _super.call(this, nativeObj) || this;
-    }
-    /**
-     * 创建clip_view对象
-     *
-     * @param parent 父控件
-     * @param x x坐标
-     * @param y y坐标
-     * @param w 宽度
-     * @param h 高度
-     *
-     * @returns 对象。
-     */
-    TClipView.create = function (parent, x, y, w, h) {
-        return new TClipView(clip_view_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
-    };
-    /**
-     * 转换为clip_view对象(供脚本语言使用)。
-     *
-     * @param widget clip_view对象。
-     *
-     * @returns clip_view对象。
-     */
-    TClipView.cast = function (widget) {
-        return new TClipView(clip_view_cast(widget != null ? (widget.nativeObj || widget) : null));
-    };
-    return TClipView;
-}(TWidget));
-exports.TClipView = TClipView;
-;
-/**
- * 勾选按钮控件(单选/多选)。
- *
- *check\_button\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于check\_button\_t控件。
- *
- *在xml中使用"check_button"标签创建多选按钮控件。如：
- *
- *```xml
- *<check_button name="c1" text="Book"/>
- *```
- *
- *在xml中使用"radio_button"标签创建单选按钮控件。如：
- *
- *```xml
- *<radio_button name="r1" text="Book"/>
- *```
- *
- *> 更多用法请参考：
- *[button.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/basic.xml)
- *
- *在c代码中使用函数check\_button\_create创建多选按钮控件。如：
- *
- *
- *在c代码中使用函数check\_button\_create\_radio创建单选按钮控件。如：
- *
- *
- *> 完整示例请参考：
- *[button demo](https://github.com/zlgopen/awtk-c-demos/blob/master/demos/check_button.c)
- *
- *可用通过style来设置控件的显示风格，如字体的大小和颜色等等。如：
- *
- *```xml
- *<style name="default" icon_at="left">
- *<normal  icon="unchecked" />
- *<pressed icon="unchecked" />
- *<over    icon="unchecked" text_color="green"/>
- *<normal_of_checked icon="checked" text_color="blue"/>
- *<pressed_of_checked icon="checked" text_color="blue"/>
- *<over_of_checked icon="checked" text_color="green"/>
- *</style>
- *```
- *
- *> 更多用法请参考：
- *[theme
- *default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L227)
- *
- */
-var TCheckButton = /** @class */ (function (_super) {
-    __extends(TCheckButton, _super);
-    function TCheckButton(nativeObj) {
-        return _super.call(this, nativeObj) || this;
-    }
-    /**
-     * 创建多选按钮对象
-     *
-     * @param parent 父控件
-     * @param x x坐标
-     * @param y y坐标
-     * @param w 宽度
-     * @param h 高度
-     *
-     * @returns 对象。
-     */
-    TCheckButton.create = function (parent, x, y, w, h) {
-        return new TCheckButton(check_button_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
-    };
-    /**
-     * 创建单选按钮对象
-     *
-     * @param parent 父控件
-     * @param x x坐标
-     * @param y y坐标
-     * @param w 宽度
-     * @param h 高度
-     *
-     * @returns 对象。
-     */
-    TCheckButton.createRadio = function (parent, x, y, w, h) {
-        return new TCheckButton(check_button_create_radio(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
-    };
-    /**
-     * 设置控件的值。
-     *
-     * @param value 值(勾选为TRUE，非勾选为FALSE)。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TCheckButton.prototype.setValue = function (value) {
-        return check_button_set_value(this != null ? (this.nativeObj || this) : null, value);
-    };
-    /**
-     * 转换check_button对象(供脚本语言使用)。
-     *
-     * @param widget check_button对象。
-     *
-     * @returns check_button对象。
-     */
-    TCheckButton.cast = function (widget) {
-        return new TCheckButton(check_button_cast(widget != null ? (widget.nativeObj || widget) : null));
-    };
-    Object.defineProperty(TCheckButton.prototype, "value", {
-        /**
-         * 值(勾选为TRUE，非勾选为FALSE)。
-         *
-         */
-        get: function () {
-            return check_button_t_get_prop_value(this.nativeObj);
-        },
-        set: function (v) {
-            this.setValue(v);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return TCheckButton;
-}(TWidget));
-exports.TCheckButton = TCheckButton;
 ;
 /**
  * 滚动视图。
@@ -16368,146 +16261,6 @@ var TGuage = /** @class */ (function (_super) {
 exports.TGuage = TGuage;
 ;
 /**
- * 仪表指针控件。
- *
- *仪表指针就是一张旋转的图片，图片可以是普通图片也可以是SVG图片。
- *
- *在嵌入式平台上，对于旋转的图片，SVG图片的效率比位图高数倍，所以推荐使用SVG图片。
- *
- *guage\_pointer\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于guage\_pointer\_t控件。
- *
- *在xml中使用"guage\_pointer"标签创建仪表指针控件。如：
- *
- *```xml
- *<guage_pointer x="c" y="50" w="24" h="140" value="-128" image="guage_pointer" />
- *```
- *
- *> 更多用法请参考：
- *[guage.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/guage.xml)
- *
- *在c代码中使用函数guage\_pointer\_create创建仪表指针控件。如：
- *
- *
- *> 创建之后，需要用guage\_pointer\_set\_image设置仪表指针图片。
- *
- */
-var TGuagePointer = /** @class */ (function (_super) {
-    __extends(TGuagePointer, _super);
-    function TGuagePointer(nativeObj) {
-        return _super.call(this, nativeObj) || this;
-    }
-    /**
-     * 创建guage_pointer对象
-     *
-     * @param parent 父控件
-     * @param x x坐标
-     * @param y y坐标
-     * @param w 宽度
-     * @param h 高度
-     *
-     * @returns 对象。
-     */
-    TGuagePointer.create = function (parent, x, y, w, h) {
-        return new TGuagePointer(guage_pointer_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
-    };
-    /**
-     * 转换为guage_pointer对象(供脚本语言使用)。
-     *
-     * @param widget guage_pointer对象。
-     *
-     * @returns guage_pointer对象。
-     */
-    TGuagePointer.cast = function (widget) {
-        return new TGuagePointer(guage_pointer_cast(widget != null ? (widget.nativeObj || widget) : null));
-    };
-    /**
-     * 设置指针角度。12点钟方向为0度，顺时钟方向为正，单位为度。
-     *
-     * @param angle 指针角度。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TGuagePointer.prototype.setAngle = function (angle) {
-        return guage_pointer_set_angle(this != null ? (this.nativeObj || this) : null, angle);
-    };
-    /**
-     * 设置指针的图片。
-     *
-     * @param image 指针的图片。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TGuagePointer.prototype.setImage = function (image) {
-        return guage_pointer_set_image(this != null ? (this.nativeObj || this) : null, image);
-    };
-    /**
-     * 设置指针的旋转锚点。
-     *
-     * @param anchor_x 指针的锚点坐标x。(后面加上px为像素点，不加px为相对百分比坐标)
-     * @param anchor_y 指针的锚点坐标y。(后面加上px为像素点，不加px为相对百分比坐标)
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TGuagePointer.prototype.setAnchor = function (anchor_x, anchor_y) {
-        return guage_pointer_set_anchor(this != null ? (this.nativeObj || this) : null, anchor_x, anchor_y);
-    };
-    Object.defineProperty(TGuagePointer.prototype, "angle", {
-        /**
-         * 指针角度。12点钟方向为0度，顺时钟方向为正，单位为度。
-         *
-         */
-        get: function () {
-            return guage_pointer_t_get_prop_angle(this.nativeObj);
-        },
-        set: function (v) {
-            this.setAngle(v);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TGuagePointer.prototype, "image", {
-        /**
-         * 指针图片。
-         *
-         *图片须垂直向上，图片的中心点为旋转方向。
-         *
-         */
-        get: function () {
-            return guage_pointer_t_get_prop_image(this.nativeObj);
-        },
-        set: function (v) {
-            this.setImage(v);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TGuagePointer.prototype, "anchorX", {
-        /**
-         * 图片旋转锚点x坐标。(后面加上px为像素点，不加px为相对百分比坐标0.0f到1.0f)
-         *
-         */
-        get: function () {
-            return guage_pointer_t_get_prop_anchor_x(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TGuagePointer.prototype, "anchorY", {
-        /**
-         * 图片旋转锚点x坐标。(后面加上px为像素点，不加px为相对百分比坐标0.0f到1.0f)
-         *
-         */
-        get: function () {
-            return guage_pointer_t_get_prop_anchor_y(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return TGuagePointer;
-}(TWidget));
-exports.TGuagePointer = TGuagePointer;
-;
-/**
  * 文件/目录选择器
  *
  */
@@ -16613,6 +16366,262 @@ var TFileChooser = /** @class */ (function (_super) {
     return TFileChooser;
 }(TEmitter));
 exports.TFileChooser = TFileChooser;
+;
+/**
+ * 文件管理/浏览/选择控件。
+ *
+ *file\_browser\_view\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于file\_browser\_view\_t控件。
+ *
+ *考虑到文件浏览器界面呈现的多样性，界面呈现工作完全有子控件来完成。
+ *
+ *file\_browser\_view\_t负责关联文件/文件夹数据到子控件上，子控件需要特定的规范命名。
+ *
+ ** 名为 "cwd" 的子控件用于显示当前路径。
+ *
+ ** 名为 "selected_file" 的子控件用于显示当前选择的文件。
+ *
+ ** 名为 "file" 的子控件用于显示文件项的模板控件。
+ *
+ ** 名为 "folder" 的子控件用于显示文件夹项的模板控件。
+ *
+ ** 名为 "return_up" 的子控件用于返回上一级文件夹的模板控件。
+ *
+ ** 名为 "container" 的子控件为容器控件，通常是scrollview。
+ *
+ ** 名为 "name" 的子控件用于显示文件和文件夹的名称(放在列表项目内)。
+ *
+ ** 名为 "size" 的子控件用于显示文件和文件夹的大小(放在列表项目内)。
+ *
+ ** 名为 "mtime" 的子控件用于显示文件和文件夹的修改时间(放在列表项目内)。
+ *
+ ** 名为 "ctime" 的子控件用于显示文件和文件夹的创建时间(放在列表项目内)。
+ *
+ ** 名为 "icon" 的子控件用于显示文件和文件夹的图标(放在列表项目内)。
+ *
+ ** 类型为 "check_button" 的子控件用于选择(放在列表项目内)。
+ *
+ *完整示例请参考：
+ *
+ *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/file_chooser_for_open.xml
+ *
+ */
+var TFileBrowserView = /** @class */ (function (_super) {
+    __extends(TFileBrowserView, _super);
+    function TFileBrowserView(nativeObj) {
+        return _super.call(this, nativeObj) || this;
+    }
+    /**
+     * 创建file_browser_view对象
+     *
+     * @param parent 父控件
+     * @param x x坐标
+     * @param y y坐标
+     * @param w 宽度
+     * @param h 高度
+     *
+     * @returns 对象。
+     */
+    TFileBrowserView.create = function (parent, x, y, w, h) {
+        return new TFileBrowserView(file_browser_view_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
+    };
+    /**
+     * 转换为file_browser_view对象(供脚本语言使用)。
+     *
+     * @param widget file_browser_view对象。
+     *
+     * @returns file_browser_view对象。
+     */
+    TFileBrowserView.cast = function (widget) {
+        return new TFileBrowserView(file_browser_view_cast(widget != null ? (widget.nativeObj || widget) : null));
+    };
+    /**
+     * 设置 初始文件夹。
+     *
+     * @param init_dir 初始文件夹。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TFileBrowserView.prototype.setInitDir = function (init_dir) {
+        return file_browser_view_set_init_dir(this != null ? (this.nativeObj || this) : null, init_dir);
+    };
+    /**
+     * 设置 过滤规则。
+     *> files_only 表示只列出文件，dir_only 表示只列出目录，其它表示只列出满足扩展名文件集合(如：.jpg.png.gif)。
+     *
+     * @param filter 过滤规则。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TFileBrowserView.prototype.setFilter = function (filter) {
+        return file_browser_view_set_filter(this != null ? (this.nativeObj || this) : null, filter);
+    };
+    /**
+     * 重新加载。
+     *
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TFileBrowserView.prototype.reload = function () {
+        return file_browser_view_reload(this != null ? (this.nativeObj || this) : null);
+    };
+    /**
+     * 设置 忽略隐藏文件。
+     *
+     * @param ignore_hidden_files 忽略隐藏文件。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TFileBrowserView.prototype.setIgnoreHiddenFiles = function (ignore_hidden_files) {
+        return file_browser_view_set_ignore_hidden_files(this != null ? (this.nativeObj || this) : null, ignore_hidden_files);
+    };
+    /**
+     * 设置 是否为升序排序。
+     *
+     * @param sort_ascending 是否为升序排序。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TFileBrowserView.prototype.setSortAscending = function (sort_ascending) {
+        return file_browser_view_set_sort_ascending(this != null ? (this.nativeObj || this) : null, sort_ascending);
+    };
+    /**
+     * 设置 是否显示checkbutton。
+     *
+     * @param show_check_button 是否显示checkbutton。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TFileBrowserView.prototype.setShowCheckButton = function (show_check_button) {
+        return file_browser_view_set_show_check_button(this != null ? (this.nativeObj || this) : null, show_check_button);
+    };
+    /**
+     * 设置 排序方式。可选值(name, size, mtime, type)。
+     *
+     * @param sort_by 排序方式。可选值(name, size, mtime, type)。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TFileBrowserView.prototype.setSortBy = function (sort_by) {
+        return file_browser_view_set_sort_by(this != null ? (this.nativeObj || this) : null, sort_by);
+    };
+    /**
+     * 获取当前路径。
+     *
+     *
+     * @returns 返回当前路径。
+     */
+    TFileBrowserView.prototype.getCwd = function () {
+        return file_browser_view_get_cwd(this != null ? (this.nativeObj || this) : null);
+    };
+    /**
+     * 在当前文件夹创建子文件夹。
+     *
+     * @param name 子文件夹名。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TFileBrowserView.prototype.createDir = function (name) {
+        return file_browser_view_create_dir(this != null ? (this.nativeObj || this) : null, name);
+    };
+    /**
+     * 在当前文件夹创建文件。
+     *
+     * @param name 文件名。
+     * @param data 数据。
+     * @param size 数据长度。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TFileBrowserView.prototype.createFile = function (name, data, size) {
+        return file_browser_view_create_file(this != null ? (this.nativeObj || this) : null, name, data, size);
+    };
+    Object.defineProperty(TFileBrowserView.prototype, "initDir", {
+        /**
+         * 初始文件夹。
+         *
+         */
+        get: function () {
+            return file_browser_view_t_get_prop_init_dir(this.nativeObj);
+        },
+        set: function (v) {
+            this.setInitDir(v);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TFileBrowserView.prototype, "filter", {
+        /**
+         * 过滤规则。
+         *
+         */
+        get: function () {
+            return file_browser_view_t_get_prop_filter(this.nativeObj);
+        },
+        set: function (v) {
+            this.setFilter(v);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TFileBrowserView.prototype, "ignoreHiddenFiles", {
+        /**
+         * 是否忽略隐藏文件。
+         *
+         */
+        get: function () {
+            return file_browser_view_t_get_prop_ignore_hidden_files(this.nativeObj);
+        },
+        set: function (v) {
+            this.setIgnoreHiddenFiles(v);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TFileBrowserView.prototype, "sortAscending", {
+        /**
+         * 是否为升序排序。
+         *
+         */
+        get: function () {
+            return file_browser_view_t_get_prop_sort_ascending(this.nativeObj);
+        },
+        set: function (v) {
+            this.setSortAscending(v);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TFileBrowserView.prototype, "showCheckButton", {
+        /**
+         * 是否显示checkbutton。
+         *
+         */
+        get: function () {
+            return file_browser_view_t_get_prop_show_check_button(this.nativeObj);
+        },
+        set: function (v) {
+            this.setShowCheckButton(v);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TFileBrowserView.prototype, "sortBy", {
+        /**
+         * 排序方式。可选值(name, size, mtime, type)。
+         *
+         */
+        get: function () {
+            return file_browser_view_t_get_prop_sort_by(this.nativeObj);
+        },
+        set: function (v) {
+            this.setSortBy(v);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return TFileBrowserView;
+}(TWidget));
+exports.TFileBrowserView = TFileBrowserView;
 ;
 /**
  * 将draggable放入目标控件，即可让目标控件或当前窗口可以被拖动。
@@ -17423,7 +17432,7 @@ var TWindowManager = /** @class */ (function (_super) {
     /**
      * 设置屏保时间。
      *
-     * @param screen_saver_time 屏保时间(单位毫秒)。
+     * @param screen_saver_time 屏保时间(单位毫秒), 为0关闭屏保。
      *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
