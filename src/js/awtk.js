@@ -1737,6 +1737,21 @@ var TEventType;
      */
     TEventType[TEventType["PROP_CHANGED"] = EVT_PROP_CHANGED()] = "PROP_CHANGED";
     /**
+     * 对象即将执行命令(cmd_exec_event_t)。
+     *
+     */
+    TEventType[TEventType["CMD_WILL_EXEC"] = EVT_CMD_WILL_EXEC()] = "CMD_WILL_EXEC";
+    /**
+     * 对象完成执行命令(cmd_exec_event_t)。
+     *
+     */
+    TEventType[TEventType["CMD_EXECED"] = EVT_CMD_EXECED()] = "CMD_EXECED";
+    /**
+     * 对象命令是否能执行指定的命令(cmd_exec_event_t)。
+     *
+     */
+    TEventType[TEventType["CMD_CAN_EXEC"] = EVT_CMD_CAN_EXEC()] = "CMD_CAN_EXEC";
+    /**
      * 即将增加和删除集合中的项目(event_t)。
      *
      */
@@ -7462,6 +7477,18 @@ var TObjectCmd;
      *
      */
     TObjectCmd[TObjectCmd["CLEAR"] = OBJECT_CMD_CLEAR()] = "CLEAR";
+    /**
+     * 增加子项。
+     *>参数为属性的名称或路径。
+     *
+     */
+    TObjectCmd[TObjectCmd["ADD"] = OBJECT_CMD_ADD()] = "ADD";
+    /**
+     * 编辑子项。
+     *>参数为属性的名称或路径。
+     *
+     */
+    TObjectCmd[TObjectCmd["EDIT"] = OBJECT_CMD_EDIT()] = "EDIT";
 })(TObjectCmd = exports.TObjectCmd || (exports.TObjectCmd = {}));
 ;
 /**
@@ -8980,6 +9007,62 @@ var TErrorEvent = /** @class */ (function (_super) {
 exports.TErrorEvent = TErrorEvent;
 ;
 /**
+ * 对象执行命令的事件。
+ *
+ */
+var TCmdExecEvent = /** @class */ (function (_super) {
+    __extends(TCmdExecEvent, _super);
+    function TCmdExecEvent(nativeObj) {
+        return _super.call(this, nativeObj) || this;
+    }
+    /**
+     * 把event对象转cmd_exec_event_t对象，主要给脚本语言使用。
+     *
+     * @param event event对象。
+     *
+     * @returns 返回event对象。
+     */
+    TCmdExecEvent.cast = function (event) {
+        return new TCmdExecEvent(cmd_exec_event_cast(event != null ? (event.nativeObj || event) : null));
+    };
+    Object.defineProperty(TCmdExecEvent.prototype, "name", {
+        /**
+         * 命令的名称。
+         *
+         */
+        get: function () {
+            return cmd_exec_event_t_get_prop_name(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TCmdExecEvent.prototype, "args", {
+        /**
+         * 命令的参数。
+         *
+         */
+        get: function () {
+            return cmd_exec_event_t_get_prop_args(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TCmdExecEvent.prototype, "result", {
+        /**
+         * 执行结果(适用于EXECED)。
+         *
+         */
+        get: function () {
+            return cmd_exec_event_t_get_prop_result(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return TCmdExecEvent;
+}(TEvent));
+exports.TCmdExecEvent = TCmdExecEvent;
+;
+/**
  * 模拟时钟控件。
  *
  *time\_clock\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于time\_clock\_t控件。
@@ -9551,6 +9634,73 @@ var TTextSelector = /** @class */ (function (_super) {
 exports.TTextSelector = TTextSelector;
 ;
 /**
+ * 滚轮事件。
+ *
+ */
+var TWheelEvent = /** @class */ (function (_super) {
+    __extends(TWheelEvent, _super);
+    function TWheelEvent(nativeObj) {
+        return _super.call(this, nativeObj) || this;
+    }
+    /**
+     * 把event对象转wheel_event_t对象，主要给脚本语言使用。
+     *
+     * @param event event对象。
+     *
+     * @returns event对象。
+     */
+    TWheelEvent.cast = function (event) {
+        return new TWheelEvent(wheel_event_cast(event != null ? (event.nativeObj || event) : null));
+    };
+    Object.defineProperty(TWheelEvent.prototype, "dy", {
+        /**
+         * 滚轮的y值。
+         *
+         */
+        get: function () {
+            return wheel_event_t_get_prop_dy(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TWheelEvent.prototype, "alt", {
+        /**
+         * alt键是否按下。
+         *
+         */
+        get: function () {
+            return wheel_event_t_get_prop_alt(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TWheelEvent.prototype, "ctrl", {
+        /**
+         * ctrl键是否按下。
+         *
+         */
+        get: function () {
+            return wheel_event_t_get_prop_ctrl(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TWheelEvent.prototype, "shift", {
+        /**
+         * shift键是否按下。
+         *
+         */
+        get: function () {
+            return wheel_event_t_get_prop_shift(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return TWheelEvent;
+}(TEvent));
+exports.TWheelEvent = TWheelEvent;
+;
+/**
  * 开关控件。
  *
  *switch\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于switch\_t控件。
@@ -9651,73 +9801,6 @@ var TSwitch = /** @class */ (function (_super) {
 exports.TSwitch = TSwitch;
 ;
 /**
- * 滚轮事件。
- *
- */
-var TWheelEvent = /** @class */ (function (_super) {
-    __extends(TWheelEvent, _super);
-    function TWheelEvent(nativeObj) {
-        return _super.call(this, nativeObj) || this;
-    }
-    /**
-     * 把event对象转wheel_event_t对象，主要给脚本语言使用。
-     *
-     * @param event event对象。
-     *
-     * @returns event对象。
-     */
-    TWheelEvent.cast = function (event) {
-        return new TWheelEvent(wheel_event_cast(event != null ? (event.nativeObj || event) : null));
-    };
-    Object.defineProperty(TWheelEvent.prototype, "dy", {
-        /**
-         * 滚轮的y值。
-         *
-         */
-        get: function () {
-            return wheel_event_t_get_prop_dy(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TWheelEvent.prototype, "alt", {
-        /**
-         * alt键是否按下。
-         *
-         */
-        get: function () {
-            return wheel_event_t_get_prop_alt(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TWheelEvent.prototype, "ctrl", {
-        /**
-         * ctrl键是否按下。
-         *
-         */
-        get: function () {
-            return wheel_event_t_get_prop_ctrl(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TWheelEvent.prototype, "shift", {
-        /**
-         * shift键是否按下。
-         *
-         */
-        get: function () {
-            return wheel_event_t_get_prop_shift(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return TWheelEvent;
-}(TEvent));
-exports.TWheelEvent = TWheelEvent;
-;
-/**
  * 一个通用的容器控件。
  *
  *它本身不提供布局功能，仅提供具有语义的标签，让xml更具有可读性。
@@ -9802,203 +9885,6 @@ var TView = /** @class */ (function (_super) {
     return TView;
 }(TWidget));
 exports.TView = TView;
-;
-/**
- * 滑动视图。
- *
- *滑动视图可以管理多个页面，并通过滑动来切换当前页面。也可以管理多张图片，让它们自动切换。
- *
- *slide\_view\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于slide\_view\_t控件。
- *
- *在xml中使用"slide\_view"标签创建滑动视图控件。如：
- *
- *```xml
- *<slide_view x="0" y="0" w="100%" h="100%" style="dot">
- *<view x="0" y="0" w="100%" h="100%" children_layout="default(w=60,h=60,m=5,s=10)">
- *...
- *</view>
- *<view x="0" y="0" w="100%" h="100%" children_layout="default(w=60,h=60,m=5,s=10)">
- *...
- *</view>
- *</slide_view>
- *```
- *
- *> 更多用法请参考：[slide_view.xml](
- *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/slide_view.xml)
- *
- *在c代码中使用函数slide\_view\_create创建滑动视图控件。如：
- *
- *
- *> 完整示例请参考：
- *[slide_view demo](
- *https://github.com/zlgopen/awtk-c-demos/blob/master/demos/slide_view.c)
- *
- *可用通过style来设置控件的显示风格，如背景颜色和指示器的图标等等。如：
- *
- *```xml
- *<style name="dot">
- *<normal  icon="dot" active_icon="active_dot"/>
- *</style>
- *```
- *
- *> 如果希望背景图片跟随滚动，请将背景图片设置到页面上，否则设置到slide\_view上。
- *
- *> 更多用法请参考：[theme default](
- *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L458)
- *
- */
-var TSlideView = /** @class */ (function (_super) {
-    __extends(TSlideView, _super);
-    function TSlideView(nativeObj) {
-        return _super.call(this, nativeObj) || this;
-    }
-    /**
-     * 创建slide_view对象
-     *
-     * @param parent 父控件
-     * @param x x坐标
-     * @param y y坐标
-     * @param w 宽度
-     * @param h 高度
-     *
-     * @returns 对象。
-     */
-    TSlideView.create = function (parent, x, y, w, h) {
-        return new TSlideView(slide_view_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
-    };
-    /**
-     * 转换为slide_view对象(供脚本语言使用)。
-     *
-     * @param widget slide_view对象。
-     *
-     * @returns slide_view对象。
-     */
-    TSlideView.cast = function (widget) {
-        return new TSlideView(slide_view_cast(widget != null ? (widget.nativeObj || widget) : null));
-    };
-    /**
-     * 设置为自动播放模式。
-     *
-     * @param auto_play 0表示禁止自动播放，非0表示自动播放时每一页播放的时间。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TSlideView.prototype.setAutoPlay = function (auto_play) {
-        return slide_view_set_auto_play(this != null ? (this.nativeObj || this) : null, auto_play);
-    };
-    /**
-     * 设置当前页的序号。
-     *
-     * @param index 当前页的序号。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TSlideView.prototype.setActive = function (index) {
-        return slide_view_set_active(this != null ? (this.nativeObj || this) : null, index);
-    };
-    /**
-     * 设置为上下滑动(缺省为左右滑动)。
-     *
-     * @param vertical TRUE表示上下滑动，FALSE表示左右滑动。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TSlideView.prototype.setVertical = function (vertical) {
-        return slide_view_set_vertical(this != null ? (this.nativeObj || this) : null, vertical);
-    };
-    /**
-     * 设置页面切换动画。
-     *
-     *anim_hint取值如下：
-     *
-     ** "translate"：平移。
-     ** "overlap"：覆盖。
-     ** "overlap\_with\_alpha"：覆盖并改变透明度。
-     *
-     *> 使用"overlap"或"overlap\_with\_alpha"动画时，背景图片最好指定到page上。
-     *>
-     *> 使用"overlap\_with\_alpha"动画时，slideview的背景设置为黑色，
-     *> 或slideview的背景设置为透明，窗口的背景设置为黑色，以获得更好的视觉效果和性能。
-     *
-     * @param anim_hint 页面切换动画。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TSlideView.prototype.setAnimHint = function (anim_hint) {
-        return slide_view_set_anim_hint(this != null ? (this.nativeObj || this) : null, anim_hint);
-    };
-    /**
-     * 设置循环切换模式。
-     *
-     * @param loop 是否启用循环切换模式。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TSlideView.prototype.setLoop = function (loop) {
-        return slide_view_set_loop(this != null ? (this.nativeObj || this) : null, loop);
-    };
-    Object.defineProperty(TSlideView.prototype, "vertical", {
-        /**
-         * 是否为上下滑动模式。
-         *
-         */
-        get: function () {
-            return slide_view_t_get_prop_vertical(this.nativeObj);
-        },
-        set: function (v) {
-            this.setVertical(v);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TSlideView.prototype, "autoPlay", {
-        /**
-         * 自动播放。0表示禁止自动播放，非0表示自动播放时每一页播放的时间。
-         *
-         */
-        get: function () {
-            return slide_view_t_get_prop_auto_play(this.nativeObj);
-        },
-        set: function (v) {
-            this.setAutoPlay(v);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TSlideView.prototype, "loop", {
-        /**
-         * 循环切换模式。
-         *
-         *向后切换：切换到最后一页时，再往后切换就到第一页。
-         *向前切换：切换到第一页时，再往前切换就到最后一页。
-         *
-         */
-        get: function () {
-            return slide_view_t_get_prop_loop(this.nativeObj);
-        },
-        set: function (v) {
-            this.setLoop(v);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TSlideView.prototype, "animHint", {
-        /**
-         * 页面切换效果。
-         *
-         */
-        get: function () {
-            return slide_view_t_get_prop_anim_hint(this.nativeObj);
-        },
-        set: function (v) {
-            this.setAnimHint(v);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return TSlideView;
-}(TWidget));
-exports.TSlideView = TSlideView;
 ;
 /**
  * 标签控件。
@@ -10251,6 +10137,203 @@ var TTabButton = /** @class */ (function (_super) {
     return TTabButton;
 }(TWidget));
 exports.TTabButton = TTabButton;
+;
+/**
+ * 滑动视图。
+ *
+ *滑动视图可以管理多个页面，并通过滑动来切换当前页面。也可以管理多张图片，让它们自动切换。
+ *
+ *slide\_view\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于slide\_view\_t控件。
+ *
+ *在xml中使用"slide\_view"标签创建滑动视图控件。如：
+ *
+ *```xml
+ *<slide_view x="0" y="0" w="100%" h="100%" style="dot">
+ *<view x="0" y="0" w="100%" h="100%" children_layout="default(w=60,h=60,m=5,s=10)">
+ *...
+ *</view>
+ *<view x="0" y="0" w="100%" h="100%" children_layout="default(w=60,h=60,m=5,s=10)">
+ *...
+ *</view>
+ *</slide_view>
+ *```
+ *
+ *> 更多用法请参考：[slide_view.xml](
+ *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/slide_view.xml)
+ *
+ *在c代码中使用函数slide\_view\_create创建滑动视图控件。如：
+ *
+ *
+ *> 完整示例请参考：
+ *[slide_view demo](
+ *https://github.com/zlgopen/awtk-c-demos/blob/master/demos/slide_view.c)
+ *
+ *可用通过style来设置控件的显示风格，如背景颜色和指示器的图标等等。如：
+ *
+ *```xml
+ *<style name="dot">
+ *<normal  icon="dot" active_icon="active_dot"/>
+ *</style>
+ *```
+ *
+ *> 如果希望背景图片跟随滚动，请将背景图片设置到页面上，否则设置到slide\_view上。
+ *
+ *> 更多用法请参考：[theme default](
+ *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L458)
+ *
+ */
+var TSlideView = /** @class */ (function (_super) {
+    __extends(TSlideView, _super);
+    function TSlideView(nativeObj) {
+        return _super.call(this, nativeObj) || this;
+    }
+    /**
+     * 创建slide_view对象
+     *
+     * @param parent 父控件
+     * @param x x坐标
+     * @param y y坐标
+     * @param w 宽度
+     * @param h 高度
+     *
+     * @returns 对象。
+     */
+    TSlideView.create = function (parent, x, y, w, h) {
+        return new TSlideView(slide_view_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
+    };
+    /**
+     * 转换为slide_view对象(供脚本语言使用)。
+     *
+     * @param widget slide_view对象。
+     *
+     * @returns slide_view对象。
+     */
+    TSlideView.cast = function (widget) {
+        return new TSlideView(slide_view_cast(widget != null ? (widget.nativeObj || widget) : null));
+    };
+    /**
+     * 设置为自动播放模式。
+     *
+     * @param auto_play 0表示禁止自动播放，非0表示自动播放时每一页播放的时间。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TSlideView.prototype.setAutoPlay = function (auto_play) {
+        return slide_view_set_auto_play(this != null ? (this.nativeObj || this) : null, auto_play);
+    };
+    /**
+     * 设置当前页的序号。
+     *
+     * @param index 当前页的序号。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TSlideView.prototype.setActive = function (index) {
+        return slide_view_set_active(this != null ? (this.nativeObj || this) : null, index);
+    };
+    /**
+     * 设置为上下滑动(缺省为左右滑动)。
+     *
+     * @param vertical TRUE表示上下滑动，FALSE表示左右滑动。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TSlideView.prototype.setVertical = function (vertical) {
+        return slide_view_set_vertical(this != null ? (this.nativeObj || this) : null, vertical);
+    };
+    /**
+     * 设置页面切换动画。
+     *
+     *anim_hint取值如下：
+     *
+     ** "translate"：平移。
+     ** "overlap"：覆盖。
+     ** "overlap\_with\_alpha"：覆盖并改变透明度。
+     *
+     *> 使用"overlap"或"overlap\_with\_alpha"动画时，背景图片最好指定到page上。
+     *>
+     *> 使用"overlap\_with\_alpha"动画时，slideview的背景设置为黑色，
+     *> 或slideview的背景设置为透明，窗口的背景设置为黑色，以获得更好的视觉效果和性能。
+     *
+     * @param anim_hint 页面切换动画。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TSlideView.prototype.setAnimHint = function (anim_hint) {
+        return slide_view_set_anim_hint(this != null ? (this.nativeObj || this) : null, anim_hint);
+    };
+    /**
+     * 设置循环切换模式。
+     *
+     * @param loop 是否启用循环切换模式。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TSlideView.prototype.setLoop = function (loop) {
+        return slide_view_set_loop(this != null ? (this.nativeObj || this) : null, loop);
+    };
+    Object.defineProperty(TSlideView.prototype, "vertical", {
+        /**
+         * 是否为上下滑动模式。
+         *
+         */
+        get: function () {
+            return slide_view_t_get_prop_vertical(this.nativeObj);
+        },
+        set: function (v) {
+            this.setVertical(v);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TSlideView.prototype, "autoPlay", {
+        /**
+         * 自动播放。0表示禁止自动播放，非0表示自动播放时每一页播放的时间。
+         *
+         */
+        get: function () {
+            return slide_view_t_get_prop_auto_play(this.nativeObj);
+        },
+        set: function (v) {
+            this.setAutoPlay(v);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TSlideView.prototype, "loop", {
+        /**
+         * 循环切换模式。
+         *
+         *向后切换：切换到最后一页时，再往后切换就到第一页。
+         *向前切换：切换到第一页时，再往前切换就到最后一页。
+         *
+         */
+        get: function () {
+            return slide_view_t_get_prop_loop(this.nativeObj);
+        },
+        set: function (v) {
+            this.setLoop(v);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TSlideView.prototype, "animHint", {
+        /**
+         * 页面切换效果。
+         *
+         */
+        get: function () {
+            return slide_view_t_get_prop_anim_hint(this.nativeObj);
+        },
+        set: function (v) {
+            this.setAnimHint(v);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return TSlideView;
+}(TWidget));
+exports.TSlideView = TSlideView;
 ;
 /**
  * slide_view的指示器控件。
