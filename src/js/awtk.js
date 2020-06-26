@@ -1933,57 +1933,77 @@ exports.TImageManager = TImageManager;
 var TInputType;
 (function (TInputType) {
     /**
-     * 文本。
+     * 文本。字符串属性值：text
      *
      */
     TInputType[TInputType["TEXT"] = INPUT_TEXT()] = "TEXT";
     /**
-     * 整数。
+     * 整数。字符串属性值：int
      *
      */
     TInputType[TInputType["INT"] = INPUT_INT()] = "INT";
     /**
-     * 非负整数。
+     * 非负整数。字符串属性值：uint
      *
      */
     TInputType[TInputType["UINT"] = INPUT_UINT()] = "UINT";
     /**
-     * 16进制整数。
+     * 16进制整数。字符串属性值：hex
      *
      */
     TInputType[TInputType["HEX"] = INPUT_HEX()] = "HEX";
     /**
-     * 浮点数。
+     * 浮点数。字符串属性值：float
      *
      */
     TInputType[TInputType["FLOAT"] = INPUT_FLOAT()] = "FLOAT";
     /**
-     * 非负浮点数。
+     * 非负浮点数。字符串属性值：ufloat
      *
      */
     TInputType[TInputType["UFLOAT"] = INPUT_UFLOAT()] = "UFLOAT";
     /**
-     * 邮件地址。
+     * 邮件地址。字符串属性值：email
      *
      */
     TInputType[TInputType["EMAIL"] = INPUT_EMAIL()] = "EMAIL";
     /**
-     * 密码。
+     * 密码。字符串属性值：password
      *
      */
     TInputType[TInputType["PASSWORD"] = INPUT_PASSWORD()] = "PASSWORD";
     /**
-     * 电话号码。
+     * 电话号码。字符串属性值：phone
      *
      */
     TInputType[TInputType["PHONE"] = INPUT_PHONE()] = "PHONE";
     /**
-     * 使用自定义的软键盘(如计算器等应用不希望弹出系统软键盘)。
+     * IP Addr V4(如：192.168.1.1)。字符串属性值：ipv4
+     *
+     */
+    TInputType[TInputType["IPV4"] = INPUT_IPV4()] = "IPV4";
+    /**
+     * 日期(如：2020/02/20)。字符串属性值：date
+     *
+     */
+    TInputType[TInputType["DATE"] = INPUT_DATE()] = "DATE";
+    /**
+     * 时间(时分，如：12:00)。字符串属性值：time
+     *
+     */
+    TInputType[TInputType["TIME"] = INPUT_TIME()] = "TIME";
+    /**
+     * 时间(时分秒，如：12:00:00)。字符串属性值：time_full
+     *
+     */
+    TInputType[TInputType["TIME_FULL"] = INPUT_TIME_FULL()] = "TIME_FULL";
+    /**
+     * 使用自定义的软键盘(如计算器等应用不希望弹出系统软键盘)。字符串属性值：custom
      *
      */
     TInputType[TInputType["CUSTOM"] = INPUT_CUSTOM()] = "CUSTOM";
     /**
-     * 使用自定义的密码软键盘。
+     * 使用自定义的密码软键盘。字符串属性值：custom_password
      *
      */
     TInputType[TInputType["CUSTOM_PASSWORD"] = INPUT_CUSTOM_PASSWORD()] = "CUSTOM_PASSWORD";

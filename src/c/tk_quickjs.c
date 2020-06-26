@@ -2682,6 +2682,26 @@ jsvalue_t get_INPUT_PHONE(JSContext* ctx, jsvalue_const_t this_val, int argc,
   return jsvalue_create_int(ctx, INPUT_PHONE);
 }
 
+jsvalue_t get_INPUT_IPV4(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                         jsvalue_const_t* argv) {
+  return jsvalue_create_int(ctx, INPUT_IPV4);
+}
+
+jsvalue_t get_INPUT_DATE(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                         jsvalue_const_t* argv) {
+  return jsvalue_create_int(ctx, INPUT_DATE);
+}
+
+jsvalue_t get_INPUT_TIME(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                         jsvalue_const_t* argv) {
+  return jsvalue_create_int(ctx, INPUT_TIME);
+}
+
+jsvalue_t get_INPUT_TIME_FULL(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                              jsvalue_const_t* argv) {
+  return jsvalue_create_int(ctx, INPUT_TIME_FULL);
+}
+
 jsvalue_t get_INPUT_CUSTOM(JSContext* ctx, jsvalue_const_t this_val, int argc,
                            jsvalue_const_t* argv) {
   return jsvalue_create_int(ctx, INPUT_CUSTOM);
@@ -2712,6 +2732,14 @@ ret_t input_type_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, get_INPUT_PASSWORD, "INPUT_PASSWORD", 1));
   JS_SetPropertyStr(ctx, global_obj, "INPUT_PHONE",
                     JS_NewCFunction(ctx, get_INPUT_PHONE, "INPUT_PHONE", 1));
+  JS_SetPropertyStr(ctx, global_obj, "INPUT_IPV4",
+                    JS_NewCFunction(ctx, get_INPUT_IPV4, "INPUT_IPV4", 1));
+  JS_SetPropertyStr(ctx, global_obj, "INPUT_DATE",
+                    JS_NewCFunction(ctx, get_INPUT_DATE, "INPUT_DATE", 1));
+  JS_SetPropertyStr(ctx, global_obj, "INPUT_TIME",
+                    JS_NewCFunction(ctx, get_INPUT_TIME, "INPUT_TIME", 1));
+  JS_SetPropertyStr(ctx, global_obj, "INPUT_TIME_FULL",
+                    JS_NewCFunction(ctx, get_INPUT_TIME_FULL, "INPUT_TIME_FULL", 1));
   JS_SetPropertyStr(ctx, global_obj, "INPUT_CUSTOM",
                     JS_NewCFunction(ctx, get_INPUT_CUSTOM, "INPUT_CUSTOM", 1));
   JS_SetPropertyStr(ctx, global_obj, "INPUT_CUSTOM_PASSWORD",
