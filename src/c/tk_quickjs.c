@@ -31,11 +31,13 @@
 #include "tkc/types_def.h"
 #include "tkc/timer_manager.h"
 #include "tkc/time_now.h"
-#include "base/canvas.h"
+#include "base/bidi.h"
 #include "tkc/named_value.h"
 #include "tkc/mime_types.h"
 #include "slide_view/slide_indicator.h"
 #include "tkc/idle_manager.h"
+#include "base/canvas_offline.h"
+#include "base/canvas.h"
 #include "tkc/easing.h"
 #include "tkc/date_time.h"
 #include "tkc/color.h"
@@ -1767,6 +1769,30 @@ ret_t global_t_init(JSContext* ctx) {
   return RET_OK;
 }
 
+jsvalue_t get_CLIP_BOARD_DATA_TYPE_NONE(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                        jsvalue_const_t* argv) {
+  return jsvalue_create_int(ctx, CLIP_BOARD_DATA_TYPE_NONE);
+}
+
+jsvalue_t get_CLIP_BOARD_DATA_TYPE_TEXT(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                        jsvalue_const_t* argv) {
+  return jsvalue_create_int(ctx, CLIP_BOARD_DATA_TYPE_TEXT);
+}
+
+ret_t clip_board_data_type_t_init(JSContext* ctx) {
+  jsvalue_t global_obj = JS_GetGlobalObject(ctx);
+  JS_SetPropertyStr(
+      ctx, global_obj, "CLIP_BOARD_DATA_TYPE_NONE",
+      JS_NewCFunction(ctx, get_CLIP_BOARD_DATA_TYPE_NONE, "CLIP_BOARD_DATA_TYPE_NONE", 1));
+  JS_SetPropertyStr(
+      ctx, global_obj, "CLIP_BOARD_DATA_TYPE_TEXT",
+      JS_NewCFunction(ctx, get_CLIP_BOARD_DATA_TYPE_TEXT, "CLIP_BOARD_DATA_TYPE_TEXT", 1));
+
+  jsvalue_unref(ctx, global_obj);
+
+  return RET_OK;
+}
+
 jsvalue_t wrap_clip_board_set_text(JSContext* ctx, jsvalue_const_t this_val, int argc,
                                    jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
@@ -2500,6 +2526,20 @@ jsvalue_t wrap_font_manager_unload_font(JSContext* ctx, jsvalue_const_t this_val
   return jret;
 }
 
+jsvalue_t wrap_font_manager_shrink_cache(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                         jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 2) {
+    ret_t ret = (ret_t)0;
+    font_manager_t* fm = (font_manager_t*)jsvalue_get_pointer(ctx, argv[0], "font_manager_t*");
+    uint32_t cache_size = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
+    ret = (ret_t)font_manager_shrink_cache(fm, cache_size);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
 jsvalue_t wrap_font_manager_unload_all(JSContext* ctx, jsvalue_const_t this_val, int argc,
                                        jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
@@ -2518,6 +2558,9 @@ ret_t font_manager_t_init(JSContext* ctx) {
   JS_SetPropertyStr(
       ctx, global_obj, "font_manager_unload_font",
       JS_NewCFunction(ctx, wrap_font_manager_unload_font, "font_manager_unload_font", 1));
+  JS_SetPropertyStr(
+      ctx, global_obj, "font_manager_shrink_cache",
+      JS_NewCFunction(ctx, wrap_font_manager_shrink_cache, "font_manager_shrink_cache", 1));
   JS_SetPropertyStr(
       ctx, global_obj, "font_manager_unload_all",
       JS_NewCFunction(ctx, wrap_font_manager_unload_all, "font_manager_unload_all", 1));
@@ -9461,6 +9504,113 @@ ret_t time_now_t_init(JSContext* ctx) {
   return RET_OK;
 }
 
+jsvalue_t get_BIDI_TYPE_AUTO(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                             jsvalue_const_t* argv) {
+  return jsvalue_create_int(ctx, BIDI_TYPE_AUTO);
+}
+
+jsvalue_t get_BIDI_TYPE_LTR(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                            jsvalue_const_t* argv) {
+  return jsvalue_create_int(ctx, BIDI_TYPE_LTR);
+}
+
+jsvalue_t get_BIDI_TYPE_RTL(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                            jsvalue_const_t* argv) {
+  return jsvalue_create_int(ctx, BIDI_TYPE_RTL);
+}
+
+jsvalue_t get_BIDI_TYPE_WLTR(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                             jsvalue_const_t* argv) {
+  return jsvalue_create_int(ctx, BIDI_TYPE_WLTR);
+}
+
+jsvalue_t get_BIDI_TYPE_WRTL(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                             jsvalue_const_t* argv) {
+  return jsvalue_create_int(ctx, BIDI_TYPE_WRTL);
+}
+
+ret_t bidi_type_t_init(JSContext* ctx) {
+  jsvalue_t global_obj = JS_GetGlobalObject(ctx);
+  JS_SetPropertyStr(ctx, global_obj, "BIDI_TYPE_AUTO",
+                    JS_NewCFunction(ctx, get_BIDI_TYPE_AUTO, "BIDI_TYPE_AUTO", 1));
+  JS_SetPropertyStr(ctx, global_obj, "BIDI_TYPE_LTR",
+                    JS_NewCFunction(ctx, get_BIDI_TYPE_LTR, "BIDI_TYPE_LTR", 1));
+  JS_SetPropertyStr(ctx, global_obj, "BIDI_TYPE_RTL",
+                    JS_NewCFunction(ctx, get_BIDI_TYPE_RTL, "BIDI_TYPE_RTL", 1));
+  JS_SetPropertyStr(ctx, global_obj, "BIDI_TYPE_WLTR",
+                    JS_NewCFunction(ctx, get_BIDI_TYPE_WLTR, "BIDI_TYPE_WLTR", 1));
+  JS_SetPropertyStr(ctx, global_obj, "BIDI_TYPE_WRTL",
+                    JS_NewCFunction(ctx, get_BIDI_TYPE_WRTL, "BIDI_TYPE_WRTL", 1));
+
+  jsvalue_unref(ctx, global_obj);
+
+  return RET_OK;
+}
+
+jsvalue_t get_OBJECT_CMD_SAVE(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                              jsvalue_const_t* argv) {
+  return jsvalue_create_string(ctx, OBJECT_CMD_SAVE);
+}
+
+jsvalue_t get_OBJECT_CMD_RELOAD(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                jsvalue_const_t* argv) {
+  return jsvalue_create_string(ctx, OBJECT_CMD_RELOAD);
+}
+
+jsvalue_t get_OBJECT_CMD_MOVE_UP(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                 jsvalue_const_t* argv) {
+  return jsvalue_create_string(ctx, OBJECT_CMD_MOVE_UP);
+}
+
+jsvalue_t get_OBJECT_CMD_MOVE_DOWN(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                   jsvalue_const_t* argv) {
+  return jsvalue_create_string(ctx, OBJECT_CMD_MOVE_DOWN);
+}
+
+jsvalue_t get_OBJECT_CMD_REMOVE(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                jsvalue_const_t* argv) {
+  return jsvalue_create_string(ctx, OBJECT_CMD_REMOVE);
+}
+
+jsvalue_t get_OBJECT_CMD_CLEAR(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                               jsvalue_const_t* argv) {
+  return jsvalue_create_string(ctx, OBJECT_CMD_CLEAR);
+}
+
+jsvalue_t get_OBJECT_CMD_ADD(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                             jsvalue_const_t* argv) {
+  return jsvalue_create_string(ctx, OBJECT_CMD_ADD);
+}
+
+jsvalue_t get_OBJECT_CMD_EDIT(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                              jsvalue_const_t* argv) {
+  return jsvalue_create_string(ctx, OBJECT_CMD_EDIT);
+}
+
+ret_t object_cmd_t_init(JSContext* ctx) {
+  jsvalue_t global_obj = JS_GetGlobalObject(ctx);
+  JS_SetPropertyStr(ctx, global_obj, "OBJECT_CMD_SAVE",
+                    JS_NewCFunction(ctx, get_OBJECT_CMD_SAVE, "OBJECT_CMD_SAVE", 1));
+  JS_SetPropertyStr(ctx, global_obj, "OBJECT_CMD_RELOAD",
+                    JS_NewCFunction(ctx, get_OBJECT_CMD_RELOAD, "OBJECT_CMD_RELOAD", 1));
+  JS_SetPropertyStr(ctx, global_obj, "OBJECT_CMD_MOVE_UP",
+                    JS_NewCFunction(ctx, get_OBJECT_CMD_MOVE_UP, "OBJECT_CMD_MOVE_UP", 1));
+  JS_SetPropertyStr(ctx, global_obj, "OBJECT_CMD_MOVE_DOWN",
+                    JS_NewCFunction(ctx, get_OBJECT_CMD_MOVE_DOWN, "OBJECT_CMD_MOVE_DOWN", 1));
+  JS_SetPropertyStr(ctx, global_obj, "OBJECT_CMD_REMOVE",
+                    JS_NewCFunction(ctx, get_OBJECT_CMD_REMOVE, "OBJECT_CMD_REMOVE", 1));
+  JS_SetPropertyStr(ctx, global_obj, "OBJECT_CMD_CLEAR",
+                    JS_NewCFunction(ctx, get_OBJECT_CMD_CLEAR, "OBJECT_CMD_CLEAR", 1));
+  JS_SetPropertyStr(ctx, global_obj, "OBJECT_CMD_ADD",
+                    JS_NewCFunction(ctx, get_OBJECT_CMD_ADD, "OBJECT_CMD_ADD", 1));
+  JS_SetPropertyStr(ctx, global_obj, "OBJECT_CMD_EDIT",
+                    JS_NewCFunction(ctx, get_OBJECT_CMD_EDIT, "OBJECT_CMD_EDIT", 1));
+
+  jsvalue_unref(ctx, global_obj);
+
+  return RET_OK;
+}
+
 jsvalue_t get_IMAGE_DRAW_DEFAULT(JSContext* ctx, jsvalue_const_t this_val, int argc,
                                  jsvalue_const_t* argv) {
   return jsvalue_create_int(ctx, IMAGE_DRAW_DEFAULT);
@@ -9606,567 +9756,6 @@ ret_t image_draw_type_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, get_IMAGE_DRAW_REPEAT3_X, "IMAGE_DRAW_REPEAT3_X", 1));
   JS_SetPropertyStr(ctx, global_obj, "IMAGE_DRAW_REPEAT3_Y",
                     JS_NewCFunction(ctx, get_IMAGE_DRAW_REPEAT3_Y, "IMAGE_DRAW_REPEAT3_Y", 1));
-
-  jsvalue_unref(ctx, global_obj);
-
-  return RET_OK;
-}
-
-jsvalue_t wrap_canvas_get_width(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                jsvalue_const_t* argv) {
-  jsvalue_t jret = JS_NULL;
-  if (argc >= 1) {
-    wh_t ret = (wh_t)0;
-    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
-    ret = (wh_t)canvas_get_width(c);
-
-    jret = jsvalue_create_int(ctx, ret);
-  }
-  return jret;
-}
-
-jsvalue_t wrap_canvas_get_height(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                 jsvalue_const_t* argv) {
-  jsvalue_t jret = JS_NULL;
-  if (argc >= 1) {
-    wh_t ret = (wh_t)0;
-    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
-    ret = (wh_t)canvas_get_height(c);
-
-    jret = jsvalue_create_int(ctx, ret);
-  }
-  return jret;
-}
-
-jsvalue_t wrap_canvas_get_clip_rect(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                    jsvalue_const_t* argv) {
-  jsvalue_t jret = JS_NULL;
-  if (argc >= 2) {
-    ret_t ret = (ret_t)0;
-    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
-    rect_t* r = (rect_t*)jsvalue_get_pointer(ctx, argv[1], "rect_t*");
-    ret = (ret_t)canvas_get_clip_rect(c, r);
-
-    jret = jsvalue_create_int(ctx, ret);
-  }
-  return jret;
-}
-
-jsvalue_t wrap_canvas_set_clip_rect(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                    jsvalue_const_t* argv) {
-  jsvalue_t jret = JS_NULL;
-  if (argc >= 2) {
-    ret_t ret = (ret_t)0;
-    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
-    const rect_t* r = (const rect_t*)jsvalue_get_pointer(ctx, argv[1], "const rect_t*");
-    ret = (ret_t)canvas_set_clip_rect(c, r);
-
-    jret = jsvalue_create_int(ctx, ret);
-  }
-  return jret;
-}
-
-jsvalue_t wrap_canvas_set_clip_rect_ex(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                       jsvalue_const_t* argv) {
-  jsvalue_t jret = JS_NULL;
-  if (argc >= 3) {
-    ret_t ret = (ret_t)0;
-    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
-    const rect_t* r = (const rect_t*)jsvalue_get_pointer(ctx, argv[1], "const rect_t*");
-    bool_t translate = (bool_t)jsvalue_get_boolean_value(ctx, argv[2]);
-    ret = (ret_t)canvas_set_clip_rect_ex(c, r, translate);
-
-    jret = jsvalue_create_int(ctx, ret);
-  }
-  return jret;
-}
-
-jsvalue_t wrap_canvas_set_fill_color_str(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                         jsvalue_const_t* argv) {
-  jsvalue_t jret = JS_NULL;
-  if (argc >= 2) {
-    ret_t ret = (ret_t)0;
-    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
-    const char* color = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
-    ret = (ret_t)canvas_set_fill_color_str(c, color);
-    jsvalue_free_str(ctx, color);
-
-    jret = jsvalue_create_int(ctx, ret);
-  }
-  return jret;
-}
-
-jsvalue_t wrap_canvas_set_text_color_str(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                         jsvalue_const_t* argv) {
-  jsvalue_t jret = JS_NULL;
-  if (argc >= 2) {
-    ret_t ret = (ret_t)0;
-    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
-    const char* color = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
-    ret = (ret_t)canvas_set_text_color_str(c, color);
-    jsvalue_free_str(ctx, color);
-
-    jret = jsvalue_create_int(ctx, ret);
-  }
-  return jret;
-}
-
-jsvalue_t wrap_canvas_set_stroke_color_str(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                           jsvalue_const_t* argv) {
-  jsvalue_t jret = JS_NULL;
-  if (argc >= 2) {
-    ret_t ret = (ret_t)0;
-    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
-    const char* color = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
-    ret = (ret_t)canvas_set_stroke_color_str(c, color);
-    jsvalue_free_str(ctx, color);
-
-    jret = jsvalue_create_int(ctx, ret);
-  }
-  return jret;
-}
-
-jsvalue_t wrap_canvas_set_global_alpha(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                       jsvalue_const_t* argv) {
-  jsvalue_t jret = JS_NULL;
-  if (argc >= 2) {
-    ret_t ret = (ret_t)0;
-    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
-    uint8_t alpha = (uint8_t)jsvalue_get_int_value(ctx, argv[1]);
-    ret = (ret_t)canvas_set_global_alpha(c, alpha);
-
-    jret = jsvalue_create_int(ctx, ret);
-  }
-  return jret;
-}
-
-jsvalue_t wrap_canvas_translate(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                jsvalue_const_t* argv) {
-  jsvalue_t jret = JS_NULL;
-  if (argc >= 3) {
-    ret_t ret = (ret_t)0;
-    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
-    xy_t dx = (xy_t)jsvalue_get_int_value(ctx, argv[1]);
-    xy_t dy = (xy_t)jsvalue_get_int_value(ctx, argv[2]);
-    ret = (ret_t)canvas_translate(c, dx, dy);
-
-    jret = jsvalue_create_int(ctx, ret);
-  }
-  return jret;
-}
-
-jsvalue_t wrap_canvas_untranslate(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                  jsvalue_const_t* argv) {
-  jsvalue_t jret = JS_NULL;
-  if (argc >= 3) {
-    ret_t ret = (ret_t)0;
-    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
-    xy_t dx = (xy_t)jsvalue_get_int_value(ctx, argv[1]);
-    xy_t dy = (xy_t)jsvalue_get_int_value(ctx, argv[2]);
-    ret = (ret_t)canvas_untranslate(c, dx, dy);
-
-    jret = jsvalue_create_int(ctx, ret);
-  }
-  return jret;
-}
-
-jsvalue_t wrap_canvas_draw_vline(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                 jsvalue_const_t* argv) {
-  jsvalue_t jret = JS_NULL;
-  if (argc >= 4) {
-    ret_t ret = (ret_t)0;
-    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
-    xy_t x = (xy_t)jsvalue_get_int_value(ctx, argv[1]);
-    xy_t y = (xy_t)jsvalue_get_int_value(ctx, argv[2]);
-    wh_t h = (wh_t)jsvalue_get_int_value(ctx, argv[3]);
-    ret = (ret_t)canvas_draw_vline(c, x, y, h);
-
-    jret = jsvalue_create_int(ctx, ret);
-  }
-  return jret;
-}
-
-jsvalue_t wrap_canvas_draw_hline(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                 jsvalue_const_t* argv) {
-  jsvalue_t jret = JS_NULL;
-  if (argc >= 4) {
-    ret_t ret = (ret_t)0;
-    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
-    xy_t x = (xy_t)jsvalue_get_int_value(ctx, argv[1]);
-    xy_t y = (xy_t)jsvalue_get_int_value(ctx, argv[2]);
-    wh_t w = (wh_t)jsvalue_get_int_value(ctx, argv[3]);
-    ret = (ret_t)canvas_draw_hline(c, x, y, w);
-
-    jret = jsvalue_create_int(ctx, ret);
-  }
-  return jret;
-}
-
-jsvalue_t wrap_canvas_fill_rect(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                jsvalue_const_t* argv) {
-  jsvalue_t jret = JS_NULL;
-  if (argc >= 5) {
-    ret_t ret = (ret_t)0;
-    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
-    xy_t x = (xy_t)jsvalue_get_int_value(ctx, argv[1]);
-    xy_t y = (xy_t)jsvalue_get_int_value(ctx, argv[2]);
-    wh_t w = (wh_t)jsvalue_get_int_value(ctx, argv[3]);
-    wh_t h = (wh_t)jsvalue_get_int_value(ctx, argv[4]);
-    ret = (ret_t)canvas_fill_rect(c, x, y, w, h);
-
-    jret = jsvalue_create_int(ctx, ret);
-  }
-  return jret;
-}
-
-jsvalue_t wrap_canvas_stroke_rect(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                  jsvalue_const_t* argv) {
-  jsvalue_t jret = JS_NULL;
-  if (argc >= 5) {
-    ret_t ret = (ret_t)0;
-    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
-    xy_t x = (xy_t)jsvalue_get_int_value(ctx, argv[1]);
-    xy_t y = (xy_t)jsvalue_get_int_value(ctx, argv[2]);
-    wh_t w = (wh_t)jsvalue_get_int_value(ctx, argv[3]);
-    wh_t h = (wh_t)jsvalue_get_int_value(ctx, argv[4]);
-    ret = (ret_t)canvas_stroke_rect(c, x, y, w, h);
-
-    jret = jsvalue_create_int(ctx, ret);
-  }
-  return jret;
-}
-
-jsvalue_t wrap_canvas_set_font(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                               jsvalue_const_t* argv) {
-  jsvalue_t jret = JS_NULL;
-  if (argc >= 3) {
-    ret_t ret = (ret_t)0;
-    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
-    const char* name = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
-    font_size_t size = (font_size_t)jsvalue_get_int_value(ctx, argv[2]);
-    ret = (ret_t)canvas_set_font(c, name, size);
-    jsvalue_free_str(ctx, name);
-
-    jret = jsvalue_create_int(ctx, ret);
-  }
-  return jret;
-}
-
-jsvalue_t wrap_canvas_measure_utf8(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                   jsvalue_const_t* argv) {
-  jsvalue_t jret = JS_NULL;
-  if (argc >= 2) {
-    float_t ret = (float_t)0;
-    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
-    const char* str = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
-    ret = (float_t)canvas_measure_utf8(c, str);
-    jsvalue_free_str(ctx, str);
-
-    jret = jsvalue_create_number(ctx, ret);
-  }
-  return jret;
-}
-
-jsvalue_t wrap_canvas_draw_utf8(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                jsvalue_const_t* argv) {
-  jsvalue_t jret = JS_NULL;
-  if (argc >= 4) {
-    ret_t ret = (ret_t)0;
-    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
-    const char* str = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
-    xy_t x = (xy_t)jsvalue_get_int_value(ctx, argv[2]);
-    xy_t y = (xy_t)jsvalue_get_int_value(ctx, argv[3]);
-    ret = (ret_t)canvas_draw_utf8(c, str, x, y);
-    jsvalue_free_str(ctx, str);
-
-    jret = jsvalue_create_int(ctx, ret);
-  }
-  return jret;
-}
-
-jsvalue_t wrap_canvas_draw_utf8_in_rect(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                        jsvalue_const_t* argv) {
-  jsvalue_t jret = JS_NULL;
-  if (argc >= 3) {
-    ret_t ret = (ret_t)0;
-    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
-    const char* str = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
-    const rect_t* r = (const rect_t*)jsvalue_get_pointer(ctx, argv[2], "const rect_t*");
-    ret = (ret_t)canvas_draw_utf8_in_rect(c, str, r);
-    jsvalue_free_str(ctx, str);
-
-    jret = jsvalue_create_int(ctx, ret);
-  }
-  return jret;
-}
-
-jsvalue_t wrap_canvas_draw_icon(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                jsvalue_const_t* argv) {
-  jsvalue_t jret = JS_NULL;
-  if (argc >= 4) {
-    ret_t ret = (ret_t)0;
-    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
-    bitmap_t* img = (bitmap_t*)jsvalue_get_pointer(ctx, argv[1], "bitmap_t*");
-    xy_t cx = (xy_t)jsvalue_get_int_value(ctx, argv[2]);
-    xy_t cy = (xy_t)jsvalue_get_int_value(ctx, argv[3]);
-    ret = (ret_t)canvas_draw_icon(c, img, cx, cy);
-
-    jret = jsvalue_create_int(ctx, ret);
-  }
-  return jret;
-}
-
-jsvalue_t wrap_canvas_draw_image(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                 jsvalue_const_t* argv) {
-  jsvalue_t jret = JS_NULL;
-  if (argc >= 4) {
-    ret_t ret = (ret_t)0;
-    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
-    bitmap_t* img = (bitmap_t*)jsvalue_get_pointer(ctx, argv[1], "bitmap_t*");
-    rect_t* src = (rect_t*)jsvalue_get_pointer(ctx, argv[2], "rect_t*");
-    rect_t* dst = (rect_t*)jsvalue_get_pointer(ctx, argv[3], "rect_t*");
-    ret = (ret_t)canvas_draw_image(c, img, src, dst);
-
-    jret = jsvalue_create_int(ctx, ret);
-  }
-  return jret;
-}
-
-jsvalue_t wrap_canvas_draw_image_ex(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                    jsvalue_const_t* argv) {
-  jsvalue_t jret = JS_NULL;
-  if (argc >= 4) {
-    ret_t ret = (ret_t)0;
-    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
-    bitmap_t* img = (bitmap_t*)jsvalue_get_pointer(ctx, argv[1], "bitmap_t*");
-    image_draw_type_t draw_type = (image_draw_type_t)jsvalue_get_int_value(ctx, argv[2]);
-    rect_t* dst = (rect_t*)jsvalue_get_pointer(ctx, argv[3], "rect_t*");
-    ret = (ret_t)canvas_draw_image_ex(c, img, draw_type, dst);
-
-    jret = jsvalue_create_int(ctx, ret);
-  }
-  return jret;
-}
-
-jsvalue_t wrap_canvas_get_vgcanvas(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                   jsvalue_const_t* argv) {
-  jsvalue_t jret = JS_NULL;
-  if (argc >= 1) {
-    vgcanvas_t* ret = NULL;
-    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
-    ret = (vgcanvas_t*)canvas_get_vgcanvas(c);
-
-    jret = jsvalue_create_pointer(ctx, ret, "vgcanvas_t*");
-  }
-  return jret;
-}
-
-jsvalue_t wrap_canvas_cast(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                           jsvalue_const_t* argv) {
-  jsvalue_t jret = JS_NULL;
-  if (argc >= 1) {
-    canvas_t* ret = NULL;
-    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
-    ret = (canvas_t*)canvas_cast(c);
-
-    jret = jsvalue_create_pointer(ctx, ret, "canvas_t*");
-  }
-  return jret;
-}
-
-jsvalue_t wrap_canvas_reset(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                            jsvalue_const_t* argv) {
-  jsvalue_t jret = JS_NULL;
-  if (argc >= 1) {
-    ret_t ret = (ret_t)0;
-    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
-    ret = (ret_t)canvas_reset(c);
-
-    jret = jsvalue_create_int(ctx, ret);
-  }
-  return jret;
-}
-
-jsvalue_t wrap_canvas_t_get_prop_ox(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                    jsvalue_const_t* argv) {
-  jsvalue_t jret = JS_NULL;
-  canvas_t* obj = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
-
-  jret = jsvalue_create_int(ctx, obj->ox);
-  return jret;
-}
-
-jsvalue_t wrap_canvas_t_get_prop_oy(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                    jsvalue_const_t* argv) {
-  jsvalue_t jret = JS_NULL;
-  canvas_t* obj = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
-
-  jret = jsvalue_create_int(ctx, obj->oy);
-  return jret;
-}
-
-jsvalue_t wrap_canvas_t_get_prop_font_name(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                           jsvalue_const_t* argv) {
-  jsvalue_t jret = JS_NULL;
-  canvas_t* obj = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
-
-  jret = jsvalue_create_string(ctx, obj->font_name);
-  return jret;
-}
-
-jsvalue_t wrap_canvas_t_get_prop_font_size(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                           jsvalue_const_t* argv) {
-  jsvalue_t jret = JS_NULL;
-  canvas_t* obj = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
-
-  jret = jsvalue_create_int(ctx, obj->font_size);
-  return jret;
-}
-
-jsvalue_t wrap_canvas_t_get_prop_global_alpha(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                              jsvalue_const_t* argv) {
-  jsvalue_t jret = JS_NULL;
-  canvas_t* obj = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
-
-  jret = jsvalue_create_int(ctx, obj->global_alpha);
-  return jret;
-}
-
-ret_t canvas_t_init(JSContext* ctx) {
-  jsvalue_t global_obj = JS_GetGlobalObject(ctx);
-  JS_SetPropertyStr(ctx, global_obj, "canvas_get_width",
-                    JS_NewCFunction(ctx, wrap_canvas_get_width, "canvas_get_width", 1));
-  JS_SetPropertyStr(ctx, global_obj, "canvas_get_height",
-                    JS_NewCFunction(ctx, wrap_canvas_get_height, "canvas_get_height", 1));
-  JS_SetPropertyStr(ctx, global_obj, "canvas_get_clip_rect",
-                    JS_NewCFunction(ctx, wrap_canvas_get_clip_rect, "canvas_get_clip_rect", 1));
-  JS_SetPropertyStr(ctx, global_obj, "canvas_set_clip_rect",
-                    JS_NewCFunction(ctx, wrap_canvas_set_clip_rect, "canvas_set_clip_rect", 1));
-  JS_SetPropertyStr(
-      ctx, global_obj, "canvas_set_clip_rect_ex",
-      JS_NewCFunction(ctx, wrap_canvas_set_clip_rect_ex, "canvas_set_clip_rect_ex", 1));
-  JS_SetPropertyStr(
-      ctx, global_obj, "canvas_set_fill_color_str",
-      JS_NewCFunction(ctx, wrap_canvas_set_fill_color_str, "canvas_set_fill_color_str", 1));
-  JS_SetPropertyStr(
-      ctx, global_obj, "canvas_set_text_color_str",
-      JS_NewCFunction(ctx, wrap_canvas_set_text_color_str, "canvas_set_text_color_str", 1));
-  JS_SetPropertyStr(
-      ctx, global_obj, "canvas_set_stroke_color_str",
-      JS_NewCFunction(ctx, wrap_canvas_set_stroke_color_str, "canvas_set_stroke_color_str", 1));
-  JS_SetPropertyStr(
-      ctx, global_obj, "canvas_set_global_alpha",
-      JS_NewCFunction(ctx, wrap_canvas_set_global_alpha, "canvas_set_global_alpha", 1));
-  JS_SetPropertyStr(ctx, global_obj, "canvas_translate",
-                    JS_NewCFunction(ctx, wrap_canvas_translate, "canvas_translate", 1));
-  JS_SetPropertyStr(ctx, global_obj, "canvas_untranslate",
-                    JS_NewCFunction(ctx, wrap_canvas_untranslate, "canvas_untranslate", 1));
-  JS_SetPropertyStr(ctx, global_obj, "canvas_draw_vline",
-                    JS_NewCFunction(ctx, wrap_canvas_draw_vline, "canvas_draw_vline", 1));
-  JS_SetPropertyStr(ctx, global_obj, "canvas_draw_hline",
-                    JS_NewCFunction(ctx, wrap_canvas_draw_hline, "canvas_draw_hline", 1));
-  JS_SetPropertyStr(ctx, global_obj, "canvas_fill_rect",
-                    JS_NewCFunction(ctx, wrap_canvas_fill_rect, "canvas_fill_rect", 1));
-  JS_SetPropertyStr(ctx, global_obj, "canvas_stroke_rect",
-                    JS_NewCFunction(ctx, wrap_canvas_stroke_rect, "canvas_stroke_rect", 1));
-  JS_SetPropertyStr(ctx, global_obj, "canvas_set_font",
-                    JS_NewCFunction(ctx, wrap_canvas_set_font, "canvas_set_font", 1));
-  JS_SetPropertyStr(ctx, global_obj, "canvas_measure_utf8",
-                    JS_NewCFunction(ctx, wrap_canvas_measure_utf8, "canvas_measure_utf8", 1));
-  JS_SetPropertyStr(ctx, global_obj, "canvas_draw_utf8",
-                    JS_NewCFunction(ctx, wrap_canvas_draw_utf8, "canvas_draw_utf8", 1));
-  JS_SetPropertyStr(
-      ctx, global_obj, "canvas_draw_utf8_in_rect",
-      JS_NewCFunction(ctx, wrap_canvas_draw_utf8_in_rect, "canvas_draw_utf8_in_rect", 1));
-  JS_SetPropertyStr(ctx, global_obj, "canvas_draw_icon",
-                    JS_NewCFunction(ctx, wrap_canvas_draw_icon, "canvas_draw_icon", 1));
-  JS_SetPropertyStr(ctx, global_obj, "canvas_draw_image",
-                    JS_NewCFunction(ctx, wrap_canvas_draw_image, "canvas_draw_image", 1));
-  JS_SetPropertyStr(ctx, global_obj, "canvas_draw_image_ex",
-                    JS_NewCFunction(ctx, wrap_canvas_draw_image_ex, "canvas_draw_image_ex", 1));
-  JS_SetPropertyStr(ctx, global_obj, "canvas_get_vgcanvas",
-                    JS_NewCFunction(ctx, wrap_canvas_get_vgcanvas, "canvas_get_vgcanvas", 1));
-  JS_SetPropertyStr(ctx, global_obj, "canvas_cast",
-                    JS_NewCFunction(ctx, wrap_canvas_cast, "canvas_cast", 1));
-  JS_SetPropertyStr(ctx, global_obj, "canvas_reset",
-                    JS_NewCFunction(ctx, wrap_canvas_reset, "canvas_reset", 1));
-  JS_SetPropertyStr(ctx, global_obj, "canvas_t_get_prop_ox",
-                    JS_NewCFunction(ctx, wrap_canvas_t_get_prop_ox, "canvas_t_get_prop_ox", 1));
-  JS_SetPropertyStr(ctx, global_obj, "canvas_t_get_prop_oy",
-                    JS_NewCFunction(ctx, wrap_canvas_t_get_prop_oy, "canvas_t_get_prop_oy", 1));
-  JS_SetPropertyStr(
-      ctx, global_obj, "canvas_t_get_prop_font_name",
-      JS_NewCFunction(ctx, wrap_canvas_t_get_prop_font_name, "canvas_t_get_prop_font_name", 1));
-  JS_SetPropertyStr(
-      ctx, global_obj, "canvas_t_get_prop_font_size",
-      JS_NewCFunction(ctx, wrap_canvas_t_get_prop_font_size, "canvas_t_get_prop_font_size", 1));
-  JS_SetPropertyStr(ctx, global_obj, "canvas_t_get_prop_global_alpha",
-                    JS_NewCFunction(ctx, wrap_canvas_t_get_prop_global_alpha,
-                                    "canvas_t_get_prop_global_alpha", 1));
-
-  jsvalue_unref(ctx, global_obj);
-
-  return RET_OK;
-}
-
-jsvalue_t get_OBJECT_CMD_SAVE(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                              jsvalue_const_t* argv) {
-  return jsvalue_create_string(ctx, OBJECT_CMD_SAVE);
-}
-
-jsvalue_t get_OBJECT_CMD_RELOAD(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                jsvalue_const_t* argv) {
-  return jsvalue_create_string(ctx, OBJECT_CMD_RELOAD);
-}
-
-jsvalue_t get_OBJECT_CMD_MOVE_UP(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                 jsvalue_const_t* argv) {
-  return jsvalue_create_string(ctx, OBJECT_CMD_MOVE_UP);
-}
-
-jsvalue_t get_OBJECT_CMD_MOVE_DOWN(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                   jsvalue_const_t* argv) {
-  return jsvalue_create_string(ctx, OBJECT_CMD_MOVE_DOWN);
-}
-
-jsvalue_t get_OBJECT_CMD_REMOVE(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                jsvalue_const_t* argv) {
-  return jsvalue_create_string(ctx, OBJECT_CMD_REMOVE);
-}
-
-jsvalue_t get_OBJECT_CMD_CLEAR(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                               jsvalue_const_t* argv) {
-  return jsvalue_create_string(ctx, OBJECT_CMD_CLEAR);
-}
-
-jsvalue_t get_OBJECT_CMD_ADD(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                             jsvalue_const_t* argv) {
-  return jsvalue_create_string(ctx, OBJECT_CMD_ADD);
-}
-
-jsvalue_t get_OBJECT_CMD_EDIT(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                              jsvalue_const_t* argv) {
-  return jsvalue_create_string(ctx, OBJECT_CMD_EDIT);
-}
-
-ret_t object_cmd_t_init(JSContext* ctx) {
-  jsvalue_t global_obj = JS_GetGlobalObject(ctx);
-  JS_SetPropertyStr(ctx, global_obj, "OBJECT_CMD_SAVE",
-                    JS_NewCFunction(ctx, get_OBJECT_CMD_SAVE, "OBJECT_CMD_SAVE", 1));
-  JS_SetPropertyStr(ctx, global_obj, "OBJECT_CMD_RELOAD",
-                    JS_NewCFunction(ctx, get_OBJECT_CMD_RELOAD, "OBJECT_CMD_RELOAD", 1));
-  JS_SetPropertyStr(ctx, global_obj, "OBJECT_CMD_MOVE_UP",
-                    JS_NewCFunction(ctx, get_OBJECT_CMD_MOVE_UP, "OBJECT_CMD_MOVE_UP", 1));
-  JS_SetPropertyStr(ctx, global_obj, "OBJECT_CMD_MOVE_DOWN",
-                    JS_NewCFunction(ctx, get_OBJECT_CMD_MOVE_DOWN, "OBJECT_CMD_MOVE_DOWN", 1));
-  JS_SetPropertyStr(ctx, global_obj, "OBJECT_CMD_REMOVE",
-                    JS_NewCFunction(ctx, get_OBJECT_CMD_REMOVE, "OBJECT_CMD_REMOVE", 1));
-  JS_SetPropertyStr(ctx, global_obj, "OBJECT_CMD_CLEAR",
-                    JS_NewCFunction(ctx, get_OBJECT_CMD_CLEAR, "OBJECT_CMD_CLEAR", 1));
-  JS_SetPropertyStr(ctx, global_obj, "OBJECT_CMD_ADD",
-                    JS_NewCFunction(ctx, get_OBJECT_CMD_ADD, "OBJECT_CMD_ADD", 1));
-  JS_SetPropertyStr(ctx, global_obj, "OBJECT_CMD_EDIT",
-                    JS_NewCFunction(ctx, get_OBJECT_CMD_EDIT, "OBJECT_CMD_EDIT", 1));
 
   jsvalue_unref(ctx, global_obj);
 
@@ -11129,24 +10718,505 @@ ret_t idle_manager_t_init(JSContext* ctx) {
   return RET_OK;
 }
 
-jsvalue_t get_CLIP_BOARD_DATA_TYPE_NONE(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                        jsvalue_const_t* argv) {
-  return jsvalue_create_int(ctx, CLIP_BOARD_DATA_TYPE_NONE);
-}
-
-jsvalue_t get_CLIP_BOARD_DATA_TYPE_TEXT(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                        jsvalue_const_t* argv) {
-  return jsvalue_create_int(ctx, CLIP_BOARD_DATA_TYPE_TEXT);
-}
-
-ret_t clip_board_data_type_t_init(JSContext* ctx) {
+ret_t canvas_offline_t_init(JSContext* ctx) {
   jsvalue_t global_obj = JS_GetGlobalObject(ctx);
+
+  jsvalue_unref(ctx, global_obj);
+
+  return RET_OK;
+}
+
+jsvalue_t wrap_canvas_get_width(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 1) {
+    wh_t ret = (wh_t)0;
+    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
+    ret = (wh_t)canvas_get_width(c);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_canvas_get_height(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                 jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 1) {
+    wh_t ret = (wh_t)0;
+    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
+    ret = (wh_t)canvas_get_height(c);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_canvas_get_clip_rect(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                    jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 2) {
+    ret_t ret = (ret_t)0;
+    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
+    rect_t* r = (rect_t*)jsvalue_get_pointer(ctx, argv[1], "rect_t*");
+    ret = (ret_t)canvas_get_clip_rect(c, r);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_canvas_set_clip_rect(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                    jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 2) {
+    ret_t ret = (ret_t)0;
+    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
+    const rect_t* r = (const rect_t*)jsvalue_get_pointer(ctx, argv[1], "const rect_t*");
+    ret = (ret_t)canvas_set_clip_rect(c, r);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_canvas_set_clip_rect_ex(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                       jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 3) {
+    ret_t ret = (ret_t)0;
+    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
+    const rect_t* r = (const rect_t*)jsvalue_get_pointer(ctx, argv[1], "const rect_t*");
+    bool_t translate = (bool_t)jsvalue_get_boolean_value(ctx, argv[2]);
+    ret = (ret_t)canvas_set_clip_rect_ex(c, r, translate);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_canvas_set_fill_color_str(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                         jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 2) {
+    ret_t ret = (ret_t)0;
+    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
+    const char* color = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
+    ret = (ret_t)canvas_set_fill_color_str(c, color);
+    jsvalue_free_str(ctx, color);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_canvas_set_text_color_str(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                         jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 2) {
+    ret_t ret = (ret_t)0;
+    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
+    const char* color = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
+    ret = (ret_t)canvas_set_text_color_str(c, color);
+    jsvalue_free_str(ctx, color);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_canvas_set_stroke_color_str(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                           jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 2) {
+    ret_t ret = (ret_t)0;
+    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
+    const char* color = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
+    ret = (ret_t)canvas_set_stroke_color_str(c, color);
+    jsvalue_free_str(ctx, color);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_canvas_set_global_alpha(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                       jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 2) {
+    ret_t ret = (ret_t)0;
+    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
+    uint8_t alpha = (uint8_t)jsvalue_get_int_value(ctx, argv[1]);
+    ret = (ret_t)canvas_set_global_alpha(c, alpha);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_canvas_translate(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 3) {
+    ret_t ret = (ret_t)0;
+    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
+    xy_t dx = (xy_t)jsvalue_get_int_value(ctx, argv[1]);
+    xy_t dy = (xy_t)jsvalue_get_int_value(ctx, argv[2]);
+    ret = (ret_t)canvas_translate(c, dx, dy);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_canvas_untranslate(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                  jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 3) {
+    ret_t ret = (ret_t)0;
+    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
+    xy_t dx = (xy_t)jsvalue_get_int_value(ctx, argv[1]);
+    xy_t dy = (xy_t)jsvalue_get_int_value(ctx, argv[2]);
+    ret = (ret_t)canvas_untranslate(c, dx, dy);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_canvas_draw_vline(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                 jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 4) {
+    ret_t ret = (ret_t)0;
+    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
+    xy_t x = (xy_t)jsvalue_get_int_value(ctx, argv[1]);
+    xy_t y = (xy_t)jsvalue_get_int_value(ctx, argv[2]);
+    wh_t h = (wh_t)jsvalue_get_int_value(ctx, argv[3]);
+    ret = (ret_t)canvas_draw_vline(c, x, y, h);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_canvas_draw_hline(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                 jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 4) {
+    ret_t ret = (ret_t)0;
+    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
+    xy_t x = (xy_t)jsvalue_get_int_value(ctx, argv[1]);
+    xy_t y = (xy_t)jsvalue_get_int_value(ctx, argv[2]);
+    wh_t w = (wh_t)jsvalue_get_int_value(ctx, argv[3]);
+    ret = (ret_t)canvas_draw_hline(c, x, y, w);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_canvas_fill_rect(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 5) {
+    ret_t ret = (ret_t)0;
+    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
+    xy_t x = (xy_t)jsvalue_get_int_value(ctx, argv[1]);
+    xy_t y = (xy_t)jsvalue_get_int_value(ctx, argv[2]);
+    wh_t w = (wh_t)jsvalue_get_int_value(ctx, argv[3]);
+    wh_t h = (wh_t)jsvalue_get_int_value(ctx, argv[4]);
+    ret = (ret_t)canvas_fill_rect(c, x, y, w, h);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_canvas_stroke_rect(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                  jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 5) {
+    ret_t ret = (ret_t)0;
+    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
+    xy_t x = (xy_t)jsvalue_get_int_value(ctx, argv[1]);
+    xy_t y = (xy_t)jsvalue_get_int_value(ctx, argv[2]);
+    wh_t w = (wh_t)jsvalue_get_int_value(ctx, argv[3]);
+    wh_t h = (wh_t)jsvalue_get_int_value(ctx, argv[4]);
+    ret = (ret_t)canvas_stroke_rect(c, x, y, w, h);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_canvas_set_font(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                               jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 3) {
+    ret_t ret = (ret_t)0;
+    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
+    const char* name = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
+    font_size_t size = (font_size_t)jsvalue_get_int_value(ctx, argv[2]);
+    ret = (ret_t)canvas_set_font(c, name, size);
+    jsvalue_free_str(ctx, name);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_canvas_measure_utf8(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                   jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 2) {
+    float_t ret = (float_t)0;
+    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
+    const char* str = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
+    ret = (float_t)canvas_measure_utf8(c, str);
+    jsvalue_free_str(ctx, str);
+
+    jret = jsvalue_create_number(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_canvas_draw_utf8(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 4) {
+    ret_t ret = (ret_t)0;
+    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
+    const char* str = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
+    xy_t x = (xy_t)jsvalue_get_int_value(ctx, argv[2]);
+    xy_t y = (xy_t)jsvalue_get_int_value(ctx, argv[3]);
+    ret = (ret_t)canvas_draw_utf8(c, str, x, y);
+    jsvalue_free_str(ctx, str);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_canvas_draw_utf8_in_rect(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                        jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 3) {
+    ret_t ret = (ret_t)0;
+    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
+    const char* str = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
+    const rect_t* r = (const rect_t*)jsvalue_get_pointer(ctx, argv[2], "const rect_t*");
+    ret = (ret_t)canvas_draw_utf8_in_rect(c, str, r);
+    jsvalue_free_str(ctx, str);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_canvas_draw_icon(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 4) {
+    ret_t ret = (ret_t)0;
+    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
+    bitmap_t* img = (bitmap_t*)jsvalue_get_pointer(ctx, argv[1], "bitmap_t*");
+    xy_t cx = (xy_t)jsvalue_get_int_value(ctx, argv[2]);
+    xy_t cy = (xy_t)jsvalue_get_int_value(ctx, argv[3]);
+    ret = (ret_t)canvas_draw_icon(c, img, cx, cy);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_canvas_draw_image(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                 jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 4) {
+    ret_t ret = (ret_t)0;
+    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
+    bitmap_t* img = (bitmap_t*)jsvalue_get_pointer(ctx, argv[1], "bitmap_t*");
+    rect_t* src = (rect_t*)jsvalue_get_pointer(ctx, argv[2], "rect_t*");
+    rect_t* dst = (rect_t*)jsvalue_get_pointer(ctx, argv[3], "rect_t*");
+    ret = (ret_t)canvas_draw_image(c, img, src, dst);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_canvas_draw_image_ex(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                    jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 4) {
+    ret_t ret = (ret_t)0;
+    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
+    bitmap_t* img = (bitmap_t*)jsvalue_get_pointer(ctx, argv[1], "bitmap_t*");
+    image_draw_type_t draw_type = (image_draw_type_t)jsvalue_get_int_value(ctx, argv[2]);
+    rect_t* dst = (rect_t*)jsvalue_get_pointer(ctx, argv[3], "rect_t*");
+    ret = (ret_t)canvas_draw_image_ex(c, img, draw_type, dst);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_canvas_get_vgcanvas(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                   jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 1) {
+    vgcanvas_t* ret = NULL;
+    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
+    ret = (vgcanvas_t*)canvas_get_vgcanvas(c);
+
+    jret = jsvalue_create_pointer(ctx, ret, "vgcanvas_t*");
+  }
+  return jret;
+}
+
+jsvalue_t wrap_canvas_cast(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                           jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 1) {
+    canvas_t* ret = NULL;
+    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
+    ret = (canvas_t*)canvas_cast(c);
+
+    jret = jsvalue_create_pointer(ctx, ret, "canvas_t*");
+  }
+  return jret;
+}
+
+jsvalue_t wrap_canvas_reset(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                            jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 1) {
+    ret_t ret = (ret_t)0;
+    canvas_t* c = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
+    ret = (ret_t)canvas_reset(c);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_canvas_t_get_prop_ox(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                    jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  canvas_t* obj = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
+
+  jret = jsvalue_create_int(ctx, obj->ox);
+  return jret;
+}
+
+jsvalue_t wrap_canvas_t_get_prop_oy(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                    jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  canvas_t* obj = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
+
+  jret = jsvalue_create_int(ctx, obj->oy);
+  return jret;
+}
+
+jsvalue_t wrap_canvas_t_get_prop_font_name(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                           jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  canvas_t* obj = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
+
+  jret = jsvalue_create_string(ctx, obj->font_name);
+  return jret;
+}
+
+jsvalue_t wrap_canvas_t_get_prop_font_size(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                           jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  canvas_t* obj = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
+
+  jret = jsvalue_create_int(ctx, obj->font_size);
+  return jret;
+}
+
+jsvalue_t wrap_canvas_t_get_prop_global_alpha(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                              jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  canvas_t* obj = (canvas_t*)jsvalue_get_pointer(ctx, argv[0], "canvas_t*");
+
+  jret = jsvalue_create_int(ctx, obj->global_alpha);
+  return jret;
+}
+
+ret_t canvas_t_init(JSContext* ctx) {
+  jsvalue_t global_obj = JS_GetGlobalObject(ctx);
+  JS_SetPropertyStr(ctx, global_obj, "canvas_get_width",
+                    JS_NewCFunction(ctx, wrap_canvas_get_width, "canvas_get_width", 1));
+  JS_SetPropertyStr(ctx, global_obj, "canvas_get_height",
+                    JS_NewCFunction(ctx, wrap_canvas_get_height, "canvas_get_height", 1));
+  JS_SetPropertyStr(ctx, global_obj, "canvas_get_clip_rect",
+                    JS_NewCFunction(ctx, wrap_canvas_get_clip_rect, "canvas_get_clip_rect", 1));
+  JS_SetPropertyStr(ctx, global_obj, "canvas_set_clip_rect",
+                    JS_NewCFunction(ctx, wrap_canvas_set_clip_rect, "canvas_set_clip_rect", 1));
   JS_SetPropertyStr(
-      ctx, global_obj, "CLIP_BOARD_DATA_TYPE_NONE",
-      JS_NewCFunction(ctx, get_CLIP_BOARD_DATA_TYPE_NONE, "CLIP_BOARD_DATA_TYPE_NONE", 1));
+      ctx, global_obj, "canvas_set_clip_rect_ex",
+      JS_NewCFunction(ctx, wrap_canvas_set_clip_rect_ex, "canvas_set_clip_rect_ex", 1));
   JS_SetPropertyStr(
-      ctx, global_obj, "CLIP_BOARD_DATA_TYPE_TEXT",
-      JS_NewCFunction(ctx, get_CLIP_BOARD_DATA_TYPE_TEXT, "CLIP_BOARD_DATA_TYPE_TEXT", 1));
+      ctx, global_obj, "canvas_set_fill_color_str",
+      JS_NewCFunction(ctx, wrap_canvas_set_fill_color_str, "canvas_set_fill_color_str", 1));
+  JS_SetPropertyStr(
+      ctx, global_obj, "canvas_set_text_color_str",
+      JS_NewCFunction(ctx, wrap_canvas_set_text_color_str, "canvas_set_text_color_str", 1));
+  JS_SetPropertyStr(
+      ctx, global_obj, "canvas_set_stroke_color_str",
+      JS_NewCFunction(ctx, wrap_canvas_set_stroke_color_str, "canvas_set_stroke_color_str", 1));
+  JS_SetPropertyStr(
+      ctx, global_obj, "canvas_set_global_alpha",
+      JS_NewCFunction(ctx, wrap_canvas_set_global_alpha, "canvas_set_global_alpha", 1));
+  JS_SetPropertyStr(ctx, global_obj, "canvas_translate",
+                    JS_NewCFunction(ctx, wrap_canvas_translate, "canvas_translate", 1));
+  JS_SetPropertyStr(ctx, global_obj, "canvas_untranslate",
+                    JS_NewCFunction(ctx, wrap_canvas_untranslate, "canvas_untranslate", 1));
+  JS_SetPropertyStr(ctx, global_obj, "canvas_draw_vline",
+                    JS_NewCFunction(ctx, wrap_canvas_draw_vline, "canvas_draw_vline", 1));
+  JS_SetPropertyStr(ctx, global_obj, "canvas_draw_hline",
+                    JS_NewCFunction(ctx, wrap_canvas_draw_hline, "canvas_draw_hline", 1));
+  JS_SetPropertyStr(ctx, global_obj, "canvas_fill_rect",
+                    JS_NewCFunction(ctx, wrap_canvas_fill_rect, "canvas_fill_rect", 1));
+  JS_SetPropertyStr(ctx, global_obj, "canvas_stroke_rect",
+                    JS_NewCFunction(ctx, wrap_canvas_stroke_rect, "canvas_stroke_rect", 1));
+  JS_SetPropertyStr(ctx, global_obj, "canvas_set_font",
+                    JS_NewCFunction(ctx, wrap_canvas_set_font, "canvas_set_font", 1));
+  JS_SetPropertyStr(ctx, global_obj, "canvas_measure_utf8",
+                    JS_NewCFunction(ctx, wrap_canvas_measure_utf8, "canvas_measure_utf8", 1));
+  JS_SetPropertyStr(ctx, global_obj, "canvas_draw_utf8",
+                    JS_NewCFunction(ctx, wrap_canvas_draw_utf8, "canvas_draw_utf8", 1));
+  JS_SetPropertyStr(
+      ctx, global_obj, "canvas_draw_utf8_in_rect",
+      JS_NewCFunction(ctx, wrap_canvas_draw_utf8_in_rect, "canvas_draw_utf8_in_rect", 1));
+  JS_SetPropertyStr(ctx, global_obj, "canvas_draw_icon",
+                    JS_NewCFunction(ctx, wrap_canvas_draw_icon, "canvas_draw_icon", 1));
+  JS_SetPropertyStr(ctx, global_obj, "canvas_draw_image",
+                    JS_NewCFunction(ctx, wrap_canvas_draw_image, "canvas_draw_image", 1));
+  JS_SetPropertyStr(ctx, global_obj, "canvas_draw_image_ex",
+                    JS_NewCFunction(ctx, wrap_canvas_draw_image_ex, "canvas_draw_image_ex", 1));
+  JS_SetPropertyStr(ctx, global_obj, "canvas_get_vgcanvas",
+                    JS_NewCFunction(ctx, wrap_canvas_get_vgcanvas, "canvas_get_vgcanvas", 1));
+  JS_SetPropertyStr(ctx, global_obj, "canvas_cast",
+                    JS_NewCFunction(ctx, wrap_canvas_cast, "canvas_cast", 1));
+  JS_SetPropertyStr(ctx, global_obj, "canvas_reset",
+                    JS_NewCFunction(ctx, wrap_canvas_reset, "canvas_reset", 1));
+  JS_SetPropertyStr(ctx, global_obj, "canvas_t_get_prop_ox",
+                    JS_NewCFunction(ctx, wrap_canvas_t_get_prop_ox, "canvas_t_get_prop_ox", 1));
+  JS_SetPropertyStr(ctx, global_obj, "canvas_t_get_prop_oy",
+                    JS_NewCFunction(ctx, wrap_canvas_t_get_prop_oy, "canvas_t_get_prop_oy", 1));
+  JS_SetPropertyStr(
+      ctx, global_obj, "canvas_t_get_prop_font_name",
+      JS_NewCFunction(ctx, wrap_canvas_t_get_prop_font_name, "canvas_t_get_prop_font_name", 1));
+  JS_SetPropertyStr(
+      ctx, global_obj, "canvas_t_get_prop_font_size",
+      JS_NewCFunction(ctx, wrap_canvas_t_get_prop_font_size, "canvas_t_get_prop_font_size", 1));
+  JS_SetPropertyStr(ctx, global_obj, "canvas_t_get_prop_global_alpha",
+                    JS_NewCFunction(ctx, wrap_canvas_t_get_prop_global_alpha,
+                                    "canvas_t_get_prop_global_alpha", 1));
 
   jsvalue_unref(ctx, global_obj);
 
@@ -11368,6 +11438,48 @@ jsvalue_t wrap_date_time_from_time(JSContext* ctx, jsvalue_const_t this_val, int
   return jret;
 }
 
+jsvalue_t wrap_date_time_is_leap(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                 jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 1) {
+    bool_t ret = (bool_t)0;
+    uint32_t year = (uint32_t)jsvalue_get_int_value(ctx, argv[0]);
+    ret = (bool_t)date_time_is_leap(year);
+
+    jret = jsvalue_create_bool(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_date_time_get_days(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                  jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 2) {
+    int32_t ret = (int32_t)0;
+    uint32_t year = (uint32_t)jsvalue_get_int_value(ctx, argv[0]);
+    uint32_t montn = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
+    ret = (int32_t)date_time_get_days(year, montn);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_date_time_get_wday(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                  jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 3) {
+    int32_t ret = (int32_t)0;
+    uint32_t year = (uint32_t)jsvalue_get_int_value(ctx, argv[0]);
+    uint32_t montn = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
+    uint32_t day = (uint32_t)jsvalue_get_int_value(ctx, argv[2]);
+    ret = (int32_t)date_time_get_wday(year, montn, day);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
 jsvalue_t wrap_date_time_t_get_prop_second(JSContext* ctx, jsvalue_const_t this_val, int argc,
                                            jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
@@ -11439,6 +11551,12 @@ ret_t date_time_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_date_time_set, "date_time_set", 1));
   JS_SetPropertyStr(ctx, global_obj, "date_time_from_time",
                     JS_NewCFunction(ctx, wrap_date_time_from_time, "date_time_from_time", 1));
+  JS_SetPropertyStr(ctx, global_obj, "date_time_is_leap",
+                    JS_NewCFunction(ctx, wrap_date_time_is_leap, "date_time_is_leap", 1));
+  JS_SetPropertyStr(ctx, global_obj, "date_time_get_days",
+                    JS_NewCFunction(ctx, wrap_date_time_get_days, "date_time_get_days", 1));
+  JS_SetPropertyStr(ctx, global_obj, "date_time_get_wday",
+                    JS_NewCFunction(ctx, wrap_date_time_get_wday, "date_time_get_wday", 1));
   JS_SetPropertyStr(
       ctx, global_obj, "date_time_t_get_prop_second",
       JS_NewCFunction(ctx, wrap_date_time_t_get_prop_second, "date_time_t_get_prop_second", 1));
@@ -22588,6 +22706,7 @@ ret_t awtk_js_init(JSContext* ctx) {
   value_t_init(ctx);
   object_t_init(ctx);
   global_t_init(ctx);
+  clip_board_data_type_t_init(ctx);
   clip_board_t_init(ctx);
   dialog_quit_code_t_init(ctx);
   event_type_t_init(ctx);
@@ -22624,14 +22743,15 @@ ret_t awtk_js_init(JSContext* ctx) {
   ret_t_init(ctx);
   timer_manager_t_init(ctx);
   time_now_t_init(ctx);
-  image_draw_type_t_init(ctx);
-  canvas_t_init(ctx);
+  bidi_type_t_init(ctx);
   object_cmd_t_init(ctx);
+  image_draw_type_t_init(ctx);
   named_value_t_init(ctx);
   MIME_TYPE_init(ctx);
   indicator_default_paint_t_init(ctx);
   idle_manager_t_init(ctx);
-  clip_board_data_type_t_init(ctx);
+  canvas_offline_t_init(ctx);
+  canvas_t_init(ctx);
   easing_type_t_init(ctx);
   date_time_t_init(ctx);
   color_t_init(ctx);

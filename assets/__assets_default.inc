@@ -37,6 +37,7 @@
 #include "default/inc/ui/menu_left_bottom.data"
 #include "default/inc/ui/auto_play_landscape.data"
 #include "default/inc/ui/color_picker_simple.data"
+#include "default/inc/ui/bidi.data"
 #include "default/inc/ui/progress_circle.data"
 #include "default/inc/ui/combo_box.data"
 #include "default/inc/ui/kb_phone.data"
@@ -449,6 +450,7 @@
 #include "default/inc/images/girl.bsvg"
 #endif /*WITH_VGCANVAS*/
 #ifdef WITH_TRUETYPE_FONT
+#include "default/inc/fonts/trado.res"
 #include "default/inc/fonts/ap.res"
 #include "default/inc/fonts/default_full.res"
 #include "default/inc/fonts/default.res"
@@ -500,6 +502,7 @@ ret_t assets_init_default(void) {
   assets_manager_add(am, ui_menu_left_bottom);
   assets_manager_add(am, ui_auto_play_landscape);
   assets_manager_add(am, ui_color_picker_simple);
+  assets_manager_add(am, ui_bidi);
   assets_manager_add(am, ui_progress_circle);
   assets_manager_add(am, ui_combo_box);
   assets_manager_add(am, ui_kb_phone);
@@ -774,6 +777,7 @@ ret_t assets_init_default(void) {
   assets_manager_add(am, image_girl);
 #endif /*WITH_VGCANVAS*/
 #ifdef WITH_TRUETYPE_FONT
+  assets_manager_add(am, font_trado);
   assets_manager_add(am, font_ap);
   assets_manager_add(am, font_default_full);
   assets_manager_add(am, font_default);

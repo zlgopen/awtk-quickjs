@@ -1260,6 +1260,24 @@ var TGlobal = /** @class */ (function () {
 exports.TGlobal = TGlobal;
 ;
 /**
+ * 剪切板数据类型定义。
+ *
+ */
+var TClipBoardDataType;
+(function (TClipBoardDataType) {
+    /**
+     * 无数据。
+     *
+     */
+    TClipBoardDataType[TClipBoardDataType["NONE"] = CLIP_BOARD_DATA_TYPE_NONE()] = "NONE";
+    /**
+     * UTF8文本。
+     *
+     */
+    TClipBoardDataType[TClipBoardDataType["TEXT"] = CLIP_BOARD_DATA_TYPE_TEXT()] = "TEXT";
+})(TClipBoardDataType = exports.TClipBoardDataType || (exports.TClipBoardDataType = {}));
+;
+/**
  * 剪切板接口。
  *
  */
@@ -1807,6 +1825,16 @@ var TFontManager = /** @class */ (function () {
      */
     TFontManager.prototype.unloadFont = function (name, size) {
         return font_manager_unload_font(this != null ? (this.nativeObj || this) : null, name, size);
+    };
+    /**
+     * 清除最久没有被使用的缓冲字模。
+     *
+     * @param cache_size 每种字体保留缓存字模的个数。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TFontManager.prototype.shrinkCache = function (cache_size) {
+        return font_manager_shrink_cache(this != null ? (this.nativeObj || this) : null, cache_size);
     };
     /**
      * 卸载全部字体。
@@ -6985,6 +7013,93 @@ var TTimeNow = /** @class */ (function () {
 exports.TTimeNow = TTimeNow;
 ;
 /**
+ * bidi 类型常量定义。
+ *
+ */
+var TBidiType;
+(function (TBidiType) {
+    /**
+     * 自动检查。
+     *
+     */
+    TBidiType[TBidiType["AUTO"] = BIDI_TYPE_AUTO()] = "AUTO";
+    /**
+     * Left-To-Right letter。
+     *
+     */
+    TBidiType[TBidiType["LTR"] = BIDI_TYPE_LTR()] = "LTR";
+    /**
+     * Right-To-Left letter。
+     *
+     */
+    TBidiType[TBidiType["RTL"] = BIDI_TYPE_RTL()] = "RTL";
+    /**
+     * Weak Left To Right paragraph。
+     *
+     */
+    TBidiType[TBidiType["WLTR"] = BIDI_TYPE_WLTR()] = "WLTR";
+    /**
+     * Weak Right To Left paragraph。
+     *
+     */
+    TBidiType[TBidiType["WRTL"] = BIDI_TYPE_WRTL()] = "WRTL";
+})(TBidiType = exports.TBidiType || (exports.TBidiType = {}));
+;
+/**
+ * 对象常见命令定义
+ *
+ */
+var TObjectCmd;
+(function (TObjectCmd) {
+    /**
+     * 保存命令
+     *
+     */
+    TObjectCmd[TObjectCmd["SAVE"] = OBJECT_CMD_SAVE()] = "SAVE";
+    /**
+     * 重新加载命令
+     *
+     */
+    TObjectCmd[TObjectCmd["RELOAD"] = OBJECT_CMD_RELOAD()] = "RELOAD";
+    /**
+     * 和前一个属性交换位置
+     *>参数为属性的名称或路径。
+     *
+     */
+    TObjectCmd[TObjectCmd["MOVE_UP"] = OBJECT_CMD_MOVE_UP()] = "MOVE_UP";
+    /**
+     * 和后一个属性交换位置
+     *>参数为属性的名称或路径。
+     *
+     */
+    TObjectCmd[TObjectCmd["MOVE_DOWN"] = OBJECT_CMD_MOVE_DOWN()] = "MOVE_DOWN";
+    /**
+     * 删除属性。
+     *>参数为属性的名称或路径。
+     *
+     */
+    TObjectCmd[TObjectCmd["REMOVE"] = OBJECT_CMD_REMOVE()] = "REMOVE";
+    /**
+     * 清除全部属性。
+     *>参数为属性的名称或路径。
+     *
+     */
+    TObjectCmd[TObjectCmd["CLEAR"] = OBJECT_CMD_CLEAR()] = "CLEAR";
+    /**
+     * 增加子项。
+     *>参数为属性的名称或路径。
+     *
+     */
+    TObjectCmd[TObjectCmd["ADD"] = OBJECT_CMD_ADD()] = "ADD";
+    /**
+     * 编辑子项。
+     *>参数为属性的名称或路径。
+     *
+     */
+    TObjectCmd[TObjectCmd["EDIT"] = OBJECT_CMD_EDIT()] = "EDIT";
+})(TObjectCmd = exports.TObjectCmd || (exports.TObjectCmd = {}));
+;
+/**
  * 图片绘制方法常量定义。
  *
  */
@@ -7105,411 +7220,6 @@ var TImageDrawType;
      */
     TImageDrawType[TImageDrawType["REPEAT3_Y"] = IMAGE_DRAW_REPEAT3_Y()] = "REPEAT3_Y";
 })(TImageDrawType = exports.TImageDrawType || (exports.TImageDrawType = {}));
-;
-/**
- * 提供基本的绘图功能和状态管理。
- *
- */
-var TCanvas = /** @class */ (function () {
-    function TCanvas(nativeObj) {
-        this.nativeObj = nativeObj;
-    }
-    /**
-     * 获取画布的宽度。
-     *
-     *
-     * @returns 返回画布的宽度。
-     */
-    TCanvas.prototype.getWidth = function () {
-        return canvas_get_width(this != null ? (this.nativeObj || this) : null);
-    };
-    /**
-     * 获取画布的高度。
-     *
-     *
-     * @returns 返回画布的高度。
-     */
-    TCanvas.prototype.getHeight = function () {
-        return canvas_get_height(this != null ? (this.nativeObj || this) : null);
-    };
-    /**
-     * 获取裁剪区。
-     *
-     * @param r rect对象。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TCanvas.prototype.getClipRect = function (r) {
-        return canvas_get_clip_rect(this != null ? (this.nativeObj || this) : null, r != null ? (r.nativeObj || r) : null);
-    };
-    /**
-     * 设置裁剪区。
-     *
-     * @param r rect对象。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TCanvas.prototype.setClipRect = function (r) {
-        return canvas_set_clip_rect(this != null ? (this.nativeObj || this) : null, r != null ? (r.nativeObj || r) : null);
-    };
-    /**
-     * 设置裁剪区。
-     *
-     * @param r rect对象。
-     * @param translate 是否将裁剪区的位置加上canvas当前的偏移。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TCanvas.prototype.setClipRectEx = function (r, translate) {
-        return canvas_set_clip_rect_ex(this != null ? (this.nativeObj || this) : null, r != null ? (r.nativeObj || r) : null, translate);
-    };
-    /**
-     * 设置填充颜色。
-     *
-     *> 供脚本语言使用。
-     *
-     * @param color 颜色。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TCanvas.prototype.setFillColor = function (color) {
-        return canvas_set_fill_color_str(this != null ? (this.nativeObj || this) : null, color);
-    };
-    /**
-     * 设置文本颜色。
-     *
-     *> 供脚本语言使用。
-     *
-     * @param color 颜色。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TCanvas.prototype.setTextColor = function (color) {
-        return canvas_set_text_color_str(this != null ? (this.nativeObj || this) : null, color);
-    };
-    /**
-     * 设置线条颜色。
-     *
-     *> 供脚本语言使用。
-     *
-     * @param color 颜色。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TCanvas.prototype.setStrokeColor = function (color) {
-        return canvas_set_stroke_color_str(this != null ? (this.nativeObj || this) : null, color);
-    };
-    /**
-     * 设置全局alpha值。
-     *
-     * @param alpha alpha值。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TCanvas.prototype.setGlobalAlpha = function (alpha) {
-        return canvas_set_global_alpha(this != null ? (this.nativeObj || this) : null, alpha);
-    };
-    /**
-     * 平移原点坐标。
-     *
-     * @param dx x偏移。
-     * @param dy y偏移。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TCanvas.prototype.translate = function (dx, dy) {
-        return canvas_translate(this != null ? (this.nativeObj || this) : null, dx, dy);
-    };
-    /**
-     * 反向平移原点坐标。
-     *
-     * @param dx x偏移。
-     * @param dy y偏移。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TCanvas.prototype.untranslate = function (dx, dy) {
-        return canvas_untranslate(this != null ? (this.nativeObj || this) : null, dx, dy);
-    };
-    /**
-     * 画垂直线。
-     *
-     * @param x x坐标。
-     * @param y y坐标。
-     * @param h 高度。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TCanvas.prototype.drawVline = function (x, y, h) {
-        return canvas_draw_vline(this != null ? (this.nativeObj || this) : null, x, y, h);
-    };
-    /**
-     * 画水平线。
-     *
-     * @param x x坐标。
-     * @param y y坐标。
-     * @param w 宽度。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TCanvas.prototype.drawHline = function (x, y, w) {
-        return canvas_draw_hline(this != null ? (this.nativeObj || this) : null, x, y, w);
-    };
-    /**
-     * 填充矩形。
-     *
-     * @param x x坐标。
-     * @param y y坐标。
-     * @param w 宽度。
-     * @param h 高度。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TCanvas.prototype.fillRect = function (x, y, w, h) {
-        return canvas_fill_rect(this != null ? (this.nativeObj || this) : null, x, y, w, h);
-    };
-    /**
-     * 绘制矩形。
-     *
-     * @param x x坐标。
-     * @param y y坐标。
-     * @param w 宽度。
-     * @param h 高度。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TCanvas.prototype.strokeRect = function (x, y, w, h) {
-        return canvas_stroke_rect(this != null ? (this.nativeObj || this) : null, x, y, w, h);
-    };
-    /**
-     * 设置字体。
-     *
-     * @param name 字体名称。
-     * @param size 字体大小。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TCanvas.prototype.setFont = function (name, size) {
-        return canvas_set_font(this != null ? (this.nativeObj || this) : null, name, size);
-    };
-    /**
-     * 计算文本所占的宽度。
-     *
-     *> 供脚本语言使用。
-     *
-     * @param str 字符串。
-     *
-     * @returns 返回文本所占的宽度。
-     */
-    TCanvas.prototype.measureText = function (str) {
-        return canvas_measure_utf8(this != null ? (this.nativeObj || this) : null, str);
-    };
-    /**
-     * 绘制文本。
-     *
-     *> 供脚本语言使用。
-     *
-     * @param str 字符串。
-     * @param x x坐标。
-     * @param y y坐标。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TCanvas.prototype.drawText = function (str, x, y) {
-        return canvas_draw_utf8(this != null ? (this.nativeObj || this) : null, str, x, y);
-    };
-    /**
-     * 绘制文本。
-     *
-     *> 供脚本语言使用。
-     *
-     * @param str 字符串。
-     * @param r 矩形区域。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TCanvas.prototype.drawTextInRect = function (str, r) {
-        return canvas_draw_utf8_in_rect(this != null ? (this.nativeObj || this) : null, str, r != null ? (r.nativeObj || r) : null);
-    };
-    /**
-     * 绘制图标。
-     *
-     * @param img 图片对象。
-     * @param cx 中心点x坐标。
-     * @param cy 中心点y坐标。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TCanvas.prototype.drawIcon = function (img, cx, cy) {
-        return canvas_draw_icon(this != null ? (this.nativeObj || this) : null, img != null ? (img.nativeObj || img) : null, cx, cy);
-    };
-    /**
-     * 绘制图片。
-     *
-     * @param img 图片对象。
-     * @param src 源区域。
-     * @param dst 目的区域。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TCanvas.prototype.drawImage = function (img, src, dst) {
-        return canvas_draw_image(this != null ? (this.nativeObj || this) : null, img != null ? (img.nativeObj || img) : null, src != null ? (src.nativeObj || src) : null, dst != null ? (dst.nativeObj || dst) : null);
-    };
-    /**
-     * 绘制图片。
-     *
-     * @param img 图片对象。
-     * @param draw_type 绘制类型。
-     * @param dst 目的区域。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TCanvas.prototype.drawImageEx = function (img, draw_type, dst) {
-        return canvas_draw_image_ex(this != null ? (this.nativeObj || this) : null, img != null ? (img.nativeObj || img) : null, draw_type, dst != null ? (dst.nativeObj || dst) : null);
-    };
-    /**
-     * 获取vgcanvas对象。
-     *
-     *
-     * @returns 返回vgcanvas对象。
-     */
-    TCanvas.prototype.getVgcanvas = function () {
-        return new TVgcanvas(canvas_get_vgcanvas(this != null ? (this.nativeObj || this) : null));
-    };
-    /**
-     * 转换为canvas对象(供脚本语言使用)。
-     *
-     * @param c canvas对象。
-     *
-     * @returns canvas对象。
-     */
-    TCanvas.cast = function (c) {
-        return new TCanvas(canvas_cast(c != null ? (c.nativeObj || c) : null));
-    };
-    /**
-     * 释放相关资源。
-     *
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TCanvas.prototype.reset = function () {
-        return canvas_reset(this != null ? (this.nativeObj || this) : null);
-    };
-    Object.defineProperty(TCanvas.prototype, "ox", {
-        /**
-         * x坐标偏移。
-         *
-         */
-        get: function () {
-            return canvas_t_get_prop_ox(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TCanvas.prototype, "oy", {
-        /**
-         * y坐标偏移。
-         *
-         */
-        get: function () {
-            return canvas_t_get_prop_oy(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TCanvas.prototype, "fontName", {
-        /**
-         * 当前字体名称。
-         *
-         */
-        get: function () {
-            return canvas_t_get_prop_font_name(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TCanvas.prototype, "fontSize", {
-        /**
-         * 当前字体大小。
-         *
-         */
-        get: function () {
-            return canvas_t_get_prop_font_size(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TCanvas.prototype, "globalAlpha", {
-        /**
-         * 当前全局alpha。
-         *
-         */
-        get: function () {
-            return canvas_t_get_prop_global_alpha(this.nativeObj);
-        },
-        set: function (v) {
-            this.setGlobalAlpha(v);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return TCanvas;
-}());
-exports.TCanvas = TCanvas;
-;
-/**
- * 对象常见命令定义
- *
- */
-var TObjectCmd;
-(function (TObjectCmd) {
-    /**
-     * 保存命令
-     *
-     */
-    TObjectCmd[TObjectCmd["SAVE"] = OBJECT_CMD_SAVE()] = "SAVE";
-    /**
-     * 重新加载命令
-     *
-     */
-    TObjectCmd[TObjectCmd["RELOAD"] = OBJECT_CMD_RELOAD()] = "RELOAD";
-    /**
-     * 和前一个属性交换位置
-     *>参数为属性的名称或路径。
-     *
-     */
-    TObjectCmd[TObjectCmd["MOVE_UP"] = OBJECT_CMD_MOVE_UP()] = "MOVE_UP";
-    /**
-     * 和后一个属性交换位置
-     *>参数为属性的名称或路径。
-     *
-     */
-    TObjectCmd[TObjectCmd["MOVE_DOWN"] = OBJECT_CMD_MOVE_DOWN()] = "MOVE_DOWN";
-    /**
-     * 删除属性。
-     *>参数为属性的名称或路径。
-     *
-     */
-    TObjectCmd[TObjectCmd["REMOVE"] = OBJECT_CMD_REMOVE()] = "REMOVE";
-    /**
-     * 清除全部属性。
-     *>参数为属性的名称或路径。
-     *
-     */
-    TObjectCmd[TObjectCmd["CLEAR"] = OBJECT_CMD_CLEAR()] = "CLEAR";
-    /**
-     * 增加子项。
-     *>参数为属性的名称或路径。
-     *
-     */
-    TObjectCmd[TObjectCmd["ADD"] = OBJECT_CMD_ADD()] = "ADD";
-    /**
-     * 编辑子项。
-     *>参数为属性的名称或路径。
-     *
-     */
-    TObjectCmd[TObjectCmd["EDIT"] = OBJECT_CMD_EDIT()] = "EDIT";
-})(TObjectCmd = exports.TObjectCmd || (exports.TObjectCmd = {}));
 ;
 /**
  * 命名的值。
@@ -8158,22 +7868,367 @@ var TIdleManager = /** @class */ (function () {
 exports.TIdleManager = TIdleManager;
 ;
 /**
- * 剪切板数据类型定义。
+ * 离线画布 canvas。
  *
  */
-var TClipBoardDataType;
-(function (TClipBoardDataType) {
+var TCanvasOffline = /** @class */ (function () {
+    function TCanvasOffline(nativeObj) {
+        this.nativeObj = nativeObj;
+    }
+    return TCanvasOffline;
+}());
+exports.TCanvasOffline = TCanvasOffline;
+;
+/**
+ * 提供基本的绘图功能和状态管理。
+ *
+ */
+var TCanvas = /** @class */ (function () {
+    function TCanvas(nativeObj) {
+        this.nativeObj = nativeObj;
+    }
     /**
-     * 无数据。
+     * 获取画布的宽度。
      *
+     *
+     * @returns 返回画布的宽度。
      */
-    TClipBoardDataType[TClipBoardDataType["NONE"] = CLIP_BOARD_DATA_TYPE_NONE()] = "NONE";
+    TCanvas.prototype.getWidth = function () {
+        return canvas_get_width(this != null ? (this.nativeObj || this) : null);
+    };
     /**
-     * UTF8文本。
+     * 获取画布的高度。
      *
+     *
+     * @returns 返回画布的高度。
      */
-    TClipBoardDataType[TClipBoardDataType["TEXT"] = CLIP_BOARD_DATA_TYPE_TEXT()] = "TEXT";
-})(TClipBoardDataType = exports.TClipBoardDataType || (exports.TClipBoardDataType = {}));
+    TCanvas.prototype.getHeight = function () {
+        return canvas_get_height(this != null ? (this.nativeObj || this) : null);
+    };
+    /**
+     * 获取裁剪区。
+     *
+     * @param r rect对象。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TCanvas.prototype.getClipRect = function (r) {
+        return canvas_get_clip_rect(this != null ? (this.nativeObj || this) : null, r != null ? (r.nativeObj || r) : null);
+    };
+    /**
+     * 设置裁剪区。
+     *
+     * @param r rect对象。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TCanvas.prototype.setClipRect = function (r) {
+        return canvas_set_clip_rect(this != null ? (this.nativeObj || this) : null, r != null ? (r.nativeObj || r) : null);
+    };
+    /**
+     * 设置裁剪区。
+     *
+     * @param r rect对象。
+     * @param translate 是否将裁剪区的位置加上canvas当前的偏移。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TCanvas.prototype.setClipRectEx = function (r, translate) {
+        return canvas_set_clip_rect_ex(this != null ? (this.nativeObj || this) : null, r != null ? (r.nativeObj || r) : null, translate);
+    };
+    /**
+     * 设置填充颜色。
+     *
+     *> 供脚本语言使用。
+     *
+     * @param color 颜色。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TCanvas.prototype.setFillColor = function (color) {
+        return canvas_set_fill_color_str(this != null ? (this.nativeObj || this) : null, color);
+    };
+    /**
+     * 设置文本颜色。
+     *
+     *> 供脚本语言使用。
+     *
+     * @param color 颜色。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TCanvas.prototype.setTextColor = function (color) {
+        return canvas_set_text_color_str(this != null ? (this.nativeObj || this) : null, color);
+    };
+    /**
+     * 设置线条颜色。
+     *
+     *> 供脚本语言使用。
+     *
+     * @param color 颜色。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TCanvas.prototype.setStrokeColor = function (color) {
+        return canvas_set_stroke_color_str(this != null ? (this.nativeObj || this) : null, color);
+    };
+    /**
+     * 设置全局alpha值。
+     *
+     * @param alpha alpha值。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TCanvas.prototype.setGlobalAlpha = function (alpha) {
+        return canvas_set_global_alpha(this != null ? (this.nativeObj || this) : null, alpha);
+    };
+    /**
+     * 平移原点坐标。
+     *
+     * @param dx x偏移。
+     * @param dy y偏移。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TCanvas.prototype.translate = function (dx, dy) {
+        return canvas_translate(this != null ? (this.nativeObj || this) : null, dx, dy);
+    };
+    /**
+     * 反向平移原点坐标。
+     *
+     * @param dx x偏移。
+     * @param dy y偏移。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TCanvas.prototype.untranslate = function (dx, dy) {
+        return canvas_untranslate(this != null ? (this.nativeObj || this) : null, dx, dy);
+    };
+    /**
+     * 画垂直线。
+     *
+     * @param x x坐标。
+     * @param y y坐标。
+     * @param h 高度。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TCanvas.prototype.drawVline = function (x, y, h) {
+        return canvas_draw_vline(this != null ? (this.nativeObj || this) : null, x, y, h);
+    };
+    /**
+     * 画水平线。
+     *
+     * @param x x坐标。
+     * @param y y坐标。
+     * @param w 宽度。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TCanvas.prototype.drawHline = function (x, y, w) {
+        return canvas_draw_hline(this != null ? (this.nativeObj || this) : null, x, y, w);
+    };
+    /**
+     * 填充矩形。
+     *
+     * @param x x坐标。
+     * @param y y坐标。
+     * @param w 宽度。
+     * @param h 高度。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TCanvas.prototype.fillRect = function (x, y, w, h) {
+        return canvas_fill_rect(this != null ? (this.nativeObj || this) : null, x, y, w, h);
+    };
+    /**
+     * 绘制矩形。
+     *
+     * @param x x坐标。
+     * @param y y坐标。
+     * @param w 宽度。
+     * @param h 高度。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TCanvas.prototype.strokeRect = function (x, y, w, h) {
+        return canvas_stroke_rect(this != null ? (this.nativeObj || this) : null, x, y, w, h);
+    };
+    /**
+     * 设置字体。
+     *
+     * @param name 字体名称。
+     * @param size 字体大小。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TCanvas.prototype.setFont = function (name, size) {
+        return canvas_set_font(this != null ? (this.nativeObj || this) : null, name, size);
+    };
+    /**
+     * 计算文本所占的宽度。
+     *
+     *> 供脚本语言使用。
+     *
+     * @param str 字符串。
+     *
+     * @returns 返回文本所占的宽度。
+     */
+    TCanvas.prototype.measureText = function (str) {
+        return canvas_measure_utf8(this != null ? (this.nativeObj || this) : null, str);
+    };
+    /**
+     * 绘制文本。
+     *
+     *> 供脚本语言使用。
+     *
+     * @param str 字符串。
+     * @param x x坐标。
+     * @param y y坐标。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TCanvas.prototype.drawText = function (str, x, y) {
+        return canvas_draw_utf8(this != null ? (this.nativeObj || this) : null, str, x, y);
+    };
+    /**
+     * 绘制文本。
+     *
+     *> 供脚本语言使用。
+     *
+     * @param str 字符串。
+     * @param r 矩形区域。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TCanvas.prototype.drawTextInRect = function (str, r) {
+        return canvas_draw_utf8_in_rect(this != null ? (this.nativeObj || this) : null, str, r != null ? (r.nativeObj || r) : null);
+    };
+    /**
+     * 绘制图标。
+     *
+     * @param img 图片对象。
+     * @param cx 中心点x坐标。
+     * @param cy 中心点y坐标。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TCanvas.prototype.drawIcon = function (img, cx, cy) {
+        return canvas_draw_icon(this != null ? (this.nativeObj || this) : null, img != null ? (img.nativeObj || img) : null, cx, cy);
+    };
+    /**
+     * 绘制图片。
+     *
+     * @param img 图片对象。
+     * @param src 源区域。
+     * @param dst 目的区域。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TCanvas.prototype.drawImage = function (img, src, dst) {
+        return canvas_draw_image(this != null ? (this.nativeObj || this) : null, img != null ? (img.nativeObj || img) : null, src != null ? (src.nativeObj || src) : null, dst != null ? (dst.nativeObj || dst) : null);
+    };
+    /**
+     * 绘制图片。
+     *
+     * @param img 图片对象。
+     * @param draw_type 绘制类型。
+     * @param dst 目的区域。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TCanvas.prototype.drawImageEx = function (img, draw_type, dst) {
+        return canvas_draw_image_ex(this != null ? (this.nativeObj || this) : null, img != null ? (img.nativeObj || img) : null, draw_type, dst != null ? (dst.nativeObj || dst) : null);
+    };
+    /**
+     * 获取vgcanvas对象。
+     *
+     *
+     * @returns 返回vgcanvas对象。
+     */
+    TCanvas.prototype.getVgcanvas = function () {
+        return new TVgcanvas(canvas_get_vgcanvas(this != null ? (this.nativeObj || this) : null));
+    };
+    /**
+     * 转换为canvas对象(供脚本语言使用)。
+     *
+     * @param c canvas对象。
+     *
+     * @returns canvas对象。
+     */
+    TCanvas.cast = function (c) {
+        return new TCanvas(canvas_cast(c != null ? (c.nativeObj || c) : null));
+    };
+    /**
+     * 释放相关资源。
+     *
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TCanvas.prototype.reset = function () {
+        return canvas_reset(this != null ? (this.nativeObj || this) : null);
+    };
+    Object.defineProperty(TCanvas.prototype, "ox", {
+        /**
+         * x坐标偏移。
+         *
+         */
+        get: function () {
+            return canvas_t_get_prop_ox(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TCanvas.prototype, "oy", {
+        /**
+         * y坐标偏移。
+         *
+         */
+        get: function () {
+            return canvas_t_get_prop_oy(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TCanvas.prototype, "fontName", {
+        /**
+         * 当前字体名称。
+         *
+         */
+        get: function () {
+            return canvas_t_get_prop_font_name(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TCanvas.prototype, "fontSize", {
+        /**
+         * 当前字体大小。
+         *
+         */
+        get: function () {
+            return canvas_t_get_prop_font_size(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TCanvas.prototype, "globalAlpha", {
+        /**
+         * 当前全局alpha。
+         *
+         */
+        get: function () {
+            return canvas_t_get_prop_global_alpha(this.nativeObj);
+        },
+        set: function (v) {
+            this.setGlobalAlpha(v);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return TCanvas;
+}());
+exports.TCanvas = TCanvas;
 ;
 /**
  * 缓动作动画常量定义。
@@ -8340,6 +8395,39 @@ var TDateTime = /** @class */ (function () {
      */
     TDateTime.prototype.fromTime = function (time) {
         return date_time_from_time(this != null ? (this.nativeObj || this) : null, time);
+    };
+    /**
+     * 是否是闰年。
+     *
+     * @param year 年份。
+     *
+     * @returns 返回TRUE表示是，否则表示否。
+     */
+    TDateTime.isLeap = function (year) {
+        return date_time_is_leap(year);
+    };
+    /**
+     * 获取指定年份月份的天数。
+     *
+     * @param year 年份。
+     * @param montn 月份(1-12)。
+     *
+     * @returns 返回大于0表示天数，否则表示失败。
+     */
+    TDateTime.getDays = function (year, montn) {
+        return date_time_get_days(year, montn);
+    };
+    /**
+     * 获取指定日期是周几(0-6)。
+     *
+     * @param year 年份。
+     * @param montn 月份(1-12)。
+     * @param day 日(1-31)。
+     *
+     * @returns 返回大于等于0表示周几(0-6)，否则表示失败。
+     */
+    TDateTime.getWday = function (year, montn, day) {
+        return date_time_get_wday(year, montn, day);
     };
     /**
      * 销毁date_time对象(一般供脚本语言中使用)。
@@ -15796,7 +15884,7 @@ var TEdit = /** @class */ (function (_super) {
     });
     Object.defineProperty(TEdit.prototype, "keyboard", {
         /**
-         * 自定义软键盘名称。
+         * 自定义软键盘名称。AWTK优先查找keyboard属性设置的键盘文件名（该键盘的XML文件需要在default\raw\ui目录下存在），如果keyboard为空就找input_type设置的键盘类型
          *
          */
         get: function () {
