@@ -344,6 +344,16 @@ var TEmitter = /** @class */ (function () {
     TEmitter.cast = function (emitter) {
         return new TEmitter(emitter_cast(emitter != null ? (emitter.nativeObj || emitter) : null));
     };
+    /**
+     * 分发事件
+     *
+     * @param e 分发的事件。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TEmitter.prototype.forward = function (e) {
+        return emitter_forward(this != null ? (this.nativeObj || this) : null, e != null ? (e.nativeObj || e) : null);
+    };
     return TEmitter;
 }());
 exports.TEmitter = TEmitter;
@@ -395,6 +405,15 @@ var TBitmap = /** @class */ (function () {
      */
     TBitmap.prototype.destroy = function () {
         return bitmap_destroy(this != null ? (this.nativeObj || this) : null);
+    };
+    /**
+     * 获取位图格式对应的颜色位数。
+     *
+     *
+     * @returns 成功返回颜色位数，失败返回0。
+     */
+    TBitmap.prototype.getBppOfFormat = function () {
+        return bitmap_get_bpp_of_format(this != null ? (this.nativeObj || this) : null);
     };
     Object.defineProperty(TBitmap.prototype, "w", {
         /**
@@ -1663,6 +1682,11 @@ var TEventType;
      *
      */
     TEventType[TEventType["DRAG_END"] = EVT_DRAG_END()] = "DRAG_END";
+    /**
+     * Reset(event_t)。
+     *
+     */
+    TEventType[TEventType["RESET"] = EVT_RESET()] = "RESET";
     /**
      * 在指定的时间内(WITH_SCREEN_SAVER_TIME)，没有用户输入事件，由窗口管理器触发。
      *
@@ -4288,6 +4312,11 @@ var TWidgetProp;
      */
     TWidgetProp[TWidgetProp["H"] = WIDGET_PROP_H()] = "H";
     /**
+     * inputing。
+     *
+     */
+    TWidgetProp[TWidgetProp["INPUTING"] = WIDGET_PROP_INPUTING()] = "INPUTING";
+    /**
      * caret x。
      *
      */
@@ -4302,6 +4331,11 @@ var TWidgetProp;
      *
      */
     TWidgetProp[TWidgetProp["DIRTY_RECT_TOLERANCE"] = WIDGET_PROP_DIRTY_RECT_TOLERANCE()] = "DIRTY_RECT_TOLERANCE";
+    /**
+     * bidi type(rtl,ltr,auto,wrtl,wltr,lro,rlo)。
+     *
+     */
+    TWidgetProp[TWidgetProp["BIDI"] = WIDGET_PROP_BIDI()] = "BIDI";
     /**
      * Canvas。
      *
@@ -6209,6 +6243,26 @@ var TWidget = /** @class */ (function () {
         return widget_is_window_opened(this != null ? (this.nativeObj || this) : null);
     };
     /**
+     * 判断当前控件是否是指定控件的父控件(包括非直系)。
+     *
+     * @param child 控件对象。
+     *
+     * @returns 返回TRUE表示是，否则表示不是。
+     */
+    TWidget.prototype.isParentOf = function (child) {
+        return widget_is_parent_of(this != null ? (this.nativeObj || this) : null, child != null ? (child.nativeObj || child) : null);
+    };
+    /**
+     * 判断当前控件是否是指定控件的直系父控件。
+     *
+     * @param child 控件对象。
+     *
+     * @returns 返回TRUE表示是，否则表示不是。
+     */
+    TWidget.prototype.isDirectParentOf = function (child) {
+        return widget_is_direct_parent_of(this != null ? (this.nativeObj || this) : null, child != null ? (child.nativeObj || child) : null);
+    };
+    /**
      * 判断当前控件是否是窗口。
      *
      *
@@ -6315,6 +6369,17 @@ var TWidget = /** @class */ (function () {
         return widget_destroy(this != null ? (this.nativeObj || this) : null);
     };
     /**
+     * 从父控件中移除控件，并调用unref函数销毁控件。
+     *
+     *> 一般无需直接调用，关闭窗口时，自动销毁相关控件。
+     *
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TWidget.prototype.destroyAsync = function () {
+        return widget_destroy_async(this != null ? (this.nativeObj || this) : null);
+    };
+    /**
      * 减少控件的引用计数。引用计数为0时销毁控件。
      *
      *
@@ -6322,6 +6387,131 @@ var TWidget = /** @class */ (function () {
      */
     TWidget.prototype.unref = function () {
         return widget_unref(this != null ? (this.nativeObj || this) : null);
+    };
+    /**
+     * widget_set_prop_bool(group, WIDGET_PROP_IS_KEYBOARD, TRUE);
+     *```
+     *
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TWidget.prototype.isKeyboard = function () {
+        return widget_is_keyboard(this != null ? (this.nativeObj || this) : null);
+    };
+    /**
+     * 根据控件的style绘制边框矩形。
+     *
+     * @param c 画布对象。
+     * @param r 矩形区域。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TWidget.prototype.strokeBorderRect = function (c, r) {
+        return widget_stroke_border_rect(this != null ? (this.nativeObj || this) : null, c != null ? (c.nativeObj || c) : null, r != null ? (r.nativeObj || r) : null);
+    };
+    /**
+     * 根据控件的style绘制背景矩形。
+     *
+     * @param c 画布对象。
+     * @param r 矩形区域。
+     * @param draw_type 图片缺省绘制方式。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TWidget.prototype.fillBgRect = function (c, r, draw_type) {
+        return widget_fill_bg_rect(this != null ? (this.nativeObj || this) : null, c != null ? (c.nativeObj || c) : null, r != null ? (r.nativeObj || r) : null, draw_type);
+    };
+    /**
+     * 根据控件的style绘制前景矩形。
+     *
+     * @param c 画布对象。
+     * @param r 矩形区域。
+     * @param draw_type 图片缺省绘制方式。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TWidget.prototype.fillFgRect = function (c, r, draw_type) {
+        return widget_fill_fg_rect(this != null ? (this.nativeObj || this) : null, c != null ? (c.nativeObj || c) : null, r != null ? (r.nativeObj || r) : null, draw_type);
+    };
+    /**
+     * 递归的分发一个事件到所有target子控件。
+     *
+     * @param e 事件。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TWidget.prototype.dispatchToTarget = function (e) {
+        return widget_dispatch_to_target(this != null ? (this.nativeObj || this) : null, e != null ? (e.nativeObj || e) : null);
+    };
+    /**
+     * 递归的分发一个事件到所有key_target子控件。
+     *
+     * @param e 事件。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TWidget.prototype.dispatchToKeyTarget = function (e) {
+        return widget_dispatch_to_key_target(this != null ? (this.nativeObj || this) : null, e != null ? (e.nativeObj || e) : null);
+    };
+    /**
+     * 让控件根据自己当前状态更新style。
+     *
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TWidget.prototype.updateStyle = function () {
+        return widget_update_style(this != null ? (this.nativeObj || this) : null);
+    };
+    /**
+     * 让控件及子控件根据自己当前状态更新style。
+     *
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TWidget.prototype.updateStyleRecursive = function () {
+        return widget_update_style_recursive(this != null ? (this.nativeObj || this) : null);
+    };
+    /**
+     * 递归的把父控件的key_target设置为自己。
+     *
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TWidget.prototype.setAsKeyTarget = function () {
+        return widget_set_as_key_target(this != null ? (this.nativeObj || this) : null);
+    };
+    /**
+     * 把焦点移动下一个控件。
+     *
+     *>widget必须是当前焦点控件。
+     *
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TWidget.prototype.focusNext = function () {
+        return widget_focus_next(this != null ? (this.nativeObj || this) : null);
+    };
+    /**
+     * 把焦点移动前一个控件。
+     *
+     *>widget必须是当前焦点控件。
+     *
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TWidget.prototype.focusPrev = function () {
+        return widget_focus_prev(this != null ? (this.nativeObj || this) : null);
+    };
+    /**
+     * 把控件的状态转成获取style选要的状态，一般只在子类中使用。
+     *
+     * @param active 控件是否为当前项。
+     * @param checked 控件是否为选中项。
+     *
+     * @returns 返回状态值。
+     */
+    TWidget.prototype.getStateForStyle = function (active, checked) {
+        return widget_get_state_for_style(this != null ? (this.nativeObj || this) : null, active, checked);
     };
     /**
      * 检查控件是否是system bar类型。
@@ -7034,6 +7224,16 @@ var TBidiType;
      */
     TBidiType[TBidiType["RTL"] = BIDI_TYPE_RTL()] = "RTL";
     /**
+     * Left-To-Right letter Override。
+     *
+     */
+    TBidiType[TBidiType["LRO"] = BIDI_TYPE_LRO()] = "LRO";
+    /**
+     * Right-To-Left letter Override。
+     *
+     */
+    TBidiType[TBidiType["RLO"] = BIDI_TYPE_RLO()] = "RLO";
+    /**
      * Weak Left To Right paragraph。
      *
      */
@@ -7044,6 +7244,24 @@ var TBidiType;
      */
     TBidiType[TBidiType["WRTL"] = BIDI_TYPE_WRTL()] = "WRTL";
 })(TBidiType = exports.TBidiType || (exports.TBidiType = {}));
+;
+/**
+ * 对象常见属性定义
+ *
+ */
+var TObjectProp;
+(function (TObjectProp) {
+    /**
+     * 属性的个数。
+     *
+     */
+    TObjectProp[TObjectProp["SIZE"] = OBJECT_PROP_SIZE()] = "SIZE";
+    /**
+     * 属性是否勾选。
+     *
+     */
+    TObjectProp[TObjectProp["CHECKED"] = OBJECT_PROP_CHECKED()] = "CHECKED";
+})(TObjectProp = exports.TObjectProp || (exports.TObjectProp = {}));
 ;
 /**
  * 对象常见命令定义
@@ -7079,6 +7297,12 @@ var TObjectCmd;
      *
      */
     TObjectCmd[TObjectCmd["REMOVE"] = OBJECT_CMD_REMOVE()] = "REMOVE";
+    /**
+     * 删除勾选的属性。
+     *>参数为属性的名称或路径。
+     *
+     */
+    TObjectCmd[TObjectCmd["REMOVE_CHECKED"] = OBJECT_CMD_REMOVE_CHECKED()] = "REMOVE_CHECKED";
     /**
      * 清除全部属性。
      *>参数为属性的名称或路径。
@@ -8418,7 +8642,7 @@ var TDateTime = /** @class */ (function () {
         return date_time_get_days(year, montn);
     };
     /**
-     * 获取指定日期是周几(0-6)。
+     * 获取指定日期是周几(0-6, Sunday = 0)。。
      *
      * @param year 年份。
      * @param montn 月份(1-12)。
@@ -8428,6 +8652,26 @@ var TDateTime = /** @class */ (function () {
      */
     TDateTime.getWday = function (year, montn, day) {
         return date_time_get_wday(year, montn, day);
+    };
+    /**
+     * 获取指定月份的英文名称(简写)。
+     *
+     * @param montn 月份(1-12)。
+     *
+     * @returns 返回指定月份的英文名称(简写)。
+     */
+    TDateTime.getMonthName = function (montn) {
+        return date_time_get_month_name(montn);
+    };
+    /**
+     * 获取周几的英文名称(简写)。
+     *
+     * @param wday 星期几(0-6, Sunday = 0)。
+     *
+     * @returns 返回指定周几的英文名称(简写)。
+     */
+    TDateTime.getWdayName = function (wday) {
+        return date_time_get_wday_name(wday);
     };
     /**
      * 销毁date_time对象(一般供脚本语言中使用)。
@@ -9166,6 +9410,17 @@ var TCmdExecEvent = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(TCmdExecEvent.prototype, "canExec", {
+        /**
+         * 执行结果(适用于CAN_EXEC)。
+         *
+         */
+        get: function () {
+            return cmd_exec_event_t_get_prop_can_exec(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
     return TCmdExecEvent;
 }(TEvent));
 exports.TCmdExecEvent = TCmdExecEvent;
@@ -9522,6 +9777,73 @@ var TTimeClock = /** @class */ (function (_super) {
 exports.TTimeClock = TTimeClock;
 ;
 /**
+ * 滚轮事件。
+ *
+ */
+var TWheelEvent = /** @class */ (function (_super) {
+    __extends(TWheelEvent, _super);
+    function TWheelEvent(nativeObj) {
+        return _super.call(this, nativeObj) || this;
+    }
+    /**
+     * 把event对象转wheel_event_t对象，主要给脚本语言使用。
+     *
+     * @param event event对象。
+     *
+     * @returns event对象。
+     */
+    TWheelEvent.cast = function (event) {
+        return new TWheelEvent(wheel_event_cast(event != null ? (event.nativeObj || event) : null));
+    };
+    Object.defineProperty(TWheelEvent.prototype, "dy", {
+        /**
+         * 滚轮的y值。
+         *
+         */
+        get: function () {
+            return wheel_event_t_get_prop_dy(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TWheelEvent.prototype, "alt", {
+        /**
+         * alt键是否按下。
+         *
+         */
+        get: function () {
+            return wheel_event_t_get_prop_alt(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TWheelEvent.prototype, "ctrl", {
+        /**
+         * ctrl键是否按下。
+         *
+         */
+        get: function () {
+            return wheel_event_t_get_prop_ctrl(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TWheelEvent.prototype, "shift", {
+        /**
+         * shift键是否按下。
+         *
+         */
+        get: function () {
+            return wheel_event_t_get_prop_shift(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return TWheelEvent;
+}(TEvent));
+exports.TWheelEvent = TWheelEvent;
+;
+/**
  * 文本选择器控件，通常用于选择日期和时间等。
  *
  *> XXX: 目前需要先设置options和visible_nr，再设置其它参数(在XML中也需要按此顺序)。
@@ -9740,73 +10062,6 @@ var TTextSelector = /** @class */ (function (_super) {
     return TTextSelector;
 }(TWidget));
 exports.TTextSelector = TTextSelector;
-;
-/**
- * 滚轮事件。
- *
- */
-var TWheelEvent = /** @class */ (function (_super) {
-    __extends(TWheelEvent, _super);
-    function TWheelEvent(nativeObj) {
-        return _super.call(this, nativeObj) || this;
-    }
-    /**
-     * 把event对象转wheel_event_t对象，主要给脚本语言使用。
-     *
-     * @param event event对象。
-     *
-     * @returns event对象。
-     */
-    TWheelEvent.cast = function (event) {
-        return new TWheelEvent(wheel_event_cast(event != null ? (event.nativeObj || event) : null));
-    };
-    Object.defineProperty(TWheelEvent.prototype, "dy", {
-        /**
-         * 滚轮的y值。
-         *
-         */
-        get: function () {
-            return wheel_event_t_get_prop_dy(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TWheelEvent.prototype, "alt", {
-        /**
-         * alt键是否按下。
-         *
-         */
-        get: function () {
-            return wheel_event_t_get_prop_alt(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TWheelEvent.prototype, "ctrl", {
-        /**
-         * ctrl键是否按下。
-         *
-         */
-        get: function () {
-            return wheel_event_t_get_prop_ctrl(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TWheelEvent.prototype, "shift", {
-        /**
-         * shift键是否按下。
-         *
-         */
-        get: function () {
-            return wheel_event_t_get_prop_shift(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return TWheelEvent;
-}(TEvent));
-exports.TWheelEvent = TWheelEvent;
 ;
 /**
  * 开关控件。
@@ -18662,7 +18917,9 @@ exports.TGifImage = TGifImage;
  *| backspace      | 删除键          |
  *| tab            | tab键           |
  *| space          | 空格键          |
- *| close          | 关闭软键盘      |
+ *| close          | 关闭软键盘       |
+ *| back           | 关闭当前窗口     |
+ *| back_to_home   | 返回home窗口    |
  *| 前缀key:        | 键值           |
  *| 前缀hard_key:   | 模拟物理键盘    |
  *| 前缀page:       | 切换到页面      |
