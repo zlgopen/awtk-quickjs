@@ -6,7 +6,7 @@ BIN_DIR=os.environ['BIN_DIR'];
 LIB_DIR=os.environ['LIB_DIR'];
 
 env.Library(os.path.join(LIB_DIR, 'awtk-quickjs'), ['c/utils.c','c/tk_quickjs.c'])
-env.Program(os.path.join(BIN_DIR, 'awtkRun'), ['c/main.c', 'assets.c'])
+env.Program(os.path.join(BIN_DIR, 'awtkRun'), ['c/main.c'])
 
 
 
