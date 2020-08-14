@@ -1,6 +1,7 @@
 ﻿import os
 import scripts.app_helper as app
 
+ARGUMENTS['FONT'] = 'default_full'
 helper = app.Helper(ARGUMENTS);
 APP_LIBS=['awtk-quickjs', 'quickjs']
 APP_CPPPATH = [os.path.join(helper.APP_ROOT, '3rd/quickjs')]
