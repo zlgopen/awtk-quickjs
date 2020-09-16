@@ -344,16 +344,6 @@ var TEmitter = /** @class */ (function () {
     TEmitter.cast = function (emitter) {
         return new TEmitter(emitter_cast(emitter != null ? (emitter.nativeObj || emitter) : null));
     };
-    /**
-     * 分发事件
-     *
-     * @param e 分发的事件。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TEmitter.prototype.forward = function (e) {
-        return emitter_forward(this != null ? (this.nativeObj || this) : null, e != null ? (e.nativeObj || e) : null);
-    };
     return TEmitter;
 }());
 exports.TEmitter = TEmitter;
@@ -409,11 +399,12 @@ var TBitmap = /** @class */ (function () {
     /**
      * 获取位图格式对应的颜色位数。
      *
+     * @param format 位图格式。
      *
      * @returns 成功返回颜色位数，失败返回0。
      */
-    TBitmap.prototype.getBppOfFormat = function () {
-        return bitmap_get_bpp_of_format(this != null ? (this.nativeObj || this) : null);
+    TBitmap.getBppOfFormat = function (format) {
+        return bitmap_get_bpp_of_format(format);
     };
     Object.defineProperty(TBitmap.prototype, "w", {
         /**
@@ -1459,6 +1450,11 @@ var TEventType;
      */
     TEventType[TEventType["KEY_DOWN"] = EVT_KEY_DOWN()] = "KEY_DOWN";
     /**
+     * 键长按事件名(key_event_t)。
+     *
+     */
+    TEventType[TEventType["KEY_LONG_PRESS"] = EVT_KEY_LONG_PRESS()] = "KEY_LONG_PRESS";
+    /**
      * 键按下事件名，在子控件处理之前触发(key_event_t)。
      *
      */
@@ -1628,6 +1624,16 @@ var TEventType;
      */
     TEventType[TEventType["IM_COMMIT"] = EVT_IM_COMMIT()] = "IM_COMMIT";
     /**
+     * 清除编辑器内容(event_t)。
+     *
+     */
+    TEventType[TEventType["IM_CLEAR"] = EVT_IM_CLEAR()] = "IM_CLEAR";
+    /**
+     * 取消编辑，恢复之前的内容(event_t)。
+     *
+     */
+    TEventType[TEventType["IM_CANCEL"] = EVT_IM_CANCEL()] = "IM_CANCEL";
+    /**
      * 进入预编辑状态(event_t)。
      *
      */
@@ -1753,6 +1759,11 @@ var TEventType;
      *
      */
     TEventType[TEventType["SCROLL_END"] = EVT_SCROLL_END()] = "SCROLL_END";
+    /**
+     * 多点触摸手势(multi_gesture_event_t)。
+     *
+     */
+    TEventType[TEventType["MULTI_GESTURE"] = EVT_MULTI_GESTURE()] = "MULTI_GESTURE";
     /**
      * event queue其它请求编号起始值。
      *
@@ -2891,6 +2902,86 @@ var TLocaleInfo = /** @class */ (function () {
 exports.TLocaleInfo = TLocaleInfo;
 ;
 /**
+ * 资源管理器。
+ *这里的资源管理器并非Windows下的文件浏览器，而是负责对各种资源，比如字体、主题、图片、界面数据、字符串和其它数据的进行集中管理的组件。引入资源管理器的目的有以下几个：
+ *
+ ** 让上层不需要了解存储的方式。
+ *在没有文件系统时或者内存紧缺时，把资源转成常量数组直接编译到代码中。在有文件系统而且内存充足时，资源放在文件系统中。在有网络时，资源也可以存放在服务器上(暂未实现)。资源管理器为上层提供统一的接口，让上层而不用关心底层的存储方式。
+ *
+ ** 让上层不需要了解资源的具体格式。
+ *比如一个名为earth的图片，没有文件系统或内存紧缺，图片直接用位图数据格式存在ROM中，而有文件系统时，则用PNG格式存放在文件系统中。资源管理器让上层不需要关心图片的格式，访问时指定图片的名称即可(不用指定扩展名)。
+ *
+ ** 让上层不需要了解屏幕的密度。
+ *不同的屏幕密度下需要加载不同的图片，比如MacPro的Retina屏就需要用双倍解析度的图片，否则就出现界面模糊。AWTK以后会支持PC软件和手机软件的开发，所以资源管理器需要为此提供支持，让上层不需关心屏幕的密度。
+ *
+ ** 对资源进行内存缓存。
+ *不同类型的资源使用方式是不一样的，比如字体和主题加载之后会一直使用，UI文件在生成界面之后就暂时不需要了，PNG文件解码之后就只需要保留解码的位图数据即可。资源管理器配合图片管理器等其它组件实现资源的自动缓存。
+ *
+ *当从文件系统加载资源时，目录结构要求如下：
+ *
+ *```
+ *assets/{theme}/raw/
+ *fonts   字体
+ *images  图片
+ *x1   普通密度屏幕的图片。
+ *x2   2倍密度屏幕的图片。
+ *x3   3倍密度屏幕的图片。
+ *xx   密度无关的图片。
+ *strings 需要翻译的字符串。
+ *styles  主题数据。
+ *ui      UI描述数据。
+ *```
+ *
+ */
+var TAssetsManager = /** @class */ (function () {
+    function TAssetsManager(nativeObj) {
+        this.nativeObj = nativeObj;
+    }
+    /**
+     * 获取缺省资源管理器。
+     *
+     *
+     * @returns 返回asset manager对象。
+     */
+    TAssetsManager.instance = function () {
+        return new TAssetsManager(assets_manager());
+    };
+    /**
+     * 设置当前的主题。
+     *
+     * @param theme 主题名称。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TAssetsManager.prototype.setTheme = function (theme) {
+        return assets_manager_set_theme(this != null ? (this.nativeObj || this) : null, theme);
+    };
+    /**
+     * 在资源管理器的缓存中查找指定的资源并引用它，如果缓存中不存在，尝试加载该资源。
+     *
+     * @param type 资源的类型。
+     * @param name 资源的名称。
+     *
+     * @returns 返回资源。
+     */
+    TAssetsManager.prototype.ref = function (type, name) {
+        return new TAssetInfo(assets_manager_ref(this != null ? (this.nativeObj || this) : null, type, name));
+    };
+    /**
+     * 释放指定的资源。
+     *
+     * @param info 资源。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TAssetsManager.prototype.unref = function (info) {
+        return assets_manager_unref(this != null ? (this.nativeObj || this) : null, info != null ? (info.nativeObj || info) : null);
+    };
+    return TAssetsManager;
+}());
+exports.TAssetsManager = TAssetsManager;
+;
+/**
  * style常量定义。
  *
  */
@@ -3072,6 +3163,26 @@ var TStyleId;
      */
     TStyleId[TStyleId["_ID_ROUND_RADIUS"] = STYLE_ID_ROUND_RADIUS()] = "_ID_ROUND_RADIUS";
     /**
+     * 左上角圆角半径(仅在WITH_VGCANVAS定义时生效)。
+     *
+     */
+    TStyleId[TStyleId["_ID_ROUND_RADIUS_TOP_LETF"] = STYLE_ID_ROUND_RADIUS_TOP_LETF()] = "_ID_ROUND_RADIUS_TOP_LETF";
+    /**
+     * 右上角圆角半径(仅在WITH_VGCANVAS定义时生效)。
+     *
+     */
+    TStyleId[TStyleId["_ID_ROUND_RADIUS_TOP_RIGHT"] = STYLE_ID_ROUND_RADIUS_TOP_RIGHT()] = "_ID_ROUND_RADIUS_TOP_RIGHT";
+    /**
+     * 左下角圆角半径(仅在WITH_VGCANVAS定义时生效)。
+     *
+     */
+    TStyleId[TStyleId["_ID_ROUND_RADIUS_BOTTOM_LETF"] = STYLE_ID_ROUND_RADIUS_BOTTOM_LETF()] = "_ID_ROUND_RADIUS_BOTTOM_LETF";
+    /**
+     * 右下角圆角半径(仅在WITH_VGCANVAS定义时生效)。
+     *
+     */
+    TStyleId[TStyleId["_ID_ROUND_RADIUS_BOTTOM_RIGHT"] = STYLE_ID_ROUND_RADIUS_BOTTOM_RIGHT()] = "_ID_ROUND_RADIUS_BOTTOM_RIGHT";
+    /**
      * 子控件布局参数。
      *
      */
@@ -3163,84 +3274,117 @@ var TStyle = /** @class */ (function () {
 exports.TStyle = TStyle;
 ;
 /**
- * 资源管理器。
- *这里的资源管理器并非Windows下的文件浏览器，而是负责对各种资源，比如字体、主题、图片、界面数据、字符串和其它数据的进行集中管理的组件。引入资源管理器的目的有以下几个：
- *
- ** 让上层不需要了解存储的方式。
- *在没有文件系统时或者内存紧缺时，把资源转成常量数组直接编译到代码中。在有文件系统而且内存充足时，资源放在文件系统中。在有网络时，资源也可以存放在服务器上(暂未实现)。资源管理器为上层提供统一的接口，让上层而不用关心底层的存储方式。
- *
- ** 让上层不需要了解资源的具体格式。
- *比如一个名为earth的图片，没有文件系统或内存紧缺，图片直接用位图数据格式存在ROM中，而有文件系统时，则用PNG格式存放在文件系统中。资源管理器让上层不需要关心图片的格式，访问时指定图片的名称即可(不用指定扩展名)。
- *
- ** 让上层不需要了解屏幕的密度。
- *不同的屏幕密度下需要加载不同的图片，比如MacPro的Retina屏就需要用双倍解析度的图片，否则就出现界面模糊。AWTK以后会支持PC软件和手机软件的开发，所以资源管理器需要为此提供支持，让上层不需关心屏幕的密度。
- *
- ** 对资源进行内存缓存。
- *不同类型的资源使用方式是不一样的，比如字体和主题加载之后会一直使用，UI文件在生成界面之后就暂时不需要了，PNG文件解码之后就只需要保留解码的位图数据即可。资源管理器配合图片管理器等其它组件实现资源的自动缓存。
- *
- *当从文件系统加载资源时，目录结构要求如下：
- *
- *```
- *assets/{theme}/raw/
- *fonts   字体
- *images  图片
- *x1   普通密度屏幕的图片。
- *x2   2倍密度屏幕的图片。
- *x3   3倍密度屏幕的图片。
- *xx   密度无关的图片。
- *strings 需要翻译的字符串。
- *styles  主题数据。
- *ui      UI描述数据。
- *```
+ * 类型常量定义。
  *
  */
-var TAssetsManager = /** @class */ (function () {
-    function TAssetsManager(nativeObj) {
-        this.nativeObj = nativeObj;
-    }
+var TValueType;
+(function (TValueType) {
     /**
-     * 获取缺省资源管理器。
+     * 无效类型。
      *
-     *
-     * @returns 返回asset manager对象。
      */
-    TAssetsManager.instance = function () {
-        return new TAssetsManager(assets_manager());
-    };
+    TValueType[TValueType["INVALID"] = VALUE_TYPE_INVALID()] = "INVALID";
     /**
-     * 设置当前的主题。
+     * BOOL类型。
      *
-     * @param theme 主题名称。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
      */
-    TAssetsManager.prototype.setTheme = function (theme) {
-        return assets_manager_set_theme(this != null ? (this.nativeObj || this) : null, theme);
-    };
+    TValueType[TValueType["BOOL"] = VALUE_TYPE_BOOL()] = "BOOL";
     /**
-     * 在资源管理器的缓存中查找指定的资源并引用它，如果缓存中不存在，尝试加载该资源。
+     * int8_t类型。
      *
-     * @param type 资源的类型。
-     * @param name 资源的名称。
-     *
-     * @returns 返回资源。
      */
-    TAssetsManager.prototype.ref = function (type, name) {
-        return new TAssetInfo(assets_manager_ref(this != null ? (this.nativeObj || this) : null, type, name));
-    };
+    TValueType[TValueType["INT8"] = VALUE_TYPE_INT8()] = "INT8";
     /**
-     * 释放指定的资源。
+     * uint8_t类型。
      *
-     * @param info 资源。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
      */
-    TAssetsManager.prototype.unref = function (info) {
-        return assets_manager_unref(this != null ? (this.nativeObj || this) : null, info != null ? (info.nativeObj || info) : null);
-    };
-    return TAssetsManager;
-}());
-exports.TAssetsManager = TAssetsManager;
+    TValueType[TValueType["UINT8"] = VALUE_TYPE_UINT8()] = "UINT8";
+    /**
+     * int16_t类型。
+     *
+     */
+    TValueType[TValueType["INT16"] = VALUE_TYPE_INT16()] = "INT16";
+    /**
+     * uint16_t类型。
+     *
+     */
+    TValueType[TValueType["UINT16"] = VALUE_TYPE_UINT16()] = "UINT16";
+    /**
+     * int32_t类型。
+     *
+     */
+    TValueType[TValueType["INT32"] = VALUE_TYPE_INT32()] = "INT32";
+    /**
+     * uint32_t类型。
+     *
+     */
+    TValueType[TValueType["UINT32"] = VALUE_TYPE_UINT32()] = "UINT32";
+    /**
+     * int64_t类型。
+     *
+     */
+    TValueType[TValueType["INT64"] = VALUE_TYPE_INT64()] = "INT64";
+    /**
+     * uint64_t类型。
+     *
+     */
+    TValueType[TValueType["UINT64"] = VALUE_TYPE_UINT64()] = "UINT64";
+    /**
+     * void*类型。
+     *
+     */
+    TValueType[TValueType["POINTER"] = VALUE_TYPE_POINTER()] = "POINTER";
+    /**
+     * float_t类型。
+     *
+     */
+    TValueType[TValueType["FLOAT"] = VALUE_TYPE_FLOAT()] = "FLOAT";
+    /**
+     * float类型。
+     *
+     */
+    TValueType[TValueType["FLOAT32"] = VALUE_TYPE_FLOAT32()] = "FLOAT32";
+    /**
+     * double类型。
+     *
+     */
+    TValueType[TValueType["DOUBLE"] = VALUE_TYPE_DOUBLE()] = "DOUBLE";
+    /**
+     * char*类型。
+     *
+     */
+    TValueType[TValueType["STRING"] = VALUE_TYPE_STRING()] = "STRING";
+    /**
+     * wchar_t*类型。
+     *
+     */
+    TValueType[TValueType["WSTRING"] = VALUE_TYPE_WSTRING()] = "WSTRING";
+    /**
+     * object_t*类型。
+     *
+     */
+    TValueType[TValueType["OBJECT"] = VALUE_TYPE_OBJECT()] = "OBJECT";
+    /**
+     * 带长度的字符串。
+     *
+     */
+    TValueType[TValueType["SIZED_STRING"] = VALUE_TYPE_SIZED_STRING()] = "SIZED_STRING";
+    /**
+     * 二进制数据。
+     *
+     */
+    TValueType[TValueType["BINARY"] = VALUE_TYPE_BINARY()] = "BINARY";
+    /**
+     * 二进制数据(UBJSON)。
+     *
+     */
+    TValueType[TValueType["UBJSON"] = VALUE_TYPE_UBJSON()] = "UBJSON";
+    /**
+     * 特殊用途。
+     *
+     */
+    TValueType[TValueType["TOKEN"] = VALUE_TYPE_TOKEN()] = "TOKEN";
+})(TValueType = exports.TValueType || (exports.TValueType = {}));
 ;
 /**
  * 主题。
@@ -4587,6 +4731,11 @@ var TWidgetProp;
      */
     TWidgetProp[TWidgetProp["READONLY"] = WIDGET_PROP_READONLY()] = "READONLY";
     /**
+     * 是否可取消。
+     *
+     */
+    TWidgetProp[TWidgetProp["CANCELABLE"] = WIDGET_PROP_CANCELABLE()] = "CANCELABLE";
+    /**
      * 密码是否可见。
      *
      */
@@ -4651,6 +4800,11 @@ var TWidgetProp;
      *
      */
     TWidgetProp[TWidgetProp["OPEN_IM_WHEN_FOCUSED"] = WIDGET_PROP_OPEN_IM_WHEN_FOCUSED()] = "OPEN_IM_WHEN_FOCUSED";
+    /**
+     * 编辑器在失去焦点时是否关闭输入法。
+     *
+     */
+    TWidgetProp[TWidgetProp["CLOSE_IM_WHEN_BLURED"] = WIDGET_PROP_CLOSE_IM_WHEN_BLURED()] = "CLOSE_IM_WHEN_BLURED";
     /**
      * X最小值。
      *
@@ -4762,10 +4916,20 @@ var TWidgetProp;
      */
     TWidgetProp[TWidgetProp["REPEAT"] = WIDGET_PROP_REPEAT()] = "REPEAT";
     /**
+     * 触发长按事件的时间(ms)。
+     *
+     */
+    TWidgetProp[TWidgetProp["LONG_PRESS_TIME"] = WIDGET_PROP_LONG_PRESS_TIME()] = "LONG_PRESS_TIME";
+    /**
      * 是否启用长按。
      *
      */
     TWidgetProp[TWidgetProp["ENABLE_LONG_PRESS"] = WIDGET_PROP_ENABLE_LONG_PRESS()] = "ENABLE_LONG_PRESS";
+    /**
+     * 是否启用点击穿透。
+     *
+     */
+    TWidgetProp[TWidgetProp["CLICK_THROUGH"] = WIDGET_PROP_CLICK_THROUGH()] = "CLICK_THROUGH";
     /**
      * 是否启用动画。
      *
@@ -5321,6 +5485,11 @@ var TWidgetState;
      */
     TWidgetState[TWidgetState["STATE_NORMAL"] = WIDGET_STATE_NORMAL()] = "STATE_NORMAL";
     /**
+     * 内容被修改的状态。
+     *
+     */
+    TWidgetState[TWidgetState["STATE_CHANGED"] = WIDGET_STATE_CHANGED()] = "STATE_CHANGED";
+    /**
      * 指针按下状态。
      *
      */
@@ -5486,119 +5655,6 @@ var TWidgetCursor;
 })(TWidgetCursor = exports.TWidgetCursor || (exports.TWidgetCursor = {}));
 ;
 /**
- * 类型常量定义。
- *
- */
-var TValueType;
-(function (TValueType) {
-    /**
-     * 无效类型。
-     *
-     */
-    TValueType[TValueType["INVALID"] = VALUE_TYPE_INVALID()] = "INVALID";
-    /**
-     * BOOL类型。
-     *
-     */
-    TValueType[TValueType["BOOL"] = VALUE_TYPE_BOOL()] = "BOOL";
-    /**
-     * int8_t类型。
-     *
-     */
-    TValueType[TValueType["INT8"] = VALUE_TYPE_INT8()] = "INT8";
-    /**
-     * uint8_t类型。
-     *
-     */
-    TValueType[TValueType["UINT8"] = VALUE_TYPE_UINT8()] = "UINT8";
-    /**
-     * int16_t类型。
-     *
-     */
-    TValueType[TValueType["INT16"] = VALUE_TYPE_INT16()] = "INT16";
-    /**
-     * uint16_t类型。
-     *
-     */
-    TValueType[TValueType["UINT16"] = VALUE_TYPE_UINT16()] = "UINT16";
-    /**
-     * int32_t类型。
-     *
-     */
-    TValueType[TValueType["INT32"] = VALUE_TYPE_INT32()] = "INT32";
-    /**
-     * uint32_t类型。
-     *
-     */
-    TValueType[TValueType["UINT32"] = VALUE_TYPE_UINT32()] = "UINT32";
-    /**
-     * int64_t类型。
-     *
-     */
-    TValueType[TValueType["INT64"] = VALUE_TYPE_INT64()] = "INT64";
-    /**
-     * uint64_t类型。
-     *
-     */
-    TValueType[TValueType["UINT64"] = VALUE_TYPE_UINT64()] = "UINT64";
-    /**
-     * void*类型。
-     *
-     */
-    TValueType[TValueType["POINTER"] = VALUE_TYPE_POINTER()] = "POINTER";
-    /**
-     * float_t类型。
-     *
-     */
-    TValueType[TValueType["FLOAT"] = VALUE_TYPE_FLOAT()] = "FLOAT";
-    /**
-     * float类型。
-     *
-     */
-    TValueType[TValueType["FLOAT32"] = VALUE_TYPE_FLOAT32()] = "FLOAT32";
-    /**
-     * double类型。
-     *
-     */
-    TValueType[TValueType["DOUBLE"] = VALUE_TYPE_DOUBLE()] = "DOUBLE";
-    /**
-     * char*类型。
-     *
-     */
-    TValueType[TValueType["STRING"] = VALUE_TYPE_STRING()] = "STRING";
-    /**
-     * wchar_t*类型。
-     *
-     */
-    TValueType[TValueType["WSTRING"] = VALUE_TYPE_WSTRING()] = "WSTRING";
-    /**
-     * object_t*类型。
-     *
-     */
-    TValueType[TValueType["OBJECT"] = VALUE_TYPE_OBJECT()] = "OBJECT";
-    /**
-     * 带长度的字符串。
-     *
-     */
-    TValueType[TValueType["SIZED_STRING"] = VALUE_TYPE_SIZED_STRING()] = "SIZED_STRING";
-    /**
-     * 二进制数据。
-     *
-     */
-    TValueType[TValueType["BINARY"] = VALUE_TYPE_BINARY()] = "BINARY";
-    /**
-     * 二进制数据(UBJSON)。
-     *
-     */
-    TValueType[TValueType["UBJSON"] = VALUE_TYPE_UBJSON()] = "UBJSON";
-    /**
-     * 特殊用途。
-     *
-     */
-    TValueType[TValueType["TOKEN"] = VALUE_TYPE_TOKEN()] = "TOKEN";
-})(TValueType = exports.TValueType || (exports.TValueType = {}));
-;
-/**
  * widget_t* button = button_create(win, 10, 10, 128, 30);
  *widget_set_text(button, L"OK");
  *widget_on(button, EVT_CLICK, on_click, NULL);
@@ -5725,7 +5781,7 @@ var TWidget = /** @class */ (function () {
         return widget_add_value(this != null ? (this.nativeObj || this) : null, delta);
     };
     /**
-     * 启用指定的主题。
+     * 启用指定的style。
      *
      * @param style style的名称。
      *
@@ -5769,6 +5825,19 @@ var TWidget = /** @class */ (function () {
      */
     TWidget.prototype.setChildTextWithDouble = function (name, format, value) {
         return widget_set_child_text_with_double(this != null ? (this.nativeObj || this) : null, name, format, value);
+    };
+    /**
+     * 用一个整数去设置子控件的文本。
+     *只是对widget\_set\_prop的包装，文本的意义由子类控件决定。
+     *
+     * @param name 子控件的名称。
+     * @param format 格式字符串(如："%d")。
+     * @param value 值。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TWidget.prototype.setChildTextWithInt = function (name, format, value) {
+        return widget_set_child_text_with_int(this != null ? (this.nativeObj || this) : null, name, format, value);
     };
     /**
      * 获取翻译之后的文本，然后调用widget_set_text。
@@ -6272,6 +6341,61 @@ var TWidget = /** @class */ (function () {
         return widget_is_window(this != null ? (this.nativeObj || this) : null);
     };
     /**
+     * 检查控件是否是system bar类型。
+     *
+     *
+     * @returns 返回FALSE表示不是，否则表示是。
+     */
+    TWidget.prototype.isSystemBar = function () {
+        return widget_is_system_bar(this != null ? (this.nativeObj || this) : null);
+    };
+    /**
+     * 检查控件是否是普通窗口类型。
+     *
+     *
+     * @returns 返回FALSE表示不是，否则表示是。
+     */
+    TWidget.prototype.isNormalWindow = function () {
+        return widget_is_normal_window(this != null ? (this.nativeObj || this) : null);
+    };
+    /**
+     * 检查控件是否是对话框类型。
+     *
+     *
+     * @returns 返回FALSE表示不是，否则表示是。
+     */
+    TWidget.prototype.isDialog = function () {
+        return widget_is_dialog(this != null ? (this.nativeObj || this) : null);
+    };
+    /**
+     * 检查控件是否是弹出窗口类型。
+     *
+     *
+     * @returns 返回FALSE表示不是，否则表示是。
+     */
+    TWidget.prototype.isPopup = function () {
+        return widget_is_popup(this != null ? (this.nativeObj || this) : null);
+    };
+    /**
+     * 检查控件弹出窗口控件是否已经打开了（而非挂起状态）。
+     *
+     *
+     * @returns 返回FALSE表示不是，否则表示是。
+     */
+    TWidget.prototype.isOpenedPopup = function () {
+        return widget_is_opened_popup(this != null ? (this.nativeObj || this) : null);
+    };
+    /**
+     * widget_set_prop_bool(group, WIDGET_PROP_IS_KEYBOARD, TRUE);
+     *```
+     *
+     *
+     * @returns 返回FALSE表示不是，否则表示是。
+     */
+    TWidget.prototype.isKeyboard = function () {
+        return widget_is_keyboard(this != null ? (this.nativeObj || this) : null);
+    };
+    /**
      * 判断当前控件是否是设计窗口。
      *
      *
@@ -6389,16 +6513,6 @@ var TWidget = /** @class */ (function () {
         return widget_unref(this != null ? (this.nativeObj || this) : null);
     };
     /**
-     * widget_set_prop_bool(group, WIDGET_PROP_IS_KEYBOARD, TRUE);
-     *```
-     *
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TWidget.prototype.isKeyboard = function () {
-        return widget_is_keyboard(this != null ? (this.nativeObj || this) : null);
-    };
-    /**
      * 根据控件的style绘制边框矩形。
      *
      * @param c 画布对象。
@@ -6514,51 +6628,6 @@ var TWidget = /** @class */ (function () {
         return widget_get_state_for_style(this != null ? (this.nativeObj || this) : null, active, checked);
     };
     /**
-     * 检查控件是否是system bar类型。
-     *
-     *
-     * @returns 返回FALSE表示不是，否则表示是。
-     */
-    TWidget.prototype.isSystemBar = function () {
-        return widget_is_system_bar(this != null ? (this.nativeObj || this) : null);
-    };
-    /**
-     * 检查控件是否是普通窗口类型。
-     *
-     *
-     * @returns 返回FALSE表示不是，否则表示是。
-     */
-    TWidget.prototype.isNormalWindow = function () {
-        return widget_is_normal_window(this != null ? (this.nativeObj || this) : null);
-    };
-    /**
-     * 检查控件是否是对话框类型。
-     *
-     *
-     * @returns 返回FALSE表示不是，否则表示是。
-     */
-    TWidget.prototype.isDialog = function () {
-        return widget_is_dialog(this != null ? (this.nativeObj || this) : null);
-    };
-    /**
-     * 检查控件是否是弹出窗口类型。
-     *
-     *
-     * @returns 返回FALSE表示不是，否则表示是。
-     */
-    TWidget.prototype.isPopup = function () {
-        return widget_is_popup(this != null ? (this.nativeObj || this) : null);
-    };
-    /**
-     * 检查控件弹出窗口控件是否已经打开了（而非挂起状态）。
-     *
-     *
-     * @returns 返回FALSE表示不是，否则表示是。
-     */
-    TWidget.prototype.isOpenedPopup = function () {
-        return widget_is_opened_popup(this != null ? (this.nativeObj || this) : null);
-    };
-    /**
      * 布局当前控件及子控件。
      *
      *
@@ -6603,6 +6672,9 @@ var TWidget = /** @class */ (function () {
     /**
      * 设置整数类型的style。
      *
+     *> * [state 的取值](https://github.com/zlgopen/awtk/blob/master/docs/manual/widget_state_t.md)
+     *> * [name 的取值](https://github.com/zlgopen/awtk/blob/master/docs/theme.md)
+     *
      * @param state_and_name 状态和名字，用英文的冒号分隔。
      * @param value 值。
      *
@@ -6614,6 +6686,9 @@ var TWidget = /** @class */ (function () {
     /**
      * 设置字符串类型的style。
      *
+     *> * [state 的取值](https://github.com/zlgopen/awtk/blob/master/docs/manual/widget_state_t.md)
+     *> * [name 的取值](https://github.com/zlgopen/awtk/blob/master/docs/theme.md)
+     *
      * @param state_and_name 状态和名字，用英文的冒号分隔。
      * @param value 值。
      *
@@ -6623,10 +6698,11 @@ var TWidget = /** @class */ (function () {
         return widget_set_style_str(this != null ? (this.nativeObj || this) : null, state_and_name, value);
     };
     /**
-     * 设置颜色类型的style。
+     * widget_set_style_color(label, "style:normal:bg_color", 0xFF332211);
+     *```
      *
      * @param state_and_name 状态和名字，用英文的冒号分隔。
-     * @param value 值。
+     * @param value 值。颜色值一般用十六进制表示，每两个数字表示一个颜色通道，从高位到低位，依次是ABGR。
      *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
@@ -7315,6 +7391,12 @@ var TObjectCmd;
      *
      */
     TObjectCmd[TObjectCmd["ADD"] = OBJECT_CMD_ADD()] = "ADD";
+    /**
+     * 显示对象详细信息。
+     *>参数为属性的名称或路径。
+     *
+     */
+    TObjectCmd[TObjectCmd["DETAIL"] = OBJECT_CMD_DETAIL()] = "DETAIL";
     /**
      * 编辑子项。
      *>参数为属性的名称或路径。
@@ -8365,6 +8447,19 @@ var TCanvas = /** @class */ (function () {
         return canvas_draw_image_ex(this != null ? (this.nativeObj || this) : null, img != null ? (img.nativeObj || img) : null, draw_type, dst != null ? (dst.nativeObj || dst) : null);
     };
     /**
+     * 绘制图片。
+     *
+     * @param img 图片对象。
+     * @param draw_type 绘制类型。
+     * @param src 源区域。
+     * @param dst 目的区域。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TCanvas.prototype.drawImageEx2 = function (img, draw_type, src, dst) {
+        return canvas_draw_image_ex2(this != null ? (this.nativeObj || this) : null, img != null ? (img.nativeObj || img) : null, draw_type, src != null ? (src.nativeObj || src) : null, dst != null ? (dst.nativeObj || dst) : null);
+    };
+    /**
      * 获取vgcanvas对象。
      *
      *
@@ -9028,7 +9123,7 @@ var TAssetType;
  *```
  *
  *> 更多用法请参考：
- *[guage.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/guage.xml)
+ *[guage.xml](https://github.com/zlgopen/awtk/blob/master/design/default/ui/guage.xml)
  *
  *在c代码中使用函数guage\_create创建表盘控件。如：
  *
@@ -9045,7 +9140,7 @@ var TAssetType;
  *
  *> 更多用法请参考：
  *[theme
- *default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml)
+ *default](https://github.com/zlgopen/awtk/blob/master/design/default/styles/default.xml)
  *
  */
 var TGuage = /** @class */ (function (_super) {
@@ -9311,7 +9406,7 @@ exports.TView = TView;
  *```
  *
  *> 更多用法请参考：
- *[tab control](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/)
+ *[tab control](https://github.com/zlgopen/awtk/blob/master/design/default/ui/)
  *
  */
 var TTabControl = /** @class */ (function (_super) {
@@ -9390,7 +9485,7 @@ exports.TTabControl = TTabControl;
  *标签按钮一般放在标签按钮分组中，布局由标签按钮分组控件决定，不需要指定自己的布局参数和坐标。
  *
  *> 更多用法请参考：
- *[tab control](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/)
+ *[tab control](https://github.com/zlgopen/awtk/blob/master/design/default/ui/)
  *
  *可用通过style来设置控件的显示风格，如字体的大小和颜色等等。如：
  *
@@ -9556,7 +9651,7 @@ exports.TTabButton = TTabButton;
  *```
  *
  *> 更多用法请参考：
- *[tab control](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/)
+ *[tab control](https://github.com/zlgopen/awtk/blob/master/design/default/ui/)
  *
  *可用通过style来设置控件的显示风格，如颜色等等。如：
  *
@@ -9666,7 +9761,7 @@ exports.TTabButtonGroup = TTabButtonGroup;
  *```
  *
  *> 更多用法请参考：
- *[basic](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/basic.xml)
+ *[basic](https://github.com/zlgopen/awtk/blob/master/design/default/ui/basic.xml)
  *
  *在c代码中使用函数slider\_create创建滑块控件。如：
  *
@@ -9686,7 +9781,7 @@ exports.TTabButtonGroup = TTabButtonGroup;
  *
  *> 更多用法请参考：
  *[theme
- *default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L179)
+ *default](https://github.com/zlgopen/awtk/blob/master/design/default/styles/default.xml#L179)
  *
  */
 var TSlider = /** @class */ (function (_super) {
@@ -9976,7 +10071,7 @@ exports.TRow = TRow;
  *```
  *
  *> 更多用法请参考：
- *[basic demo](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/basic.xml)
+ *[basic demo](https://github.com/zlgopen/awtk/blob/master/design/default/ui/basic.xml)
  *
  *在c代码中使用函数progress\_bar\_create创建进度条控件。如：
  *
@@ -9994,7 +10089,7 @@ exports.TRow = TRow;
  *
  *> 更多用法请参考：
  *[theme
- *default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L183)
+ *default](https://github.com/zlgopen/awtk/blob/master/design/default/styles/default.xml#L183)
  *
  */
 var TProgressBar = /** @class */ (function (_super) {
@@ -10160,7 +10255,7 @@ exports.TProgressBar = TProgressBar;
  *```
  *
  *> 更多用法请参考：
- *[tab control](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/)
+ *[tab control](https://github.com/zlgopen/awtk/blob/master/design/default/ui/)
  *
  */
 var TPages = /** @class */ (function (_super) {
@@ -10246,7 +10341,7 @@ exports.TPages = TPages;
  *```
  *
  *> 更多用法请参考：[label.xml](
- *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/label.xml)
+ *https://github.com/zlgopen/awtk/blob/master/design/default/ui/label.xml)
  *
  *在c代码中使用函数label\_create创建文本控件。如：
  *
@@ -10266,7 +10361,7 @@ exports.TPages = TPages;
  *
  *> 更多用法请参考：
  *[theme default](
- *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L144)
+ *https://github.com/zlgopen/awtk/blob/master/design/default/styles/default.xml#L144)
  *
  */
 var TLabel = /** @class */ (function (_super) {
@@ -10562,7 +10657,7 @@ exports.TGridItem = TGridItem;
  *> XXX：需要在min/max/step之前设置input\_type。
  *
  *>更多用法请参考：
- *[edit.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/edit.xml)
+ *[edit.xml](https://github.com/zlgopen/awtk/blob/master/design/default/ui/edit.xml)
  *
  *在c代码中使用函数edit\_create创建编辑器控件。如：
  *
@@ -10586,7 +10681,7 @@ exports.TGridItem = TGridItem;
  *
  *> 更多用法请参考：
  *[theme
- *default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L104)
+ *default](https://github.com/zlgopen/awtk/blob/master/design/default/styles/default.xml#L104)
  *
  */
 var TEdit = /** @class */ (function (_super) {
@@ -10702,6 +10797,16 @@ var TEdit = /** @class */ (function (_super) {
         return edit_set_readonly(this != null ? (this.nativeObj || this) : null, readonly);
     };
     /**
+     * 设置编辑器是否为可撤销修改。
+     *
+     * @param cancelable 是否为可撤销修。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TEdit.prototype.setCancelable = function (cancelable) {
+        return edit_set_cancelable(this != null ? (this.nativeObj || this) : null, cancelable);
+    };
+    /**
      * 设置编辑器是否为自动改正。
      *
      * @param auto_fix 自动改正。
@@ -10724,12 +10829,25 @@ var TEdit = /** @class */ (function (_super) {
     /**
      * 设置编辑器是否在获得焦点时打开输入法。
      *
+     *> * 设置默认焦点时，打开窗口时不弹出软键盘。
+     *> * 用键盘切换焦点时，编辑器获得焦点时不弹出软键盘。
+     *
      * @param open_im_when_focused 是否在获得焦点时打开输入法。
      *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TEdit.prototype.setOpenImWhenFocused = function (open_im_when_focused) {
         return edit_set_open_im_when_focused(this != null ? (this.nativeObj || this) : null, open_im_when_focused);
+    };
+    /**
+     * 设置编辑器是否在失去焦点时关闭输入法。
+     *
+     * @param close_im_when_blured 是否是否在失去焦点时关闭输入法。在失去焦点时关闭输入法。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TEdit.prototype.setCloseImWhenBlured = function (close_im_when_blured) {
+        return edit_set_close_im_when_blured(this != null ? (this.nativeObj || this) : null, close_im_when_blured);
     };
     /**
      * 设置编辑器的输入类型。
@@ -10881,6 +10999,20 @@ var TEdit = /** @class */ (function (_super) {
         },
         set: function (v) {
             this.setOpenImWhenFocused(v);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TEdit.prototype, "closeImWhenBlured", {
+        /**
+         * 是否在失去焦点时关闭输入法(默认是)。
+         *
+         */
+        get: function () {
+            return edit_t_get_prop_close_im_when_blured(this.nativeObj);
+        },
+        set: function (v) {
+            this.setCloseImWhenBlured(v);
         },
         enumerable: true,
         configurable: true
@@ -11038,6 +11170,23 @@ var TEdit = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(TEdit.prototype, "cancelable", {
+        /**
+         * 是否支持撤销编辑。如果为TRUE，在失去焦点之前可以撤销所有修改(恢复获得焦点之前的内容)。
+         *
+         *> * 1.一般配合keyboard的"cancel"按钮使用。
+         *> * 2.为TRUE时，如果内容有变化，会设置编辑器的状态为changed，所以此时编辑器需要支持changed状态的style。
+         *
+         */
+        get: function () {
+            return edit_t_get_prop_cancelable(this.nativeObj);
+        },
+        set: function (v) {
+            this.setCancelable(v);
+        },
+        enumerable: true,
+        configurable: true
+    });
     return TEdit;
 }(TWidget));
 exports.TEdit = TEdit;
@@ -11150,7 +11299,7 @@ exports.TDragger = TDragger;
  *```
  *
  *> 更多用法请参考：[digit\_clock.xml](
- *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/digit_clock.xml)
+ *https://github.com/zlgopen/awtk/blob/master/design/default/ui/digit_clock.xml)
  *
  *在c代码中使用函数digit\_clock\_create创建数字时钟控件。如：
  *
@@ -11167,7 +11316,7 @@ exports.TDragger = TDragger;
  *```
  *
  *> 更多用法请参考：[theme default](
- *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L138)
+ *https://github.com/zlgopen/awtk/blob/master/design/default/styles/default.xml#L138)
  *
  */
 var TDigitClock = /** @class */ (function (_super) {
@@ -11690,7 +11839,7 @@ exports.TCmdExecEvent = TCmdExecEvent;
  *```
  *
  *> 更多用法请参考：[time\_clock.xml](
- *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/time_clock.xml)
+ *https://github.com/zlgopen/awtk/blob/master/design/default/ui/time_clock.xml)
  *
  *在c代码中使用函数time\_clock\_create创建模拟时钟控件。如：
  *
@@ -12029,68 +12178,6 @@ var TTimeClock = /** @class */ (function (_super) {
 exports.TTimeClock = TTimeClock;
 ;
 /**
- * column。一个简单的容器控件，垂直排列其子控件。
- *
- *它本身不提供布局功能，仅提供具有语义的标签，让xml更具有可读性。
- *子控件的布局可用layout\_children属性指定。
- *请参考[布局参数](https://github.com/zlgopen/awtk/blob/master/docs/layout.md)。
- *
- *column\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于column\_t控件。
- *
- *在xml中使用"column"标签创建column。如：
- *
- *```xml
- *<column x="0" y="0" w="100%" h="100%" children_layout="default(c=1,r=0)">
- *<button name="open:basic" text="Basic"/>
- *<button name="open:button" text="Buttons"/>
- *<button name="open:edit" text="Edits"/>
- *<button name="open:keyboard" text="KeyBoard"/>
- *</column>
- *```
- *
- *可用通过style来设置控件的显示风格，如背景颜色等。如：
- *
- *```xml
- *<style name="default" border_color="#a0a0a0">
- *<normal     bg_color="#f0f0f0" />
- *</style>
- *```
- *
- */
-var TColumn = /** @class */ (function (_super) {
-    __extends(TColumn, _super);
-    function TColumn(nativeObj) {
-        return _super.call(this, nativeObj) || this;
-    }
-    /**
-     * 创建column对象
-     *
-     * @param parent 父控件
-     * @param x x坐标
-     * @param y y坐标
-     * @param w 宽度
-     * @param h 高度
-     *
-     * @returns 对象。
-     */
-    TColumn.create = function (parent, x, y, w, h) {
-        return new TColumn(column_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
-    };
-    /**
-     * 转换为column对象(供脚本语言使用)。
-     *
-     * @param widget column对象。
-     *
-     * @returns column对象。
-     */
-    TColumn.cast = function (widget) {
-        return new TColumn(column_cast(widget != null ? (widget.nativeObj || widget) : null));
-    };
-    return TColumn;
-}(TWidget));
-exports.TColumn = TColumn;
-;
-/**
  * 文本选择器控件，通常用于选择日期和时间等。
  *
  *> XXX: 目前需要先设置options和visible_nr，再设置其它参数(在XML中也需要按此顺序)。
@@ -12104,7 +12191,7 @@ exports.TColumn = TColumn;
  *```
  *
  *> 更多用法请参考：[text\_selector.xml](
- *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/text_selector.xml)
+ *https://github.com/zlgopen/awtk/blob/master/design/default/ui/text_selector.xml)
  *
  *在c代码中使用函数text\_selector\_create创建文本选择器控件。如：
  *
@@ -12121,7 +12208,7 @@ exports.TColumn = TColumn;
  *```
  *
  *> 更多用法请参考：[theme default](
- *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L443)
+ *https://github.com/zlgopen/awtk/blob/master/design/default/styles/default.xml#L443)
  *
  */
 var TTextSelector = /** @class */ (function (_super) {
@@ -12311,6 +12398,68 @@ var TTextSelector = /** @class */ (function (_super) {
 exports.TTextSelector = TTextSelector;
 ;
 /**
+ * column。一个简单的容器控件，垂直排列其子控件。
+ *
+ *它本身不提供布局功能，仅提供具有语义的标签，让xml更具有可读性。
+ *子控件的布局可用layout\_children属性指定。
+ *请参考[布局参数](https://github.com/zlgopen/awtk/blob/master/docs/layout.md)。
+ *
+ *column\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于column\_t控件。
+ *
+ *在xml中使用"column"标签创建column。如：
+ *
+ *```xml
+ *<column x="0" y="0" w="100%" h="100%" children_layout="default(c=1,r=0)">
+ *<button name="open:basic" text="Basic"/>
+ *<button name="open:button" text="Buttons"/>
+ *<button name="open:edit" text="Edits"/>
+ *<button name="open:keyboard" text="KeyBoard"/>
+ *</column>
+ *```
+ *
+ *可用通过style来设置控件的显示风格，如背景颜色等。如：
+ *
+ *```xml
+ *<style name="default" border_color="#a0a0a0">
+ *<normal     bg_color="#f0f0f0" />
+ *</style>
+ *```
+ *
+ */
+var TColumn = /** @class */ (function (_super) {
+    __extends(TColumn, _super);
+    function TColumn(nativeObj) {
+        return _super.call(this, nativeObj) || this;
+    }
+    /**
+     * 创建column对象
+     *
+     * @param parent 父控件
+     * @param x x坐标
+     * @param y y坐标
+     * @param w 宽度
+     * @param h 高度
+     *
+     * @returns 对象。
+     */
+    TColumn.create = function (parent, x, y, w, h) {
+        return new TColumn(column_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
+    };
+    /**
+     * 转换为column对象(供脚本语言使用)。
+     *
+     * @param widget column对象。
+     *
+     * @returns column对象。
+     */
+    TColumn.cast = function (widget) {
+        return new TColumn(column_cast(widget != null ? (widget.nativeObj || widget) : null));
+    };
+    return TColumn;
+}(TWidget));
+exports.TColumn = TColumn;
+;
+/**
  * 开关控件。
  *
  *switch\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于switch\_t控件。
@@ -12322,7 +12471,7 @@ exports.TTextSelector = TTextSelector;
  *```
  *
  *> 更多用法请参考：[switch.xml](
- *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/switch.xml)
+ *https://github.com/zlgopen/awtk/blob/master/design/default/ui/switch.xml)
  *
  *在c代码中使用函数switch\_create创建开关控件。如：
  *
@@ -12339,7 +12488,7 @@ exports.TTextSelector = TTextSelector;
  *```
  *
  *> 更多用法请参考：[theme default](
- *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L452)
+ *https://github.com/zlgopen/awtk/blob/master/design/default/styles/default.xml#L452)
  *
  */
 var TSwitch = /** @class */ (function (_super) {
@@ -12426,7 +12575,7 @@ exports.TSwitch = TSwitch;
  *```
  *
  *> 更多用法请参考：
- *[color_tile](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/color_picker_rgb.xml)
+ *[color_tile](https://github.com/zlgopen/awtk/blob/master/design/default/ui/color_picker_rgb.xml)
  *
  *在c代码中使用函数color_tile\_create创建色块控件。如：
  *
@@ -12580,7 +12729,7 @@ exports.TClipView = TClipView;
  *```
  *
  *> 更多用法请参考：
- *[button.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/basic.xml)
+ *[button.xml](https://github.com/zlgopen/awtk/blob/master/design/default/ui/basic.xml)
  *
  *在c代码中使用函数check\_button\_create创建多选按钮控件。如：
  *
@@ -12606,7 +12755,7 @@ exports.TClipView = TClipView;
  *
  *> 更多用法请参考：
  *[theme
- *default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L227)
+ *default](https://github.com/zlgopen/awtk/blob/master/design/default/styles/default.xml#L227)
  *
  */
 var TCheckButton = /** @class */ (function (_super) {
@@ -12701,7 +12850,7 @@ exports.TCheckButton = TCheckButton;
  *```
  *
  *> 更多用法请参考：[slide_view.xml](
- *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/slide_view.xml)
+ *https://github.com/zlgopen/awtk/blob/master/design/default/ui/slide_view.xml)
  *
  *在c代码中使用函数slide\_view\_create创建滑动视图控件。如：
  *
@@ -12721,7 +12870,7 @@ exports.TCheckButton = TCheckButton;
  *> 如果希望背景图片跟随滚动，请将背景图片设置到页面上，否则设置到slide\_view上。
  *
  *> 更多用法请参考：[theme default](
- *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L458)
+ *https://github.com/zlgopen/awtk/blob/master/design/default/styles/default.xml#L458)
  *
  */
 var TSlideView = /** @class */ (function (_super) {
@@ -12894,7 +13043,7 @@ exports.TSlideView = TSlideView;
  *```
  *
  *> 更多用法请参考：[slide\_view.xml](
- *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/slide_view.xml)
+ *https://github.com/zlgopen/awtk/blob/master/design/default/ui/slide_view.xml)
  *
  *在c代码中使用函数slide\_indicator\_create创建指示器控件。如：
  *
@@ -12906,7 +13055,7 @@ exports.TSlideView = TSlideView;
  *```
  *
  *> 更多用法请参考：[theme default](
- *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L350)
+ *https://github.com/zlgopen/awtk/blob/master/design/default/styles/default.xml#L350)
  *
  */
 var TSlideIndicator = /** @class */ (function (_super) {
@@ -13215,7 +13364,7 @@ exports.TSlideIndicator = TSlideIndicator;
  *```
  *
  *> 更多用法请参考：[slide_menu.xml](
- *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/slide_menu.xml)
+ *https://github.com/zlgopen/awtk/blob/master/design/default/ui/slide_menu.xml)
  *
  *在c代码中使用函数slide\_menu\_create创建左右滑动菜单控件。如：
  *
@@ -13238,7 +13387,7 @@ exports.TSlideIndicator = TSlideIndicator;
  *```
  *
  *> 更多用法请参考：[theme default](
- *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L493)
+ *https://github.com/zlgopen/awtk/blob/master/design/default/styles/default.xml#L493)
  *
  */
 var TSlideMenu = /** @class */ (function (_super) {
@@ -13370,7 +13519,7 @@ exports.TSlideMenu = TSlideMenu;
  *> 滚动视图一般作为列表视图的子控件使用。
  *
  *> 更多用法请参考：[list\_view\_m.xml](
- *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/list_view_m.xml)
+ *https://github.com/zlgopen/awtk/blob/master/design/default/ui/list_view_m.xml)
  *
  *在c代码中使用函数scroll\_view\_create创建列表视图控件。如：
  *
@@ -13616,7 +13765,7 @@ exports.TScrollView = TScrollView;
  *```
  *
  *> 更多用法请参考：[list\_view\_m.xml](
- *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/list_view_m.xml)
+ *https://github.com/zlgopen/awtk/blob/master/design/default/ui/list_view_m.xml)
  *
  *在c代码中使用函数scroll\_bar\_create创建列表项控件。如：
  *
@@ -13630,7 +13779,7 @@ exports.TScrollView = TScrollView;
  *```
  *
  *> 更多用法请参考：[theme default](
- *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L350)
+ *https://github.com/zlgopen/awtk/blob/master/design/default/styles/default.xml#L350)
  *
  */
 var TScrollBar = /** @class */ (function (_super) {
@@ -13822,7 +13971,7 @@ exports.TScrollBar = TScrollBar;
  *如果不需要滚动，可以用view控件配置适当的layout参数作为列表控件。
  *
  *列表视图中的列表项可以固定高度，也可以使用不同高度。请参考[变高列表项](
- *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/list_view_vh.xml)
+ *https://github.com/zlgopen/awtk/blob/master/design/default/ui/list_view_vh.xml)
  *
  *列表视图控件的中可以有滚动条，也可以没有滚动条。
  *可以使用移动设备风格的滚动条，也可以使用桌面风格的滚动条。
@@ -13849,7 +13998,7 @@ exports.TScrollBar = TScrollBar;
  *
  *
  *> 更多用法请参考：[list\_view\_m.xml](
- *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/list_view_m.xml)
+ *https://github.com/zlgopen/awtk/blob/master/design/default/ui/list_view_m.xml)
  *
  *在c代码中使用函数list\_view\_create创建列表视图控件。如：
  *
@@ -13994,7 +14143,7 @@ exports.TListView = TListView;
  *
  *
  *> 更多用法请参考：[list\_view\_h.xml](
- *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/list_view_h.xml)
+ *https://github.com/zlgopen/awtk/blob/master/design/default/ui/list_view_h.xml)
  *
  *在c代码中使用函数list\_view\_h\_create创建水平列表视图控件。如：
  *
@@ -14110,7 +14259,7 @@ exports.TListViewH = TListViewH;
  *```
  *
  *> 更多用法请参考：[list\_view\_m.xml](
- *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/list_view_m.xml)
+ *https://github.com/zlgopen/awtk/blob/master/design/default/ui/list_view_m.xml)
  *
  *在c代码中使用函数list\_item\_create创建列表项控件。如：
  *
@@ -14128,7 +14277,7 @@ exports.TListViewH = TListViewH;
  *```
  *
  *> 更多用法请参考：[theme default](
- *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L372)
+ *https://github.com/zlgopen/awtk/blob/master/design/default/styles/default.xml#L372)
  *
  */
 var TListItem = /** @class */ (function (_super) {
@@ -14180,7 +14329,7 @@ exports.TListItem = TListItem;
  *```
  *
  *> 更多用法请参考：
- *[button.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/button.xml)
+ *[button.xml](https://github.com/zlgopen/awtk/blob/master/design/default/ui/button.xml)
  *
  *在c代码中使用函数button\_create创建按钮控件。如：
  *
@@ -14203,7 +14352,7 @@ exports.TListItem = TListItem;
  *
  *> 更多用法请参考：
  *[theme
- *default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L31)
+ *default](https://github.com/zlgopen/awtk/blob/master/design/default/styles/default.xml#L31)
  *
  */
 var TButton = /** @class */ (function (_super) {
@@ -14246,6 +14395,16 @@ var TButton = /** @class */ (function (_super) {
         return button_set_repeat(this != null ? (this.nativeObj || this) : null, repeat);
     };
     /**
+     * 设置触发长按事件的时间。
+     *
+     * @param long_press_time 触发长按事件的时间(毫秒)。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TButton.prototype.setLongPressTime = function (long_press_time) {
+        return button_set_long_press_time(this != null ? (this.nativeObj || this) : null, long_press_time);
+    };
+    /**
      * 设置是否启用长按事件。
      *
      * @param enable_long_press 是否启用长按事件。
@@ -14284,6 +14443,20 @@ var TButton = /** @class */ (function (_super) {
         },
         set: function (v) {
             this.setEnableLongPress(v);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TButton.prototype, "longPressTime", {
+        /**
+         * 触发长按事件的时间(ms)
+         *
+         */
+        get: function () {
+            return button_t_get_prop_long_press_time(this.nativeObj);
+        },
+        set: function (v) {
+            this.setLongPressTime(v);
         },
         enumerable: true,
         configurable: true
@@ -14464,7 +14637,7 @@ exports.TOrientationEvent = TOrientationEvent;
  *```
  *
  *> 更多用法请参考：[mledit.xml](
- *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/mledit.xml)
+ *https://github.com/zlgopen/awtk/blob/master/design/default/ui/mledit.xml)
  *
  *可用通过style来设置控件的显示风格，如字体的大小和颜色等等。如：
  *
@@ -14477,7 +14650,7 @@ exports.TOrientationEvent = TOrientationEvent;
  *
  *> 更多用法请参考：
  *[theme default](
- *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml)
+ *https://github.com/zlgopen/awtk/blob/master/design/default/styles/default.xml)
  *
  */
 var THscrollLabel = /** @class */ (function (_super) {
@@ -14748,7 +14921,7 @@ exports.THscrollLabel = THscrollLabel;
  *>
  *
  *> 更多用法请参考：
- *[rich_text.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/rich_text.xml)
+ *[rich_text.xml](https://github.com/zlgopen/awtk/blob/master/design/default/ui/rich_text.xml)
  *
  *在c代码中使用函数rich\_text\_create创建图文混排控件。如：
  *
@@ -14838,6 +15011,64 @@ var TRichText = /** @class */ (function (_super) {
     return TRichText;
 }(TWidget));
 exports.TRichText = TRichText;
+;
+/**
+ * rich_text_view是一个专用容器，用来放rich text和 scroll bar，并在两者之间建立联系。
+ *
+ *rich_text_view\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于rich_text_view\_t控件。
+ *
+ *在xml中使用"rich_text_view"标签创建rich_text_view。如：
+ *
+ *```xml
+ *<rich_text_view x="0" y="10" w="100%" h="300">
+ *<rich_text line_gap="5" x="0" y="10" w="-12" h="100%" margin="10">
+ *...
+ *</rich_text>
+ *<scroll_bar_d name="bar" x="right" y="0" w="12" h="100%" value="0"/>
+ *</rich_text_view>
+ *```
+ *
+ *可用通过style来设置控件的显示风格，如背景颜色等。如：
+ *
+ *```xml
+ *<style name="default" border_color="#a0a0a0">
+ *<normal     bg_color="#f0f0f0" />
+ *</style>
+ *```
+ *
+ */
+var TRichTextView = /** @class */ (function (_super) {
+    __extends(TRichTextView, _super);
+    function TRichTextView(nativeObj) {
+        return _super.call(this, nativeObj) || this;
+    }
+    /**
+     * 创建rich_text_view对象
+     *
+     * @param parent 父控件
+     * @param x x坐标
+     * @param y y坐标
+     * @param w 宽度
+     * @param h 高度
+     *
+     * @returns 对象。
+     */
+    TRichTextView.create = function (parent, x, y, w, h) {
+        return new TRichTextView(rich_text_view_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
+    };
+    /**
+     * 转换为rich_text_view对象(供脚本语言使用)。
+     *
+     * @param widget rich_text_view对象。
+     *
+     * @returns rich_text_view对象。
+     */
+    TRichTextView.cast = function (widget) {
+        return new TRichTextView(rich_text_view_cast(widget != null ? (widget.nativeObj || widget) : null));
+    };
+    return TRichTextView;
+}(TWidget));
+exports.TRichTextView = TRichTextView;
 ;
 /**
  * 指针事件。
@@ -14962,64 +15193,6 @@ var TPointerEvent = /** @class */ (function (_super) {
 exports.TPointerEvent = TPointerEvent;
 ;
 /**
- * rich_text_view是一个专用容器，用来放rich text和 scroll bar，并在两者之间建立联系。
- *
- *rich_text_view\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于rich_text_view\_t控件。
- *
- *在xml中使用"rich_text_view"标签创建rich_text_view。如：
- *
- *```xml
- *<rich_text_view x="0" y="10" w="100%" h="300">
- *<rich_text line_gap="5" x="0" y="10" w="-12" h="100%" margin="10">
- *...
- *</rich_text>
- *<scroll_bar_d name="bar" x="right" y="0" w="12" h="100%" value="0"/>
- *</rich_text_view>
- *```
- *
- *可用通过style来设置控件的显示风格，如背景颜色等。如：
- *
- *```xml
- *<style name="default" border_color="#a0a0a0">
- *<normal     bg_color="#f0f0f0" />
- *</style>
- *```
- *
- */
-var TRichTextView = /** @class */ (function (_super) {
-    __extends(TRichTextView, _super);
-    function TRichTextView(nativeObj) {
-        return _super.call(this, nativeObj) || this;
-    }
-    /**
-     * 创建rich_text_view对象
-     *
-     * @param parent 父控件
-     * @param x x坐标
-     * @param y y坐标
-     * @param w 宽度
-     * @param h 高度
-     *
-     * @returns 对象。
-     */
-    TRichTextView.create = function (parent, x, y, w, h) {
-        return new TRichTextView(rich_text_view_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
-    };
-    /**
-     * 转换为rich_text_view对象(供脚本语言使用)。
-     *
-     * @param widget rich_text_view对象。
-     *
-     * @returns rich_text_view对象。
-     */
-    TRichTextView.cast = function (widget) {
-        return new TRichTextView(rich_text_view_cast(widget != null ? (widget.nativeObj || widget) : null));
-    };
-    return TRichTextView;
-}(TWidget));
-exports.TRichTextView = TRichTextView;
-;
-/**
  * 进度圆环控件。
  *
  *progress\_circle\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于progress\_circle\_t控件。
@@ -15031,7 +15204,7 @@ exports.TRichTextView = TRichTextView;
  *```
  *
  *> 更多用法请参考：
- *[progress_circle.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/progress_circle.xml)
+ *[progress_circle.xml](https://github.com/zlgopen/awtk/blob/master/design/default/ui/progress_circle.xml)
  *
  *在c代码中使用函数progress\_circle\_create创建进度圆环控件。如：
  *
@@ -15050,7 +15223,7 @@ exports.TRichTextView = TRichTextView;
  *
  *> 更多用法请参考：
  *[theme
- *default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L467)
+ *default](https://github.com/zlgopen/awtk/blob/master/design/default/styles/default.xml#L467)
  *
  */
 var TProgressCircle = /** @class */ (function (_super) {
@@ -15458,7 +15631,7 @@ exports.TKeyEvent = TKeyEvent;
  *```
  *
  *> 更多用法请参考：[mledit.xml](
- *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/mledit.xml)
+ *https://github.com/zlgopen/awtk/blob/master/design/default/ui/mledit.xml)
  *
  *在c代码中使用函数mledit\_create创建多行编辑器控件。如：
  *
@@ -15497,6 +15670,16 @@ var TMledit = /** @class */ (function (_super) {
      */
     TMledit.prototype.setReadonly = function (readonly) {
         return mledit_set_readonly(this != null ? (this.nativeObj || this) : null, readonly);
+    };
+    /**
+     * 设置编辑器是否为可撤销修改。
+     *
+     * @param cancelable 是否为可撤销修。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TMledit.prototype.setCancelable = function (cancelable) {
+        return mledit_set_cancelable(this != null ? (this.nativeObj || this) : null, cancelable);
     };
     /**
      * 设置为焦点。
@@ -15730,6 +15913,23 @@ var TMledit = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(TMledit.prototype, "cancelable", {
+        /**
+         * 是否支持撤销编辑。如果为TRUE，在失去焦点之前可以撤销所有修改(恢复获得焦点之前的内容)。
+         *
+         *> * 1.一般配合keyboard的"cancel"按钮使用。
+         *> * 2.为TRUE时，如果内容有变化，会设置编辑器的状态为changed，所以此时编辑器需要支持changed状态的style。
+         *
+         */
+        get: function () {
+            return mledit_t_get_prop_cancelable(this.nativeObj);
+        },
+        set: function (v) {
+            this.setCancelable(v);
+        },
+        enumerable: true,
+        configurable: true
+    });
     return TMledit;
 }(TWidget));
 exports.TMledit = TMledit;
@@ -15750,7 +15950,7 @@ exports.TMledit = TMledit;
  *```
  *
  *> 更多用法请参考：[mledit.xml](
- *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/mledit.xml)
+ *https://github.com/zlgopen/awtk/blob/master/design/default/ui/mledit.xml)
  *
  *可用通过style来设置控件的显示风格，如字体的大小和颜色等等。如：
  *
@@ -15764,7 +15964,7 @@ exports.TMledit = TMledit;
  *
  *> 更多用法请参考：
  *[theme default](
- *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L556)
+ *https://github.com/zlgopen/awtk/blob/master/design/default/styles/default.xml#L556)
  *
  */
 var TLineNumber = /** @class */ (function (_super) {
@@ -16088,7 +16288,7 @@ exports.TCandidates = TCandidates;
  *```
  *
  *> 更多用法请参考：
- *[image\_value](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/image_value.xml)
+ *[image\_value](https://github.com/zlgopen/awtk/blob/master/design/default/ui/image_value.xml)
  *
  *在c代码中使用函数image\_value\_create创建图片值控件。如：
  *
@@ -16291,7 +16491,7 @@ exports.TImageValue = TImageValue;
  *```
  *
  *> 更多用法请参考：
- *[image_animation.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/image_animation.xml)
+ *[image_animation.xml](https://github.com/zlgopen/awtk/blob/master/design/default/ui/image_animation.xml)
  *
  *在c代码中使用函数image\_animation\_create创建图片动画控件。如：
  *
@@ -16624,7 +16824,7 @@ exports.TImageAnimation = TImageAnimation;
  *```
  *
  *> 更多用法请参考：
- *[guage.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/guage.xml)
+ *[guage.xml](https://github.com/zlgopen/awtk/blob/master/design/default/ui/guage.xml)
  *
  *在c代码中使用函数guage\_pointer\_create创建仪表指针控件。如：
  *
@@ -16890,7 +17090,7 @@ exports.TFileChooser = TFileChooser;
  *
  *完整示例请参考：
  *
- *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/file_chooser_for_open.xml
+ *https://github.com/zlgopen/awtk/blob/master/design/default/ui/file_chooser_for_open.xml
  *
  */
 var TFileBrowserView = /** @class */ (function (_super) {
@@ -17133,7 +17333,7 @@ exports.TFileBrowserView = TFileBrowserView;
  *```
  *
  *> 更多用法请参考：
- *[draggable.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/draggable.xml)
+ *[draggable.xml](https://github.com/zlgopen/awtk/blob/master/design/default/ui/draggable.xml)
  *
  *在c代码中使用函数draggable\_create创建按钮控件。如：
  *
@@ -17360,7 +17560,7 @@ exports.TDraggable = TDraggable;
  *```
  *
  *> 更多用法请参考：
- *[color\_picker](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/color_picker.xml)
+ *[color\_picker](https://github.com/zlgopen/awtk/blob/master/design/default/ui/color_picker.xml)
  *
  *其中的子控件必须按下列规则命名：
  *
@@ -17469,7 +17669,7 @@ exports.TColorComponent = TColorComponent;
  *```
  *
  *> 更多用法请参考：
- *[canvas_widget.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/vgcanvas.xml)
+ *[canvas_widget.xml](https://github.com/zlgopen/awtk/blob/master/design/default/ui/vgcanvas.xml)
  *
  *在c代码中使用函数canvas\_widget\_create创建画布控件。如：
  *
@@ -17592,6 +17792,95 @@ var TWindowEvent = /** @class */ (function (_super) {
 exports.TWindowEvent = TWindowEvent;
 ;
 /**
+ * 多点触摸手势事件。
+ *
+ */
+var TMultiGestureEvent = /** @class */ (function (_super) {
+    __extends(TMultiGestureEvent, _super);
+    function TMultiGestureEvent(nativeObj) {
+        return _super.call(this, nativeObj) || this;
+    }
+    /**
+     * 把event对象转multi_gesture_event_t对象，主要给脚本语言使用。
+     *
+     * @param event event对象。
+     *
+     * @returns event对象。
+     */
+    TMultiGestureEvent.cast = function (event) {
+        return new TMultiGestureEvent(multi_gesture_event_cast(event != null ? (event.nativeObj || event) : null));
+    };
+    Object.defineProperty(TMultiGestureEvent.prototype, "touchId", {
+        /**
+         * touch device id。
+         *
+         */
+        get: function () {
+            return multi_gesture_event_t_get_prop_touch_id(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TMultiGestureEvent.prototype, "x", {
+        /**
+         * 中心点x坐标。
+         *
+         */
+        get: function () {
+            return multi_gesture_event_t_get_prop_x(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TMultiGestureEvent.prototype, "y", {
+        /**
+         * 中心点y坐标。
+         *
+         */
+        get: function () {
+            return multi_gesture_event_t_get_prop_y(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TMultiGestureEvent.prototype, "rotation", {
+        /**
+         * 旋转角度(幅度)增量。
+         *
+         */
+        get: function () {
+            return multi_gesture_event_t_get_prop_rotation(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TMultiGestureEvent.prototype, "distance", {
+        /**
+         * 两点间的距离增量。(-1,0)表示缩小，(0-1)表示增加。
+         *
+         */
+        get: function () {
+            return multi_gesture_event_t_get_prop_distance(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TMultiGestureEvent.prototype, "fingers", {
+        /**
+         * 本事件用到手指数。
+         *
+         */
+        get: function () {
+            return multi_gesture_event_t_get_prop_fingers(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return TMultiGestureEvent;
+}(TEvent));
+exports.TMultiGestureEvent = TMultiGestureEvent;
+;
+/**
  * 图片控件基类。
  *
  *本类把图片相关控件的公共行为进行抽象，放到一起方便重用。目前已知的具体实现如下图：
@@ -17603,9 +17892,9 @@ exports.TWindowEvent = TWindowEvent;
  *如果需要显示文件系统中的图片，只需将图片名称换成实际的文件名，并加上"file://"前缀即可。如：
  *
  *```
- *<image draw_type="center" image="file://./demos/assets/default/raw/images/xx/flag_CN.png" />
- *<gif image="file://./demos/assets/default/raw/images/x2/bee.gif" />
- *<svg image="file://./demos/assets/default/raw/images/svg/china.bsvg" />
+ *<image draw_type="center" image="file://./design/default/images/xx/flag_CN.png" />
+ *<gif image="file://./design/default/images/x2/bee.gif" />
+ *<svg image="file://./design/default/images/svg/china.bsvg" />
  *```
  *
  */
@@ -18249,7 +18538,7 @@ exports.TStyleMutable = TStyleMutable;
  *```
  *
  *> 更多用法请参考：
- *[window.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/calibration_win.xml)
+ *[window.xml](https://github.com/zlgopen/awtk/blob/master/design/default/ui/calibration_win.xml)
  *
  *在c代码中使用函数calibration\_win\_create创建窗口。如：
  *
@@ -18454,7 +18743,7 @@ exports.TTimerInfo = TTimerInfo;
  *
  *>更多用法请参考：
  *[gif
- *image](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/gif_image.xml)
+ *image](https://github.com/zlgopen/awtk/blob/master/design/default/ui/gif_image.xml)
  *
  *在c代码中使用函数gif\_image\_create创建GIF图片控件。如：
  *
@@ -18477,7 +18766,7 @@ exports.TTimerInfo = TTimerInfo;
  *```
  *
  *> 更多用法请参考：[theme default](
- *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml)
+ *https://github.com/zlgopen/awtk/blob/master/design/default/styles/default.xml)
  *
  */
 var TGifImage = /** @class */ (function (_super) {
@@ -18545,6 +18834,8 @@ exports.TGifImage = TGifImage;
  *| tab            | tab键           |
  *| space          | 空格键          |
  *| close          | 关闭软键盘       |
+ *| clear          | 清除编辑器的内容 |
+ *| cancel         | 恢复编辑器的内容 |
  *| back           | 关闭当前窗口     |
  *| back_to_home   | 返回home窗口    |
  *| 前缀key:        | 键值           |
@@ -18602,7 +18893,7 @@ exports.TGifImage = TGifImage;
  *```
  *
  *> 更多用法请参考：
- *[kb_default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/kb_default.xml)
+ *[kb_default](https://github.com/zlgopen/awtk/blob/master/design/default/ui/kb_default.xml)
  *
  */
 var TKeyboard = /** @class */ (function (_super) {
@@ -18655,7 +18946,7 @@ exports.TKeyboard = TKeyboard;
  *
  *>更多用法请参考：
  *[mutable
- *image](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/mutable_image.xml)
+ *image](https://github.com/zlgopen/awtk/blob/master/design/default/ui/mutable_image.xml)
  *
  *在c代码中使用函数mutable\_image\_create创建mutable图片控件。如：
  *
@@ -18805,7 +19096,7 @@ exports.TObjectArray = TObjectArray;
  *```
  *
  *>
- *更多用法请参考：[window.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/)
+ *更多用法请参考：[window.xml](https://github.com/zlgopen/awtk/blob/master/design/default/ui/)
  *
  *在c代码中使用函数window\_create创建窗口。如：
  *
@@ -18824,7 +19115,7 @@ exports.TObjectArray = TObjectArray;
  *```
  *
  *> 更多用法请参考：[theme
- *default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L0)
+ *default](https://github.com/zlgopen/awtk/blob/master/design/default/styles/default.xml#L0)
  *
  */
 var TWindow = /** @class */ (function (_super) {
@@ -18948,7 +19239,7 @@ exports.TWindow = TWindow;
  *```
  *
  *>更多用法请参考：[svg image](
- *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/svg_image.xml)
+ *https://github.com/zlgopen/awtk/blob/master/design/default/ui/svg_image.xml)
  *
  *在c代码中使用函数svg\_image\_create创建SVG图片控件。如：
  *
@@ -18969,7 +19260,7 @@ exports.TWindow = TWindow;
  *```
  *
  *> 更多用法请参考：[theme default](
- *https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml)
+ *https://github.com/zlgopen/awtk/blob/master/design/default/styles/default.xml)
  *
  */
 var TSvgImage = /** @class */ (function (_super) {
@@ -19101,7 +19392,7 @@ exports.TIdleInfo = TIdleInfo;
  *</popup>
  *```
  *
- *> 更多用法请参考：[combo_box.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/combo_box.xml)
+ *> 更多用法请参考：[combo_box.xml](https://github.com/zlgopen/awtk/blob/master/design/default/ui/combo_box.xml)
  *
  *
  *
@@ -19167,7 +19458,7 @@ exports.TIdleInfo = TIdleInfo;
  *```
  *
  *> 更多用法请参考：[theme
- *default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L422)
+ *default](https://github.com/zlgopen/awtk/blob/master/design/default/styles/default.xml#L422)
  *
  */
 var TComboBox = /** @class */ (function (_super) {
@@ -19416,7 +19707,7 @@ exports.TComboBox = TComboBox;
  *```
  *
  *> 更多用法请参考：
- *[image.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/images.xml)
+ *[image.xml](https://github.com/zlgopen/awtk/blob/master/design/default/ui/images.xml)
  *
  *在c代码中使用函数image\_create创建图片控件。如：
  *
@@ -19447,7 +19738,7 @@ exports.TComboBox = TComboBox;
  *
  *> 更多用法请参考：
  *[theme
- *default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L313)
+ *default](https://github.com/zlgopen/awtk/blob/master/design/default/styles/default.xml#L313)
  *
  */
 var TImage = /** @class */ (function (_super) {
@@ -19525,7 +19816,7 @@ exports.TImage = TImage;
  *```
  *
  *>
- *更多用法请参考：[overlay.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/)
+ *更多用法请参考：[overlay.xml](https://github.com/zlgopen/awtk/blob/master/design/default/ui/)
  *
  *在c代码中使用函数overlay\_create创建窗口。如：
  *
@@ -19542,7 +19833,7 @@ exports.TImage = TImage;
  *```
  *
  *> 更多用法请参考：[theme
- *default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L0)
+ *default](https://github.com/zlgopen/awtk/blob/master/design/default/styles/default.xml#L0)
  *
  */
 var TOverlay = /** @class */ (function (_super) {
@@ -19565,6 +19856,16 @@ var TOverlay = /** @class */ (function (_super) {
         return new TOverlay(overlay_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     /**
+     * 设置是否启用点击穿透。
+     *
+     * @param click_through 是否启用点击穿透。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TOverlay.prototype.setClickThrough = function (click_through) {
+        return overlay_set_click_through(this != null ? (this.nativeObj || this) : null, click_through);
+    };
+    /**
      * 转换为overlay对象(供脚本语言使用)。
      *
      * @param widget overlay对象。
@@ -19574,6 +19875,22 @@ var TOverlay = /** @class */ (function (_super) {
     TOverlay.cast = function (widget) {
         return new TOverlay(overlay_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
+    Object.defineProperty(TOverlay.prototype, "clickThrough", {
+        /**
+         * 点击穿透。点击没有子控件的位置，是否穿透到底层窗口。
+         *
+         *缺省不启用。
+         *
+         */
+        get: function () {
+            return overlay_t_get_prop_click_through(this.nativeObj);
+        },
+        set: function (v) {
+            this.setClickThrough(v);
+        },
+        enumerable: true,
+        configurable: true
+    });
     return TOverlay;
 }(TWindowBase));
 exports.TOverlay = TOverlay;
@@ -19600,7 +19917,7 @@ exports.TOverlay = TOverlay;
  *```
  *
  *>
- *更多用法请参考：[popup](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/)
+ *更多用法请参考：[popup](https://github.com/zlgopen/awtk/blob/master/design/default/ui/)
  *
  *在c代码中使用函数popup\_create创建弹出窗口。如：
  *
@@ -19620,7 +19937,7 @@ exports.TOverlay = TOverlay;
  *```
  *
  *> 更多用法请参考：[theme
- *default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L324)
+ *default](https://github.com/zlgopen/awtk/blob/master/design/default/styles/default.xml#L324)
  *
  */
 var TPopup = /** @class */ (function (_super) {
@@ -19721,7 +20038,7 @@ exports.TPopup = TPopup;
  *```
  *
  *>
- *更多用法请参考：[spin_box.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/spinbox.xml)
+ *更多用法请参考：[spin_box.xml](https://github.com/zlgopen/awtk/blob/master/design/default/ui/spinbox.xml)
  *
  *在c代码中使用函数spin_box\_create创建spinbox控件。如：
  *
@@ -19748,7 +20065,7 @@ exports.TPopup = TPopup;
  *```
  *
  *> 更多用法请参考：[theme
- *default](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L128)
+ *default](https://github.com/zlgopen/awtk/blob/master/design/default/styles/default.xml#L128)
  *
  */
 var TSpinBox = /** @class */ (function (_super) {
@@ -19812,7 +20129,7 @@ exports.TSpinBox = TSpinBox;
  *```
  *
  *> 更多用法请参考：
- *[system_bar](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/system_bar.xml)
+ *[system_bar](https://github.com/zlgopen/awtk/blob/master/design/default/ui/system_bar.xml)
  *
  *在c代码中使用函数system\_bar\_create创建system\_bar窗口。如：
  *
@@ -19830,7 +20147,7 @@ exports.TSpinBox = TSpinBox;
  *```
  *
  *> 更多用法请参考：
- *[system_bar.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/system_bar.xml)
+ *[system_bar.xml](https://github.com/zlgopen/awtk/blob/master/design/default/styles/system_bar.xml)
  *
  */
 var TSystemBar = /** @class */ (function (_super) {
@@ -19916,7 +20233,7 @@ exports.TSystemBar = TSystemBar;
  *
  *
  *> 更多用法请参考：
- *[dialog.xml](https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/ui/)
+ *[dialog.xml](https://github.com/zlgopen/awtk/blob/master/design/default/ui/)
  *
  *> 完整C代码示例请参考：
  *
@@ -19934,7 +20251,7 @@ exports.TSystemBar = TSystemBar;
  *
  *> 更多用法请参考：
  *[theme default]
- *(https://github.com/zlgopen/awtk/blob/master/demos/assets/default/raw/styles/default.xml#L324)
+ *(https://github.com/zlgopen/awtk/blob/master/design/default/styles/default.xml#L324)
  *
  */
 var TDialog = /** @class */ (function (_super) {
