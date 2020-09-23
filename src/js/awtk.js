@@ -73,6 +73,17 @@ var TEvent = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(TEvent.prototype, "size", {
+        /**
+         * 结构体的大小。
+         *
+         */
+        get: function () {
+            return event_t_get_prop_size(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(TEvent.prototype, "time", {
         /**
          * 事件发生的时间。
@@ -1505,17 +1516,17 @@ var TEventType;
      */
     TEventType[TEventType["MOVE_RESIZE"] = EVT_MOVE_RESIZE()] = "MOVE_RESIZE";
     /**
-     * 控件的值即将改变的事件名(event_t)。
+     * 控件的值即将改变的事件名(value_change_event_t)。
      *
      */
     TEventType[TEventType["VALUE_WILL_CHANGE"] = EVT_VALUE_WILL_CHANGE()] = "VALUE_WILL_CHANGE";
     /**
-     * 控件的值改变的事件名(event_t)。
+     * 控件的值改变的事件名(value_change_event_t)。
      *
      */
     TEventType[TEventType["VALUE_CHANGED"] = EVT_VALUE_CHANGED()] = "VALUE_CHANGED";
     /**
-     * 控件的值持续改变(如编辑器正在编辑)的事件名(event_t)。
+     * 控件的值持续改变(如编辑器正在编辑)的事件名(value_change_event_t)。
      *
      */
     TEventType[TEventType["VALUE_CHANGING"] = EVT_VALUE_CHANGING()] = "VALUE_CHANGING";
@@ -2982,6 +2993,119 @@ var TAssetsManager = /** @class */ (function () {
 exports.TAssetsManager = TAssetsManager;
 ;
 /**
+ * 类型常量定义。
+ *
+ */
+var TValueType;
+(function (TValueType) {
+    /**
+     * 无效类型。
+     *
+     */
+    TValueType[TValueType["INVALID"] = VALUE_TYPE_INVALID()] = "INVALID";
+    /**
+     * BOOL类型。
+     *
+     */
+    TValueType[TValueType["BOOL"] = VALUE_TYPE_BOOL()] = "BOOL";
+    /**
+     * int8_t类型。
+     *
+     */
+    TValueType[TValueType["INT8"] = VALUE_TYPE_INT8()] = "INT8";
+    /**
+     * uint8_t类型。
+     *
+     */
+    TValueType[TValueType["UINT8"] = VALUE_TYPE_UINT8()] = "UINT8";
+    /**
+     * int16_t类型。
+     *
+     */
+    TValueType[TValueType["INT16"] = VALUE_TYPE_INT16()] = "INT16";
+    /**
+     * uint16_t类型。
+     *
+     */
+    TValueType[TValueType["UINT16"] = VALUE_TYPE_UINT16()] = "UINT16";
+    /**
+     * int32_t类型。
+     *
+     */
+    TValueType[TValueType["INT32"] = VALUE_TYPE_INT32()] = "INT32";
+    /**
+     * uint32_t类型。
+     *
+     */
+    TValueType[TValueType["UINT32"] = VALUE_TYPE_UINT32()] = "UINT32";
+    /**
+     * int64_t类型。
+     *
+     */
+    TValueType[TValueType["INT64"] = VALUE_TYPE_INT64()] = "INT64";
+    /**
+     * uint64_t类型。
+     *
+     */
+    TValueType[TValueType["UINT64"] = VALUE_TYPE_UINT64()] = "UINT64";
+    /**
+     * void*类型。
+     *
+     */
+    TValueType[TValueType["POINTER"] = VALUE_TYPE_POINTER()] = "POINTER";
+    /**
+     * float_t类型。
+     *
+     */
+    TValueType[TValueType["FLOAT"] = VALUE_TYPE_FLOAT()] = "FLOAT";
+    /**
+     * float类型。
+     *
+     */
+    TValueType[TValueType["FLOAT32"] = VALUE_TYPE_FLOAT32()] = "FLOAT32";
+    /**
+     * double类型。
+     *
+     */
+    TValueType[TValueType["DOUBLE"] = VALUE_TYPE_DOUBLE()] = "DOUBLE";
+    /**
+     * char*类型。
+     *
+     */
+    TValueType[TValueType["STRING"] = VALUE_TYPE_STRING()] = "STRING";
+    /**
+     * wchar_t*类型。
+     *
+     */
+    TValueType[TValueType["WSTRING"] = VALUE_TYPE_WSTRING()] = "WSTRING";
+    /**
+     * object_t*类型。
+     *
+     */
+    TValueType[TValueType["OBJECT"] = VALUE_TYPE_OBJECT()] = "OBJECT";
+    /**
+     * 带长度的字符串。
+     *
+     */
+    TValueType[TValueType["SIZED_STRING"] = VALUE_TYPE_SIZED_STRING()] = "SIZED_STRING";
+    /**
+     * 二进制数据。
+     *
+     */
+    TValueType[TValueType["BINARY"] = VALUE_TYPE_BINARY()] = "BINARY";
+    /**
+     * 二进制数据(UBJSON)。
+     *
+     */
+    TValueType[TValueType["UBJSON"] = VALUE_TYPE_UBJSON()] = "UBJSON";
+    /**
+     * 特殊用途。
+     *
+     */
+    TValueType[TValueType["TOKEN"] = VALUE_TYPE_TOKEN()] = "TOKEN";
+})(TValueType = exports.TValueType || (exports.TValueType = {}));
+;
+/**
  * style常量定义。
  *
  */
@@ -3272,119 +3396,6 @@ var TStyle = /** @class */ (function () {
     return TStyle;
 }());
 exports.TStyle = TStyle;
-;
-/**
- * 类型常量定义。
- *
- */
-var TValueType;
-(function (TValueType) {
-    /**
-     * 无效类型。
-     *
-     */
-    TValueType[TValueType["INVALID"] = VALUE_TYPE_INVALID()] = "INVALID";
-    /**
-     * BOOL类型。
-     *
-     */
-    TValueType[TValueType["BOOL"] = VALUE_TYPE_BOOL()] = "BOOL";
-    /**
-     * int8_t类型。
-     *
-     */
-    TValueType[TValueType["INT8"] = VALUE_TYPE_INT8()] = "INT8";
-    /**
-     * uint8_t类型。
-     *
-     */
-    TValueType[TValueType["UINT8"] = VALUE_TYPE_UINT8()] = "UINT8";
-    /**
-     * int16_t类型。
-     *
-     */
-    TValueType[TValueType["INT16"] = VALUE_TYPE_INT16()] = "INT16";
-    /**
-     * uint16_t类型。
-     *
-     */
-    TValueType[TValueType["UINT16"] = VALUE_TYPE_UINT16()] = "UINT16";
-    /**
-     * int32_t类型。
-     *
-     */
-    TValueType[TValueType["INT32"] = VALUE_TYPE_INT32()] = "INT32";
-    /**
-     * uint32_t类型。
-     *
-     */
-    TValueType[TValueType["UINT32"] = VALUE_TYPE_UINT32()] = "UINT32";
-    /**
-     * int64_t类型。
-     *
-     */
-    TValueType[TValueType["INT64"] = VALUE_TYPE_INT64()] = "INT64";
-    /**
-     * uint64_t类型。
-     *
-     */
-    TValueType[TValueType["UINT64"] = VALUE_TYPE_UINT64()] = "UINT64";
-    /**
-     * void*类型。
-     *
-     */
-    TValueType[TValueType["POINTER"] = VALUE_TYPE_POINTER()] = "POINTER";
-    /**
-     * float_t类型。
-     *
-     */
-    TValueType[TValueType["FLOAT"] = VALUE_TYPE_FLOAT()] = "FLOAT";
-    /**
-     * float类型。
-     *
-     */
-    TValueType[TValueType["FLOAT32"] = VALUE_TYPE_FLOAT32()] = "FLOAT32";
-    /**
-     * double类型。
-     *
-     */
-    TValueType[TValueType["DOUBLE"] = VALUE_TYPE_DOUBLE()] = "DOUBLE";
-    /**
-     * char*类型。
-     *
-     */
-    TValueType[TValueType["STRING"] = VALUE_TYPE_STRING()] = "STRING";
-    /**
-     * wchar_t*类型。
-     *
-     */
-    TValueType[TValueType["WSTRING"] = VALUE_TYPE_WSTRING()] = "WSTRING";
-    /**
-     * object_t*类型。
-     *
-     */
-    TValueType[TValueType["OBJECT"] = VALUE_TYPE_OBJECT()] = "OBJECT";
-    /**
-     * 带长度的字符串。
-     *
-     */
-    TValueType[TValueType["SIZED_STRING"] = VALUE_TYPE_SIZED_STRING()] = "SIZED_STRING";
-    /**
-     * 二进制数据。
-     *
-     */
-    TValueType[TValueType["BINARY"] = VALUE_TYPE_BINARY()] = "BINARY";
-    /**
-     * 二进制数据(UBJSON)。
-     *
-     */
-    TValueType[TValueType["UBJSON"] = VALUE_TYPE_UBJSON()] = "UBJSON";
-    /**
-     * 特殊用途。
-     *
-     */
-    TValueType[TValueType["TOKEN"] = VALUE_TYPE_TOKEN()] = "TOKEN";
-})(TValueType = exports.TValueType || (exports.TValueType = {}));
 ;
 /**
  * 主题。
@@ -9110,46 +9121,36 @@ var TAssetType;
 })(TAssetType = exports.TAssetType || (exports.TAssetType = {}));
 ;
 /**
- * 表盘控件。
+ * 仪表指针控件。
  *
- *表盘控件就是一张图片。
+ *仪表指针就是一张旋转的图片，图片可以是普通图片也可以是SVG图片。
  *
- *guage\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于guage\_t控件。
+ *在嵌入式平台上，对于旋转的图片，SVG图片的效率比位图高数倍，所以推荐使用SVG图片。
  *
- *在xml中使用"guage"标签创建表盘控件。如：
+ *guage\_pointer\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于guage\_pointer\_t控件。
+ *
+ *在xml中使用"guage\_pointer"标签创建仪表指针控件。如：
  *
  *```xml
- *<guage x="c" y="10" w="240" h="240" image="guage_bg"
+ *<guage_pointer x="c" y="50" w="24" h="140" value="-128" image="guage_pointer" />
  *```
  *
  *> 更多用法请参考：
  *[guage.xml](https://github.com/zlgopen/awtk/blob/master/design/default/ui/guage.xml)
  *
- *在c代码中使用函数guage\_create创建表盘控件。如：
+ *在c代码中使用函数guage\_pointer\_create创建仪表指针控件。如：
  *
  *
- *可用通过style来设置控件的显示风格，如背景和边框等。如：
- *
- *```xml
- *<guage>
- *<style name="border">
- *<normal border_color="#000000" bg_color="#e0e0e0" text_color="black"/>
- *</style>
- *</guage>
- *```
- *
- *> 更多用法请参考：
- *[theme
- *default](https://github.com/zlgopen/awtk/blob/master/design/default/styles/default.xml)
+ *> 创建之后，需要用guage\_pointer\_set\_image设置仪表指针图片。
  *
  */
-var TGuage = /** @class */ (function (_super) {
-    __extends(TGuage, _super);
-    function TGuage(nativeObj) {
+var TGuagePointer = /** @class */ (function (_super) {
+    __extends(TGuagePointer, _super);
+    function TGuagePointer(nativeObj) {
         return _super.call(this, nativeObj) || this;
     }
     /**
-     * 创建guage对象
+     * 创建guage_pointer对象
      *
      * @param parent 父控件
      * @param x x坐标
@@ -9159,49 +9160,73 @@ var TGuage = /** @class */ (function (_super) {
      *
      * @returns 对象。
      */
-    TGuage.create = function (parent, x, y, w, h) {
-        return new TGuage(guage_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
+    TGuagePointer.create = function (parent, x, y, w, h) {
+        return new TGuagePointer(guage_pointer_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     /**
-     * 转换为guage对象(供脚本语言使用)。
+     * 转换为guage_pointer对象(供脚本语言使用)。
      *
-     * @param widget guage对象。
+     * @param widget guage_pointer对象。
      *
-     * @returns guage对象。
+     * @returns guage_pointer对象。
      */
-    TGuage.cast = function (widget) {
-        return new TGuage(guage_cast(widget != null ? (widget.nativeObj || widget) : null));
+    TGuagePointer.cast = function (widget) {
+        return new TGuagePointer(guage_pointer_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     /**
-     * 设置背景图片的名称。
+     * 设置指针角度。12点钟方向为0度，顺时钟方向为正，单位为度。
      *
-     * @param name 图片名称，该图片必须存在于资源管理器。
+     * @param angle 指针角度。
      *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
-    TGuage.prototype.setImage = function (name) {
-        return guage_set_image(this != null ? (this.nativeObj || this) : null, name);
+    TGuagePointer.prototype.setAngle = function (angle) {
+        return guage_pointer_set_angle(this != null ? (this.nativeObj || this) : null, angle);
     };
     /**
-     * 设置图片的显示方式。
+     * 设置指针的图片。
      *
-     *> 绘制方式的属性值和枚举值:
-     *[image\_draw\_type\_name\_value](https://github.com/zlgopen/awtk/blob/master/src/base/enums.c#L98)
-     *
-     * @param draw_type 显示方式。
+     * @param image 指针的图片。
      *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
-    TGuage.prototype.setDrawType = function (draw_type) {
-        return guage_set_draw_type(this != null ? (this.nativeObj || this) : null, draw_type);
+    TGuagePointer.prototype.setImage = function (image) {
+        return guage_pointer_set_image(this != null ? (this.nativeObj || this) : null, image);
     };
-    Object.defineProperty(TGuage.prototype, "image", {
+    /**
+     * 设置指针的旋转锚点。
+     *
+     * @param anchor_x 指针的锚点坐标x。(后面加上px为像素点，不加px为相对百分比坐标)
+     * @param anchor_y 指针的锚点坐标y。(后面加上px为像素点，不加px为相对百分比坐标)
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TGuagePointer.prototype.setAnchor = function (anchor_x, anchor_y) {
+        return guage_pointer_set_anchor(this != null ? (this.nativeObj || this) : null, anchor_x, anchor_y);
+    };
+    Object.defineProperty(TGuagePointer.prototype, "angle", {
         /**
-         * 背景图片。
+         * 指针角度。12点钟方向为0度，顺时钟方向为正，单位为度。
          *
          */
         get: function () {
-            return guage_t_get_prop_image(this.nativeObj);
+            return guage_pointer_t_get_prop_angle(this.nativeObj);
+        },
+        set: function (v) {
+            this.setAngle(v);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TGuagePointer.prototype, "image", {
+        /**
+         * 指针图片。
+         *
+         *图片须垂直向上，图片的中心点为旋转方向。
+         *
+         */
+        get: function () {
+            return guage_pointer_t_get_prop_image(this.nativeObj);
         },
         set: function (v) {
             this.setImage(v);
@@ -9209,23 +9234,31 @@ var TGuage = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(TGuage.prototype, "drawType", {
+    Object.defineProperty(TGuagePointer.prototype, "anchorX", {
         /**
-         * 图片的绘制方式。
+         * 图片旋转锚点x坐标。(后面加上px为像素点，不加px为相对百分比坐标0.0f到1.0f)
          *
          */
         get: function () {
-            return guage_t_get_prop_draw_type(this.nativeObj);
-        },
-        set: function (v) {
-            this.setDrawType(v);
+            return guage_pointer_t_get_prop_anchor_x(this.nativeObj);
         },
         enumerable: true,
         configurable: true
     });
-    return TGuage;
+    Object.defineProperty(TGuagePointer.prototype, "anchorY", {
+        /**
+         * 图片旋转锚点x坐标。(后面加上px为像素点，不加px为相对百分比坐标0.0f到1.0f)
+         *
+         */
+        get: function () {
+            return guage_pointer_t_get_prop_anchor_y(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return TGuagePointer;
 }(TWidget));
-exports.TGuage = TGuage;
+exports.TGuagePointer = TGuagePointer;
 ;
 /**
  * 滚轮事件。
@@ -12398,68 +12431,6 @@ var TTextSelector = /** @class */ (function (_super) {
 exports.TTextSelector = TTextSelector;
 ;
 /**
- * column。一个简单的容器控件，垂直排列其子控件。
- *
- *它本身不提供布局功能，仅提供具有语义的标签，让xml更具有可读性。
- *子控件的布局可用layout\_children属性指定。
- *请参考[布局参数](https://github.com/zlgopen/awtk/blob/master/docs/layout.md)。
- *
- *column\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于column\_t控件。
- *
- *在xml中使用"column"标签创建column。如：
- *
- *```xml
- *<column x="0" y="0" w="100%" h="100%" children_layout="default(c=1,r=0)">
- *<button name="open:basic" text="Basic"/>
- *<button name="open:button" text="Buttons"/>
- *<button name="open:edit" text="Edits"/>
- *<button name="open:keyboard" text="KeyBoard"/>
- *</column>
- *```
- *
- *可用通过style来设置控件的显示风格，如背景颜色等。如：
- *
- *```xml
- *<style name="default" border_color="#a0a0a0">
- *<normal     bg_color="#f0f0f0" />
- *</style>
- *```
- *
- */
-var TColumn = /** @class */ (function (_super) {
-    __extends(TColumn, _super);
-    function TColumn(nativeObj) {
-        return _super.call(this, nativeObj) || this;
-    }
-    /**
-     * 创建column对象
-     *
-     * @param parent 父控件
-     * @param x x坐标
-     * @param y y坐标
-     * @param w 宽度
-     * @param h 高度
-     *
-     * @returns 对象。
-     */
-    TColumn.create = function (parent, x, y, w, h) {
-        return new TColumn(column_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
-    };
-    /**
-     * 转换为column对象(供脚本语言使用)。
-     *
-     * @param widget column对象。
-     *
-     * @returns column对象。
-     */
-    TColumn.cast = function (widget) {
-        return new TColumn(column_cast(widget != null ? (widget.nativeObj || widget) : null));
-    };
-    return TColumn;
-}(TWidget));
-exports.TColumn = TColumn;
-;
-/**
  * 开关控件。
  *
  *switch\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于switch\_t控件。
@@ -12560,6 +12531,68 @@ var TSwitch = /** @class */ (function (_super) {
 exports.TSwitch = TSwitch;
 ;
 /**
+ * column。一个简单的容器控件，垂直排列其子控件。
+ *
+ *它本身不提供布局功能，仅提供具有语义的标签，让xml更具有可读性。
+ *子控件的布局可用layout\_children属性指定。
+ *请参考[布局参数](https://github.com/zlgopen/awtk/blob/master/docs/layout.md)。
+ *
+ *column\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于column\_t控件。
+ *
+ *在xml中使用"column"标签创建column。如：
+ *
+ *```xml
+ *<column x="0" y="0" w="100%" h="100%" children_layout="default(c=1,r=0)">
+ *<button name="open:basic" text="Basic"/>
+ *<button name="open:button" text="Buttons"/>
+ *<button name="open:edit" text="Edits"/>
+ *<button name="open:keyboard" text="KeyBoard"/>
+ *</column>
+ *```
+ *
+ *可用通过style来设置控件的显示风格，如背景颜色等。如：
+ *
+ *```xml
+ *<style name="default" border_color="#a0a0a0">
+ *<normal     bg_color="#f0f0f0" />
+ *</style>
+ *```
+ *
+ */
+var TColumn = /** @class */ (function (_super) {
+    __extends(TColumn, _super);
+    function TColumn(nativeObj) {
+        return _super.call(this, nativeObj) || this;
+    }
+    /**
+     * 创建column对象
+     *
+     * @param parent 父控件
+     * @param x x坐标
+     * @param y y坐标
+     * @param w 宽度
+     * @param h 高度
+     *
+     * @returns 对象。
+     */
+    TColumn.create = function (parent, x, y, w, h) {
+        return new TColumn(column_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
+    };
+    /**
+     * 转换为column对象(供脚本语言使用)。
+     *
+     * @param widget column对象。
+     *
+     * @returns column对象。
+     */
+    TColumn.cast = function (widget) {
+        return new TColumn(column_cast(widget != null ? (widget.nativeObj || widget) : null));
+    };
+    return TColumn;
+}(TWidget));
+exports.TColumn = TColumn;
+;
+/**
  * 色块控件。
  *
  *用来显示一个颜色块，它通过属性而不是主题来设置颜色，方便在运行时动态改变颜色。
@@ -12649,185 +12682,6 @@ var TColorTile = /** @class */ (function (_super) {
     return TColorTile;
 }(TWidget));
 exports.TColorTile = TColorTile;
-;
-/**
- * 一个裁剪子控件的容器控件。
- *
- *它本身不提供布局功能，仅提供具有语义的标签，让xml更具有可读性。
- *子控件的布局可用layout\_children属性指定。
- *请参考[布局参数](https://github.com/zlgopen/awtk/blob/master/docs/layout.md)。
- *
- *clip\_view\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于clip\_view\_t控件。
- *
- *在xml中使用"clip_view"标签创建clip_view，在clip_view控件下的所有子控件都会被裁剪。如下button控件会被裁剪，无法画出clip_view控件 ：
- *
- *```xml
- *<clip_view x="0" y="0" w="100" h="100">
- *<button x="50" y="10" w="100" h="50" />
- *</clip_view>
- *```
- *
- *备注：在clip_view控件下的所有子控件都会被裁剪，如果子控件本身会设置裁剪区的话，在子控件中计算裁剪区的交集，具体请参考scroll_view控件的scroll_view_on_paint_children函数。
- *
- *可用通过style来设置控件的显示风格，如背景颜色等。如：
- *
- *```xml
- *<style name="default" border_color="#a0a0a0">
- *<normal     bg_color="#f0f0f0" />
- *</style>
- *```
- *
- */
-var TClipView = /** @class */ (function (_super) {
-    __extends(TClipView, _super);
-    function TClipView(nativeObj) {
-        return _super.call(this, nativeObj) || this;
-    }
-    /**
-     * 创建clip_view对象
-     *
-     * @param parent 父控件
-     * @param x x坐标
-     * @param y y坐标
-     * @param w 宽度
-     * @param h 高度
-     *
-     * @returns 对象。
-     */
-    TClipView.create = function (parent, x, y, w, h) {
-        return new TClipView(clip_view_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
-    };
-    /**
-     * 转换为clip_view对象(供脚本语言使用)。
-     *
-     * @param widget clip_view对象。
-     *
-     * @returns clip_view对象。
-     */
-    TClipView.cast = function (widget) {
-        return new TClipView(clip_view_cast(widget != null ? (widget.nativeObj || widget) : null));
-    };
-    return TClipView;
-}(TWidget));
-exports.TClipView = TClipView;
-;
-/**
- * 勾选按钮控件(单选/多选)。
- *
- *check\_button\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于check\_button\_t控件。
- *
- *在xml中使用"check_button"标签创建多选按钮控件。如：
- *
- *```xml
- *<check_button name="c1" text="Book"/>
- *```
- *
- *在xml中使用"radio_button"标签创建单选按钮控件。如：
- *
- *```xml
- *<radio_button name="r1" text="Book"/>
- *```
- *
- *> 更多用法请参考：
- *[button.xml](https://github.com/zlgopen/awtk/blob/master/design/default/ui/basic.xml)
- *
- *在c代码中使用函数check\_button\_create创建多选按钮控件。如：
- *
- *
- *在c代码中使用函数check\_button\_create\_radio创建单选按钮控件。如：
- *
- *
- *> 完整示例请参考：
- *[button demo](https://github.com/zlgopen/awtk-c-demos/blob/master/demos/check_button.c)
- *
- *可用通过style来设置控件的显示风格，如字体的大小和颜色等等。如：
- *
- *```xml
- *<style name="default" icon_at="left">
- *<normal  icon="unchecked" />
- *<pressed icon="unchecked" />
- *<over    icon="unchecked" text_color="green"/>
- *<normal_of_checked icon="checked" text_color="blue"/>
- *<pressed_of_checked icon="checked" text_color="blue"/>
- *<over_of_checked icon="checked" text_color="green"/>
- *</style>
- *```
- *
- *> 更多用法请参考：
- *[theme
- *default](https://github.com/zlgopen/awtk/blob/master/design/default/styles/default.xml#L227)
- *
- */
-var TCheckButton = /** @class */ (function (_super) {
-    __extends(TCheckButton, _super);
-    function TCheckButton(nativeObj) {
-        return _super.call(this, nativeObj) || this;
-    }
-    /**
-     * 创建多选按钮对象
-     *
-     * @param parent 父控件
-     * @param x x坐标
-     * @param y y坐标
-     * @param w 宽度
-     * @param h 高度
-     *
-     * @returns widget对象。
-     */
-    TCheckButton.create = function (parent, x, y, w, h) {
-        return new TCheckButton(check_button_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
-    };
-    /**
-     * 创建单选按钮对象
-     *
-     * @param parent 父控件
-     * @param x x坐标
-     * @param y y坐标
-     * @param w 宽度
-     * @param h 高度
-     *
-     * @returns widget对象。
-     */
-    TCheckButton.createRadio = function (parent, x, y, w, h) {
-        return new TCheckButton(check_button_create_radio(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
-    };
-    /**
-     * 设置控件的值。
-     *
-     * @param value 值(勾选为TRUE，非勾选为FALSE)。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TCheckButton.prototype.setValue = function (value) {
-        return check_button_set_value(this != null ? (this.nativeObj || this) : null, value);
-    };
-    /**
-     * 转换check_button对象(供脚本语言使用)。
-     *
-     * @param widget check_button对象。
-     *
-     * @returns check_button对象。
-     */
-    TCheckButton.cast = function (widget) {
-        return new TCheckButton(check_button_cast(widget != null ? (widget.nativeObj || widget) : null));
-    };
-    Object.defineProperty(TCheckButton.prototype, "value", {
-        /**
-         * 值(勾选为TRUE，非勾选为FALSE)。
-         *
-         */
-        get: function () {
-            return check_button_t_get_prop_value(this.nativeObj);
-        },
-        set: function (v) {
-            this.setValue(v);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return TCheckButton;
-}(TWidget));
-exports.TCheckButton = TCheckButton;
 ;
 /**
  * 滑动视图。
@@ -13025,6 +12879,185 @@ var TSlideView = /** @class */ (function (_super) {
     return TSlideView;
 }(TWidget));
 exports.TSlideView = TSlideView;
+;
+/**
+ * 一个裁剪子控件的容器控件。
+ *
+ *它本身不提供布局功能，仅提供具有语义的标签，让xml更具有可读性。
+ *子控件的布局可用layout\_children属性指定。
+ *请参考[布局参数](https://github.com/zlgopen/awtk/blob/master/docs/layout.md)。
+ *
+ *clip\_view\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于clip\_view\_t控件。
+ *
+ *在xml中使用"clip_view"标签创建clip_view，在clip_view控件下的所有子控件都会被裁剪。如下button控件会被裁剪，无法画出clip_view控件 ：
+ *
+ *```xml
+ *<clip_view x="0" y="0" w="100" h="100">
+ *<button x="50" y="10" w="100" h="50" />
+ *</clip_view>
+ *```
+ *
+ *备注：在clip_view控件下的所有子控件都会被裁剪，如果子控件本身会设置裁剪区的话，在子控件中计算裁剪区的交集，具体请参考scroll_view控件的scroll_view_on_paint_children函数。
+ *
+ *可用通过style来设置控件的显示风格，如背景颜色等。如：
+ *
+ *```xml
+ *<style name="default" border_color="#a0a0a0">
+ *<normal     bg_color="#f0f0f0" />
+ *</style>
+ *```
+ *
+ */
+var TClipView = /** @class */ (function (_super) {
+    __extends(TClipView, _super);
+    function TClipView(nativeObj) {
+        return _super.call(this, nativeObj) || this;
+    }
+    /**
+     * 创建clip_view对象
+     *
+     * @param parent 父控件
+     * @param x x坐标
+     * @param y y坐标
+     * @param w 宽度
+     * @param h 高度
+     *
+     * @returns 对象。
+     */
+    TClipView.create = function (parent, x, y, w, h) {
+        return new TClipView(clip_view_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
+    };
+    /**
+     * 转换为clip_view对象(供脚本语言使用)。
+     *
+     * @param widget clip_view对象。
+     *
+     * @returns clip_view对象。
+     */
+    TClipView.cast = function (widget) {
+        return new TClipView(clip_view_cast(widget != null ? (widget.nativeObj || widget) : null));
+    };
+    return TClipView;
+}(TWidget));
+exports.TClipView = TClipView;
+;
+/**
+ * 勾选按钮控件(单选/多选)。
+ *
+ *check\_button\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于check\_button\_t控件。
+ *
+ *在xml中使用"check_button"标签创建多选按钮控件。如：
+ *
+ *```xml
+ *<check_button name="c1" text="Book"/>
+ *```
+ *
+ *在xml中使用"radio_button"标签创建单选按钮控件。如：
+ *
+ *```xml
+ *<radio_button name="r1" text="Book"/>
+ *```
+ *
+ *> 更多用法请参考：
+ *[button.xml](https://github.com/zlgopen/awtk/blob/master/design/default/ui/basic.xml)
+ *
+ *在c代码中使用函数check\_button\_create创建多选按钮控件。如：
+ *
+ *
+ *在c代码中使用函数check\_button\_create\_radio创建单选按钮控件。如：
+ *
+ *
+ *> 完整示例请参考：
+ *[button demo](https://github.com/zlgopen/awtk-c-demos/blob/master/demos/check_button.c)
+ *
+ *可用通过style来设置控件的显示风格，如字体的大小和颜色等等。如：
+ *
+ *```xml
+ *<style name="default" icon_at="left">
+ *<normal  icon="unchecked" />
+ *<pressed icon="unchecked" />
+ *<over    icon="unchecked" text_color="green"/>
+ *<normal_of_checked icon="checked" text_color="blue"/>
+ *<pressed_of_checked icon="checked" text_color="blue"/>
+ *<over_of_checked icon="checked" text_color="green"/>
+ *</style>
+ *```
+ *
+ *> 更多用法请参考：
+ *[theme
+ *default](https://github.com/zlgopen/awtk/blob/master/design/default/styles/default.xml#L227)
+ *
+ */
+var TCheckButton = /** @class */ (function (_super) {
+    __extends(TCheckButton, _super);
+    function TCheckButton(nativeObj) {
+        return _super.call(this, nativeObj) || this;
+    }
+    /**
+     * 创建多选按钮对象
+     *
+     * @param parent 父控件
+     * @param x x坐标
+     * @param y y坐标
+     * @param w 宽度
+     * @param h 高度
+     *
+     * @returns widget对象。
+     */
+    TCheckButton.create = function (parent, x, y, w, h) {
+        return new TCheckButton(check_button_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
+    };
+    /**
+     * 创建单选按钮对象
+     *
+     * @param parent 父控件
+     * @param x x坐标
+     * @param y y坐标
+     * @param w 宽度
+     * @param h 高度
+     *
+     * @returns widget对象。
+     */
+    TCheckButton.createRadio = function (parent, x, y, w, h) {
+        return new TCheckButton(check_button_create_radio(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
+    };
+    /**
+     * 设置控件的值。
+     *
+     * @param value 值(勾选为TRUE，非勾选为FALSE)。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TCheckButton.prototype.setValue = function (value) {
+        return check_button_set_value(this != null ? (this.nativeObj || this) : null, value);
+    };
+    /**
+     * 转换check_button对象(供脚本语言使用)。
+     *
+     * @param widget check_button对象。
+     *
+     * @returns check_button对象。
+     */
+    TCheckButton.cast = function (widget) {
+        return new TCheckButton(check_button_cast(widget != null ? (widget.nativeObj || widget) : null));
+    };
+    Object.defineProperty(TCheckButton.prototype, "value", {
+        /**
+         * 值(勾选为TRUE，非勾选为FALSE)。
+         *
+         */
+        get: function () {
+            return check_button_t_get_prop_value(this.nativeObj);
+        },
+        set: function (v) {
+            this.setValue(v);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return TCheckButton;
+}(TWidget));
+exports.TCheckButton = TCheckButton;
 ;
 /**
  * slide_view的指示器控件。
@@ -14314,6 +14347,288 @@ var TListItem = /** @class */ (function (_super) {
 exports.TListItem = TListItem;
 ;
 /**
+ * 可水平滚动的文本控件，方便实现长文本滚动。
+ *
+ *
+ *hscroll\_label\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于hscroll\_label\_t控件。
+ *
+ *在xml中使用"hscroll\_label"标签创建行号控件，一般配合mledit使用。如：
+ *
+ *```xml
+ *```
+ *
+ *> 更多用法请参考：[mledit.xml](
+ *https://github.com/zlgopen/awtk/blob/master/design/default/ui/mledit.xml)
+ *
+ *可用通过style来设置控件的显示风格，如字体的大小和颜色等等。如：
+ *
+ *```xml
+ *<style name="default" text_color="black">
+ *<normal   />
+ *<focused  />
+ *</style>
+ *```
+ *
+ *> 更多用法请参考：
+ *[theme default](
+ *https://github.com/zlgopen/awtk/blob/master/design/default/styles/default.xml)
+ *
+ */
+var THscrollLabel = /** @class */ (function (_super) {
+    __extends(THscrollLabel, _super);
+    function THscrollLabel(nativeObj) {
+        return _super.call(this, nativeObj) || this;
+    }
+    /**
+     * 创建hscroll_label对象
+     *
+     * @param parent 父控件
+     * @param x x坐标
+     * @param y y坐标
+     * @param w 宽度
+     * @param h 高度
+     *
+     * @returns 对象。
+     */
+    THscrollLabel.create = function (parent, x, y, w, h) {
+        return new THscrollLabel(hscroll_label_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
+    };
+    /**
+     * 设置lull。
+     *
+     * @param lull 间歇时间(ms)。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    THscrollLabel.prototype.setLull = function (lull) {
+        return hscroll_label_set_lull(this != null ? (this.nativeObj || this) : null, lull);
+    };
+    /**
+     * 设置duration。
+     *
+     * @param duration 滚动时间(ms)。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    THscrollLabel.prototype.setDuration = function (duration) {
+        return hscroll_label_set_duration(this != null ? (this.nativeObj || this) : null, duration);
+    };
+    /**
+     * 设置only_focus。
+     *
+     * @param only_focus 是否只有处于focus时才滚动。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    THscrollLabel.prototype.setOnlyFocus = function (only_focus) {
+        return hscroll_label_set_only_focus(this != null ? (this.nativeObj || this) : null, only_focus);
+    };
+    /**
+     * 设置only_parent_focus。
+     *
+     * @param only_parent_focus 是否只有处于focus时才滚动。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    THscrollLabel.prototype.setOnlyParentFocus = function (only_parent_focus) {
+        return hscroll_label_set_only_parent_focus(this != null ? (this.nativeObj || this) : null, only_parent_focus);
+    };
+    /**
+     * 设置loop。
+     *
+     * @param loop 是否循环滚动。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    THscrollLabel.prototype.setLoop = function (loop) {
+        return hscroll_label_set_loop(this != null ? (this.nativeObj || this) : null, loop);
+    };
+    /**
+     * 设置yoyo。
+     *
+     * @param yoyo 是否往返滚动。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    THscrollLabel.prototype.setYoyo = function (yoyo) {
+        return hscroll_label_set_yoyo(this != null ? (this.nativeObj || this) : null, yoyo);
+    };
+    /**
+     * 设置ellipses。
+     *
+     * @param ellipses 是否在文本超长时在行尾显示"..."。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    THscrollLabel.prototype.setEllipses = function (ellipses) {
+        return hscroll_label_set_ellipses(this != null ? (this.nativeObj || this) : null, ellipses);
+    };
+    /**
+     * 设置x偏移(一般无需用户调用)。。
+     *
+     * @param xoffset x偏移。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    THscrollLabel.prototype.setXoffset = function (xoffset) {
+        return hscroll_label_set_xoffset(this != null ? (this.nativeObj || this) : null, xoffset);
+    };
+    /**
+     * 启动(一般无需用户调用)。
+     *
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    THscrollLabel.prototype.start = function () {
+        return hscroll_label_start(this != null ? (this.nativeObj || this) : null);
+    };
+    /**
+     * 停止(一般无需用户调用)。
+     *
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    THscrollLabel.prototype.stop = function () {
+        return hscroll_label_stop(this != null ? (this.nativeObj || this) : null);
+    };
+    /**
+     * 转换为hscroll_label对象(供脚本语言使用)。
+     *
+     * @param widget hscroll_label对象。
+     *
+     * @returns hscroll_label对象。
+     */
+    THscrollLabel.cast = function (widget) {
+        return new THscrollLabel(hscroll_label_cast(widget != null ? (widget.nativeObj || widget) : null));
+    };
+    Object.defineProperty(THscrollLabel.prototype, "onlyFocus", {
+        /**
+         * 只有处于focus时才滚动(缺省否)。
+         *
+         */
+        get: function () {
+            return hscroll_label_t_get_prop_only_focus(this.nativeObj);
+        },
+        set: function (v) {
+            this.setOnlyFocus(v);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(THscrollLabel.prototype, "onlyParentFocus", {
+        /**
+         * 只有父控件处于focus时才滚动(缺省否)。
+         *
+         */
+        get: function () {
+            return hscroll_label_t_get_prop_only_parent_focus(this.nativeObj);
+        },
+        set: function (v) {
+            this.setOnlyParentFocus(v);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(THscrollLabel.prototype, "loop", {
+        /**
+         * loop是否循环滚动(缺省FALSE)。
+         *
+         */
+        get: function () {
+            return hscroll_label_t_get_prop_loop(this.nativeObj);
+        },
+        set: function (v) {
+            this.setLoop(v);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(THscrollLabel.prototype, "yoyo", {
+        /**
+         * 是否往返滚动(缺省FALSE)。
+         *
+         */
+        get: function () {
+            return hscroll_label_t_get_prop_yoyo(this.nativeObj);
+        },
+        set: function (v) {
+            this.setYoyo(v);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(THscrollLabel.prototype, "ellipses", {
+        /**
+         * 文本显示不下时，在行尾显示省略号(缺省FALSE)。
+         *
+         */
+        get: function () {
+            return hscroll_label_t_get_prop_ellipses(this.nativeObj);
+        },
+        set: function (v) {
+            this.setEllipses(v);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(THscrollLabel.prototype, "lull", {
+        /**
+         * 滚动之间的间歇时间(ms)，缺省3000ms。
+         *
+         */
+        get: function () {
+            return hscroll_label_t_get_prop_lull(this.nativeObj);
+        },
+        set: function (v) {
+            this.setLull(v);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(THscrollLabel.prototype, "duration", {
+        /**
+         * 完整的滚动一次需要的时间(ms)，缺省5000ms。
+         *
+         */
+        get: function () {
+            return hscroll_label_t_get_prop_duration(this.nativeObj);
+        },
+        set: function (v) {
+            this.setDuration(v);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(THscrollLabel.prototype, "xoffset", {
+        /**
+         * 偏移量。
+         *
+         */
+        get: function () {
+            return hscroll_label_t_get_prop_xoffset(this.nativeObj);
+        },
+        set: function (v) {
+            this.setXoffset(v);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(THscrollLabel.prototype, "textW", {
+        /**
+         * 文本的宽度。
+         *
+         */
+        get: function () {
+            return hscroll_label_t_get_prop_text_w(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return THscrollLabel;
+}(TWidget));
+exports.THscrollLabel = THscrollLabel;
+;
+/**
  * 按钮控件。
  *
  *点击按钮之后会触发EVT\_CLICK事件，注册EVT\_CLICK事件以执行特定操作。
@@ -14626,288 +14941,6 @@ var TOrientationEvent = /** @class */ (function (_super) {
 exports.TOrientationEvent = TOrientationEvent;
 ;
 /**
- * 可水平滚动的文本控件，方便实现长文本滚动。
- *
- *
- *hscroll\_label\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于hscroll\_label\_t控件。
- *
- *在xml中使用"hscroll\_label"标签创建行号控件，一般配合mledit使用。如：
- *
- *```xml
- *```
- *
- *> 更多用法请参考：[mledit.xml](
- *https://github.com/zlgopen/awtk/blob/master/design/default/ui/mledit.xml)
- *
- *可用通过style来设置控件的显示风格，如字体的大小和颜色等等。如：
- *
- *```xml
- *<style name="default" text_color="black">
- *<normal   />
- *<focused  />
- *</style>
- *```
- *
- *> 更多用法请参考：
- *[theme default](
- *https://github.com/zlgopen/awtk/blob/master/design/default/styles/default.xml)
- *
- */
-var THscrollLabel = /** @class */ (function (_super) {
-    __extends(THscrollLabel, _super);
-    function THscrollLabel(nativeObj) {
-        return _super.call(this, nativeObj) || this;
-    }
-    /**
-     * 创建hscroll_label对象
-     *
-     * @param parent 父控件
-     * @param x x坐标
-     * @param y y坐标
-     * @param w 宽度
-     * @param h 高度
-     *
-     * @returns 对象。
-     */
-    THscrollLabel.create = function (parent, x, y, w, h) {
-        return new THscrollLabel(hscroll_label_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
-    };
-    /**
-     * 设置lull。
-     *
-     * @param lull 间歇时间(ms)。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    THscrollLabel.prototype.setLull = function (lull) {
-        return hscroll_label_set_lull(this != null ? (this.nativeObj || this) : null, lull);
-    };
-    /**
-     * 设置duration。
-     *
-     * @param duration 滚动时间(ms)。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    THscrollLabel.prototype.setDuration = function (duration) {
-        return hscroll_label_set_duration(this != null ? (this.nativeObj || this) : null, duration);
-    };
-    /**
-     * 设置only_focus。
-     *
-     * @param only_focus 是否只有处于focus时才滚动。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    THscrollLabel.prototype.setOnlyFocus = function (only_focus) {
-        return hscroll_label_set_only_focus(this != null ? (this.nativeObj || this) : null, only_focus);
-    };
-    /**
-     * 设置only_parent_focus。
-     *
-     * @param only_parent_focus 是否只有处于focus时才滚动。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    THscrollLabel.prototype.setOnlyParentFocus = function (only_parent_focus) {
-        return hscroll_label_set_only_parent_focus(this != null ? (this.nativeObj || this) : null, only_parent_focus);
-    };
-    /**
-     * 设置loop。
-     *
-     * @param loop 是否循环滚动。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    THscrollLabel.prototype.setLoop = function (loop) {
-        return hscroll_label_set_loop(this != null ? (this.nativeObj || this) : null, loop);
-    };
-    /**
-     * 设置yoyo。
-     *
-     * @param yoyo 是否往返滚动。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    THscrollLabel.prototype.setYoyo = function (yoyo) {
-        return hscroll_label_set_yoyo(this != null ? (this.nativeObj || this) : null, yoyo);
-    };
-    /**
-     * 设置ellipses。
-     *
-     * @param ellipses 是否在文本超长时在行尾显示"..."。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    THscrollLabel.prototype.setEllipses = function (ellipses) {
-        return hscroll_label_set_ellipses(this != null ? (this.nativeObj || this) : null, ellipses);
-    };
-    /**
-     * 设置x偏移(一般无需用户调用)。。
-     *
-     * @param xoffset x偏移。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    THscrollLabel.prototype.setXoffset = function (xoffset) {
-        return hscroll_label_set_xoffset(this != null ? (this.nativeObj || this) : null, xoffset);
-    };
-    /**
-     * 启动(一般无需用户调用)。
-     *
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    THscrollLabel.prototype.start = function () {
-        return hscroll_label_start(this != null ? (this.nativeObj || this) : null);
-    };
-    /**
-     * 停止(一般无需用户调用)。
-     *
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    THscrollLabel.prototype.stop = function () {
-        return hscroll_label_stop(this != null ? (this.nativeObj || this) : null);
-    };
-    /**
-     * 转换为hscroll_label对象(供脚本语言使用)。
-     *
-     * @param widget hscroll_label对象。
-     *
-     * @returns hscroll_label对象。
-     */
-    THscrollLabel.cast = function (widget) {
-        return new THscrollLabel(hscroll_label_cast(widget != null ? (widget.nativeObj || widget) : null));
-    };
-    Object.defineProperty(THscrollLabel.prototype, "onlyFocus", {
-        /**
-         * 只有处于focus时才滚动(缺省否)。
-         *
-         */
-        get: function () {
-            return hscroll_label_t_get_prop_only_focus(this.nativeObj);
-        },
-        set: function (v) {
-            this.setOnlyFocus(v);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(THscrollLabel.prototype, "onlyParentFocus", {
-        /**
-         * 只有父控件处于focus时才滚动(缺省否)。
-         *
-         */
-        get: function () {
-            return hscroll_label_t_get_prop_only_parent_focus(this.nativeObj);
-        },
-        set: function (v) {
-            this.setOnlyParentFocus(v);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(THscrollLabel.prototype, "loop", {
-        /**
-         * loop是否循环滚动(缺省FALSE)。
-         *
-         */
-        get: function () {
-            return hscroll_label_t_get_prop_loop(this.nativeObj);
-        },
-        set: function (v) {
-            this.setLoop(v);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(THscrollLabel.prototype, "yoyo", {
-        /**
-         * 是否往返滚动(缺省FALSE)。
-         *
-         */
-        get: function () {
-            return hscroll_label_t_get_prop_yoyo(this.nativeObj);
-        },
-        set: function (v) {
-            this.setYoyo(v);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(THscrollLabel.prototype, "ellipses", {
-        /**
-         * 文本显示不下时，在行尾显示省略号(缺省FALSE)。
-         *
-         */
-        get: function () {
-            return hscroll_label_t_get_prop_ellipses(this.nativeObj);
-        },
-        set: function (v) {
-            this.setEllipses(v);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(THscrollLabel.prototype, "lull", {
-        /**
-         * 滚动之间的间歇时间(ms)，缺省3000ms。
-         *
-         */
-        get: function () {
-            return hscroll_label_t_get_prop_lull(this.nativeObj);
-        },
-        set: function (v) {
-            this.setLull(v);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(THscrollLabel.prototype, "duration", {
-        /**
-         * 完整的滚动一次需要的时间(ms)，缺省5000ms。
-         *
-         */
-        get: function () {
-            return hscroll_label_t_get_prop_duration(this.nativeObj);
-        },
-        set: function (v) {
-            this.setDuration(v);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(THscrollLabel.prototype, "xoffset", {
-        /**
-         * 偏移量。
-         *
-         */
-        get: function () {
-            return hscroll_label_t_get_prop_xoffset(this.nativeObj);
-        },
-        set: function (v) {
-            this.setXoffset(v);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(THscrollLabel.prototype, "textW", {
-        /**
-         * 文本的宽度。
-         *
-         */
-        get: function () {
-            return hscroll_label_t_get_prop_text_w(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return THscrollLabel;
-}(TWidget));
-exports.THscrollLabel = THscrollLabel;
-;
-/**
  * 图文混排控件，实现简单的图文混排。
  *
  *rich\_text\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于rich\_text\_t控件。
@@ -14977,6 +15010,16 @@ var TRichText = /** @class */ (function (_super) {
         return rich_text_set_text(this != null ? (this.nativeObj || this) : null, text);
     };
     /**
+     * 设置是否允许y方向滑动。
+     *
+     * @param yslidable 是否允许滑动。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TRichText.prototype.setYslidable = function (yslidable) {
+        return rich_text_set_yslidable(this != null ? (this.nativeObj || this) : null, yslidable);
+    };
+    /**
      * 转换为rich_text对象(供脚本语言使用)。
      *
      * @param widget rich_text对象。
@@ -15004,6 +15047,20 @@ var TRichText = /** @class */ (function (_super) {
          */
         get: function () {
             return rich_text_t_get_prop_margin(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TRichText.prototype, "yslidable", {
+        /**
+         * 标识控件是否允许上下拖动。
+         *
+         */
+        get: function () {
+            return rich_text_t_get_prop_yslidable(this.nativeObj);
+        },
+        set: function (v) {
+            this.setYslidable(v);
         },
         enumerable: true,
         configurable: true
@@ -15069,128 +15126,6 @@ var TRichTextView = /** @class */ (function (_super) {
     return TRichTextView;
 }(TWidget));
 exports.TRichTextView = TRichTextView;
-;
-/**
- * 指针事件。
- *
- */
-var TPointerEvent = /** @class */ (function (_super) {
-    __extends(TPointerEvent, _super);
-    function TPointerEvent(nativeObj) {
-        return _super.call(this, nativeObj) || this;
-    }
-    /**
-     * 把event对象转pointer_event_t对象，主要给脚本语言使用。
-     *
-     * @param event event对象。
-     *
-     * @returns event对象。
-     */
-    TPointerEvent.cast = function (event) {
-        return new TPointerEvent(pointer_event_cast(event != null ? (event.nativeObj || event) : null));
-    };
-    Object.defineProperty(TPointerEvent.prototype, "x", {
-        /**
-         * x坐标。
-         *
-         */
-        get: function () {
-            return pointer_event_t_get_prop_x(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TPointerEvent.prototype, "y", {
-        /**
-         * y坐标。
-         *
-         */
-        get: function () {
-            return pointer_event_t_get_prop_y(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TPointerEvent.prototype, "button", {
-        /**
-         * button。
-         *
-         */
-        get: function () {
-            return pointer_event_t_get_prop_button(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TPointerEvent.prototype, "pressed", {
-        /**
-         * 指针是否按下。
-         *
-         */
-        get: function () {
-            return pointer_event_t_get_prop_pressed(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TPointerEvent.prototype, "alt", {
-        /**
-         * alt键是否按下。
-         *
-         */
-        get: function () {
-            return pointer_event_t_get_prop_alt(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TPointerEvent.prototype, "ctrl", {
-        /**
-         * ctrl键是否按下。
-         *
-         */
-        get: function () {
-            return pointer_event_t_get_prop_ctrl(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TPointerEvent.prototype, "cmd", {
-        /**
-         * cmd键是否按下。
-         *
-         */
-        get: function () {
-            return pointer_event_t_get_prop_cmd(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TPointerEvent.prototype, "menu", {
-        /**
-         * menu键是否按下。
-         *
-         */
-        get: function () {
-            return pointer_event_t_get_prop_menu(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TPointerEvent.prototype, "shift", {
-        /**
-         * shift键是否按下。
-         *
-         */
-        get: function () {
-            return pointer_event_t_get_prop_shift(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return TPointerEvent;
-}(TEvent));
-exports.TPointerEvent = TPointerEvent;
 ;
 /**
  * 进度圆环控件。
@@ -15452,172 +15387,149 @@ var TProgressCircle = /** @class */ (function (_super) {
 exports.TProgressCircle = TProgressCircle;
 ;
 /**
- * 按键事件。
+ * 值变化事件。
  *
  */
-var TKeyEvent = /** @class */ (function (_super) {
-    __extends(TKeyEvent, _super);
-    function TKeyEvent(nativeObj) {
+var TValueChangeEvent = /** @class */ (function (_super) {
+    __extends(TValueChangeEvent, _super);
+    function TValueChangeEvent(nativeObj) {
         return _super.call(this, nativeObj) || this;
     }
     /**
-     * 把event对象转key_event_t对象，主要给脚本语言使用。
+     * 把event对象转value_change_event_t对象，主要给脚本语言使用。
      *
      * @param event event对象。
      *
      * @returns event对象。
      */
-    TKeyEvent.cast = function (event) {
-        return new TKeyEvent(key_event_cast(event != null ? (event.nativeObj || event) : null));
+    TValueChangeEvent.cast = function (event) {
+        return new TValueChangeEvent(value_change_event_cast(event != null ? (event.nativeObj || event) : null));
     };
-    Object.defineProperty(TKeyEvent.prototype, "key", {
+    return TValueChangeEvent;
+}(TEvent));
+exports.TValueChangeEvent = TValueChangeEvent;
+;
+/**
+ * 指针事件。
+ *
+ */
+var TPointerEvent = /** @class */ (function (_super) {
+    __extends(TPointerEvent, _super);
+    function TPointerEvent(nativeObj) {
+        return _super.call(this, nativeObj) || this;
+    }
+    /**
+     * 把event对象转pointer_event_t对象，主要给脚本语言使用。
+     *
+     * @param event event对象。
+     *
+     * @returns event对象。
+     */
+    TPointerEvent.cast = function (event) {
+        return new TPointerEvent(pointer_event_cast(event != null ? (event.nativeObj || event) : null));
+    };
+    Object.defineProperty(TPointerEvent.prototype, "x", {
         /**
-         * 键值。
+         * x坐标。
          *
          */
         get: function () {
-            return key_event_t_get_prop_key(this.nativeObj);
+            return pointer_event_t_get_prop_x(this.nativeObj);
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(TKeyEvent.prototype, "alt", {
+    Object.defineProperty(TPointerEvent.prototype, "y", {
+        /**
+         * y坐标。
+         *
+         */
+        get: function () {
+            return pointer_event_t_get_prop_y(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TPointerEvent.prototype, "button", {
+        /**
+         * button。
+         *
+         */
+        get: function () {
+            return pointer_event_t_get_prop_button(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TPointerEvent.prototype, "pressed", {
+        /**
+         * 指针是否按下。
+         *
+         */
+        get: function () {
+            return pointer_event_t_get_prop_pressed(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TPointerEvent.prototype, "alt", {
         /**
          * alt键是否按下。
          *
          */
         get: function () {
-            return key_event_t_get_prop_alt(this.nativeObj);
+            return pointer_event_t_get_prop_alt(this.nativeObj);
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(TKeyEvent.prototype, "lalt", {
+    Object.defineProperty(TPointerEvent.prototype, "ctrl", {
         /**
-         * left alt键是否按下。
+         * ctrl键是否按下。
          *
          */
         get: function () {
-            return key_event_t_get_prop_lalt(this.nativeObj);
+            return pointer_event_t_get_prop_ctrl(this.nativeObj);
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(TKeyEvent.prototype, "ralt", {
+    Object.defineProperty(TPointerEvent.prototype, "cmd", {
         /**
-         * right alt键是否按下。
+         * cmd键是否按下。
          *
          */
         get: function () {
-            return key_event_t_get_prop_ralt(this.nativeObj);
+            return pointer_event_t_get_prop_cmd(this.nativeObj);
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(TKeyEvent.prototype, "ctrl", {
-        /**
-         * right alt键是否按下。
-         *ctrl键是否按下。
-         *
-         */
-        get: function () {
-            return key_event_t_get_prop_ctrl(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TKeyEvent.prototype, "lctrl", {
-        /**
-         * left ctrl键是否按下。
-         *
-         */
-        get: function () {
-            return key_event_t_get_prop_lctrl(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TKeyEvent.prototype, "rctrl", {
-        /**
-         * right ctrl键是否按下。
-         *
-         */
-        get: function () {
-            return key_event_t_get_prop_rctrl(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TKeyEvent.prototype, "shift", {
-        /**
-         * shift键是否按下。
-         *
-         */
-        get: function () {
-            return key_event_t_get_prop_shift(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TKeyEvent.prototype, "lshift", {
-        /**
-         * left shift键是否按下。
-         *
-         */
-        get: function () {
-            return key_event_t_get_prop_lshift(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TKeyEvent.prototype, "rshift", {
-        /**
-         * right shift键是否按下。
-         *
-         */
-        get: function () {
-            return key_event_t_get_prop_rshift(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TKeyEvent.prototype, "cmd", {
-        /**
-         * left shift键是否按下。
-         *cmd/win键是否按下。
-         *
-         */
-        get: function () {
-            return key_event_t_get_prop_cmd(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TKeyEvent.prototype, "menu", {
+    Object.defineProperty(TPointerEvent.prototype, "menu", {
         /**
          * menu键是否按下。
          *
          */
         get: function () {
-            return key_event_t_get_prop_menu(this.nativeObj);
+            return pointer_event_t_get_prop_menu(this.nativeObj);
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(TKeyEvent.prototype, "capslock", {
+    Object.defineProperty(TPointerEvent.prototype, "shift", {
         /**
-         * capslock键是否按下。
+         * shift键是否按下。
          *
          */
         get: function () {
-            return key_event_t_get_prop_capslock(this.nativeObj);
+            return pointer_event_t_get_prop_shift(this.nativeObj);
         },
         enumerable: true,
         configurable: true
     });
-    return TKeyEvent;
+    return TPointerEvent;
 }(TEvent));
-exports.TKeyEvent = TKeyEvent;
+exports.TPointerEvent = TPointerEvent;
 ;
 /**
  * 多行编辑器控件。
@@ -16809,36 +16721,46 @@ var TImageAnimation = /** @class */ (function (_super) {
 exports.TImageAnimation = TImageAnimation;
 ;
 /**
- * 仪表指针控件。
+ * 表盘控件。
  *
- *仪表指针就是一张旋转的图片，图片可以是普通图片也可以是SVG图片。
+ *表盘控件就是一张图片。
  *
- *在嵌入式平台上，对于旋转的图片，SVG图片的效率比位图高数倍，所以推荐使用SVG图片。
+ *guage\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于guage\_t控件。
  *
- *guage\_pointer\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于guage\_pointer\_t控件。
- *
- *在xml中使用"guage\_pointer"标签创建仪表指针控件。如：
+ *在xml中使用"guage"标签创建表盘控件。如：
  *
  *```xml
- *<guage_pointer x="c" y="50" w="24" h="140" value="-128" image="guage_pointer" />
+ *<guage x="c" y="10" w="240" h="240" image="guage_bg"
  *```
  *
  *> 更多用法请参考：
  *[guage.xml](https://github.com/zlgopen/awtk/blob/master/design/default/ui/guage.xml)
  *
- *在c代码中使用函数guage\_pointer\_create创建仪表指针控件。如：
+ *在c代码中使用函数guage\_create创建表盘控件。如：
  *
  *
- *> 创建之后，需要用guage\_pointer\_set\_image设置仪表指针图片。
+ *可用通过style来设置控件的显示风格，如背景和边框等。如：
+ *
+ *```xml
+ *<guage>
+ *<style name="border">
+ *<normal border_color="#000000" bg_color="#e0e0e0" text_color="black"/>
+ *</style>
+ *</guage>
+ *```
+ *
+ *> 更多用法请参考：
+ *[theme
+ *default](https://github.com/zlgopen/awtk/blob/master/design/default/styles/default.xml)
  *
  */
-var TGuagePointer = /** @class */ (function (_super) {
-    __extends(TGuagePointer, _super);
-    function TGuagePointer(nativeObj) {
+var TGuage = /** @class */ (function (_super) {
+    __extends(TGuage, _super);
+    function TGuage(nativeObj) {
         return _super.call(this, nativeObj) || this;
     }
     /**
-     * 创建guage_pointer对象
+     * 创建guage对象
      *
      * @param parent 父控件
      * @param x x坐标
@@ -16848,73 +16770,49 @@ var TGuagePointer = /** @class */ (function (_super) {
      *
      * @returns 对象。
      */
-    TGuagePointer.create = function (parent, x, y, w, h) {
-        return new TGuagePointer(guage_pointer_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
+    TGuage.create = function (parent, x, y, w, h) {
+        return new TGuage(guage_create(parent != null ? (parent.nativeObj || parent) : null, x, y, w, h));
     };
     /**
-     * 转换为guage_pointer对象(供脚本语言使用)。
+     * 转换为guage对象(供脚本语言使用)。
      *
-     * @param widget guage_pointer对象。
+     * @param widget guage对象。
      *
-     * @returns guage_pointer对象。
+     * @returns guage对象。
      */
-    TGuagePointer.cast = function (widget) {
-        return new TGuagePointer(guage_pointer_cast(widget != null ? (widget.nativeObj || widget) : null));
+    TGuage.cast = function (widget) {
+        return new TGuage(guage_cast(widget != null ? (widget.nativeObj || widget) : null));
     };
     /**
-     * 设置指针角度。12点钟方向为0度，顺时钟方向为正，单位为度。
+     * 设置背景图片的名称。
      *
-     * @param angle 指针角度。
+     * @param name 图片名称，该图片必须存在于资源管理器。
      *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
-    TGuagePointer.prototype.setAngle = function (angle) {
-        return guage_pointer_set_angle(this != null ? (this.nativeObj || this) : null, angle);
+    TGuage.prototype.setImage = function (name) {
+        return guage_set_image(this != null ? (this.nativeObj || this) : null, name);
     };
     /**
-     * 设置指针的图片。
+     * 设置图片的显示方式。
      *
-     * @param image 指针的图片。
+     *> 绘制方式的属性值和枚举值:
+     *[image\_draw\_type\_name\_value](https://github.com/zlgopen/awtk/blob/master/src/base/enums.c#L98)
+     *
+     * @param draw_type 显示方式。
      *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
-    TGuagePointer.prototype.setImage = function (image) {
-        return guage_pointer_set_image(this != null ? (this.nativeObj || this) : null, image);
+    TGuage.prototype.setDrawType = function (draw_type) {
+        return guage_set_draw_type(this != null ? (this.nativeObj || this) : null, draw_type);
     };
-    /**
-     * 设置指针的旋转锚点。
-     *
-     * @param anchor_x 指针的锚点坐标x。(后面加上px为像素点，不加px为相对百分比坐标)
-     * @param anchor_y 指针的锚点坐标y。(后面加上px为像素点，不加px为相对百分比坐标)
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TGuagePointer.prototype.setAnchor = function (anchor_x, anchor_y) {
-        return guage_pointer_set_anchor(this != null ? (this.nativeObj || this) : null, anchor_x, anchor_y);
-    };
-    Object.defineProperty(TGuagePointer.prototype, "angle", {
+    Object.defineProperty(TGuage.prototype, "image", {
         /**
-         * 指针角度。12点钟方向为0度，顺时钟方向为正，单位为度。
+         * 背景图片。
          *
          */
         get: function () {
-            return guage_pointer_t_get_prop_angle(this.nativeObj);
-        },
-        set: function (v) {
-            this.setAngle(v);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TGuagePointer.prototype, "image", {
-        /**
-         * 指针图片。
-         *
-         *图片须垂直向上，图片的中心点为旋转方向。
-         *
-         */
-        get: function () {
-            return guage_pointer_t_get_prop_image(this.nativeObj);
+            return guage_t_get_prop_image(this.nativeObj);
         },
         set: function (v) {
             this.setImage(v);
@@ -16922,31 +16820,23 @@ var TGuagePointer = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(TGuagePointer.prototype, "anchorX", {
+    Object.defineProperty(TGuage.prototype, "drawType", {
         /**
-         * 图片旋转锚点x坐标。(后面加上px为像素点，不加px为相对百分比坐标0.0f到1.0f)
+         * 图片的绘制方式。
          *
          */
         get: function () {
-            return guage_pointer_t_get_prop_anchor_x(this.nativeObj);
+            return guage_t_get_prop_draw_type(this.nativeObj);
+        },
+        set: function (v) {
+            this.setDrawType(v);
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(TGuagePointer.prototype, "anchorY", {
-        /**
-         * 图片旋转锚点x坐标。(后面加上px为像素点，不加px为相对百分比坐标0.0f到1.0f)
-         *
-         */
-        get: function () {
-            return guage_pointer_t_get_prop_anchor_y(this.nativeObj);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return TGuagePointer;
+    return TGuage;
 }(TWidget));
-exports.TGuagePointer = TGuagePointer;
+exports.TGuage = TGuage;
 ;
 /**
  * 文件/目录选择器
@@ -17722,6 +17612,174 @@ var TCanvasWidget = /** @class */ (function (_super) {
     return TCanvasWidget;
 }(TWidget));
 exports.TCanvasWidget = TCanvasWidget;
+;
+/**
+ * 按键事件。
+ *
+ */
+var TKeyEvent = /** @class */ (function (_super) {
+    __extends(TKeyEvent, _super);
+    function TKeyEvent(nativeObj) {
+        return _super.call(this, nativeObj) || this;
+    }
+    /**
+     * 把event对象转key_event_t对象，主要给脚本语言使用。
+     *
+     * @param event event对象。
+     *
+     * @returns event对象。
+     */
+    TKeyEvent.cast = function (event) {
+        return new TKeyEvent(key_event_cast(event != null ? (event.nativeObj || event) : null));
+    };
+    Object.defineProperty(TKeyEvent.prototype, "key", {
+        /**
+         * 键值。
+         *
+         */
+        get: function () {
+            return key_event_t_get_prop_key(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TKeyEvent.prototype, "alt", {
+        /**
+         * alt键是否按下。
+         *
+         */
+        get: function () {
+            return key_event_t_get_prop_alt(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TKeyEvent.prototype, "lalt", {
+        /**
+         * left alt键是否按下。
+         *
+         */
+        get: function () {
+            return key_event_t_get_prop_lalt(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TKeyEvent.prototype, "ralt", {
+        /**
+         * right alt键是否按下。
+         *
+         */
+        get: function () {
+            return key_event_t_get_prop_ralt(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TKeyEvent.prototype, "ctrl", {
+        /**
+         * right alt键是否按下。
+         *ctrl键是否按下。
+         *
+         */
+        get: function () {
+            return key_event_t_get_prop_ctrl(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TKeyEvent.prototype, "lctrl", {
+        /**
+         * left ctrl键是否按下。
+         *
+         */
+        get: function () {
+            return key_event_t_get_prop_lctrl(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TKeyEvent.prototype, "rctrl", {
+        /**
+         * right ctrl键是否按下。
+         *
+         */
+        get: function () {
+            return key_event_t_get_prop_rctrl(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TKeyEvent.prototype, "shift", {
+        /**
+         * shift键是否按下。
+         *
+         */
+        get: function () {
+            return key_event_t_get_prop_shift(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TKeyEvent.prototype, "lshift", {
+        /**
+         * left shift键是否按下。
+         *
+         */
+        get: function () {
+            return key_event_t_get_prop_lshift(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TKeyEvent.prototype, "rshift", {
+        /**
+         * right shift键是否按下。
+         *
+         */
+        get: function () {
+            return key_event_t_get_prop_rshift(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TKeyEvent.prototype, "cmd", {
+        /**
+         * left shift键是否按下。
+         *cmd/win键是否按下。
+         *
+         */
+        get: function () {
+            return key_event_t_get_prop_cmd(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TKeyEvent.prototype, "menu", {
+        /**
+         * menu键是否按下。
+         *
+         */
+        get: function () {
+            return key_event_t_get_prop_menu(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TKeyEvent.prototype, "capslock", {
+        /**
+         * capslock键是否按下。
+         *
+         */
+        get: function () {
+            return key_event_t_get_prop_capslock(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return TKeyEvent;
+}(TEvent));
+exports.TKeyEvent = TKeyEvent;
 ;
 /**
  * 绘制事件。
