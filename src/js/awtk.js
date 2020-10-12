@@ -3115,207 +3115,207 @@ var TStyleId;
      * 背景颜色。
      *
      */
-    TStyleId[TStyleId["_ID_BG_COLOR"] = STYLE_ID_BG_COLOR()] = "_ID_BG_COLOR";
+    TStyleId[TStyleId["BG_COLOR"] = STYLE_ID_BG_COLOR()] = "BG_COLOR";
     /**
      * 前景颜色。
      *
      */
-    TStyleId[TStyleId["_ID_FG_COLOR"] = STYLE_ID_FG_COLOR()] = "_ID_FG_COLOR";
+    TStyleId[TStyleId["FG_COLOR"] = STYLE_ID_FG_COLOR()] = "FG_COLOR";
     /**
      * 蒙版颜色。
      *
      */
-    TStyleId[TStyleId["_ID_MASK_COLOR"] = STYLE_ID_MASK_COLOR()] = "_ID_MASK_COLOR";
+    TStyleId[TStyleId["MASK_COLOR"] = STYLE_ID_MASK_COLOR()] = "MASK_COLOR";
     /**
      * 字体名称。
      *
      */
-    TStyleId[TStyleId["_ID_FONT_NAME"] = STYLE_ID_FONT_NAME()] = "_ID_FONT_NAME";
+    TStyleId[TStyleId["FONT_NAME"] = STYLE_ID_FONT_NAME()] = "FONT_NAME";
     /**
      * 字体大小。
      *
      */
-    TStyleId[TStyleId["_ID_FONT_SIZE"] = STYLE_ID_FONT_SIZE()] = "_ID_FONT_SIZE";
+    TStyleId[TStyleId["FONT_SIZE"] = STYLE_ID_FONT_SIZE()] = "FONT_SIZE";
     /**
      * 字体风格(粗体、斜体等)。
      *
      */
-    TStyleId[TStyleId["_ID_FONT_STYLE"] = STYLE_ID_FONT_STYLE()] = "_ID_FONT_STYLE";
+    TStyleId[TStyleId["FONT_STYLE"] = STYLE_ID_FONT_STYLE()] = "FONT_STYLE";
     /**
      * 文本颜色。
      *
      */
-    TStyleId[TStyleId["_ID_TEXT_COLOR"] = STYLE_ID_TEXT_COLOR()] = "_ID_TEXT_COLOR";
+    TStyleId[TStyleId["TEXT_COLOR"] = STYLE_ID_TEXT_COLOR()] = "TEXT_COLOR";
     /**
      * 高亮文本的字体名称。
      *
      */
-    TStyleId[TStyleId["_ID_HIGHLIGHT_FONT_NAME"] = STYLE_ID_HIGHLIGHT_FONT_NAME()] = "_ID_HIGHLIGHT_FONT_NAME";
+    TStyleId[TStyleId["HIGHLIGHT_FONT_NAME"] = STYLE_ID_HIGHLIGHT_FONT_NAME()] = "HIGHLIGHT_FONT_NAME";
     /**
      * 高亮文本的字体大小。
      *
      */
-    TStyleId[TStyleId["_ID_HIGHLIGHT_FONT_SIZE"] = STYLE_ID_HIGHLIGHT_FONT_SIZE()] = "_ID_HIGHLIGHT_FONT_SIZE";
+    TStyleId[TStyleId["HIGHLIGHT_FONT_SIZE"] = STYLE_ID_HIGHLIGHT_FONT_SIZE()] = "HIGHLIGHT_FONT_SIZE";
     /**
      * 高亮文本的文本颜色。
      *
      */
-    TStyleId[TStyleId["_ID_HIGHLIGHT_TEXT_COLOR"] = STYLE_ID_HIGHLIGHT_TEXT_COLOR()] = "_ID_HIGHLIGHT_TEXT_COLOR";
+    TStyleId[TStyleId["HIGHLIGHT_TEXT_COLOR"] = STYLE_ID_HIGHLIGHT_TEXT_COLOR()] = "HIGHLIGHT_TEXT_COLOR";
     /**
      * 提示文本颜色。
      *
      */
-    TStyleId[TStyleId["_ID_TIPS_TEXT_COLOR"] = STYLE_ID_TIPS_TEXT_COLOR()] = "_ID_TIPS_TEXT_COLOR";
+    TStyleId[TStyleId["TIPS_TEXT_COLOR"] = STYLE_ID_TIPS_TEXT_COLOR()] = "TIPS_TEXT_COLOR";
     /**
      * 文本水平对齐的方式。
      *
      */
-    TStyleId[TStyleId["_ID_TEXT_ALIGN_H"] = STYLE_ID_TEXT_ALIGN_H()] = "_ID_TEXT_ALIGN_H";
+    TStyleId[TStyleId["TEXT_ALIGN_H"] = STYLE_ID_TEXT_ALIGN_H()] = "TEXT_ALIGN_H";
     /**
      * 文本垂直对齐的方式。
      *
      */
-    TStyleId[TStyleId["_ID_TEXT_ALIGN_V"] = STYLE_ID_TEXT_ALIGN_V()] = "_ID_TEXT_ALIGN_V";
+    TStyleId[TStyleId["TEXT_ALIGN_V"] = STYLE_ID_TEXT_ALIGN_V()] = "TEXT_ALIGN_V";
     /**
      * 边框颜色。
      *
      */
-    TStyleId[TStyleId["_ID_BORDER_COLOR"] = STYLE_ID_BORDER_COLOR()] = "_ID_BORDER_COLOR";
+    TStyleId[TStyleId["BORDER_COLOR"] = STYLE_ID_BORDER_COLOR()] = "BORDER_COLOR";
     /**
      * 边框线宽。
      *
      */
-    TStyleId[TStyleId["_ID_BORDER_WIDTH"] = STYLE_ID_BORDER_WIDTH()] = "_ID_BORDER_WIDTH";
+    TStyleId[TStyleId["BORDER_WIDTH"] = STYLE_ID_BORDER_WIDTH()] = "BORDER_WIDTH";
     /**
      * 边框类型。
      *
      */
-    TStyleId[TStyleId["_ID_BORDER"] = STYLE_ID_BORDER()] = "_ID_BORDER";
+    TStyleId[TStyleId["BORDER"] = STYLE_ID_BORDER()] = "BORDER";
     /**
      * 图片的名称。
      *
      */
-    TStyleId[TStyleId["_ID_BG_IMAGE"] = STYLE_ID_BG_IMAGE()] = "_ID_BG_IMAGE";
+    TStyleId[TStyleId["BG_IMAGE"] = STYLE_ID_BG_IMAGE()] = "BG_IMAGE";
     /**
      * 图片的显示方式。
      *
      */
-    TStyleId[TStyleId["_ID_BG_IMAGE_DRAW_TYPE"] = STYLE_ID_BG_IMAGE_DRAW_TYPE()] = "_ID_BG_IMAGE_DRAW_TYPE";
+    TStyleId[TStyleId["BG_IMAGE_DRAW_TYPE"] = STYLE_ID_BG_IMAGE_DRAW_TYPE()] = "BG_IMAGE_DRAW_TYPE";
     /**
      * 图标的名称。
      *
      */
-    TStyleId[TStyleId["_ID_ICON"] = STYLE_ID_ICON()] = "_ID_ICON";
+    TStyleId[TStyleId["ICON"] = STYLE_ID_ICON()] = "ICON";
     /**
      * 图片的名称。
      *
      */
-    TStyleId[TStyleId["_ID_FG_IMAGE"] = STYLE_ID_FG_IMAGE()] = "_ID_FG_IMAGE";
+    TStyleId[TStyleId["FG_IMAGE"] = STYLE_ID_FG_IMAGE()] = "FG_IMAGE";
     /**
      * 图片的显示方式。
      *
      */
-    TStyleId[TStyleId["_ID_FG_IMAGE_DRAW_TYPE"] = STYLE_ID_FG_IMAGE_DRAW_TYPE()] = "_ID_FG_IMAGE_DRAW_TYPE";
+    TStyleId[TStyleId["FG_IMAGE_DRAW_TYPE"] = STYLE_ID_FG_IMAGE_DRAW_TYPE()] = "FG_IMAGE_DRAW_TYPE";
     /**
      * 间距。
      *
      */
-    TStyleId[TStyleId["_ID_SPACER"] = STYLE_ID_SPACER()] = "_ID_SPACER";
+    TStyleId[TStyleId["SPACER"] = STYLE_ID_SPACER()] = "SPACER";
     /**
      * 边距。
      *
      */
-    TStyleId[TStyleId["_ID_MARGIN"] = STYLE_ID_MARGIN()] = "_ID_MARGIN";
+    TStyleId[TStyleId["MARGIN"] = STYLE_ID_MARGIN()] = "MARGIN";
     /**
      * 左边距。
      *
      */
-    TStyleId[TStyleId["_ID_MARGIN_LEFT"] = STYLE_ID_MARGIN_LEFT()] = "_ID_MARGIN_LEFT";
+    TStyleId[TStyleId["MARGIN_LEFT"] = STYLE_ID_MARGIN_LEFT()] = "MARGIN_LEFT";
     /**
      * 右边距。
      *
      */
-    TStyleId[TStyleId["_ID_MARGIN_RIGHT"] = STYLE_ID_MARGIN_RIGHT()] = "_ID_MARGIN_RIGHT";
+    TStyleId[TStyleId["MARGIN_RIGHT"] = STYLE_ID_MARGIN_RIGHT()] = "MARGIN_RIGHT";
     /**
      * 顶边距。
      *
      */
-    TStyleId[TStyleId["_ID_MARGIN_TOP"] = STYLE_ID_MARGIN_TOP()] = "_ID_MARGIN_TOP";
+    TStyleId[TStyleId["MARGIN_TOP"] = STYLE_ID_MARGIN_TOP()] = "MARGIN_TOP";
     /**
      * 底边距。
      *
      */
-    TStyleId[TStyleId["_ID_MARGIN_BOTTOM"] = STYLE_ID_MARGIN_BOTTOM()] = "_ID_MARGIN_BOTTOM";
+    TStyleId[TStyleId["MARGIN_BOTTOM"] = STYLE_ID_MARGIN_BOTTOM()] = "MARGIN_BOTTOM";
     /**
      * 图标的位置。
      *
      */
-    TStyleId[TStyleId["_ID_ICON_AT"] = STYLE_ID_ICON_AT()] = "_ID_ICON_AT";
+    TStyleId[TStyleId["ICON_AT"] = STYLE_ID_ICON_AT()] = "ICON_AT";
     /**
      * Active图标的名称。
      *
      */
-    TStyleId[TStyleId["_ID_ACTIVE_ICON"] = STYLE_ID_ACTIVE_ICON()] = "_ID_ACTIVE_ICON";
+    TStyleId[TStyleId["ACTIVE_ICON"] = STYLE_ID_ACTIVE_ICON()] = "ACTIVE_ICON";
     /**
      * X方向的偏移，方便实现按下的效果。
      *
      */
-    TStyleId[TStyleId["_ID_X_OFFSET"] = STYLE_ID_X_OFFSET()] = "_ID_X_OFFSET";
+    TStyleId[TStyleId["X_OFFSET"] = STYLE_ID_X_OFFSET()] = "X_OFFSET";
     /**
      * Y方向的偏移，方便实现按下的效果。
      *
      */
-    TStyleId[TStyleId["_ID_Y_OFFSET"] = STYLE_ID_Y_OFFSET()] = "_ID_Y_OFFSET";
+    TStyleId[TStyleId["Y_OFFSET"] = STYLE_ID_Y_OFFSET()] = "Y_OFFSET";
     /**
      * 编辑器中选中区域的背景颜色。
      *
      */
-    TStyleId[TStyleId["_ID_SELECTED_BG_COLOR"] = STYLE_ID_SELECTED_BG_COLOR()] = "_ID_SELECTED_BG_COLOR";
+    TStyleId[TStyleId["SELECTED_BG_COLOR"] = STYLE_ID_SELECTED_BG_COLOR()] = "SELECTED_BG_COLOR";
     /**
      * 编辑器中选中区域的前景颜色。
      *
      */
-    TStyleId[TStyleId["_ID_SELECTED_FG_COLOR"] = STYLE_ID_SELECTED_FG_COLOR()] = "_ID_SELECTED_FG_COLOR";
+    TStyleId[TStyleId["SELECTED_FG_COLOR"] = STYLE_ID_SELECTED_FG_COLOR()] = "SELECTED_FG_COLOR";
     /**
      * 编辑器中选中区域的文本颜色。
      *
      */
-    TStyleId[TStyleId["_ID_SELECTED_TEXT_COLOR"] = STYLE_ID_SELECTED_TEXT_COLOR()] = "_ID_SELECTED_TEXT_COLOR";
+    TStyleId[TStyleId["SELECTED_TEXT_COLOR"] = STYLE_ID_SELECTED_TEXT_COLOR()] = "SELECTED_TEXT_COLOR";
     /**
      * 圆角半径(仅在WITH_VGCANVAS定义时生效)。
      *
      */
-    TStyleId[TStyleId["_ID_ROUND_RADIUS"] = STYLE_ID_ROUND_RADIUS()] = "_ID_ROUND_RADIUS";
+    TStyleId[TStyleId["ROUND_RADIUS"] = STYLE_ID_ROUND_RADIUS()] = "ROUND_RADIUS";
     /**
      * 左上角圆角半径(仅在WITH_VGCANVAS定义时生效)。
      *
      */
-    TStyleId[TStyleId["_ID_ROUND_RADIUS_TOP_LETF"] = STYLE_ID_ROUND_RADIUS_TOP_LETF()] = "_ID_ROUND_RADIUS_TOP_LETF";
+    TStyleId[TStyleId["ROUND_RADIUS_TOP_LETF"] = STYLE_ID_ROUND_RADIUS_TOP_LETF()] = "ROUND_RADIUS_TOP_LETF";
     /**
      * 右上角圆角半径(仅在WITH_VGCANVAS定义时生效)。
      *
      */
-    TStyleId[TStyleId["_ID_ROUND_RADIUS_TOP_RIGHT"] = STYLE_ID_ROUND_RADIUS_TOP_RIGHT()] = "_ID_ROUND_RADIUS_TOP_RIGHT";
+    TStyleId[TStyleId["ROUND_RADIUS_TOP_RIGHT"] = STYLE_ID_ROUND_RADIUS_TOP_RIGHT()] = "ROUND_RADIUS_TOP_RIGHT";
     /**
      * 左下角圆角半径(仅在WITH_VGCANVAS定义时生效)。
      *
      */
-    TStyleId[TStyleId["_ID_ROUND_RADIUS_BOTTOM_LETF"] = STYLE_ID_ROUND_RADIUS_BOTTOM_LETF()] = "_ID_ROUND_RADIUS_BOTTOM_LETF";
+    TStyleId[TStyleId["ROUND_RADIUS_BOTTOM_LETF"] = STYLE_ID_ROUND_RADIUS_BOTTOM_LETF()] = "ROUND_RADIUS_BOTTOM_LETF";
     /**
      * 右下角圆角半径(仅在WITH_VGCANVAS定义时生效)。
      *
      */
-    TStyleId[TStyleId["_ID_ROUND_RADIUS_BOTTOM_RIGHT"] = STYLE_ID_ROUND_RADIUS_BOTTOM_RIGHT()] = "_ID_ROUND_RADIUS_BOTTOM_RIGHT";
+    TStyleId[TStyleId["ROUND_RADIUS_BOTTOM_RIGHT"] = STYLE_ID_ROUND_RADIUS_BOTTOM_RIGHT()] = "ROUND_RADIUS_BOTTOM_RIGHT";
     /**
      * 子控件布局参数。
      *
      */
-    TStyleId[TStyleId["_ID_CHILDREN_LAYOUT"] = STYLE_ID_CHILDREN_LAYOUT()] = "_ID_CHILDREN_LAYOUT";
+    TStyleId[TStyleId["CHILDREN_LAYOUT"] = STYLE_ID_CHILDREN_LAYOUT()] = "CHILDREN_LAYOUT";
     /**
      * 控件布局参数。
      *
      */
-    TStyleId[TStyleId["_ID_SELF_LAYOUT"] = STYLE_ID_SELF_LAYOUT()] = "_ID_SELF_LAYOUT";
+    TStyleId[TStyleId["SELF_LAYOUT"] = STYLE_ID_SELF_LAYOUT()] = "SELF_LAYOUT";
 })(TStyleId = exports.TStyleId || (exports.TStyleId = {}));
 ;
 /**
@@ -4532,6 +4532,16 @@ var TWidgetProp;
      */
     TWidgetProp[TWidgetProp["MAX_W"] = WIDGET_PROP_MAX_W()] = "MAX_W";
     /**
+     * 根据子控件和文本自动调整大小。
+     *
+     */
+    TWidgetProp[TWidgetProp["AUTO_ADJUST_SIZE"] = WIDGET_PROP_AUTO_ADJUST_SIZE()] = "AUTO_ADJUST_SIZE";
+    /**
+     * 窗口是否保持单例。
+     *
+     */
+    TWidgetProp[TWidgetProp["SINGLE_INSTANCE"] = WIDGET_PROP_SINGLE_INSTANCE()] = "SINGLE_INSTANCE";
+    /**
      * 子控件布局参数。
      *
      */
@@ -4596,6 +4606,11 @@ var TWidgetProp;
      *
      */
     TWidgetProp[TWidgetProp["LENGTH"] = WIDGET_PROP_LENGTH()] = "LENGTH";
+    /**
+     * 自动换行。
+     *
+     */
+    TWidgetProp[TWidgetProp["LINE_WRAP"] = WIDGET_PROP_LINE_WRAP()] = "LINE_WRAP";
     /**
      * 文本。
      *
@@ -5489,117 +5504,117 @@ var TWidgetState;
      * 无效状态。
      *
      */
-    TWidgetState[TWidgetState["STATE_NONE"] = WIDGET_STATE_NONE()] = "STATE_NONE";
+    TWidgetState[TWidgetState["NONE"] = WIDGET_STATE_NONE()] = "NONE";
     /**
      * 正常状态。
      *
      */
-    TWidgetState[TWidgetState["STATE_NORMAL"] = WIDGET_STATE_NORMAL()] = "STATE_NORMAL";
+    TWidgetState[TWidgetState["NORMAL"] = WIDGET_STATE_NORMAL()] = "NORMAL";
     /**
      * 内容被修改的状态。
      *
      */
-    TWidgetState[TWidgetState["STATE_CHANGED"] = WIDGET_STATE_CHANGED()] = "STATE_CHANGED";
+    TWidgetState[TWidgetState["CHANGED"] = WIDGET_STATE_CHANGED()] = "CHANGED";
     /**
      * 指针按下状态。
      *
      */
-    TWidgetState[TWidgetState["STATE_PRESSED"] = WIDGET_STATE_PRESSED()] = "STATE_PRESSED";
+    TWidgetState[TWidgetState["PRESSED"] = WIDGET_STATE_PRESSED()] = "PRESSED";
     /**
      * 指针悬浮状态。
      *
      */
-    TWidgetState[TWidgetState["STATE_OVER"] = WIDGET_STATE_OVER()] = "STATE_OVER";
+    TWidgetState[TWidgetState["OVER"] = WIDGET_STATE_OVER()] = "OVER";
     /**
      * 禁用状态。
      *
      */
-    TWidgetState[TWidgetState["STATE_DISABLE"] = WIDGET_STATE_DISABLE()] = "STATE_DISABLE";
+    TWidgetState[TWidgetState["DISABLE"] = WIDGET_STATE_DISABLE()] = "DISABLE";
     /**
      * 聚焦状态。
      *
      */
-    TWidgetState[TWidgetState["STATE_FOCUSED"] = WIDGET_STATE_FOCUSED()] = "STATE_FOCUSED";
+    TWidgetState[TWidgetState["FOCUSED"] = WIDGET_STATE_FOCUSED()] = "FOCUSED";
     /**
      * 勾选状态。
      *
      */
-    TWidgetState[TWidgetState["STATE_CHECKED"] = WIDGET_STATE_CHECKED()] = "STATE_CHECKED";
+    TWidgetState[TWidgetState["CHECKED"] = WIDGET_STATE_CHECKED()] = "CHECKED";
     /**
      * 没勾选状态。
      *
      */
-    TWidgetState[TWidgetState["STATE_UNCHECKED"] = WIDGET_STATE_UNCHECKED()] = "STATE_UNCHECKED";
+    TWidgetState[TWidgetState["UNCHECKED"] = WIDGET_STATE_UNCHECKED()] = "UNCHECKED";
     /**
      * 编辑器无内容状态。
      *
      */
-    TWidgetState[TWidgetState["STATE_EMPTY"] = WIDGET_STATE_EMPTY()] = "STATE_EMPTY";
+    TWidgetState[TWidgetState["EMPTY"] = WIDGET_STATE_EMPTY()] = "EMPTY";
     /**
      * 编辑器无内容同时聚焦的状态。
      *
      */
-    TWidgetState[TWidgetState["STATE_EMPTY_FOCUS"] = WIDGET_STATE_EMPTY_FOCUS()] = "STATE_EMPTY_FOCUS";
+    TWidgetState[TWidgetState["EMPTY_FOCUS"] = WIDGET_STATE_EMPTY_FOCUS()] = "EMPTY_FOCUS";
     /**
      * 输入错误状态。
      *
      */
-    TWidgetState[TWidgetState["STATE_ERROR"] = WIDGET_STATE_ERROR()] = "STATE_ERROR";
+    TWidgetState[TWidgetState["ERROR"] = WIDGET_STATE_ERROR()] = "ERROR";
     /**
      * 选中状态。
      *
      */
-    TWidgetState[TWidgetState["STATE_SELECTED"] = WIDGET_STATE_SELECTED()] = "STATE_SELECTED";
+    TWidgetState[TWidgetState["SELECTED"] = WIDGET_STATE_SELECTED()] = "SELECTED";
     /**
      * 正常状态(选中项)。
      *
      */
-    TWidgetState[TWidgetState["STATE_NORMAL_OF_CHECKED"] = WIDGET_STATE_NORMAL_OF_CHECKED()] = "STATE_NORMAL_OF_CHECKED";
+    TWidgetState[TWidgetState["NORMAL_OF_CHECKED"] = WIDGET_STATE_NORMAL_OF_CHECKED()] = "NORMAL_OF_CHECKED";
     /**
      * 指针按下状态(选中项)。
      *
      */
-    TWidgetState[TWidgetState["STATE_PRESSED_OF_CHECKED"] = WIDGET_STATE_PRESSED_OF_CHECKED()] = "STATE_PRESSED_OF_CHECKED";
+    TWidgetState[TWidgetState["PRESSED_OF_CHECKED"] = WIDGET_STATE_PRESSED_OF_CHECKED()] = "PRESSED_OF_CHECKED";
     /**
      * 指针悬浮状态(选中项)。
      *
      */
-    TWidgetState[TWidgetState["STATE_OVER_OF_CHECKED"] = WIDGET_STATE_OVER_OF_CHECKED()] = "STATE_OVER_OF_CHECKED";
+    TWidgetState[TWidgetState["OVER_OF_CHECKED"] = WIDGET_STATE_OVER_OF_CHECKED()] = "OVER_OF_CHECKED";
     /**
      * 禁用状态(选中项)。
      *
      */
-    TWidgetState[TWidgetState["STATE_DISABLE_OF_CHECKED"] = WIDGET_STATE_DISABLE_OF_CHECKED()] = "STATE_DISABLE_OF_CHECKED";
+    TWidgetState[TWidgetState["DISABLE_OF_CHECKED"] = WIDGET_STATE_DISABLE_OF_CHECKED()] = "DISABLE_OF_CHECKED";
     /**
      * 焦点状态(选中项)。
      *
      */
-    TWidgetState[TWidgetState["STATE_FOCUSED_OF_CHECKED"] = WIDGET_STATE_FOCUSED_OF_CHECKED()] = "STATE_FOCUSED_OF_CHECKED";
+    TWidgetState[TWidgetState["FOCUSED_OF_CHECKED"] = WIDGET_STATE_FOCUSED_OF_CHECKED()] = "FOCUSED_OF_CHECKED";
     /**
      * 正常状态(当前项)。
      *
      */
-    TWidgetState[TWidgetState["STATE_NORMAL_OF_ACTIVE"] = WIDGET_STATE_NORMAL_OF_ACTIVE()] = "STATE_NORMAL_OF_ACTIVE";
+    TWidgetState[TWidgetState["NORMAL_OF_ACTIVE"] = WIDGET_STATE_NORMAL_OF_ACTIVE()] = "NORMAL_OF_ACTIVE";
     /**
      * 指针按下状态(当前项)。
      *
      */
-    TWidgetState[TWidgetState["STATE_PRESSED_OF_ACTIVE"] = WIDGET_STATE_PRESSED_OF_ACTIVE()] = "STATE_PRESSED_OF_ACTIVE";
+    TWidgetState[TWidgetState["PRESSED_OF_ACTIVE"] = WIDGET_STATE_PRESSED_OF_ACTIVE()] = "PRESSED_OF_ACTIVE";
     /**
      * 指针悬浮状态(当前项)。
      *
      */
-    TWidgetState[TWidgetState["STATE_OVER_OF_ACTIVE"] = WIDGET_STATE_OVER_OF_ACTIVE()] = "STATE_OVER_OF_ACTIVE";
+    TWidgetState[TWidgetState["OVER_OF_ACTIVE"] = WIDGET_STATE_OVER_OF_ACTIVE()] = "OVER_OF_ACTIVE";
     /**
      * 禁用状态(当前项)。
      *
      */
-    TWidgetState[TWidgetState["STATE_DISABLE_OF_ACTIVE"] = WIDGET_STATE_DISABLE_OF_ACTIVE()] = "STATE_DISABLE_OF_ACTIVE";
+    TWidgetState[TWidgetState["DISABLE_OF_ACTIVE"] = WIDGET_STATE_DISABLE_OF_ACTIVE()] = "DISABLE_OF_ACTIVE";
     /**
      * 焦点状态(当前项)。
      *
      */
-    TWidgetState[TWidgetState["STATE_FOCUSED_OF_ACTIVE"] = WIDGET_STATE_FOCUSED_OF_ACTIVE()] = "STATE_FOCUSED_OF_ACTIVE";
+    TWidgetState[TWidgetState["FOCUSED_OF_ACTIVE"] = WIDGET_STATE_FOCUSED_OF_ACTIVE()] = "FOCUSED_OF_ACTIVE";
 })(TWidgetState = exports.TWidgetState || (exports.TWidgetState = {}));
 ;
 /**
@@ -6037,6 +6052,16 @@ var TWidget = /** @class */ (function () {
         return widget_set_feedback(this != null ? (this.nativeObj || this) : null, feedback);
     };
     /**
+     * 设置控件是否根据子控件和文本自动调整控件自身大小。
+     *
+     * @param auto_adjust_size 是否根据子控件和文本自动调整控件自身大小。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TWidget.prototype.setAutoAdjustSize = function (auto_adjust_size) {
+        return widget_set_auto_adjust_size(this != null ? (this.nativeObj || this) : null, auto_adjust_size);
+    };
+    /**
      * 设置控件的floating标志。
      *> floating的控件不受父控件的子控件布局参数的影响。
      *
@@ -6185,12 +6210,11 @@ var TWidget = /** @class */ (function () {
      * 设置控件的可见性。
      *
      * @param visible 是否可见。
-     * @param recursive 是否递归设置全部子控件。
      *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
-    TWidget.prototype.setVisible = function (visible, recursive) {
-        return widget_set_visible(this != null ? (this.nativeObj || this) : null, visible, recursive);
+    TWidget.prototype.setVisible = function (visible) {
+        return widget_set_visible(this != null ? (this.nativeObj || this) : null, visible);
     };
     /**
      * 设置控件的可见性(不触发repaint和relayout)。
@@ -6268,6 +6292,27 @@ var TWidget = /** @class */ (function () {
      */
     TWidget.prototype.getPropStr = function (name, defval) {
         return widget_get_prop_str(this != null ? (this.nativeObj || this) : null, name, defval);
+    };
+    /**
+     * 设置指针格式的属性。
+     *
+     * @param name 属性的名称。
+     * @param v 属性的值。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TWidget.prototype.setPropPointer = function (name, v) {
+        return widget_set_prop_pointer(this != null ? (this.nativeObj || this) : null, name, v);
+    };
+    /**
+     * 获取指针格式的属性。
+     *
+     * @param name 属性的名称。
+     *
+     * @returns 返回属性的值。
+     */
+    TWidget.prototype.getPropPointer = function (name) {
+        return widget_get_prop_pointer(this != null ? (this.nativeObj || this) : null, name);
     };
     /**
      * 设置整数格式的属性。
@@ -6386,6 +6431,15 @@ var TWidget = /** @class */ (function () {
      */
     TWidget.prototype.isPopup = function () {
         return widget_is_popup(this != null ? (this.nativeObj || this) : null);
+    };
+    /**
+     * 检查控件是否是overlay窗口类型。
+     *
+     *
+     * @returns 返回FALSE表示不是，否则表示是。
+     */
+    TWidget.prototype.isOverlay = function () {
+        return widget_is_overlay(this != null ? (this.nativeObj || this) : null);
     };
     /**
      * 检查控件弹出窗口控件是否已经打开了（而非挂起状态）。
@@ -6868,7 +6922,7 @@ var TWidget = /** @class */ (function () {
             return widget_t_get_prop_visible(this.nativeObj);
         },
         set: function (v) {
-            widget_t_set_prop_visible(this.nativeObj, v);
+            this.setVisible(v);
         },
         enumerable: true,
         configurable: true
@@ -6882,7 +6936,7 @@ var TWidget = /** @class */ (function () {
             return widget_t_get_prop_sensitive(this.nativeObj);
         },
         set: function (v) {
-            widget_t_set_prop_sensitive(this.nativeObj, v);
+            this.setSensitive(v);
         },
         enumerable: true,
         configurable: true
@@ -6896,7 +6950,7 @@ var TWidget = /** @class */ (function () {
             return widget_t_get_prop_focusable(this.nativeObj);
         },
         set: function (v) {
-            widget_t_set_prop_focusable(this.nativeObj, v);
+            this.setFocusable(v);
         },
         enumerable: true,
         configurable: true
@@ -6910,8 +6964,21 @@ var TWidget = /** @class */ (function () {
         get: function () {
             return widget_t_get_prop_with_focus_state(this.nativeObj);
         },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TWidget.prototype, "autoAdjustSize", {
+        /**
+         * 是否根据子控件和文本自动调整控件自身大小。
+         *
+         *> 为true时，最好不要使用child_layout，否则可能有冲突。
+         *
+         */
+        get: function () {
+            return widget_t_get_prop_auto_adjust_size(this.nativeObj);
+        },
         set: function (v) {
-            widget_t_set_prop_with_focus_state(this.nativeObj, v);
+            this.setAutoAdjustSize(v);
         },
         enumerable: true,
         configurable: true
@@ -8346,7 +8413,7 @@ var TCanvas = /** @class */ (function () {
         return canvas_draw_hline(this != null ? (this.nativeObj || this) : null, x, y, w);
     };
     /**
-     * 填充矩形。
+     * 绘制矩形。
      *
      * @param x x坐标。
      * @param y y坐标。
@@ -8357,6 +8424,19 @@ var TCanvas = /** @class */ (function () {
      */
     TCanvas.prototype.fillRect = function (x, y, w, h) {
         return canvas_fill_rect(this != null ? (this.nativeObj || this) : null, x, y, w, h);
+    };
+    /**
+     * 填充矩形。
+     *
+     * @param x x坐标。
+     * @param y y坐标。
+     * @param w 宽度。
+     * @param h 高度。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TCanvas.prototype.clearRect = function (x, y, w, h) {
+        return canvas_clear_rect(this != null ? (this.nativeObj || this) : null, x, y, w, h);
     };
     /**
      * 绘制矩形。
@@ -10427,6 +10507,16 @@ var TLabel = /** @class */ (function (_super) {
         return label_set_length(this != null ? (this.nativeObj || this) : null, length);
     };
     /**
+     * 设置是否自动换行。
+     *
+     * @param line_wrap 是否自动换行。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TLabel.prototype.setLineWrap = function (line_wrap) {
+        return label_set_line_wrap(this != null ? (this.nativeObj || this) : null, line_wrap);
+    };
+    /**
      * 根据文本内容调节控件大小。
      *
      * @param min_w 最小宽度。
@@ -10460,6 +10550,20 @@ var TLabel = /** @class */ (function (_super) {
         },
         set: function (v) {
             this.setLength(v);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TLabel.prototype, "lineWrap", {
+        /**
+         * 是否自动换行。
+         *
+         */
+        get: function () {
+            return label_t_get_prop_line_wrap(this.nativeObj);
+        },
+        set: function (v) {
+            this.setLineWrap(v);
         },
         enumerable: true,
         configurable: true
@@ -15674,6 +15778,29 @@ var TMledit = /** @class */ (function (_super) {
         return mledit_set_scroll_line(this != null ? (this.nativeObj || this) : null, scroll_line);
     };
     /**
+     * 设置编辑器是否在获得焦点时打开输入法。
+     *
+     *> * 设置默认焦点时，打开窗口时不弹出软键盘。
+     *> * 用键盘切换焦点时，编辑器获得焦点时不弹出软键盘。
+     *
+     * @param open_im_when_focused 是否在获得焦点时打开输入法。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TMledit.prototype.setOpenImWhenFocused = function (open_im_when_focused) {
+        return mledit_set_open_im_when_focused(this != null ? (this.nativeObj || this) : null, open_im_when_focused);
+    };
+    /**
+     * 设置编辑器是否在失去焦点时关闭输入法。
+     *
+     * @param close_im_when_blured 是否是否在失去焦点时关闭输入法。在失去焦点时关闭输入法。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TMledit.prototype.setCloseImWhenBlured = function (close_im_when_blured) {
+        return mledit_set_close_im_when_blured(this != null ? (this.nativeObj || this) : null, close_im_when_blured);
+    };
+    /**
      * 转换为mledit对象(供脚本语言使用)。
      *
      * @param widget mledit对象。
@@ -15838,6 +15965,36 @@ var TMledit = /** @class */ (function (_super) {
         },
         set: function (v) {
             this.setCancelable(v);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TMledit.prototype, "openImWhenFocused", {
+        /**
+         * 获得焦点时打开输入法。
+         *
+         *> 主要用于没有指针设备的情况，否则每次切换焦点时都打开输入法。
+         *
+         */
+        get: function () {
+            return mledit_t_get_prop_open_im_when_focused(this.nativeObj);
+        },
+        set: function (v) {
+            this.setOpenImWhenFocused(v);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TMledit.prototype, "closeImWhenBlured", {
+        /**
+         * 是否在失去焦点时关闭输入法(默认是)。
+         *
+         */
+        get: function () {
+            return mledit_t_get_prop_close_im_when_blured(this.nativeObj);
+        },
+        set: function (v) {
+            this.setCloseImWhenBlured(v);
         },
         enumerable: true,
         configurable: true
@@ -18504,6 +18661,17 @@ var TWindowBase = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(TWindowBase.prototype, "singleInstance", {
+        /**
+         * 单例。如果窗口存在，先关闭再打开。
+         *
+         */
+        get: function () {
+            return window_base_t_get_prop_single_instance(this.nativeObj);
+        },
+        enumerable: true,
+        configurable: true
+    });
     return TWindowBase;
 }(TWidget));
 exports.TWindowBase = TWindowBase;
@@ -20401,7 +20569,7 @@ var TDialog = /** @class */ (function (_super) {
      *也就是在dialog_modal调用完成后仍然可以访问dialog中控件，直到本次事件结束。
      *
      *
-     * @returns 返回退出吗。
+     * @returns 返回退出码。
      */
     TDialog.prototype.modal = function () {
         return dialog_modal(this != null ? (this.nativeObj || this) : null);
