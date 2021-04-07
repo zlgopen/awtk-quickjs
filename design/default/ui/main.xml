@@ -1,4 +1,4 @@
-<window closable="no" text="Desktop" anim_hint="htranslate">
+<window closable="no" text="Desktop" anim_hint="htranslate" single_instance="true">
   <slide_view x="0" y="0" w="100%" h="100%" loop="true">
     <view x="0" y="0" w="100%" h="100%" children_layout="default(c=2,r=8,m=5,s=5)">
       <button focusable="true" focused="true" name="open:basic" text="Basic"/>
@@ -20,7 +20,7 @@
       <button focusable="true" name="open:digit_clock" text="Digit Clock"/>
       <button focusable="true" name="open:locale" text="Locale"/>
       <button focusable="true" name="open:images" text="Image"/>
-      <button focusable="true" name="open:guage" text="Guage"/>
+      <button focusable="true" name="open:gauge" text="Gauge"/>
       <button focusable="true" name="open:switch" text="Switch"/>
       <button focusable="true" name="open:text_selector" text="Selector"/>
       <button focusable="true" name="open:image_animation" text="Image Animation"/>
@@ -48,6 +48,7 @@
       <button focusable="true" name="open:draggable" text="Draggable"/>
       <button focusable="true" name="open:rich_text_view" text="RichTextView"/>
       <button focusable="true" name="open:bidi" text="Bidirectional"/>
+      <button focusable="true" name="open:color_tile" text="Color Tile"/>
     </view>
     <view x="0" y="0" w="100%" h="100%" children_layout="default(c=1,r=8,m=5,s=5)">
       <button focusable="true" name="open:memtest" text="MemTest"/>

@@ -5,7 +5,7 @@
 
   <row x="0" y="40" w="100%" h="30" children_layout="default(r=1,c=3,xm=2,s=10)">
     <button name="inc_value" text="Inc" focusable="true" focus="true"/>
-    <button name="close" text="Close" focusable="true"/>
+    <button name="switch_to:main" text="Home" focusable="true"/>
     <button name="dec_value" text="Dec" focusable="true" style:focused:text_color="red"/>
   </row>
 
@@ -39,7 +39,7 @@
     <radio_button style="middle"/>
     <radio_button style="right"/>
     <check_button style="mute"/>
-  </grid>
+  </row>
   
   <grid x="20" y="bottom:10" w="80%" h="40" children_layout="default(r=1,c=5,x=2,s=10)">
     <image draw_type="icon" image="earth" 

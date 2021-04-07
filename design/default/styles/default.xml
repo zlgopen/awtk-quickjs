@@ -89,12 +89,14 @@
   <style name="scroll_down" border_color="#a0a0a0">
     <normal     bg_color="#f0f0f0" icon="arrow_down_n"/>
     <pressed    bg_color="#c0c0c0" icon="arrow_down_p"/>
+    <disable    bg_color="gray" icon="arrow_down_p"/>
     <over       bg_color="#e0e0e0" icon="arrow_down_o"/>
   </style>
 
   <style name="scroll_up" border_color="#a0a0a0">
     <normal     bg_color="#f0f0f0" icon="arrow_up_n"/>
     <pressed    bg_color="#c0c0c0" icon="arrow_up_p"/>
+    <disable    bg_color="gray" icon="arrow_up_p"/>
     <over       bg_color="#e0e0e0" icon="arrow_up_o"/>
   </style>
   
@@ -116,6 +118,7 @@
     <normal     bg_color="#f0f0f0" />
     <focused    bg_color="#f0f0f0" border_color="black"/>
     <disable    bg_color="gray" text_color="#d0d0d0" />
+    <changed    bg_color="#f0f0f0" text_color="#ee0000" />
     <error      bg_color="#f0f0f0" text_color="red" />
     <empty      bg_color="#f0f0f0" text_color="#a0a0a0" />
     <empty_focus bg_color="#f0f0f0" text_color="#a0a0a0" border_color="black"/>
@@ -171,7 +174,7 @@
   </style>
 
   <style name="left">
-    <normal text_color="red" text_align_h="left" border_color="#a0a0a0" margin="4" />
+    <normal text_color="red" text_align_h="left" border_color="#a0a0a0" margin="-4" />
   </style>
 
   <style name="center">
@@ -280,17 +283,21 @@
     <normal  />
     <pressed />
     <over    />
+    <focused text_color="green"/>
     <normal_of_checked icon="check" />
     <pressed_of_checked icon="check" />
     <over_of_checked icon="check" />
+    <focused_of_checked text_color="green" icon="check"/>
   </style>
   <style name="even_icon_right" icon_at="right" text_color="black" margin="4" bg_color="#eaeaea">
     <normal  />
     <pressed />
     <over    />
+    <focused text_color="green"/>
     <normal_of_checked icon="check" />
     <pressed_of_checked icon="check" />
     <over_of_checked icon="check" />
+    <focused_of_checked text_color="green" icon="check"/>
   </style>
 </check_button>
 
@@ -333,17 +340,21 @@
     <normal  />
     <pressed />
     <over    />
+    <focused text_color="green"/>
     <normal_of_checked icon="check" />
     <pressed_of_checked icon="check" />
     <over_of_checked icon="check" />
+    <focused_of_checked text_color="green" icon="check"/>
   </style>
   <style name="even_icon_right" text_color="black" margin="4" icon_at="right" bg_color="#eaeaea">
     <normal  />
     <pressed />
     <over    />
+    <focused text_color="green"/>
     <normal_of_checked icon="check" />
     <pressed_of_checked icon="check" />
     <over_of_checked icon="check" />
+    <focused_of_checked text_color="green" icon="check"/>
   </style>
 </radio_button>
 
@@ -395,6 +406,7 @@
   <style name="default" border_color="gray">
     <normal bg_color="#f0f0f0"/>
     <over bg_color="#f0f0f0" />
+    <disable bg_color="gray" />
     <pressed bg_color="#f0f0f0" />
   </style>
 </scroll_bar_d>
@@ -434,6 +446,11 @@
     <over       bg_color="#eaeaea" />
   </style>
   <style name="empty" >
+    <normal  />
+    <pressed />
+    <over  />
+  </style>
+  <style name="border" border_color="#a0a0a0">
     <normal  />
     <pressed />
     <over  />
@@ -498,8 +515,11 @@
   <style name="default" fg_color="#a0a0a0"  text_color="black" text_align_h="center">
     <normal     bg_color="#f0f0f0"/>
   </style>
-  <style name="dark" fg_color="#a0a0a0"  text_color="black" text_align_h="center">
-    <normal     bg_color="#ffffff" mask_color="#404040" border_color="#404040"/>
+  <style name="dark"  text_color="black" text_color="black" text_align_h="center">
+    <normal   highlight_font_size="30" highlight_text_color="#00ff00" bg_color="#ffffff" mask_color="#404040" border_color="#404040"/>
+  </style>
+ <style name="image" fg_image="text_selector_border" text_color="black" text_align_h="center">
+    <normal    highlight_font_size="30" highlight_text_color="#00ff00"  bg_color="#ffffff"  border_color="#404040"/>
   </style>
 </text_selector>
 
@@ -544,7 +564,7 @@
     <normal text_color="green" fg_color="black" />
   </style>
   <style name="image">
-    <normal text_color="gold" fg_image="progress_circle" />
+    <normal text_color="gold" bg_color="#00f6aa" fg_image="progress_circle" />
   </style>
 </progress_circle>
 
