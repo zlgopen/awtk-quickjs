@@ -22402,9 +22402,9 @@ jsvalue_t wrap_edit_get_cursor(JSContext* ctx, jsvalue_const_t this_val, int arg
                                jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 1) {
-    ret_t ret = (ret_t)0;
+    uint32_t ret = (uint32_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
-    ret = (ret_t)edit_get_cursor(widget);
+    ret = (uint32_t)edit_get_cursor(widget);
 
     jret = jsvalue_create_int(ctx, ret);
   }
