@@ -13,7 +13,6 @@
 #include "base/canvas_offline.h"
 #include "base/canvas.h"
 #include "base/clip_board.h"
-#include "base/date_time_format.h"
 #include "base/dialog.h"
 #include "base/events.h"
 #include "base/font_manager.h"
@@ -3120,14 +3119,6 @@ ret_t clip_board_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_clip_board_set_text, "clip_board_set_text", 1));
   JS_SetPropertyStr(ctx, global_obj, "clip_board_get_text",
                     JS_NewCFunction(ctx, wrap_clip_board_get_text, "clip_board_get_text", 1));
-
-  jsvalue_unref(ctx, global_obj);
-
-  return RET_OK;
-}
-
-ret_t data_time_format_init(JSContext* ctx) {
-  jsvalue_t global_obj = JS_GetGlobalObject(ctx);
 
   jsvalue_unref(ctx, global_obj);
 
@@ -26096,7 +26087,6 @@ ret_t awtk_js_init(JSContext* ctx) {
   canvas_t_init(ctx);
   clip_board_data_type_t_init(ctx);
   clip_board_t_init(ctx);
-  data_time_format_init(ctx);
   dialog_quit_code_t_init(ctx);
   event_type_t_init(ctx);
   font_manager_t_init(ctx);
