@@ -353,6 +353,58 @@ ret_t pointf_t_init(JSContext* ctx) {
   return RET_OK;
 }
 
+jsvalue_t wrap_rectf_t_get_prop_x(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                  jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  rectf_t* obj = (rectf_t*)jsvalue_get_pointer(ctx, argv[0], "rectf_t*");
+
+  jret = jsvalue_create_number(ctx, obj->x);
+  return jret;
+}
+
+jsvalue_t wrap_rectf_t_get_prop_y(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                  jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  rectf_t* obj = (rectf_t*)jsvalue_get_pointer(ctx, argv[0], "rectf_t*");
+
+  jret = jsvalue_create_number(ctx, obj->y);
+  return jret;
+}
+
+jsvalue_t wrap_rectf_t_get_prop_w(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                  jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  rectf_t* obj = (rectf_t*)jsvalue_get_pointer(ctx, argv[0], "rectf_t*");
+
+  jret = jsvalue_create_number(ctx, obj->w);
+  return jret;
+}
+
+jsvalue_t wrap_rectf_t_get_prop_h(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                  jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  rectf_t* obj = (rectf_t*)jsvalue_get_pointer(ctx, argv[0], "rectf_t*");
+
+  jret = jsvalue_create_number(ctx, obj->h);
+  return jret;
+}
+
+ret_t rectf_t_init(JSContext* ctx) {
+  jsvalue_t global_obj = JS_GetGlobalObject(ctx);
+  JS_SetPropertyStr(ctx, global_obj, "rectf_t_get_prop_x",
+                    JS_NewCFunction(ctx, wrap_rectf_t_get_prop_x, "rectf_t_get_prop_x", 1));
+  JS_SetPropertyStr(ctx, global_obj, "rectf_t_get_prop_y",
+                    JS_NewCFunction(ctx, wrap_rectf_t_get_prop_y, "rectf_t_get_prop_y", 1));
+  JS_SetPropertyStr(ctx, global_obj, "rectf_t_get_prop_w",
+                    JS_NewCFunction(ctx, wrap_rectf_t_get_prop_w, "rectf_t_get_prop_w", 1));
+  JS_SetPropertyStr(ctx, global_obj, "rectf_t_get_prop_h",
+                    JS_NewCFunction(ctx, wrap_rectf_t_get_prop_h, "rectf_t_get_prop_h", 1));
+
+  jsvalue_unref(ctx, global_obj);
+
+  return RET_OK;
+}
+
 jsvalue_t wrap_rect_create(JSContext* ctx, jsvalue_const_t this_val, int argc,
                            jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
@@ -6405,6 +6457,19 @@ jsvalue_t wrap_vgcanvas_set_transform(JSContext* ctx, jsvalue_const_t this_val, 
   return jret;
 }
 
+jsvalue_t wrap_vgcanvas_clip_path(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                  jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 1) {
+    ret_t ret = (ret_t)0;
+    vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
+    ret = (ret_t)vgcanvas_clip_path(vg);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
 jsvalue_t wrap_vgcanvas_clip_rect(JSContext* ctx, jsvalue_const_t this_val, int argc,
                                   jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
@@ -6927,6 +6992,8 @@ ret_t vgcanvas_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_vgcanvas_transform, "vgcanvas_transform", 1));
   JS_SetPropertyStr(ctx, global_obj, "vgcanvas_set_transform",
                     JS_NewCFunction(ctx, wrap_vgcanvas_set_transform, "vgcanvas_set_transform", 1));
+  JS_SetPropertyStr(ctx, global_obj, "vgcanvas_clip_path",
+                    JS_NewCFunction(ctx, wrap_vgcanvas_clip_path, "vgcanvas_clip_path", 1));
   JS_SetPropertyStr(ctx, global_obj, "vgcanvas_clip_rect",
                     JS_NewCFunction(ctx, wrap_vgcanvas_clip_rect, "vgcanvas_clip_rect", 1));
   JS_SetPropertyStr(
@@ -15137,6 +15204,20 @@ jsvalue_t wrap_window_manager_set_show_fps(JSContext* ctx, jsvalue_const_t this_
   return jret;
 }
 
+jsvalue_t wrap_window_manager_set_max_fps(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                          jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 2) {
+    ret_t ret = (ret_t)0;
+    widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
+    uint32_t max_fps = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
+    ret = (ret_t)window_manager_set_max_fps(widget, max_fps);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
 jsvalue_t wrap_window_manager_set_ignore_input_events(JSContext* ctx, jsvalue_const_t this_val,
                                                       int argc, jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
@@ -15279,6 +15360,9 @@ ret_t window_manager_t_init(JSContext* ctx) {
   JS_SetPropertyStr(
       ctx, global_obj, "window_manager_set_show_fps",
       JS_NewCFunction(ctx, wrap_window_manager_set_show_fps, "window_manager_set_show_fps", 1));
+  JS_SetPropertyStr(
+      ctx, global_obj, "window_manager_set_max_fps",
+      JS_NewCFunction(ctx, wrap_window_manager_set_max_fps, "window_manager_set_max_fps", 1));
   JS_SetPropertyStr(ctx, global_obj, "window_manager_set_ignore_input_events",
                     JS_NewCFunction(ctx, wrap_window_manager_set_ignore_input_events,
                                     "window_manager_set_ignore_input_events", 1));
@@ -26076,6 +26160,7 @@ ret_t awtk_js_init(JSContext* ctx) {
   emitter_t_init(ctx);
   point_t_init(ctx);
   pointf_t_init(ctx);
+  rectf_t_init(ctx);
   rect_t_init(ctx);
   bitmap_t_init(ctx);
   object_t_init(ctx);
