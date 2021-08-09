@@ -7013,8 +7013,6 @@ export declare class TAppConf {
  *
  */
 export declare class TExtWidgets {
-    nativeObj: any;
-    constructor(nativeObj: any);
     /**
      * 初始化AWTK扩展控件。
      *

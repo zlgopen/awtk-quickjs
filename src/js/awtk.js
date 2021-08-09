@@ -8309,8 +8309,7 @@ exports.TAppConf = TAppConf;
  *
  */
 var TExtWidgets = /** @class */ (function () {
-    function TExtWidgets(nativeObj) {
-        this.nativeObj = nativeObj;
+    function TExtWidgets() {
     }
     /**
      * 初始化AWTK扩展控件。
