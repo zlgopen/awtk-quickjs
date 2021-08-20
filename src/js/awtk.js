@@ -5536,6 +5536,11 @@ var TWidgetProp;
      */
     TWidgetProp[TWidgetProp["VALUE"] = WIDGET_PROP_VALUE()] = "VALUE";
     /**
+     * CheckButton是否单选。
+     *
+     */
+    TWidgetProp[TWidgetProp["RADIO"] = WIDGET_PROP_RADIO()] = "RADIO";
+    /**
      * 进度条反向显示。
      *
      */

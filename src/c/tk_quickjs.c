@@ -7379,6 +7379,11 @@ jsvalue_t get_WIDGET_PROP_VALUE(JSContext* ctx, jsvalue_const_t this_val, int ar
   return jsvalue_create_string(ctx, WIDGET_PROP_VALUE);
 }
 
+jsvalue_t get_WIDGET_PROP_RADIO(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                jsvalue_const_t* argv) {
+  return jsvalue_create_string(ctx, WIDGET_PROP_RADIO);
+}
+
 jsvalue_t get_WIDGET_PROP_REVERSE(JSContext* ctx, jsvalue_const_t this_val, int argc,
                                   jsvalue_const_t* argv) {
   return jsvalue_create_string(ctx, WIDGET_PROP_REVERSE);
@@ -8057,6 +8062,8 @@ ret_t widget_prop_t_init(JSContext* ctx) {
       JS_NewCFunction(ctx, get_WIDGET_PROP_POINTER_CURSOR, "WIDGET_PROP_POINTER_CURSOR", 1));
   JS_SetPropertyStr(ctx, global_obj, "WIDGET_PROP_VALUE",
                     JS_NewCFunction(ctx, get_WIDGET_PROP_VALUE, "WIDGET_PROP_VALUE", 1));
+  JS_SetPropertyStr(ctx, global_obj, "WIDGET_PROP_RADIO",
+                    JS_NewCFunction(ctx, get_WIDGET_PROP_RADIO, "WIDGET_PROP_RADIO", 1));
   JS_SetPropertyStr(ctx, global_obj, "WIDGET_PROP_REVERSE",
                     JS_NewCFunction(ctx, get_WIDGET_PROP_REVERSE, "WIDGET_PROP_REVERSE", 1));
   JS_SetPropertyStr(ctx, global_obj, "WIDGET_PROP_LENGTH",
