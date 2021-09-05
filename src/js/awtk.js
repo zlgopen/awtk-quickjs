@@ -10297,6 +10297,17 @@ var TOrientationEvent = /** @class */ (function (_super) {
         enumerable: false,
         configurable: true
     });
+    Object.defineProperty(TOrientationEvent.prototype, "oldOrientation", {
+        /**
+         * 旧的屏幕方向。
+         *
+         */
+        get: function () {
+            return orientation_event_t_get_prop_old_orientation(this.nativeObj);
+        },
+        enumerable: false,
+        configurable: true
+    });
     return TOrientationEvent;
 }(TEvent));
 exports.TOrientationEvent = TOrientationEvent;
@@ -18844,7 +18855,7 @@ var TEdit = /** @class */ (function (_super) {
     });
     Object.defineProperty(TEdit.prototype, "keyboard", {
         /**
-         * 自定义软键盘名称。AWTK优先查找keyboard属性设置的键盘文件名（该键盘的XML文件需要在default\raw\ui目录下存在），如果keyboard为空就找input_type设置的键盘类型
+         * 自定义软键盘名称。AWTK优先查找keyboard属性设置的键盘文件名（该键盘的XML文件需要在default\raw\ui目录下存在），如果没有指定keyboard，就找input_type设置的键盘类型。如果指定为空字符串，则表示不需要软键盘。
          *
          */
         get: function () {
@@ -20770,6 +20781,17 @@ var TNativeWindow = /** @class */ (function (_super) {
         return native_window_resize(this != null ? (this.nativeObj || this) : null, w, h, force);
     };
     /**
+     * 调整窗口旋转。
+     *
+     * @param old_orientation 旧的旋转角度。
+     * @param new_orientation 新的旋转角度。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TNativeWindow.prototype.setOrientation = function (old_orientation, new_orientation) {
+        return native_window_set_orientation(this != null ? (this.nativeObj || this) : null, old_orientation, new_orientation);
+    };
+    /**
      * 最小化窗口。
      *
      *
@@ -21588,17 +21610,6 @@ var TObjectDefault = /** @class */ (function (_super) {
     TObjectDefault.prototype.clearProps = function () {
         return object_default_clear_props(this != null ? (this.nativeObj || this) : null);
     };
-    Object.defineProperty(TObjectDefault.prototype, "propsSize", {
-        /**
-         * 属性个数。
-         *
-         */
-        get: function () {
-            return object_default_t_get_prop_props_size(this.nativeObj);
-        },
-        enumerable: false,
-        configurable: true
-    });
     return TObjectDefault;
 }(TObject));
 exports.TObjectDefault = TObjectDefault;

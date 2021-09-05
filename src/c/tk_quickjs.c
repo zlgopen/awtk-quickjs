@@ -14051,6 +14051,17 @@ jsvalue_t wrap_orientation_event_t_get_prop_orientation(JSContext* ctx, jsvalue_
   return jret;
 }
 
+jsvalue_t wrap_orientation_event_t_get_prop_old_orientation(JSContext* ctx,
+                                                            jsvalue_const_t this_val, int argc,
+                                                            jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  orientation_event_t* obj =
+      (orientation_event_t*)jsvalue_get_pointer(ctx, argv[0], "orientation_event_t*");
+
+  jret = jsvalue_create_int(ctx, obj->old_orientation);
+  return jret;
+}
+
 ret_t orientation_event_t_init(JSContext* ctx) {
   jsvalue_t global_obj = JS_GetGlobalObject(ctx);
   JS_SetPropertyStr(ctx, global_obj, "orientation_event_cast",
@@ -14058,6 +14069,9 @@ ret_t orientation_event_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "orientation_event_t_get_prop_orientation",
                     JS_NewCFunction(ctx, wrap_orientation_event_t_get_prop_orientation,
                                     "orientation_event_t_get_prop_orientation", 1));
+  JS_SetPropertyStr(ctx, global_obj, "orientation_event_t_get_prop_old_orientation",
+                    JS_NewCFunction(ctx, wrap_orientation_event_t_get_prop_old_orientation,
+                                    "orientation_event_t_get_prop_old_orientation", 1));
 
   jsvalue_unref(ctx, global_obj);
 
@@ -24807,6 +24821,21 @@ jsvalue_t wrap_native_window_resize(JSContext* ctx, jsvalue_const_t this_val, in
   return jret;
 }
 
+jsvalue_t wrap_native_window_set_orientation(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                             jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 3) {
+    ret_t ret = (ret_t)0;
+    native_window_t* win = (native_window_t*)jsvalue_get_pointer(ctx, argv[0], "native_window_t*");
+    lcd_orientation_t old_orientation = (lcd_orientation_t)jsvalue_get_int_value(ctx, argv[1]);
+    lcd_orientation_t new_orientation = (lcd_orientation_t)jsvalue_get_int_value(ctx, argv[2]);
+    ret = (ret_t)native_window_set_orientation(win, old_orientation, new_orientation);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
 jsvalue_t wrap_native_window_minimize(JSContext* ctx, jsvalue_const_t this_val, int argc,
                                       jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
@@ -24909,6 +24938,9 @@ ret_t native_window_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_native_window_move, "native_window_move", 1));
   JS_SetPropertyStr(ctx, global_obj, "native_window_resize",
                     JS_NewCFunction(ctx, wrap_native_window_resize, "native_window_resize", 1));
+  JS_SetPropertyStr(
+      ctx, global_obj, "native_window_set_orientation",
+      JS_NewCFunction(ctx, wrap_native_window_set_orientation, "native_window_set_orientation", 1));
   JS_SetPropertyStr(ctx, global_obj, "native_window_minimize",
                     JS_NewCFunction(ctx, wrap_native_window_minimize, "native_window_minimize", 1));
   JS_SetPropertyStr(ctx, global_obj, "native_window_maximize",
@@ -25546,15 +25578,6 @@ jsvalue_t wrap_object_default_clear_props(JSContext* ctx, jsvalue_const_t this_v
   return jret;
 }
 
-jsvalue_t wrap_object_default_t_get_prop_props_size(JSContext* ctx, jsvalue_const_t this_val,
-                                                    int argc, jsvalue_const_t* argv) {
-  jsvalue_t jret = JS_NULL;
-  object_default_t* obj = (object_default_t*)jsvalue_get_pointer(ctx, argv[0], "object_default_t*");
-
-  jret = jsvalue_create_int(ctx, obj->props_size);
-  return jret;
-}
-
 ret_t object_default_t_init(JSContext* ctx) {
   jsvalue_t global_obj = JS_GetGlobalObject(ctx);
   JS_SetPropertyStr(ctx, global_obj, "object_default_create",
@@ -25562,9 +25585,6 @@ ret_t object_default_t_init(JSContext* ctx) {
   JS_SetPropertyStr(
       ctx, global_obj, "object_default_clear_props",
       JS_NewCFunction(ctx, wrap_object_default_clear_props, "object_default_clear_props", 1));
-  JS_SetPropertyStr(ctx, global_obj, "object_default_t_get_prop_props_size",
-                    JS_NewCFunction(ctx, wrap_object_default_t_get_prop_props_size,
-                                    "object_default_t_get_prop_props_size", 1));
 
   jsvalue_unref(ctx, global_obj);
 
