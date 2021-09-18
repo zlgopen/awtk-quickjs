@@ -10105,6 +10105,11 @@ var TValueType;
      *
      */
     TValueType[TValueType["TOKEN"] = VALUE_TYPE_TOKEN()] = "TOKEN";
+    /**
+     * 渐变颜色。
+     *
+     */
+    TValueType[TValueType["GRADIENT"] = VALUE_TYPE_GRADIENT()] = "GRADIENT";
 })(TValueType = exports.TValueType || (exports.TValueType = {}));
 ;
 /**
@@ -13631,6 +13636,16 @@ var TMledit = /** @class */ (function (_super) {
         return mledit_set_wrap_word(this != null ? (this.nativeObj || this) : null, wrap_word);
     };
     /**
+     * 设置编辑器是否启用覆盖行（在行数达到最大行数时，可继续新增行，但最早的行将会消失）。
+     *
+     * @param overwrite 是否启用覆盖行。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TMledit.prototype.setOverwrite = function (overwrite) {
+        return mledit_set_overwrite(this != null ? (this.nativeObj || this) : null, overwrite);
+    };
+    /**
      * 设置编辑器的最大行数。
      *
      * @param max_lines 最大行数。
@@ -13764,6 +13779,17 @@ var TMledit = /** @class */ (function (_super) {
         return mledit_get_selected_text(this != null ? (this.nativeObj || this) : null);
     };
     /**
+     * 插入一段文本。
+     *
+     * @param offset 插入的偏移位置。
+     * @param text 待插入的文本。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TMledit.prototype.insertText = function (offset, text) {
+        return mledit_insert_text(this != null ? (this.nativeObj || this) : null, offset, text);
+    };
+    /**
      * 转换为mledit对象(供脚本语言使用)。
      *
      * @param widget mledit对象。
@@ -13843,20 +13869,6 @@ var TMledit = /** @class */ (function (_super) {
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(TMledit.prototype, "wrapWord", {
-        /**
-         * 是否自动折行。
-         *
-         */
-        get: function () {
-            return mledit_t_get_prop_wrap_word(this.nativeObj);
-        },
-        set: function (v) {
-            this.setWrapWord(v);
-        },
-        enumerable: false,
-        configurable: true
-    });
     Object.defineProperty(TMledit.prototype, "scrollLine", {
         /**
          * 鼠标一次滚动行数。
@@ -13867,6 +13879,34 @@ var TMledit = /** @class */ (function (_super) {
         },
         set: function (v) {
             this.setScrollLine(v);
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(TMledit.prototype, "overwrite", {
+        /**
+         * 是否启用覆盖行。
+         *
+         */
+        get: function () {
+            return mledit_t_get_prop_overwrite(this.nativeObj);
+        },
+        set: function (v) {
+            this.setOverwrite(v);
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(TMledit.prototype, "wrapWord", {
+        /**
+         * 是否自动折行。
+         *
+         */
+        get: function () {
+            return mledit_t_get_prop_wrap_word(this.nativeObj);
+        },
+        set: function (v) {
+            this.setWrapWord(v);
         },
         enumerable: false,
         configurable: true
@@ -14377,13 +14417,8 @@ exports.TRichText = TRichText;
  *
  *hscroll\_label\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于hscroll\_label\_t控件。
  *
- *在xml中使用"hscroll\_label"标签创建行号控件，一般配合mledit使用。如：
- *
- *```xml
- *```
- *
- *> 更多用法请参考：[mledit.xml](
- *https://github.com/zlgopen/awtk/blob/master/design/default/ui/mledit.xml)
+ *> 更多用法请参考：[hscroll_label.xml](
+ *https://github.com/zlgopen/awtk/blob/master/design/default/ui/hscroll_label.xml)
  *
  *可用通过style来设置控件的显示风格，如字体的大小和颜色等等。如：
  *
@@ -21591,6 +21626,16 @@ var TObjectDefault = /** @class */ (function (_super) {
      */
     TObjectDefault.create = function () {
         return new TObjectDefault(object_default_create());
+    };
+    /**
+     * 创建对象。
+     *
+     * @param enable_path 是否支持按路径访问属性。
+     *
+     * @returns 返回object对象。
+     */
+    TObjectDefault.createEx = function (enable_path) {
+        return new TObjectDefault(object_default_create_ex(enable_path));
     };
     /**
      * for script gc

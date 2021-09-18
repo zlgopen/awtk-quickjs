@@ -13809,6 +13809,11 @@ jsvalue_t get_VALUE_TYPE_TOKEN(JSContext* ctx, jsvalue_const_t this_val, int arg
   return jsvalue_create_int(ctx, VALUE_TYPE_TOKEN);
 }
 
+jsvalue_t get_VALUE_TYPE_GRADIENT(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                  jsvalue_const_t* argv) {
+  return jsvalue_create_int(ctx, VALUE_TYPE_GRADIENT);
+}
+
 ret_t value_type_t_init(JSContext* ctx) {
   jsvalue_t global_obj = JS_GetGlobalObject(ctx);
   JS_SetPropertyStr(ctx, global_obj, "VALUE_TYPE_INVALID",
@@ -13854,6 +13859,8 @@ ret_t value_type_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, get_VALUE_TYPE_UBJSON, "VALUE_TYPE_UBJSON", 1));
   JS_SetPropertyStr(ctx, global_obj, "VALUE_TYPE_TOKEN",
                     JS_NewCFunction(ctx, get_VALUE_TYPE_TOKEN, "VALUE_TYPE_TOKEN", 1));
+  JS_SetPropertyStr(ctx, global_obj, "VALUE_TYPE_GRADIENT",
+                    JS_NewCFunction(ctx, get_VALUE_TYPE_GRADIENT, "VALUE_TYPE_GRADIENT", 1));
 
   jsvalue_unref(ctx, global_obj);
 
@@ -17713,6 +17720,20 @@ jsvalue_t wrap_mledit_set_wrap_word(JSContext* ctx, jsvalue_const_t this_val, in
   return jret;
 }
 
+jsvalue_t wrap_mledit_set_overwrite(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                    jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 2) {
+    ret_t ret = (ret_t)0;
+    widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
+    bool_t overwrite = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
+    ret = (ret_t)mledit_set_overwrite(widget, overwrite);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
 jsvalue_t wrap_mledit_set_max_lines(JSContext* ctx, jsvalue_const_t this_val, int argc,
                                     jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
@@ -17897,6 +17918,22 @@ jsvalue_t wrap_mledit_get_selected_text(JSContext* ctx, jsvalue_const_t this_val
   return jret;
 }
 
+jsvalue_t wrap_mledit_insert_text(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                  jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 3) {
+    ret_t ret = (ret_t)0;
+    widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
+    uint32_t offset = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
+    const char* text = (const char*)jsvalue_get_utf8_string(ctx, argv[2]);
+    ret = (ret_t)mledit_insert_text(widget, offset, text);
+    jsvalue_free_str(ctx, text);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
 jsvalue_t wrap_mledit_cast(JSContext* ctx, jsvalue_const_t this_val, int argc,
                            jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
@@ -17955,21 +17992,30 @@ jsvalue_t wrap_mledit_t_get_prop_max_chars(JSContext* ctx, jsvalue_const_t this_
   return jret;
 }
 
-jsvalue_t wrap_mledit_t_get_prop_wrap_word(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                           jsvalue_const_t* argv) {
-  jsvalue_t jret = JS_NULL;
-  mledit_t* obj = (mledit_t*)jsvalue_get_pointer(ctx, argv[0], "mledit_t*");
-
-  jret = jsvalue_create_bool(ctx, obj->wrap_word);
-  return jret;
-}
-
 jsvalue_t wrap_mledit_t_get_prop_scroll_line(JSContext* ctx, jsvalue_const_t this_val, int argc,
                                              jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   mledit_t* obj = (mledit_t*)jsvalue_get_pointer(ctx, argv[0], "mledit_t*");
 
   jret = jsvalue_create_int(ctx, obj->scroll_line);
+  return jret;
+}
+
+jsvalue_t wrap_mledit_t_get_prop_overwrite(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                           jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  mledit_t* obj = (mledit_t*)jsvalue_get_pointer(ctx, argv[0], "mledit_t*");
+
+  jret = jsvalue_create_bool(ctx, obj->overwrite);
+  return jret;
+}
+
+jsvalue_t wrap_mledit_t_get_prop_wrap_word(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                           jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  mledit_t* obj = (mledit_t*)jsvalue_get_pointer(ctx, argv[0], "mledit_t*");
+
+  jret = jsvalue_create_bool(ctx, obj->wrap_word);
   return jret;
 }
 
@@ -18021,6 +18067,8 @@ ret_t mledit_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_mledit_set_focus, "mledit_set_focus", 1));
   JS_SetPropertyStr(ctx, global_obj, "mledit_set_wrap_word",
                     JS_NewCFunction(ctx, wrap_mledit_set_wrap_word, "mledit_set_wrap_word", 1));
+  JS_SetPropertyStr(ctx, global_obj, "mledit_set_overwrite",
+                    JS_NewCFunction(ctx, wrap_mledit_set_overwrite, "mledit_set_overwrite", 1));
   JS_SetPropertyStr(ctx, global_obj, "mledit_set_max_lines",
                     JS_NewCFunction(ctx, wrap_mledit_set_max_lines, "mledit_set_max_lines", 1));
   JS_SetPropertyStr(ctx, global_obj, "mledit_set_max_chars",
@@ -18051,6 +18099,8 @@ ret_t mledit_t_init(JSContext* ctx) {
   JS_SetPropertyStr(
       ctx, global_obj, "mledit_get_selected_text",
       JS_NewCFunction(ctx, wrap_mledit_get_selected_text, "mledit_get_selected_text", 1));
+  JS_SetPropertyStr(ctx, global_obj, "mledit_insert_text",
+                    JS_NewCFunction(ctx, wrap_mledit_insert_text, "mledit_insert_text", 1));
   JS_SetPropertyStr(ctx, global_obj, "mledit_cast",
                     JS_NewCFunction(ctx, wrap_mledit_cast, "mledit_cast", 1));
   JS_SetPropertyStr(ctx, global_obj, "mledit_t_get_prop_tips",
@@ -18068,11 +18118,14 @@ ret_t mledit_t_init(JSContext* ctx) {
       ctx, global_obj, "mledit_t_get_prop_max_chars",
       JS_NewCFunction(ctx, wrap_mledit_t_get_prop_max_chars, "mledit_t_get_prop_max_chars", 1));
   JS_SetPropertyStr(
-      ctx, global_obj, "mledit_t_get_prop_wrap_word",
-      JS_NewCFunction(ctx, wrap_mledit_t_get_prop_wrap_word, "mledit_t_get_prop_wrap_word", 1));
-  JS_SetPropertyStr(
       ctx, global_obj, "mledit_t_get_prop_scroll_line",
       JS_NewCFunction(ctx, wrap_mledit_t_get_prop_scroll_line, "mledit_t_get_prop_scroll_line", 1));
+  JS_SetPropertyStr(
+      ctx, global_obj, "mledit_t_get_prop_overwrite",
+      JS_NewCFunction(ctx, wrap_mledit_t_get_prop_overwrite, "mledit_t_get_prop_overwrite", 1));
+  JS_SetPropertyStr(
+      ctx, global_obj, "mledit_t_get_prop_wrap_word",
+      JS_NewCFunction(ctx, wrap_mledit_t_get_prop_wrap_word, "mledit_t_get_prop_wrap_word", 1));
   JS_SetPropertyStr(
       ctx, global_obj, "mledit_t_get_prop_readonly",
       JS_NewCFunction(ctx, wrap_mledit_t_get_prop_readonly, "mledit_t_get_prop_readonly", 1));
@@ -25565,6 +25618,19 @@ jsvalue_t wrap_object_default_create(JSContext* ctx, jsvalue_const_t this_val, i
   return jret;
 }
 
+jsvalue_t wrap_object_default_create_ex(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                        jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 1) {
+    object_t* ret = NULL;
+    bool_t enable_path = (bool_t)jsvalue_get_boolean_value(ctx, argv[0]);
+    ret = (object_t*)object_default_create_ex(enable_path);
+
+    jret = jsvalue_create_object(ctx, ret, "object_default_t*", (tk_destroy_t)object_default_unref);
+  }
+  return jret;
+}
+
 jsvalue_t wrap_object_default_clear_props(JSContext* ctx, jsvalue_const_t this_val, int argc,
                                           jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
@@ -25582,6 +25648,9 @@ ret_t object_default_t_init(JSContext* ctx) {
   jsvalue_t global_obj = JS_GetGlobalObject(ctx);
   JS_SetPropertyStr(ctx, global_obj, "object_default_create",
                     JS_NewCFunction(ctx, wrap_object_default_create, "object_default_create", 1));
+  JS_SetPropertyStr(
+      ctx, global_obj, "object_default_create_ex",
+      JS_NewCFunction(ctx, wrap_object_default_create_ex, "object_default_create_ex", 1));
   JS_SetPropertyStr(
       ctx, global_obj, "object_default_clear_props",
       JS_NewCFunction(ctx, wrap_object_default_clear_props, "object_default_clear_props", 1));
