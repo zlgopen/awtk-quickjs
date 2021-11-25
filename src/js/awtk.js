@@ -1747,16 +1747,6 @@ var TCanvas = /** @class */ (function () {
         return canvas_get_height(this != null ? (this.nativeObj || this) : null);
     };
     /**
-     * 获取裁剪区。
-     *
-     * @param r rect对象。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TCanvas.prototype.getClipRect = function (r) {
-        return canvas_get_clip_rect(this != null ? (this.nativeObj || this) : null, r != null ? (r.nativeObj || r) : null);
-    };
-    /**
      * 设置裁剪区。
      *
      * @param r rect对象。
@@ -4836,15 +4826,6 @@ var TVgcanvas = /** @class */ (function () {
      */
     TVgcanvas.prototype.clipRect = function (x, y, w, h) {
         return vgcanvas_clip_rect(this != null ? (this.nativeObj || this) : null, x, y, w, h);
-    };
-    /**
-     * 获取矩形裁剪。
-     *
-     *
-     * @returns 返回裁剪区。
-     */
-    TVgcanvas.prototype.getClipRect = function () {
-        return vgcanvas_get_clip_rect(this != null ? (this.nativeObj || this) : null);
     };
     /**
      * 矩形区域是否在矩形裁剪中。

@@ -1341,14 +1341,6 @@ export declare class TCanvas {
      */
     getHeight(): number;
     /**
-     * 获取裁剪区。
-     *
-     * @param r rect对象。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    getClipRect(r: TRect): TRet;
-    /**
      * 设置裁剪区。
      *
      * @param r rect对象。
@@ -4117,13 +4109,6 @@ export declare class TVgcanvas {
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     clipRect(x: number, y: number, w: number, h: number): TRet;
-    /**
-     * 获取矩形裁剪。
-     *
-     *
-     * @returns 返回裁剪区。
-     */
-    getClipRect(): TRectf;
     /**
      * 矩形区域是否在矩形裁剪中。
      *
