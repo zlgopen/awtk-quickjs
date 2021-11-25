@@ -5465,9 +5465,9 @@ jsvalue_t get_STYLE_ID_ROUND_RADIUS(JSContext* ctx, jsvalue_const_t this_val, in
   return jsvalue_create_string(ctx, STYLE_ID_ROUND_RADIUS);
 }
 
-jsvalue_t get_STYLE_ID_ROUND_RADIUS_TOP_LETF(JSContext* ctx, jsvalue_const_t this_val, int argc,
+jsvalue_t get_STYLE_ID_ROUND_RADIUS_TOP_LEFT(JSContext* ctx, jsvalue_const_t this_val, int argc,
                                              jsvalue_const_t* argv) {
-  return jsvalue_create_string(ctx, STYLE_ID_ROUND_RADIUS_TOP_LETF);
+  return jsvalue_create_string(ctx, STYLE_ID_ROUND_RADIUS_TOP_LEFT);
 }
 
 jsvalue_t get_STYLE_ID_ROUND_RADIUS_TOP_RIGHT(JSContext* ctx, jsvalue_const_t this_val, int argc,
@@ -5475,9 +5475,9 @@ jsvalue_t get_STYLE_ID_ROUND_RADIUS_TOP_RIGHT(JSContext* ctx, jsvalue_const_t th
   return jsvalue_create_string(ctx, STYLE_ID_ROUND_RADIUS_TOP_RIGHT);
 }
 
-jsvalue_t get_STYLE_ID_ROUND_RADIUS_BOTTOM_LETF(JSContext* ctx, jsvalue_const_t this_val, int argc,
+jsvalue_t get_STYLE_ID_ROUND_RADIUS_BOTTOM_LEFT(JSContext* ctx, jsvalue_const_t this_val, int argc,
                                                 jsvalue_const_t* argv) {
-  return jsvalue_create_string(ctx, STYLE_ID_ROUND_RADIUS_BOTTOM_LETF);
+  return jsvalue_create_string(ctx, STYLE_ID_ROUND_RADIUS_BOTTOM_LEFT);
 }
 
 jsvalue_t get_STYLE_ID_ROUND_RADIUS_BOTTOM_RIGHT(JSContext* ctx, jsvalue_const_t this_val, int argc,
@@ -5586,15 +5586,15 @@ ret_t style_id_t_init(JSContext* ctx) {
       JS_NewCFunction(ctx, get_STYLE_ID_SELECTED_TEXT_COLOR, "STYLE_ID_SELECTED_TEXT_COLOR", 1));
   JS_SetPropertyStr(ctx, global_obj, "STYLE_ID_ROUND_RADIUS",
                     JS_NewCFunction(ctx, get_STYLE_ID_ROUND_RADIUS, "STYLE_ID_ROUND_RADIUS", 1));
-  JS_SetPropertyStr(ctx, global_obj, "STYLE_ID_ROUND_RADIUS_TOP_LETF",
-                    JS_NewCFunction(ctx, get_STYLE_ID_ROUND_RADIUS_TOP_LETF,
-                                    "STYLE_ID_ROUND_RADIUS_TOP_LETF", 1));
+  JS_SetPropertyStr(ctx, global_obj, "STYLE_ID_ROUND_RADIUS_TOP_LEFT",
+                    JS_NewCFunction(ctx, get_STYLE_ID_ROUND_RADIUS_TOP_LEFT,
+                                    "STYLE_ID_ROUND_RADIUS_TOP_LEFT", 1));
   JS_SetPropertyStr(ctx, global_obj, "STYLE_ID_ROUND_RADIUS_TOP_RIGHT",
                     JS_NewCFunction(ctx, get_STYLE_ID_ROUND_RADIUS_TOP_RIGHT,
                                     "STYLE_ID_ROUND_RADIUS_TOP_RIGHT", 1));
-  JS_SetPropertyStr(ctx, global_obj, "STYLE_ID_ROUND_RADIUS_BOTTOM_LETF",
-                    JS_NewCFunction(ctx, get_STYLE_ID_ROUND_RADIUS_BOTTOM_LETF,
-                                    "STYLE_ID_ROUND_RADIUS_BOTTOM_LETF", 1));
+  JS_SetPropertyStr(ctx, global_obj, "STYLE_ID_ROUND_RADIUS_BOTTOM_LEFT",
+                    JS_NewCFunction(ctx, get_STYLE_ID_ROUND_RADIUS_BOTTOM_LEFT,
+                                    "STYLE_ID_ROUND_RADIUS_BOTTOM_LEFT", 1));
   JS_SetPropertyStr(ctx, global_obj, "STYLE_ID_ROUND_RADIUS_BOTTOM_RIGHT",
                     JS_NewCFunction(ctx, get_STYLE_ID_ROUND_RADIUS_BOTTOM_RIGHT,
                                     "STYLE_ID_ROUND_RADIUS_BOTTOM_RIGHT", 1));
@@ -6502,8 +6502,8 @@ jsvalue_t wrap_vgcanvas_clip_rect(JSContext* ctx, jsvalue_const_t this_val, int 
   return jret;
 }
 
-jsvalue_t wrap_vgcanvas_is_rectf_int_clip_rect(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                               jsvalue_const_t* argv) {
+jsvalue_t wrap_vgcanvas_is_rectf_in_clip_rect(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                              jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 5) {
     bool_t ret = (bool_t)0;
@@ -6512,7 +6512,7 @@ jsvalue_t wrap_vgcanvas_is_rectf_int_clip_rect(JSContext* ctx, jsvalue_const_t t
     float_t top = (float_t)jsvalue_get_number_value(ctx, argv[2]);
     float_t right = (float_t)jsvalue_get_number_value(ctx, argv[3]);
     float_t bottom = (float_t)jsvalue_get_number_value(ctx, argv[4]);
-    ret = (bool_t)vgcanvas_is_rectf_int_clip_rect(vg, left, top, right, bottom);
+    ret = (bool_t)vgcanvas_is_rectf_in_clip_rect(vg, left, top, right, bottom);
 
     jret = jsvalue_create_bool(ctx, ret);
   }
@@ -7052,9 +7052,9 @@ ret_t vgcanvas_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_vgcanvas_clip_path, "vgcanvas_clip_path", 1));
   JS_SetPropertyStr(ctx, global_obj, "vgcanvas_clip_rect",
                     JS_NewCFunction(ctx, wrap_vgcanvas_clip_rect, "vgcanvas_clip_rect", 1));
-  JS_SetPropertyStr(ctx, global_obj, "vgcanvas_is_rectf_int_clip_rect",
-                    JS_NewCFunction(ctx, wrap_vgcanvas_is_rectf_int_clip_rect,
-                                    "vgcanvas_is_rectf_int_clip_rect", 1));
+  JS_SetPropertyStr(ctx, global_obj, "vgcanvas_is_rectf_in_clip_rect",
+                    JS_NewCFunction(ctx, wrap_vgcanvas_is_rectf_in_clip_rect,
+                                    "vgcanvas_is_rectf_in_clip_rect", 1));
   JS_SetPropertyStr(
       ctx, global_obj, "vgcanvas_intersect_clip_rect",
       JS_NewCFunction(ctx, wrap_vgcanvas_intersect_clip_rect, "vgcanvas_intersect_clip_rect", 1));

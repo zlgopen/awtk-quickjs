@@ -4081,7 +4081,7 @@ var TStyleId;
      * 左上角圆角半径(仅在WITH_VGCANVAS定义时生效)。
      *
      */
-    TStyleId[TStyleId["ROUND_RADIUS_TOP_LETF"] = STYLE_ID_ROUND_RADIUS_TOP_LETF()] = "ROUND_RADIUS_TOP_LETF";
+    TStyleId[TStyleId["ROUND_RADIUS_TOP_LEFT"] = STYLE_ID_ROUND_RADIUS_TOP_LEFT()] = "ROUND_RADIUS_TOP_LEFT";
     /**
      * 右上角圆角半径(仅在WITH_VGCANVAS定义时生效)。
      *
@@ -4091,7 +4091,7 @@ var TStyleId;
      * 左下角圆角半径(仅在WITH_VGCANVAS定义时生效)。
      *
      */
-    TStyleId[TStyleId["ROUND_RADIUS_BOTTOM_LETF"] = STYLE_ID_ROUND_RADIUS_BOTTOM_LETF()] = "ROUND_RADIUS_BOTTOM_LETF";
+    TStyleId[TStyleId["ROUND_RADIUS_BOTTOM_LEFT"] = STYLE_ID_ROUND_RADIUS_BOTTOM_LEFT()] = "ROUND_RADIUS_BOTTOM_LEFT";
     /**
      * 右下角圆角半径(仅在WITH_VGCANVAS定义时生效)。
      *
@@ -4837,8 +4837,8 @@ var TVgcanvas = /** @class */ (function () {
      *
      * @returns 返回 TURE 则在区域中，返回 FALSE 则不在区域中。
      */
-    TVgcanvas.prototype.isRectfIntClipRect = function (left, top, right, bottom) {
-        return vgcanvas_is_rectf_int_clip_rect(this != null ? (this.nativeObj || this) : null, left, top, right, bottom);
+    TVgcanvas.prototype.isRectfInClipRect = function (left, top, right, bottom) {
+        return vgcanvas_is_rectf_in_clip_rect(this != null ? (this.nativeObj || this) : null, left, top, right, bottom);
     };
     /**
      * 设置一个与前一个裁剪区做交集的矩形裁剪区。
