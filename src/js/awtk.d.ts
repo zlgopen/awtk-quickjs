@@ -13196,7 +13196,7 @@ export declare class TTextSelector extends TWidget {
      *
      * @returns 返回值。
      */
-    getValue(): number;
+    getValueInt(): number;
     /**
      * 设置text_selector的值。
      *
@@ -17289,7 +17289,7 @@ export declare class TComboBox extends TEdit {
      *
      * @returns 返回值。
      */
-    getValue(): number;
+    getValueInt(): number;
     /**
      * 获取combo_box的文本。
      *

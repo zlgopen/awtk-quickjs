@@ -16814,7 +16814,7 @@ var TTextSelector = /** @class */ (function (_super) {
      *
      * @returns 返回值。
      */
-    TTextSelector.prototype.getValue = function () {
+    TTextSelector.prototype.getValueInt = function () {
         return text_selector_get_value(this != null ? (this.nativeObj || this) : null);
     };
     /**
@@ -22304,7 +22304,7 @@ var TComboBox = /** @class */ (function (_super) {
      *
      * @returns 返回值。
      */
-    TComboBox.prototype.getValue = function () {
+    TComboBox.prototype.getValueInt = function () {
         return combo_box_get_value(this != null ? (this.nativeObj || this) : null);
     };
     /**
