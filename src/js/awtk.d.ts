@@ -2066,6 +2066,11 @@ export declare enum TEventType {
      */
     REQUEST_QUIT_APP,
     /**
+     * 即将改变主题(event_t)。
+     *
+     */
+    THEME_WILL_CHANGE,
+    /**
      * 主题变化(event_t)。
      *
      */
@@ -2105,6 +2110,11 @@ export declare enum TEventType {
      *
      */
     PAGE_CHANGED,
+    /**
+     * 页面正在改变(offset_change_event_t)。
+     *
+     */
+    PAGE_CHANGING,
     /**
      * 资源管理加载某个资源(assets_event_t)。
      *
@@ -4108,6 +4118,24 @@ export declare class TVgcanvas {
      */
     clipRect(x: number, y: number, w: number, h: number): TRet;
     /**
+     * 获取矩形裁剪。
+     *
+     *
+     * @returns 返回裁剪区。
+     */
+    getClipRect(): TRectf;
+    /**
+     * 矩形区域是否在矩形裁剪中。
+     *
+     * @param left 矩形区域左边。
+     * @param top 矩形区域上边。
+     * @param right 矩形区域右边。
+     * @param bottom 矩形区域下边。
+     *
+     * @returns 返回 TURE 则在区域中，返回 FALSE 则不在区域中。
+     */
+    isRectfIntClipRect(left: number, top: number, right: number, bottom: number): boolean;
+    /**
      * 设置一个与前一个裁剪区做交集的矩形裁剪区。
      *如果下面这种情况，则不能直接调用 rect_intersect 函数来做矩形交集和 vgcanvas_clip_rect 函数设置裁剪区，而采用本函数做交集。
      *由于缩放和旋转以及平移会导致 vg 的坐标系和上一个裁剪区的坐标系不同，
@@ -4222,6 +4250,28 @@ export declare class TVgcanvas {
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     drawImage(img: TBitmap, sx: number, sy: number, sw: number, sh: number, dx: number, dy: number, dw: number, dh: number): TRet;
+    /**
+     * 绘制图片。
+     *
+     *备注：
+     *当绘制区域大于原图区域时，多余的绘制区域会重复绘制原图区域的东西。（绘制图区按照绘制图片的宽高来绘制的）
+     *当绘制图片的宽高和原图的不同，在重复绘制的同时加入缩放。
+     *
+     * @param img 图片。
+     * @param sx 原图区域的 x
+     * @param sy 原图区域的 y
+     * @param sw 原图区域的 w
+     * @param sh 原图区域的 h
+     * @param dx 绘制区域的 x
+     * @param dy 绘制区域的 y
+     * @param dw 绘制区域的 w
+     * @param dh 绘制区域的 h
+     * @param dst_w 绘制图片的宽
+     * @param dst_h 绘制图片的高
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    drawImageRepeat(img: TBitmap, sx: number, sy: number, sw: number, sh: number, dx: number, dy: number, dw: number, dh: number, dst_w: number, dst_h: number): TRet;
     /**
      * 绘制图标。
      *
@@ -5603,6 +5653,11 @@ export declare enum TWidgetState {
      */
     NORMAL,
     /**
+     * 3/5keys模式时，进入激活状态(此时方向键用于修改值)。
+     *
+     */
+    ACTIVATED,
+    /**
      * 内容被修改的状态。
      *
      */
@@ -5873,6 +5928,13 @@ export declare class TWidget {
      */
     moveResize(x: number, y: number, w: number, h: number): TRet;
     /**
+     * 获取控件的值。只是对widget\_get\_prop的包装，值的意义由子类控件决定。
+     *
+     *
+     * @returns 返回值。
+     */
+    getValue(): number;
+    /**
      * 设置控件的值。
      *只是对widget\_set\_prop的包装，值的意义由子类控件决定。
      *
@@ -5881,6 +5943,40 @@ export declare class TWidget {
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     setValue(value: any): TRet;
+    /**
+     * 增加控件的值。
+     *只是对widget\_set\_prop的包装，值的意义由子类控件决定。
+     *
+     * @param delta 增量。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    addValue(delta: number): TRet;
+    /**
+     * 获取控件的值。只是对widget\_get\_prop的包装，值的意义由子类控件决定。
+     *
+     *
+     * @returns 返回值。
+     */
+    getValueInt(): number;
+    /**
+     * 设置控件的值。
+     *只是对widget\_set\_prop的包装，值的意义由子类控件决定。
+     *
+     * @param value 值。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setValueInt(value: any): TRet;
+    /**
+     * 增加控件的值。
+     *只是对widget\_set\_prop的包装，值的意义由子类控件决定。
+     *
+     * @param delta 增量。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    addValueInt(delta: number): TRet;
     /**
      * 设置控件的值(以动画形式变化到指定的值)。
      *只是对widget\_set\_prop的包装，值的意义由子类控件决定。
@@ -5891,15 +5987,6 @@ export declare class TWidget {
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     animateValueTo(value: any, duration: number): TRet;
-    /**
-     * 增加控件的值。
-     *只是对widget\_set\_prop的包装，值的意义由子类控件决定。
-     *
-     * @param delta 增量。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    addValue(delta: number): TRet;
     /**
      * 查询指定的style是否存在。
      *
@@ -5966,13 +6053,6 @@ export declare class TWidget {
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     setTrText(text: string): TRet;
-    /**
-     * 获取控件的值。只是对widget\_get\_prop的包装，值的意义由子类控件决定。
-     *
-     *
-     * @returns 返回值。
-     */
-    getValue(): number;
     /**
      * 获取控件enable属性值。
      *
@@ -6051,8 +6131,6 @@ export declare class TWidget {
     setName(name: string): TRet;
     /**
      * 设置theme的名称，用于动态切换主题。名称与当前主题名称相同，则重新加载全部资源。
-     *
-     *> 目前只支持带有文件系统的平台。
      *
      * @param name 主题的名称。
      *
@@ -6383,6 +6461,24 @@ export declare class TWidget {
      * @returns 返回属性的值。
      */
     getPropPointer(name: string): any;
+    /**
+     * 设置浮点数格式的属性。
+     *
+     * @param name 属性的名称。
+     * @param v 属性的值。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setPropFloat(name: string, v: number): TRet;
+    /**
+     * 获取浮点数格式的属性。
+     *
+     * @param name 属性的名称。
+     * @param defval 缺省值。
+     *
+     * @returns 返回属性的值。
+     */
+    getPropFloat(name: string, defval: number): number;
     /**
      * 设置整数格式的属性。
      *
@@ -8731,6 +8827,22 @@ export declare class TValueChangeEvent extends TEvent {
     static cast(event: TEvent): TValueChangeEvent;
 }
 /**
+ * 值变化事件。
+ *
+ */
+export declare class TOffsetChangeEvent extends TEvent {
+    nativeObj: any;
+    constructor(nativeObj: any);
+    /**
+     * 把event对象转offset_change_event_t对象，主要给脚本语言使用。
+     *
+     * @param event event对象。
+     *
+     * @returns event对象。
+     */
+    static cast(event: TEvent): TOffsetChangeEvent;
+}
+/**
  * 指针事件。
  *
  */
@@ -8951,6 +9063,27 @@ export declare class TMultiGestureEvent extends TEvent {
      *
      */
     get distance(): number;
+}
+/**
+ * 主题变化事件。
+ *
+ */
+export declare class TThemeChangeEvent extends TEvent {
+    nativeObj: any;
+    constructor(nativeObj: any);
+    /**
+     * 把event对象转theme_change_event_t对象，主要给脚本语言使用。
+     *
+     * @param event event对象。
+     *
+     * @returns 返回event对象。
+     */
+    static cast(event: TEvent): TThemeChangeEvent;
+    /**
+     * 主题名称。
+     *
+     */
+    get name(): string;
 }
 /**
  * 图片控件基类。
@@ -9714,6 +9847,15 @@ export declare class TDraggable extends TWidget {
      */
     setDragWindow(drag_window: boolean): TRet;
     /**
+     * 设置drag_parent。
+     *拖动窗口而不是父控件。比如放在对话框的titlebar上，拖动titlebar其实是希望拖动对话框。
+     *
+     * @param drag_parent 0表示直系父控件，1表示父控件的父控件，依次类推。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setDragParent(drag_parent: number): TRet;
+    /**
      * 拖动范围的顶部限制。缺省为父控件的顶部。
      *
      */
@@ -9755,6 +9897,12 @@ export declare class TDraggable extends TWidget {
      */
     get dragWindow(): boolean;
     set dragWindow(v: boolean);
+    /**
+     * 拖动父控件。0表示直系父控件，1表示父控件的父控件，依次类推。
+     *
+     */
+    get dragParent(): number;
+    set dragParent(v: number);
 }
 /**
  * 文件管理/浏览/选择控件。
@@ -11528,6 +11676,14 @@ export declare class THscrollLabel extends TWidget {
      */
     setDuration(duration: number): TRet;
     /**
+     * 设置speed（设置后 duration 不生效）。
+     *
+     * @param speed 滚动速度(px/ms)。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setSpeed(speed: number): TRet;
+    /**
      * 设置only_focus。
      *
      * @param only_focus 是否只有处于focus时才滚动。
@@ -11639,6 +11795,12 @@ export declare class THscrollLabel extends TWidget {
      */
     get duration(): number;
     set duration(v: number);
+    /**
+     * 滚动速度(px/ms)（设置后 duration 不生效）。
+     *
+     */
+    get speed(): number;
+    set speed(v: number);
     /**
      * 偏移量。
      *
@@ -12097,6 +12259,14 @@ export declare class TScrollBar extends TWidget {
      */
     isMobile(): boolean;
     /**
+     * 设置翻页滚动动画时间。
+     *
+     * @param animator_time 时间。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setAnimatorTime(animator_time: number): TRet;
+    /**
      * 虚拟宽度或高度。
      *
      */
@@ -12112,6 +12282,12 @@ export declare class TScrollBar extends TWidget {
      *
      */
     get row(): number;
+    /**
+     * 翻页滚动动画时间。
+     *
+     */
+    get animatorTime(): number;
+    set animatorTime(v: number);
     /**
      * 滚动时是否启用动画。
      *
@@ -12610,6 +12786,14 @@ export declare class TSlideIndicator extends TWidget {
      */
     setIndicatedTarget(target_name: string): TRet;
     /**
+     * 设置是否启用过渡效果。
+     *
+     * @param transition 是否启用过渡效果
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setTransition(transition: boolean): TRet;
+    /**
      * 值(缺省为0)。
      *
      */
@@ -12667,6 +12851,12 @@ export declare class TSlideIndicator extends TWidget {
      */
     get indicatedTarget(): string;
     set indicatedTarget(v: string);
+    /**
+     * 是否启用过渡效果。
+     *
+     */
+    get transition(): boolean;
+    set transition(v: boolean);
 }
 /**
  * 滑动视图。
@@ -16171,6 +16361,14 @@ export declare class TNativeWindow extends TObject {
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     setCursor(name: string, img: TBitmap): TRet;
+    /**
+     * 设置程序窗口的名称。
+     *
+     * @param app_name 程序窗口的名称。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setTitle(app_name: string): TRet;
 }
 /**
  * 窗口。
@@ -16380,6 +16578,14 @@ export declare class TGifImage extends TImageBase {
      */
     pause(): TRet;
     /**
+     * 设置循环播放次数。
+     *
+     * @param loop 循环播放次数。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setLoop(loop: number): TRet;
+    /**
      * 转换为gif_image对象(供脚本语言使用)。
      *
      * @param widget gif_image对象。
@@ -16387,6 +16593,12 @@ export declare class TGifImage extends TImageBase {
      * @returns gif_image对象。
      */
     static cast(widget: TWidget): TGifImage;
+    /**
+     * 循环播放的次数。
+     *
+     */
+    get loop(): number;
+    set loop(v: number);
 }
 /**
  * 软键盘。

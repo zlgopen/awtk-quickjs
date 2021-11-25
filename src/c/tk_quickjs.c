@@ -3492,6 +3492,11 @@ jsvalue_t get_EVT_REQUEST_QUIT_APP(JSContext* ctx, jsvalue_const_t this_val, int
   return jsvalue_create_int(ctx, EVT_REQUEST_QUIT_APP);
 }
 
+jsvalue_t get_EVT_THEME_WILL_CHANGE(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                    jsvalue_const_t* argv) {
+  return jsvalue_create_int(ctx, EVT_THEME_WILL_CHANGE);
+}
+
 jsvalue_t get_EVT_THEME_CHANGED(JSContext* ctx, jsvalue_const_t this_val, int argc,
                                 jsvalue_const_t* argv) {
   return jsvalue_create_int(ctx, EVT_THEME_CHANGED);
@@ -3530,6 +3535,11 @@ jsvalue_t get_EVT_MULTI_GESTURE(JSContext* ctx, jsvalue_const_t this_val, int ar
 jsvalue_t get_EVT_PAGE_CHANGED(JSContext* ctx, jsvalue_const_t this_val, int argc,
                                jsvalue_const_t* argv) {
   return jsvalue_create_int(ctx, EVT_PAGE_CHANGED);
+}
+
+jsvalue_t get_EVT_PAGE_CHANGING(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                jsvalue_const_t* argv) {
+  return jsvalue_create_int(ctx, EVT_PAGE_CHANGING);
 }
 
 jsvalue_t get_EVT_ASSET_MANAGER_LOAD_ASSET(JSContext* ctx, jsvalue_const_t this_val, int argc,
@@ -3782,6 +3792,8 @@ ret_t event_type_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, get_EVT_WIDGET_CREATED, "EVT_WIDGET_CREATED", 1));
   JS_SetPropertyStr(ctx, global_obj, "EVT_REQUEST_QUIT_APP",
                     JS_NewCFunction(ctx, get_EVT_REQUEST_QUIT_APP, "EVT_REQUEST_QUIT_APP", 1));
+  JS_SetPropertyStr(ctx, global_obj, "EVT_THEME_WILL_CHANGE",
+                    JS_NewCFunction(ctx, get_EVT_THEME_WILL_CHANGE, "EVT_THEME_WILL_CHANGE", 1));
   JS_SetPropertyStr(ctx, global_obj, "EVT_THEME_CHANGED",
                     JS_NewCFunction(ctx, get_EVT_THEME_CHANGED, "EVT_THEME_CHANGED", 1));
   JS_SetPropertyStr(ctx, global_obj, "EVT_WIDGET_ADD_CHILD",
@@ -3799,6 +3811,8 @@ ret_t event_type_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, get_EVT_MULTI_GESTURE, "EVT_MULTI_GESTURE", 1));
   JS_SetPropertyStr(ctx, global_obj, "EVT_PAGE_CHANGED",
                     JS_NewCFunction(ctx, get_EVT_PAGE_CHANGED, "EVT_PAGE_CHANGED", 1));
+  JS_SetPropertyStr(ctx, global_obj, "EVT_PAGE_CHANGING",
+                    JS_NewCFunction(ctx, get_EVT_PAGE_CHANGING, "EVT_PAGE_CHANGING", 1));
   JS_SetPropertyStr(
       ctx, global_obj, "EVT_ASSET_MANAGER_LOAD_ASSET",
       JS_NewCFunction(ctx, get_EVT_ASSET_MANAGER_LOAD_ASSET, "EVT_ASSET_MANAGER_LOAD_ASSET", 1));
@@ -6504,6 +6518,36 @@ jsvalue_t wrap_vgcanvas_clip_rect(JSContext* ctx, jsvalue_const_t this_val, int 
   return jret;
 }
 
+jsvalue_t wrap_vgcanvas_get_clip_rect(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                      jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 1) {
+    const rectf_t* ret = NULL;
+    vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
+    ret = (const rectf_t*)vgcanvas_get_clip_rect(vg);
+
+    jret = jsvalue_create_pointer(ctx, ret, "const rectf_t*");
+  }
+  return jret;
+}
+
+jsvalue_t wrap_vgcanvas_is_rectf_int_clip_rect(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                               jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 5) {
+    bool_t ret = (bool_t)0;
+    vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
+    float_t left = (float_t)jsvalue_get_number_value(ctx, argv[1]);
+    float_t top = (float_t)jsvalue_get_number_value(ctx, argv[2]);
+    float_t right = (float_t)jsvalue_get_number_value(ctx, argv[3]);
+    float_t bottom = (float_t)jsvalue_get_number_value(ctx, argv[4]);
+    ret = (bool_t)vgcanvas_is_rectf_int_clip_rect(vg, left, top, right, bottom);
+
+    jret = jsvalue_create_bool(ctx, ret);
+  }
+  return jret;
+}
+
 jsvalue_t wrap_vgcanvas_intersect_clip_rect(JSContext* ctx, jsvalue_const_t this_val, int argc,
                                             jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
@@ -6670,6 +6714,30 @@ jsvalue_t wrap_vgcanvas_draw_image(JSContext* ctx, jsvalue_const_t this_val, int
     float_t dw = (float_t)jsvalue_get_number_value(ctx, argv[8]);
     float_t dh = (float_t)jsvalue_get_number_value(ctx, argv[9]);
     ret = (ret_t)vgcanvas_draw_image(vg, img, sx, sy, sw, sh, dx, dy, dw, dh);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_vgcanvas_draw_image_repeat(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                          jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 12) {
+    ret_t ret = (ret_t)0;
+    vgcanvas_t* vg = (vgcanvas_t*)jsvalue_get_pointer(ctx, argv[0], "vgcanvas_t*");
+    bitmap_t* img = (bitmap_t*)jsvalue_get_pointer(ctx, argv[1], "bitmap_t*");
+    float_t sx = (float_t)jsvalue_get_number_value(ctx, argv[2]);
+    float_t sy = (float_t)jsvalue_get_number_value(ctx, argv[3]);
+    float_t sw = (float_t)jsvalue_get_number_value(ctx, argv[4]);
+    float_t sh = (float_t)jsvalue_get_number_value(ctx, argv[5]);
+    float_t dx = (float_t)jsvalue_get_number_value(ctx, argv[6]);
+    float_t dy = (float_t)jsvalue_get_number_value(ctx, argv[7]);
+    float_t dw = (float_t)jsvalue_get_number_value(ctx, argv[8]);
+    float_t dh = (float_t)jsvalue_get_number_value(ctx, argv[9]);
+    float_t dst_w = (float_t)jsvalue_get_number_value(ctx, argv[10]);
+    float_t dst_h = (float_t)jsvalue_get_number_value(ctx, argv[11]);
+    ret = (ret_t)vgcanvas_draw_image_repeat(vg, img, sx, sy, sw, sh, dx, dy, dw, dh, dst_w, dst_h);
 
     jret = jsvalue_create_int(ctx, ret);
   }
@@ -7013,6 +7081,11 @@ ret_t vgcanvas_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_vgcanvas_clip_path, "vgcanvas_clip_path", 1));
   JS_SetPropertyStr(ctx, global_obj, "vgcanvas_clip_rect",
                     JS_NewCFunction(ctx, wrap_vgcanvas_clip_rect, "vgcanvas_clip_rect", 1));
+  JS_SetPropertyStr(ctx, global_obj, "vgcanvas_get_clip_rect",
+                    JS_NewCFunction(ctx, wrap_vgcanvas_get_clip_rect, "vgcanvas_get_clip_rect", 1));
+  JS_SetPropertyStr(ctx, global_obj, "vgcanvas_is_rectf_int_clip_rect",
+                    JS_NewCFunction(ctx, wrap_vgcanvas_is_rectf_int_clip_rect,
+                                    "vgcanvas_is_rectf_int_clip_rect", 1));
   JS_SetPropertyStr(
       ctx, global_obj, "vgcanvas_intersect_clip_rect",
       JS_NewCFunction(ctx, wrap_vgcanvas_intersect_clip_rect, "vgcanvas_intersect_clip_rect", 1));
@@ -7038,6 +7111,9 @@ ret_t vgcanvas_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_vgcanvas_measure_text, "vgcanvas_measure_text", 1));
   JS_SetPropertyStr(ctx, global_obj, "vgcanvas_draw_image",
                     JS_NewCFunction(ctx, wrap_vgcanvas_draw_image, "vgcanvas_draw_image", 1));
+  JS_SetPropertyStr(
+      ctx, global_obj, "vgcanvas_draw_image_repeat",
+      JS_NewCFunction(ctx, wrap_vgcanvas_draw_image_repeat, "vgcanvas_draw_image_repeat", 1));
   JS_SetPropertyStr(ctx, global_obj, "vgcanvas_draw_icon",
                     JS_NewCFunction(ctx, wrap_vgcanvas_draw_icon, "vgcanvas_draw_icon", 1));
   JS_SetPropertyStr(ctx, global_obj, "vgcanvas_set_antialias",
@@ -8846,6 +8922,11 @@ jsvalue_t get_WIDGET_STATE_NORMAL(JSContext* ctx, jsvalue_const_t this_val, int 
   return jsvalue_create_string(ctx, WIDGET_STATE_NORMAL);
 }
 
+jsvalue_t get_WIDGET_STATE_ACTIVATED(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                     jsvalue_const_t* argv) {
+  return jsvalue_create_string(ctx, WIDGET_STATE_ACTIVATED);
+}
+
 jsvalue_t get_WIDGET_STATE_CHANGED(JSContext* ctx, jsvalue_const_t this_val, int argc,
                                    jsvalue_const_t* argv) {
   return jsvalue_create_string(ctx, WIDGET_STATE_CHANGED);
@@ -8957,6 +9038,8 @@ ret_t widget_state_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, get_WIDGET_STATE_NONE, "WIDGET_STATE_NONE", 1));
   JS_SetPropertyStr(ctx, global_obj, "WIDGET_STATE_NORMAL",
                     JS_NewCFunction(ctx, get_WIDGET_STATE_NORMAL, "WIDGET_STATE_NORMAL", 1));
+  JS_SetPropertyStr(ctx, global_obj, "WIDGET_STATE_ACTIVATED",
+                    JS_NewCFunction(ctx, get_WIDGET_STATE_ACTIVATED, "WIDGET_STATE_ACTIVATED", 1));
   JS_SetPropertyStr(ctx, global_obj, "WIDGET_STATE_CHANGED",
                     JS_NewCFunction(ctx, get_WIDGET_STATE_CHANGED, "WIDGET_STATE_CHANGED", 1));
   JS_SetPropertyStr(ctx, global_obj, "WIDGET_STATE_PRESSED",
@@ -9266,29 +9349,27 @@ jsvalue_t wrap_widget_move_resize(JSContext* ctx, jsvalue_const_t this_val, int 
   return jret;
 }
 
+jsvalue_t wrap_widget_get_value(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 1) {
+    float_t ret = (float_t)0;
+    widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
+    ret = (float_t)widget_get_value(widget);
+
+    jret = jsvalue_create_number(ctx, ret);
+  }
+  return jret;
+}
+
 jsvalue_t wrap_widget_set_value(JSContext* ctx, jsvalue_const_t this_val, int argc,
                                 jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
   if (argc >= 2) {
     ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
-    int32_t value = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
+    float_t value = (float_t)jsvalue_get_number_value(ctx, argv[1]);
     ret = (ret_t)widget_set_value(widget, value);
-
-    jret = jsvalue_create_int(ctx, ret);
-  }
-  return jret;
-}
-
-jsvalue_t wrap_widget_animate_value_to(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                       jsvalue_const_t* argv) {
-  jsvalue_t jret = JS_NULL;
-  if (argc >= 3) {
-    ret_t ret = (ret_t)0;
-    widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
-    int32_t value = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
-    uint32_t duration = (uint32_t)jsvalue_get_int_value(ctx, argv[2]);
-    ret = (ret_t)widget_animate_value_to(widget, value, duration);
 
     jret = jsvalue_create_int(ctx, ret);
   }
@@ -9301,8 +9382,64 @@ jsvalue_t wrap_widget_add_value(JSContext* ctx, jsvalue_const_t this_val, int ar
   if (argc >= 2) {
     ret_t ret = (ret_t)0;
     widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
-    int32_t delta = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
+    float_t delta = (float_t)jsvalue_get_number_value(ctx, argv[1]);
     ret = (ret_t)widget_add_value(widget, delta);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_widget_get_value_int(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                    jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 1) {
+    int32_t ret = (int32_t)0;
+    widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
+    ret = (int32_t)widget_get_value_int(widget);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_widget_set_value_int(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                    jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 2) {
+    ret_t ret = (ret_t)0;
+    widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
+    int32_t value = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
+    ret = (ret_t)widget_set_value_int(widget, value);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_widget_add_value_int(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                    jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 2) {
+    ret_t ret = (ret_t)0;
+    widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
+    int32_t delta = (int32_t)jsvalue_get_int_value(ctx, argv[1]);
+    ret = (ret_t)widget_add_value_int(widget, delta);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_widget_animate_value_to(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                       jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 3) {
+    ret_t ret = (ret_t)0;
+    widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
+    float_t value = (float_t)jsvalue_get_number_value(ctx, argv[1]);
+    uint32_t duration = (uint32_t)jsvalue_get_int_value(ctx, argv[2]);
+    ret = (ret_t)widget_animate_value_to(widget, value, duration);
 
     jret = jsvalue_create_int(ctx, ret);
   }
@@ -9418,19 +9555,6 @@ jsvalue_t wrap_widget_set_tr_text(JSContext* ctx, jsvalue_const_t this_val, int 
     const char* text = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
     ret = (ret_t)widget_set_tr_text(widget, text);
     jsvalue_free_str(ctx, text);
-
-    jret = jsvalue_create_int(ctx, ret);
-  }
-  return jret;
-}
-
-jsvalue_t wrap_widget_get_value(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                jsvalue_const_t* argv) {
-  jsvalue_t jret = JS_NULL;
-  if (argc >= 1) {
-    int32_t ret = (int32_t)0;
-    widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
-    ret = (int32_t)widget_get_value(widget);
 
     jret = jsvalue_create_int(ctx, ret);
   }
@@ -10080,6 +10204,38 @@ jsvalue_t wrap_widget_get_prop_pointer(JSContext* ctx, jsvalue_const_t this_val,
     jsvalue_free_str(ctx, name);
 
     jret = jsvalue_create_pointer(ctx, ret, "void*");
+  }
+  return jret;
+}
+
+jsvalue_t wrap_widget_set_prop_float(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                     jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 3) {
+    ret_t ret = (ret_t)0;
+    widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
+    const char* name = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
+    float_t v = (float_t)jsvalue_get_number_value(ctx, argv[2]);
+    ret = (ret_t)widget_set_prop_float(widget, name, v);
+    jsvalue_free_str(ctx, name);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_widget_get_prop_float(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                     jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 3) {
+    float_t ret = (float_t)0;
+    widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
+    const char* name = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
+    float_t defval = (float_t)jsvalue_get_number_value(ctx, argv[2]);
+    ret = (float_t)widget_get_prop_float(widget, name, defval);
+    jsvalue_free_str(ctx, name);
+
+    jret = jsvalue_create_number(ctx, ret);
   }
   return jret;
 }
@@ -10945,13 +11101,21 @@ ret_t widget_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_widget_resize, "widget_resize", 1));
   JS_SetPropertyStr(ctx, global_obj, "widget_move_resize",
                     JS_NewCFunction(ctx, wrap_widget_move_resize, "widget_move_resize", 1));
+  JS_SetPropertyStr(ctx, global_obj, "widget_get_value",
+                    JS_NewCFunction(ctx, wrap_widget_get_value, "widget_get_value", 1));
   JS_SetPropertyStr(ctx, global_obj, "widget_set_value",
                     JS_NewCFunction(ctx, wrap_widget_set_value, "widget_set_value", 1));
+  JS_SetPropertyStr(ctx, global_obj, "widget_add_value",
+                    JS_NewCFunction(ctx, wrap_widget_add_value, "widget_add_value", 1));
+  JS_SetPropertyStr(ctx, global_obj, "widget_get_value_int",
+                    JS_NewCFunction(ctx, wrap_widget_get_value_int, "widget_get_value_int", 1));
+  JS_SetPropertyStr(ctx, global_obj, "widget_set_value_int",
+                    JS_NewCFunction(ctx, wrap_widget_set_value_int, "widget_set_value_int", 1));
+  JS_SetPropertyStr(ctx, global_obj, "widget_add_value_int",
+                    JS_NewCFunction(ctx, wrap_widget_add_value_int, "widget_add_value_int", 1));
   JS_SetPropertyStr(
       ctx, global_obj, "widget_animate_value_to",
       JS_NewCFunction(ctx, wrap_widget_animate_value_to, "widget_animate_value_to", 1));
-  JS_SetPropertyStr(ctx, global_obj, "widget_add_value",
-                    JS_NewCFunction(ctx, wrap_widget_add_value, "widget_add_value", 1));
   JS_SetPropertyStr(ctx, global_obj, "widget_is_style_exist",
                     JS_NewCFunction(ctx, wrap_widget_is_style_exist, "widget_is_style_exist", 1));
   JS_SetPropertyStr(ctx, global_obj, "widget_use_style",
@@ -10969,8 +11133,6 @@ ret_t widget_t_init(JSContext* ctx) {
                                     "widget_set_child_text_with_int", 1));
   JS_SetPropertyStr(ctx, global_obj, "widget_set_tr_text",
                     JS_NewCFunction(ctx, wrap_widget_set_tr_text, "widget_set_tr_text", 1));
-  JS_SetPropertyStr(ctx, global_obj, "widget_get_value",
-                    JS_NewCFunction(ctx, wrap_widget_get_value, "widget_get_value", 1));
   JS_SetPropertyStr(ctx, global_obj, "widget_get_enable",
                     JS_NewCFunction(ctx, wrap_widget_get_enable, "widget_get_enable", 1));
   JS_SetPropertyStr(ctx, global_obj, "widget_get_floating",
@@ -11075,6 +11237,10 @@ ret_t widget_t_init(JSContext* ctx) {
   JS_SetPropertyStr(
       ctx, global_obj, "widget_get_prop_pointer",
       JS_NewCFunction(ctx, wrap_widget_get_prop_pointer, "widget_get_prop_pointer", 1));
+  JS_SetPropertyStr(ctx, global_obj, "widget_set_prop_float",
+                    JS_NewCFunction(ctx, wrap_widget_set_prop_float, "widget_set_prop_float", 1));
+  JS_SetPropertyStr(ctx, global_obj, "widget_get_prop_float",
+                    JS_NewCFunction(ctx, wrap_widget_get_prop_float, "widget_get_prop_float", 1));
   JS_SetPropertyStr(ctx, global_obj, "widget_set_prop_int",
                     JS_NewCFunction(ctx, wrap_widget_set_prop_int, "widget_set_prop_int", 1));
   JS_SetPropertyStr(ctx, global_obj, "widget_get_prop_int",
@@ -14109,6 +14275,30 @@ ret_t value_change_event_t_init(JSContext* ctx) {
   return RET_OK;
 }
 
+jsvalue_t wrap_offset_change_event_cast(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                        jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 1) {
+    offset_change_event_t* ret = NULL;
+    event_t* event = (event_t*)jsvalue_get_pointer(ctx, argv[0], "event_t*");
+    ret = (offset_change_event_t*)offset_change_event_cast(event);
+
+    jret = jsvalue_create_pointer(ctx, ret, "offset_change_event_t*");
+  }
+  return jret;
+}
+
+ret_t offset_change_event_t_init(JSContext* ctx) {
+  jsvalue_t global_obj = JS_GetGlobalObject(ctx);
+  JS_SetPropertyStr(
+      ctx, global_obj, "offset_change_event_cast",
+      JS_NewCFunction(ctx, wrap_offset_change_event_cast, "offset_change_event_cast", 1));
+
+  jsvalue_unref(ctx, global_obj);
+
+  return RET_OK;
+}
+
 jsvalue_t wrap_pointer_event_cast(JSContext* ctx, jsvalue_const_t this_val, int argc,
                                   jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
@@ -14559,6 +14749,43 @@ ret_t multi_gesture_event_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "multi_gesture_event_t_get_prop_distance",
                     JS_NewCFunction(ctx, wrap_multi_gesture_event_t_get_prop_distance,
                                     "multi_gesture_event_t_get_prop_distance", 1));
+
+  jsvalue_unref(ctx, global_obj);
+
+  return RET_OK;
+}
+
+jsvalue_t wrap_theme_change_event_cast(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                       jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 1) {
+    theme_change_event_t* ret = NULL;
+    event_t* event = (event_t*)jsvalue_get_pointer(ctx, argv[0], "event_t*");
+    ret = (theme_change_event_t*)theme_change_event_cast(event);
+
+    jret = jsvalue_create_pointer(ctx, ret, "theme_change_event_t*");
+  }
+  return jret;
+}
+
+jsvalue_t wrap_theme_change_event_t_get_prop_name(JSContext* ctx, jsvalue_const_t this_val,
+                                                  int argc, jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  theme_change_event_t* obj =
+      (theme_change_event_t*)jsvalue_get_pointer(ctx, argv[0], "theme_change_event_t*");
+
+  jret = jsvalue_create_string(ctx, obj->name);
+  return jret;
+}
+
+ret_t theme_change_event_t_init(JSContext* ctx) {
+  jsvalue_t global_obj = JS_GetGlobalObject(ctx);
+  JS_SetPropertyStr(
+      ctx, global_obj, "theme_change_event_cast",
+      JS_NewCFunction(ctx, wrap_theme_change_event_cast, "theme_change_event_cast", 1));
+  JS_SetPropertyStr(ctx, global_obj, "theme_change_event_t_get_prop_name",
+                    JS_NewCFunction(ctx, wrap_theme_change_event_t_get_prop_name,
+                                    "theme_change_event_t_get_prop_name", 1));
 
   jsvalue_unref(ctx, global_obj);
 
@@ -15756,6 +15983,20 @@ jsvalue_t wrap_draggable_set_drag_window(JSContext* ctx, jsvalue_const_t this_va
   return jret;
 }
 
+jsvalue_t wrap_draggable_set_drag_parent(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                         jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 2) {
+    ret_t ret = (ret_t)0;
+    widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
+    uint32_t drag_parent = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
+    ret = (ret_t)draggable_set_drag_parent(widget, drag_parent);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
 jsvalue_t wrap_draggable_t_get_prop_top(JSContext* ctx, jsvalue_const_t this_val, int argc,
                                         jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
@@ -15819,6 +16060,15 @@ jsvalue_t wrap_draggable_t_get_prop_drag_window(JSContext* ctx, jsvalue_const_t 
   return jret;
 }
 
+jsvalue_t wrap_draggable_t_get_prop_drag_parent(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                                jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  draggable_t* obj = (draggable_t*)jsvalue_get_pointer(ctx, argv[0], "draggable_t*");
+
+  jret = jsvalue_create_int(ctx, obj->drag_parent);
+  return jret;
+}
+
 ret_t draggable_t_init(JSContext* ctx) {
   jsvalue_t global_obj = JS_GetGlobalObject(ctx);
   JS_SetPropertyStr(ctx, global_obj, "draggable_create",
@@ -15843,6 +16093,9 @@ ret_t draggable_t_init(JSContext* ctx) {
       ctx, global_obj, "draggable_set_drag_window",
       JS_NewCFunction(ctx, wrap_draggable_set_drag_window, "draggable_set_drag_window", 1));
   JS_SetPropertyStr(
+      ctx, global_obj, "draggable_set_drag_parent",
+      JS_NewCFunction(ctx, wrap_draggable_set_drag_parent, "draggable_set_drag_parent", 1));
+  JS_SetPropertyStr(
       ctx, global_obj, "draggable_t_get_prop_top",
       JS_NewCFunction(ctx, wrap_draggable_t_get_prop_top, "draggable_t_get_prop_top", 1));
   JS_SetPropertyStr(
@@ -15863,6 +16116,9 @@ ret_t draggable_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "draggable_t_get_prop_drag_window",
                     JS_NewCFunction(ctx, wrap_draggable_t_get_prop_drag_window,
                                     "draggable_t_get_prop_drag_window", 1));
+  JS_SetPropertyStr(ctx, global_obj, "draggable_t_get_prop_drag_parent",
+                    JS_NewCFunction(ctx, wrap_draggable_t_get_prop_drag_parent,
+                                    "draggable_t_get_prop_drag_parent", 1));
 
   jsvalue_unref(ctx, global_obj);
 
@@ -18616,6 +18872,20 @@ jsvalue_t wrap_hscroll_label_set_duration(JSContext* ctx, jsvalue_const_t this_v
   return jret;
 }
 
+jsvalue_t wrap_hscroll_label_set_speed(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                       jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 2) {
+    ret_t ret = (ret_t)0;
+    widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
+    float_t speed = (float_t)jsvalue_get_number_value(ctx, argv[1]);
+    ret = (ret_t)hscroll_label_set_speed(widget, speed);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
 jsvalue_t wrap_hscroll_label_set_only_focus(JSContext* ctx, jsvalue_const_t this_val, int argc,
                                             jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
@@ -18802,6 +19072,15 @@ jsvalue_t wrap_hscroll_label_t_get_prop_duration(JSContext* ctx, jsvalue_const_t
   return jret;
 }
 
+jsvalue_t wrap_hscroll_label_t_get_prop_speed(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                              jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  hscroll_label_t* obj = (hscroll_label_t*)jsvalue_get_pointer(ctx, argv[0], "hscroll_label_t*");
+
+  jret = jsvalue_create_number(ctx, obj->speed);
+  return jret;
+}
+
 jsvalue_t wrap_hscroll_label_t_get_prop_xoffset(JSContext* ctx, jsvalue_const_t this_val, int argc,
                                                 jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
@@ -18829,6 +19108,9 @@ ret_t hscroll_label_t_init(JSContext* ctx) {
   JS_SetPropertyStr(
       ctx, global_obj, "hscroll_label_set_duration",
       JS_NewCFunction(ctx, wrap_hscroll_label_set_duration, "hscroll_label_set_duration", 1));
+  JS_SetPropertyStr(
+      ctx, global_obj, "hscroll_label_set_speed",
+      JS_NewCFunction(ctx, wrap_hscroll_label_set_speed, "hscroll_label_set_speed", 1));
   JS_SetPropertyStr(
       ctx, global_obj, "hscroll_label_set_only_focus",
       JS_NewCFunction(ctx, wrap_hscroll_label_set_only_focus, "hscroll_label_set_only_focus", 1));
@@ -18872,6 +19154,9 @@ ret_t hscroll_label_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "hscroll_label_t_get_prop_duration",
                     JS_NewCFunction(ctx, wrap_hscroll_label_t_get_prop_duration,
                                     "hscroll_label_t_get_prop_duration", 1));
+  JS_SetPropertyStr(ctx, global_obj, "hscroll_label_t_get_prop_speed",
+                    JS_NewCFunction(ctx, wrap_hscroll_label_t_get_prop_speed,
+                                    "hscroll_label_t_get_prop_speed", 1));
   JS_SetPropertyStr(ctx, global_obj, "hscroll_label_t_get_prop_xoffset",
                     JS_NewCFunction(ctx, wrap_hscroll_label_t_get_prop_xoffset,
                                     "hscroll_label_t_get_prop_xoffset", 1));
@@ -19376,6 +19661,20 @@ jsvalue_t wrap_scroll_bar_is_mobile(JSContext* ctx, jsvalue_const_t this_val, in
   return jret;
 }
 
+jsvalue_t wrap_scroll_bar_set_animator_time(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                            jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 2) {
+    ret_t ret = (ret_t)0;
+    widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
+    uint32_t animator_time = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
+    ret = (ret_t)scroll_bar_set_animator_time(widget, animator_time);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
 jsvalue_t wrap_scroll_bar_t_get_prop_virtual_size(JSContext* ctx, jsvalue_const_t this_val,
                                                   int argc, jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
@@ -19400,6 +19699,15 @@ jsvalue_t wrap_scroll_bar_t_get_prop_row(JSContext* ctx, jsvalue_const_t this_va
   scroll_bar_t* obj = (scroll_bar_t*)jsvalue_get_pointer(ctx, argv[0], "scroll_bar_t*");
 
   jret = jsvalue_create_int(ctx, obj->row);
+  return jret;
+}
+
+jsvalue_t wrap_scroll_bar_t_get_prop_animator_time(JSContext* ctx, jsvalue_const_t this_val,
+                                                   int argc, jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  scroll_bar_t* obj = (scroll_bar_t*)jsvalue_get_pointer(ctx, argv[0], "scroll_bar_t*");
+
+  jret = jsvalue_create_int(ctx, obj->animator_time);
   return jret;
 }
 
@@ -19452,6 +19760,9 @@ ret_t scroll_bar_t_init(JSContext* ctx) {
       JS_NewCFunction(ctx, wrap_scroll_bar_set_auto_hide, "scroll_bar_set_auto_hide", 1));
   JS_SetPropertyStr(ctx, global_obj, "scroll_bar_is_mobile",
                     JS_NewCFunction(ctx, wrap_scroll_bar_is_mobile, "scroll_bar_is_mobile", 1));
+  JS_SetPropertyStr(
+      ctx, global_obj, "scroll_bar_set_animator_time",
+      JS_NewCFunction(ctx, wrap_scroll_bar_set_animator_time, "scroll_bar_set_animator_time", 1));
   JS_SetPropertyStr(ctx, global_obj, "scroll_bar_t_get_prop_virtual_size",
                     JS_NewCFunction(ctx, wrap_scroll_bar_t_get_prop_virtual_size,
                                     "scroll_bar_t_get_prop_virtual_size", 1));
@@ -19461,6 +19772,9 @@ ret_t scroll_bar_t_init(JSContext* ctx) {
   JS_SetPropertyStr(
       ctx, global_obj, "scroll_bar_t_get_prop_row",
       JS_NewCFunction(ctx, wrap_scroll_bar_t_get_prop_row, "scroll_bar_t_get_prop_row", 1));
+  JS_SetPropertyStr(ctx, global_obj, "scroll_bar_t_get_prop_animator_time",
+                    JS_NewCFunction(ctx, wrap_scroll_bar_t_get_prop_animator_time,
+                                    "scroll_bar_t_get_prop_animator_time", 1));
   JS_SetPropertyStr(ctx, global_obj, "scroll_bar_t_get_prop_animatable",
                     JS_NewCFunction(ctx, wrap_scroll_bar_t_get_prop_animatable,
                                     "scroll_bar_t_get_prop_animatable", 1));
@@ -20177,6 +20491,20 @@ jsvalue_t wrap_slide_indicator_set_indicated_target(JSContext* ctx, jsvalue_cons
   return jret;
 }
 
+jsvalue_t wrap_slide_indicator_set_transition(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                              jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 2) {
+    ret_t ret = (ret_t)0;
+    widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
+    bool_t transition = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
+    ret = (ret_t)slide_indicator_set_transition(widget, transition);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
 jsvalue_t wrap_slide_indicator_t_get_prop_value(JSContext* ctx, jsvalue_const_t this_val, int argc,
                                                 jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
@@ -20277,6 +20605,16 @@ jsvalue_t wrap_slide_indicator_t_get_prop_indicated_target(JSContext* ctx, jsval
   return jret;
 }
 
+jsvalue_t wrap_slide_indicator_t_get_prop_transition(JSContext* ctx, jsvalue_const_t this_val,
+                                                     int argc, jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  slide_indicator_t* obj =
+      (slide_indicator_t*)jsvalue_get_pointer(ctx, argv[0], "slide_indicator_t*");
+
+  jret = jsvalue_create_bool(ctx, obj->transition);
+  return jret;
+}
+
 ret_t slide_indicator_t_init(JSContext* ctx) {
   jsvalue_t global_obj = JS_GetGlobalObject(ctx);
   JS_SetPropertyStr(ctx, global_obj, "slide_indicator_create",
@@ -20316,6 +20654,9 @@ ret_t slide_indicator_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "slide_indicator_set_indicated_target",
                     JS_NewCFunction(ctx, wrap_slide_indicator_set_indicated_target,
                                     "slide_indicator_set_indicated_target", 1));
+  JS_SetPropertyStr(ctx, global_obj, "slide_indicator_set_transition",
+                    JS_NewCFunction(ctx, wrap_slide_indicator_set_transition,
+                                    "slide_indicator_set_transition", 1));
   JS_SetPropertyStr(ctx, global_obj, "slide_indicator_t_get_prop_value",
                     JS_NewCFunction(ctx, wrap_slide_indicator_t_get_prop_value,
                                     "slide_indicator_t_get_prop_value", 1));
@@ -20346,6 +20687,9 @@ ret_t slide_indicator_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "slide_indicator_t_get_prop_indicated_target",
                     JS_NewCFunction(ctx, wrap_slide_indicator_t_get_prop_indicated_target,
                                     "slide_indicator_t_get_prop_indicated_target", 1));
+  JS_SetPropertyStr(ctx, global_obj, "slide_indicator_t_get_prop_transition",
+                    JS_NewCFunction(ctx, wrap_slide_indicator_t_get_prop_transition,
+                                    "slide_indicator_t_get_prop_transition", 1));
 
   jsvalue_unref(ctx, global_obj);
 
@@ -24985,6 +25329,21 @@ jsvalue_t wrap_native_window_set_cursor(JSContext* ctx, jsvalue_const_t this_val
   return jret;
 }
 
+jsvalue_t wrap_native_window_set_title(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                       jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 2) {
+    ret_t ret = (ret_t)0;
+    native_window_t* win = (native_window_t*)jsvalue_get_pointer(ctx, argv[0], "native_window_t*");
+    const char* app_name = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
+    ret = (ret_t)native_window_set_title(win, app_name);
+    jsvalue_free_str(ctx, app_name);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
 ret_t native_window_t_init(JSContext* ctx) {
   jsvalue_t global_obj = JS_GetGlobalObject(ctx);
   JS_SetPropertyStr(ctx, global_obj, "native_window_move",
@@ -25011,6 +25370,9 @@ ret_t native_window_t_init(JSContext* ctx) {
   JS_SetPropertyStr(
       ctx, global_obj, "native_window_set_cursor",
       JS_NewCFunction(ctx, wrap_native_window_set_cursor, "native_window_set_cursor", 1));
+  JS_SetPropertyStr(
+      ctx, global_obj, "native_window_set_title",
+      JS_NewCFunction(ctx, wrap_native_window_set_title, "native_window_set_title", 1));
 
   jsvalue_unref(ctx, global_obj);
 
@@ -25238,6 +25600,20 @@ jsvalue_t wrap_gif_image_pause(JSContext* ctx, jsvalue_const_t this_val, int arg
   return jret;
 }
 
+jsvalue_t wrap_gif_image_set_loop(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                  jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 2) {
+    ret_t ret = (ret_t)0;
+    widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
+    uint32_t loop = (uint32_t)jsvalue_get_int_value(ctx, argv[1]);
+    ret = (ret_t)gif_image_set_loop(widget, loop);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
 jsvalue_t wrap_gif_image_cast(JSContext* ctx, jsvalue_const_t this_val, int argc,
                               jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
@@ -25251,6 +25627,15 @@ jsvalue_t wrap_gif_image_cast(JSContext* ctx, jsvalue_const_t this_val, int argc
   return jret;
 }
 
+jsvalue_t wrap_gif_image_t_get_prop_loop(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                         jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  gif_image_t* obj = (gif_image_t*)jsvalue_get_pointer(ctx, argv[0], "gif_image_t*");
+
+  jret = jsvalue_create_int(ctx, obj->loop);
+  return jret;
+}
+
 ret_t gif_image_t_init(JSContext* ctx) {
   jsvalue_t global_obj = JS_GetGlobalObject(ctx);
   JS_SetPropertyStr(ctx, global_obj, "gif_image_create",
@@ -25261,8 +25646,13 @@ ret_t gif_image_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_gif_image_stop, "gif_image_stop", 1));
   JS_SetPropertyStr(ctx, global_obj, "gif_image_pause",
                     JS_NewCFunction(ctx, wrap_gif_image_pause, "gif_image_pause", 1));
+  JS_SetPropertyStr(ctx, global_obj, "gif_image_set_loop",
+                    JS_NewCFunction(ctx, wrap_gif_image_set_loop, "gif_image_set_loop", 1));
   JS_SetPropertyStr(ctx, global_obj, "gif_image_cast",
                     JS_NewCFunction(ctx, wrap_gif_image_cast, "gif_image_cast", 1));
+  JS_SetPropertyStr(
+      ctx, global_obj, "gif_image_t_get_prop_loop",
+      JS_NewCFunction(ctx, wrap_gif_image_t_get_prop_loop, "gif_image_t_get_prop_loop", 1));
 
   jsvalue_unref(ctx, global_obj);
 
@@ -26566,11 +26956,13 @@ ret_t awtk_js_init(JSContext* ctx) {
   wheel_event_t_init(ctx);
   orientation_event_t_init(ctx);
   value_change_event_t_init(ctx);
+  offset_change_event_t_init(ctx);
   pointer_event_t_init(ctx);
   key_event_t_init(ctx);
   paint_event_t_init(ctx);
   window_event_t_init(ctx);
   multi_gesture_event_t_init(ctx);
+  theme_change_event_t_init(ctx);
   image_base_t_init(ctx);
   style_mutable_t_init(ctx);
   window_base_t_init(ctx);
