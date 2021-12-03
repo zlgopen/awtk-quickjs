@@ -1341,6 +1341,14 @@ export declare class TCanvas {
      */
     getHeight(): number;
     /**
+     * 获取裁剪区。
+     *
+     * @param r rect对象。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    getClipRect(r: TRect): TRet;
+    /**
      * 设置裁剪区。
      *
      * @param r rect对象。
@@ -8625,7 +8633,7 @@ export declare enum TValueType {
      */
     WSTRING,
     /**
-     * object_t*类型。
+     * tk_object_t*类型。
      *
      */
     OBJECT,
@@ -15315,7 +15323,7 @@ export declare class TPages extends TWidget {
      */
     setActiveByName(name: string): TRet;
     /**
-     * 当前活跃的page。
+     * 当前活跃的page。(需要用到 MVVM 数据绑定请设置 value 属性)
      *
      */
     get active(): number;

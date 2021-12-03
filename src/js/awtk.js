@@ -1747,6 +1747,16 @@ var TCanvas = /** @class */ (function () {
         return canvas_get_height(this != null ? (this.nativeObj || this) : null);
     };
     /**
+     * 获取裁剪区。
+     *
+     * @param r rect对象。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TCanvas.prototype.getClipRect = function (r) {
+        return canvas_get_clip_rect(this != null ? (this.nativeObj || this) : null, r != null ? (r.nativeObj || r) : null);
+    };
+    /**
      * 设置裁剪区。
      *
      * @param r rect对象。
@@ -10174,7 +10184,7 @@ var TValueType;
      */
     TValueType[TValueType["WSTRING"] = VALUE_TYPE_WSTRING()] = "WSTRING";
     /**
-     * object_t*类型。
+     * tk_object_t*类型。
      *
      */
     TValueType[TValueType["OBJECT"] = VALUE_TYPE_OBJECT()] = "OBJECT";
@@ -19763,7 +19773,7 @@ var TPages = /** @class */ (function (_super) {
     };
     Object.defineProperty(TPages.prototype, "active", {
         /**
-         * 当前活跃的page。
+         * 当前活跃的page。(需要用到 MVVM 数据绑定请设置 value 属性)
          *
          */
         get: function () {
