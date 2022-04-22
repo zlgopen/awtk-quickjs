@@ -1096,6 +1096,27 @@ export declare class TValue {
      * @returns 对象。
      */
     static cast(value: TValue): TValue;
+    /**
+     * 获取类型为ID的值。
+     *
+     *
+     * @returns 值。
+     */
+    id(): string;
+    /**
+     * 获取类型为func的值。
+     *
+     *
+     * @returns 值。
+     */
+    func(): any;
+    /**
+     * 获取类型为func_def的值。
+     *
+     *
+     * @returns 值。
+     */
+    funcDef(): any;
 }
 /**
  * TK全局对象。
@@ -1485,6 +1506,13 @@ export declare class TCanvas {
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     setFont(name: string, size: number): TRet;
+    /**
+     * 释放canvas中字体相关的资源。
+     *
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    resetFont(): TRet;
     /**
      * 计算文本所占的宽度。
      *
@@ -2030,7 +2058,7 @@ export declare enum TEventType {
      */
     RESET,
     /**
-     * 在指定的时间内(WITH_SCREEN_SAVER_TIME)，没有用户输入事件，由窗口管理器触发。
+     * 在指定的时间内，没有用户输入事件，由窗口管理器触发。
      *
      */
     SCREEN_SAVER,
@@ -2335,7 +2363,17 @@ export declare enum TGlyphFormat {
      * 每个像素占用4个字节。
      *
      */
-    RGBA
+    RGBA,
+    /**
+     * 每个像素占用2bit。
+     *
+     */
+    ALPHA2,
+    /**
+     * 每个像素占用4bit。
+     *
+     */
+    ALPHA4
 }
 /**
  * idle可以看作是duration为0的定时器。
@@ -3867,7 +3905,17 @@ export declare enum TBitmapFlag {
      * 预乘alpha。
      *
      */
-    PREMULTI_ALPHA
+    PREMULTI_ALPHA,
+    /**
+     * 位图数据已经处理了 lcd 旋转，同时说明 bitmap 的宽高和真实数据的宽高可能不一致
+     *
+     */
+    LCD_ORIENTATION,
+    /**
+     * 该位图为 GPU 的 fbo 数据。
+     *
+     */
+    GPU_FBO_TEXTURE
 }
 /**
  * 矢量图画布抽象基类。
@@ -4679,6 +4727,11 @@ export declare enum TWidgetProp {
      *
      */
     VIRTUAL_H,
+    /**
+     * 控件正在加载。
+     *
+     */
+    LOADING,
     /**
      * 名称。
      *
@@ -5696,6 +5749,11 @@ export declare enum TWidgetState {
      */
     EMPTY_FOCUS,
     /**
+     * 编辑器无内容同时指针悬浮的状态。
+     *
+     */
+    EMPTY_OVER,
+    /**
      * 输入错误状态。
      *
      */
@@ -5843,6 +5901,22 @@ export declare class TWidget {
      */
     getChild(index: number): TWidget;
     /**
+     * 通过名称查找父控件。
+     *
+     * @param name 名称。
+     *
+     * @returns 父控件。
+     */
+    findParentByName(name: string): TWidget;
+    /**
+     * 通过类型查找父控件。
+     *
+     * @param type 类型。
+     *
+     * @returns 父控件。
+     */
+    findParentByType(type: string): TWidget;
+    /**
      * 获取当前窗口中的焦点控件。
      *
      *
@@ -5900,6 +5974,13 @@ export declare class TWidget {
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     move(x: number, y: number): TRet;
+    /**
+     * 移动控件到父控件中间。
+     *
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    moveToCenter(): TRet;
     /**
      * 调整控件的大小。
      *
@@ -8661,7 +8742,22 @@ export declare enum TValueType {
      * 渐变颜色。
      *
      */
-    GRADIENT
+    GRADIENT,
+    /**
+     * id。
+     *
+     */
+    ID,
+    /**
+     * func。
+     *
+     */
+    FUNC,
+    /**
+     * func definition。
+     *
+     */
+    FUNC_DEF
 }
 /**
  * 资源管理器。
@@ -9834,11 +9930,19 @@ export declare class TDraggable extends TWidget {
      * 设置drag_window。
      *拖动窗口而不是父控件。比如放在对话框的titlebar上，拖动titlebar其实是希望拖动对话框。
      *
-     * @param drag_window drag_window
+     * @param drag_window 是否拖动窗口。
      *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     setDragWindow(drag_window: boolean): TRet;
+    /**
+     * 设置drag_native_window。
+     *
+     * @param drag_native_window 是否拖动原生窗口。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setDragNativeWindow(drag_native_window: boolean): TRet;
     /**
      * 设置drag_parent。
      *拖动窗口而不是父控件。比如放在对话框的titlebar上，拖动titlebar其实是希望拖动对话框。
@@ -9890,6 +9994,12 @@ export declare class TDraggable extends TWidget {
      */
     get dragWindow(): boolean;
     set dragWindow(v: boolean);
+    /**
+     * 拖动原生窗口。
+     *
+     */
+    get dragNativeWindow(): boolean;
+    set dragNativeWindow(v: boolean);
     /**
      * 拖动父控件。0表示直系父控件，1表示父控件的父控件，依次类推。
      *
@@ -11023,6 +11133,37 @@ export declare class TLineNumber extends TWidget {
      * @returns line_number对象。
      */
     static cast(widget: TWidget): TLineNumber;
+    /**
+     * 增加高亮行。
+     *
+     * @param line 行号。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    addHighlightLine(line: number): TRet;
+    /**
+     * 设置active行。
+     *
+     * @param line 行号。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setActiveLine(line: number): TRet;
+    /**
+     * 清除高亮行。
+     *
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    clearHighlight(): TRet;
+    /**
+     * 判断指定行是否是高亮行。
+     *
+     * @param line 行号。
+     *
+     * @returns 返回TRUE表示是，否则不是。
+     */
+    isHighlightLine(line: number): boolean;
 }
 /**
  * 多行编辑器控件。
@@ -12829,15 +12970,15 @@ export declare class TSlideIndicator extends TWidget {
     get size(): number;
     set size(v: number);
     /**
-     * 锚点x坐标。
+     * 锚点x坐标。(后面加上px为像素点，不加px为相对百分比坐标0.0f到1.0f)
      *
      */
-    get anchorX(): number;
+    get anchorX(): string;
     /**
-     * 锚点y坐标。
+     * 锚点y坐标。(后面加上px为像素点，不加px为相对百分比坐标0.0f到1.0f)
      *
      */
-    get anchorY(): number;
+    get anchorY(): string;
     /**
      * 指示器指示的目标控件的名称。
      *
@@ -14687,6 +14828,15 @@ export declare class TEdit extends TWidget {
      */
     setDouble(value: any): TRet;
     /**
+     * 设置double类型的值。
+     *
+     * @param format 格式(缺省为"%2.2lf")。
+     * @param value 值。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setDoubleEx(format: string, value: any): TRet;
+    /**
      * 设置为文本输入及其长度限制，不允许输入超过max个字符，少于min个字符时进入error状态。
      *
      * @param min 最小长度。
@@ -15620,6 +15770,14 @@ export declare class TSlider extends TWidget {
      */
     setMax(max: number): TRet;
     /**
+     * 设置前景色的线帽形状。（默认为跟随风格的圆角设置，但是在没有设置圆角的时候无法使用 "round" 来设置圆角）
+     *
+     * @param line_cap 前景色的线帽形状，取值为：butt|round
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setLineCap(line_cap: string): TRet;
+    /**
      * 设置滑块的拖动的最小单位。
      *
      * @param step 拖动的最小单位。
@@ -15694,6 +15852,12 @@ export declare class TSlider extends TWidget {
      *
      */
     get slideWithBar(): boolean;
+    /**
+     * 前景色的线帽形状。（取值：butt|round，默认为跟随风格的圆角设置, 但是在没有设置圆角的时候无法使用 "round" 来设置圆角）
+     *
+     */
+    get lineCap(): string;
+    set lineCap(v: string);
 }
 /**
  * 标签按钮分组控件。
@@ -17298,6 +17462,14 @@ export declare class TComboBox extends TEdit {
      * @returns 返回值。
      */
     getValueInt(): number;
+    /**
+     * 检查选项中是否存在指定的文本。
+     *
+     * @param text option text
+     *
+     * @returns 返回TRUE表示存在，否则表示不存在。
+     */
+    hasOptionText(text: string): boolean;
     /**
      * 获取combo_box的文本。
      *

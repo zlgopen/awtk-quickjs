@@ -1469,6 +1469,33 @@ var TValue = /** @class */ (function () {
     TValue.cast = function (value) {
         return new TValue(value_cast(value != null ? (value.nativeObj || value) : null));
     };
+    /**
+     * 获取类型为ID的值。
+     *
+     *
+     * @returns 值。
+     */
+    TValue.prototype.id = function () {
+        return value_id(this != null ? (this.nativeObj || this) : null);
+    };
+    /**
+     * 获取类型为func的值。
+     *
+     *
+     * @returns 值。
+     */
+    TValue.prototype.func = function () {
+        return value_func(this != null ? (this.nativeObj || this) : null);
+    };
+    /**
+     * 获取类型为func_def的值。
+     *
+     *
+     * @returns 值。
+     */
+    TValue.prototype.funcDef = function () {
+        return value_func_def(this != null ? (this.nativeObj || this) : null);
+    };
     return TValue;
 }());
 exports.TValue = TValue;
@@ -1920,6 +1947,15 @@ var TCanvas = /** @class */ (function () {
      */
     TCanvas.prototype.setFont = function (name, size) {
         return canvas_set_font(this != null ? (this.nativeObj || this) : null, name, size);
+    };
+    /**
+     * 释放canvas中字体相关的资源。
+     *
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TCanvas.prototype.resetFont = function () {
+        return canvas_reset_font(this != null ? (this.nativeObj || this) : null);
     };
     /**
      * 计算文本所占的宽度。
@@ -2534,7 +2570,7 @@ var TEventType;
      */
     TEventType[TEventType["RESET"] = EVT_RESET()] = "RESET";
     /**
-     * 在指定的时间内(WITH_SCREEN_SAVER_TIME)，没有用户输入事件，由窗口管理器触发。
+     * 在指定的时间内，没有用户输入事件，由窗口管理器触发。
      *
      */
     TEventType[TEventType["SCREEN_SAVER"] = EVT_SCREEN_SAVER()] = "SCREEN_SAVER";
@@ -2890,6 +2926,16 @@ var TGlyphFormat;
      *
      */
     TGlyphFormat[TGlyphFormat["RGBA"] = GLYPH_FMT_RGBA()] = "RGBA";
+    /**
+     * 每个像素占用2bit。
+     *
+     */
+    TGlyphFormat[TGlyphFormat["ALPHA2"] = GLYPH_FMT_ALPHA2()] = "ALPHA2";
+    /**
+     * 每个像素占用4bit。
+     *
+     */
+    TGlyphFormat[TGlyphFormat["ALPHA4"] = GLYPH_FMT_ALPHA4()] = "ALPHA4";
 })(TGlyphFormat = exports.TGlyphFormat || (exports.TGlyphFormat = {}));
 ;
 /**
@@ -4542,6 +4588,16 @@ var TBitmapFlag;
      *
      */
     TBitmapFlag[TBitmapFlag["PREMULTI_ALPHA"] = BITMAP_FLAG_PREMULTI_ALPHA()] = "PREMULTI_ALPHA";
+    /**
+     * 位图数据已经处理了 lcd 旋转，同时说明 bitmap 的宽高和真实数据的宽高可能不一致
+     *
+     */
+    TBitmapFlag[TBitmapFlag["LCD_ORIENTATION"] = BITMAP_FLAG_LCD_ORIENTATION()] = "LCD_ORIENTATION";
+    /**
+     * 该位图为 GPU 的 fbo 数据。
+     *
+     */
+    TBitmapFlag[TBitmapFlag["GPU_FBO_TEXTURE"] = BITMAP_FLAG_GPU_FBO_TEXTURE()] = "GPU_FBO_TEXTURE";
 })(TBitmapFlag = exports.TBitmapFlag || (exports.TBitmapFlag = {}));
 ;
 /**
@@ -5557,6 +5613,11 @@ var TWidgetProp;
      *
      */
     TWidgetProp[TWidgetProp["VIRTUAL_H"] = WIDGET_PROP_VIRTUAL_H()] = "VIRTUAL_H";
+    /**
+     * 控件正在加载。
+     *
+     */
+    TWidgetProp[TWidgetProp["LOADING"] = WIDGET_PROP_LOADING()] = "LOADING";
     /**
      * 名称。
      *
@@ -6582,6 +6643,11 @@ var TWidgetState;
      */
     TWidgetState[TWidgetState["EMPTY_FOCUS"] = WIDGET_STATE_EMPTY_FOCUS()] = "EMPTY_FOCUS";
     /**
+     * 编辑器无内容同时指针悬浮的状态。
+     *
+     */
+    TWidgetState[TWidgetState["EMPTY_OVER"] = WIDGET_STATE_EMPTY_OVER()] = "EMPTY_OVER";
+    /**
      * 输入错误状态。
      *
      */
@@ -6737,6 +6803,26 @@ var TWidget = /** @class */ (function () {
         return new TWidget(widget_get_child(this != null ? (this.nativeObj || this) : null, index));
     };
     /**
+     * 通过名称查找父控件。
+     *
+     * @param name 名称。
+     *
+     * @returns 父控件。
+     */
+    TWidget.prototype.findParentByName = function (name) {
+        return new TWidget(widget_find_parent_by_name(this != null ? (this.nativeObj || this) : null, name));
+    };
+    /**
+     * 通过类型查找父控件。
+     *
+     * @param type 类型。
+     *
+     * @returns 父控件。
+     */
+    TWidget.prototype.findParentByType = function (type) {
+        return new TWidget(widget_find_parent_by_type(this != null ? (this.nativeObj || this) : null, type));
+    };
+    /**
      * 获取当前窗口中的焦点控件。
      *
      *
@@ -6809,6 +6895,15 @@ var TWidget = /** @class */ (function () {
      */
     TWidget.prototype.move = function (x, y) {
         return widget_move(this != null ? (this.nativeObj || this) : null, x, y);
+    };
+    /**
+     * 移动控件到父控件中间。
+     *
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TWidget.prototype.moveToCenter = function () {
+        return widget_move_to_center(this != null ? (this.nativeObj || this) : null);
     };
     /**
      * 调整控件的大小。
@@ -10213,6 +10308,21 @@ var TValueType;
      *
      */
     TValueType[TValueType["GRADIENT"] = VALUE_TYPE_GRADIENT()] = "GRADIENT";
+    /**
+     * id。
+     *
+     */
+    TValueType[TValueType["ID"] = VALUE_TYPE_ID()] = "ID";
+    /**
+     * func。
+     *
+     */
+    TValueType[TValueType["FUNC"] = VALUE_TYPE_FUNC()] = "FUNC";
+    /**
+     * func definition。
+     *
+     */
+    TValueType[TValueType["FUNC_DEF"] = VALUE_TYPE_FUNC_DEF()] = "FUNC_DEF";
 })(TValueType = exports.TValueType || (exports.TValueType = {}));
 ;
 /**
@@ -12004,12 +12114,22 @@ var TDraggable = /** @class */ (function (_super) {
      * 设置drag_window。
      *拖动窗口而不是父控件。比如放在对话框的titlebar上，拖动titlebar其实是希望拖动对话框。
      *
-     * @param drag_window drag_window
+     * @param drag_window 是否拖动窗口。
      *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TDraggable.prototype.setDragWindow = function (drag_window) {
         return draggable_set_drag_window(this != null ? (this.nativeObj || this) : null, drag_window);
+    };
+    /**
+     * 设置drag_native_window。
+     *
+     * @param drag_native_window 是否拖动原生窗口。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TDraggable.prototype.setDragNativeWindow = function (drag_native_window) {
+        return draggable_set_drag_native_window(this != null ? (this.nativeObj || this) : null, drag_native_window);
     };
     /**
      * 设置drag_parent。
@@ -12116,6 +12236,20 @@ var TDraggable = /** @class */ (function (_super) {
         },
         set: function (v) {
             this.setDragWindow(v);
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(TDraggable.prototype, "dragNativeWindow", {
+        /**
+         * 拖动原生窗口。
+         *
+         */
+        get: function () {
+            return draggable_t_get_prop_drag_native_window(this.nativeObj);
+        },
+        set: function (v) {
+            this.setDragNativeWindow(v);
         },
         enumerable: false,
         configurable: true
@@ -13733,6 +13867,45 @@ var TLineNumber = /** @class */ (function (_super) {
      */
     TLineNumber.cast = function (widget) {
         return new TLineNumber(line_number_cast(widget != null ? (widget.nativeObj || widget) : null));
+    };
+    /**
+     * 增加高亮行。
+     *
+     * @param line 行号。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TLineNumber.prototype.addHighlightLine = function (line) {
+        return line_number_add_highlight_line(this != null ? (this.nativeObj || this) : null, line);
+    };
+    /**
+     * 设置active行。
+     *
+     * @param line 行号。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TLineNumber.prototype.setActiveLine = function (line) {
+        return line_number_set_active_line(this != null ? (this.nativeObj || this) : null, line);
+    };
+    /**
+     * 清除高亮行。
+     *
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TLineNumber.prototype.clearHighlight = function () {
+        return line_number_clear_highlight(this != null ? (this.nativeObj || this) : null);
+    };
+    /**
+     * 判断指定行是否是高亮行。
+     *
+     * @param line 行号。
+     *
+     * @returns 返回TRUE表示是，否则不是。
+     */
+    TLineNumber.prototype.isHighlightLine = function (line) {
+        return line_number_is_highlight_line(this != null ? (this.nativeObj || this) : null, line);
     };
     return TLineNumber;
 }(TWidget));
@@ -16321,7 +16494,7 @@ var TSlideIndicator = /** @class */ (function (_super) {
     });
     Object.defineProperty(TSlideIndicator.prototype, "anchorX", {
         /**
-         * 锚点x坐标。
+         * 锚点x坐标。(后面加上px为像素点，不加px为相对百分比坐标0.0f到1.0f)
          *
          */
         get: function () {
@@ -16332,7 +16505,7 @@ var TSlideIndicator = /** @class */ (function (_super) {
     });
     Object.defineProperty(TSlideIndicator.prototype, "anchorY", {
         /**
-         * 锚点y坐标。
+         * 锚点y坐标。(后面加上px为像素点，不加px为相对百分比坐标0.0f到1.0f)
          *
          */
         get: function () {
@@ -18891,6 +19064,17 @@ var TEdit = /** @class */ (function (_super) {
         return edit_set_double(this != null ? (this.nativeObj || this) : null, value);
     };
     /**
+     * 设置double类型的值。
+     *
+     * @param format 格式(缺省为"%2.2lf")。
+     * @param value 值。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TEdit.prototype.setDoubleEx = function (format, value) {
+        return edit_set_double_ex(this != null ? (this.nativeObj || this) : null, format, value);
+    };
+    /**
      * 设置为文本输入及其长度限制，不允许输入超过max个字符，少于min个字符时进入error状态。
      *
      * @param min 最小长度。
@@ -20172,6 +20356,16 @@ var TSlider = /** @class */ (function (_super) {
         return slider_set_max(this != null ? (this.nativeObj || this) : null, max);
     };
     /**
+     * 设置前景色的线帽形状。（默认为跟随风格的圆角设置，但是在没有设置圆角的时候无法使用 "round" 来设置圆角）
+     *
+     * @param line_cap 前景色的线帽形状，取值为：butt|round
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TSlider.prototype.setLineCap = function (line_cap) {
+        return slider_set_line_cap(this != null ? (this.nativeObj || this) : null, line_cap);
+    };
+    /**
      * 设置滑块的拖动的最小单位。
      *
      * @param step 拖动的最小单位。
@@ -20314,6 +20508,20 @@ var TSlider = /** @class */ (function (_super) {
          */
         get: function () {
             return slider_t_get_prop_slide_with_bar(this.nativeObj);
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(TSlider.prototype, "lineCap", {
+        /**
+         * 前景色的线帽形状。（取值：butt|round，默认为跟随风格的圆角设置, 但是在没有设置圆角的时候无法使用 "round" 来设置圆角）
+         *
+         */
+        get: function () {
+            return slider_t_get_prop_line_cap(this.nativeObj);
+        },
+        set: function (v) {
+            this.setLineCap(v);
         },
         enumerable: false,
         configurable: true
@@ -22316,6 +22524,16 @@ var TComboBox = /** @class */ (function (_super) {
      */
     TComboBox.prototype.getValueInt = function () {
         return combo_box_get_value(this != null ? (this.nativeObj || this) : null);
+    };
+    /**
+     * 检查选项中是否存在指定的文本。
+     *
+     * @param text option text
+     *
+     * @returns 返回TRUE表示存在，否则表示不存在。
+     */
+    TComboBox.prototype.hasOptionText = function (text) {
+        return combo_box_has_option_text(this != null ? (this.nativeObj || this) : null, text);
     };
     /**
      * 获取combo_box的文本。
