@@ -914,6 +914,21 @@ jsvalue_t wrap_object_copy_prop(JSContext* ctx, jsvalue_const_t this_val, int ar
   return jret;
 }
 
+jsvalue_t wrap_object_copy_props(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                 jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 3) {
+    ret_t ret = (ret_t)0;
+    object_t* obj = (object_t*)jsvalue_get_pointer(ctx, argv[0], "object_t*");
+    object_t* src = (object_t*)jsvalue_get_pointer(ctx, argv[1], "object_t*");
+    bool_t overwrite = (bool_t)jsvalue_get_boolean_value(ctx, argv[2]);
+    ret = (ret_t)object_copy_props(obj, src, overwrite);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
 jsvalue_t wrap_object_has_prop(JSContext* ctx, jsvalue_const_t this_val, int argc,
                                jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
@@ -1556,6 +1571,8 @@ ret_t object_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_object_set_prop_double, "object_set_prop_double", 1));
   JS_SetPropertyStr(ctx, global_obj, "object_copy_prop",
                     JS_NewCFunction(ctx, wrap_object_copy_prop, "object_copy_prop", 1));
+  JS_SetPropertyStr(ctx, global_obj, "object_copy_props",
+                    JS_NewCFunction(ctx, wrap_object_copy_props, "object_copy_props", 1));
   JS_SetPropertyStr(ctx, global_obj, "object_has_prop",
                     JS_NewCFunction(ctx, wrap_object_has_prop, "object_has_prop", 1));
   JS_SetPropertyStr(ctx, global_obj, "object_eval",
@@ -24740,15 +24757,6 @@ jsvalue_t wrap_slider_t_get_prop_step(JSContext* ctx, jsvalue_const_t this_val, 
   return jret;
 }
 
-jsvalue_t wrap_slider_t_get_prop_vertical(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                          jsvalue_const_t* argv) {
-  jsvalue_t jret = JS_NULL;
-  slider_t* obj = (slider_t*)jsvalue_get_pointer(ctx, argv[0], "slider_t*");
-
-  jret = jsvalue_create_bool(ctx, obj->vertical);
-  return jret;
-}
-
 jsvalue_t wrap_slider_t_get_prop_bar_size(JSContext* ctx, jsvalue_const_t this_val, int argc,
                                           jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
@@ -24767,6 +24775,24 @@ jsvalue_t wrap_slider_t_get_prop_dragger_size(JSContext* ctx, jsvalue_const_t th
   return jret;
 }
 
+jsvalue_t wrap_slider_t_get_prop_line_cap(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                          jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  slider_t* obj = (slider_t*)jsvalue_get_pointer(ctx, argv[0], "slider_t*");
+
+  jret = jsvalue_create_string(ctx, obj->line_cap);
+  return jret;
+}
+
+jsvalue_t wrap_slider_t_get_prop_vertical(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                          jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  slider_t* obj = (slider_t*)jsvalue_get_pointer(ctx, argv[0], "slider_t*");
+
+  jret = jsvalue_create_bool(ctx, obj->vertical);
+  return jret;
+}
+
 jsvalue_t wrap_slider_t_get_prop_dragger_adapt_to_icon(JSContext* ctx, jsvalue_const_t this_val,
                                                        int argc, jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
@@ -24782,15 +24808,6 @@ jsvalue_t wrap_slider_t_get_prop_slide_with_bar(JSContext* ctx, jsvalue_const_t 
   slider_t* obj = (slider_t*)jsvalue_get_pointer(ctx, argv[0], "slider_t*");
 
   jret = jsvalue_create_bool(ctx, obj->slide_with_bar);
-  return jret;
-}
-
-jsvalue_t wrap_slider_t_get_prop_line_cap(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                          jsvalue_const_t* argv) {
-  jsvalue_t jret = JS_NULL;
-  slider_t* obj = (slider_t*)jsvalue_get_pointer(ctx, argv[0], "slider_t*");
-
-  jret = jsvalue_create_string(ctx, obj->line_cap);
   return jret;
 }
 
@@ -24824,23 +24841,23 @@ ret_t slider_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "slider_t_get_prop_step",
                     JS_NewCFunction(ctx, wrap_slider_t_get_prop_step, "slider_t_get_prop_step", 1));
   JS_SetPropertyStr(
-      ctx, global_obj, "slider_t_get_prop_vertical",
-      JS_NewCFunction(ctx, wrap_slider_t_get_prop_vertical, "slider_t_get_prop_vertical", 1));
-  JS_SetPropertyStr(
       ctx, global_obj, "slider_t_get_prop_bar_size",
       JS_NewCFunction(ctx, wrap_slider_t_get_prop_bar_size, "slider_t_get_prop_bar_size", 1));
   JS_SetPropertyStr(ctx, global_obj, "slider_t_get_prop_dragger_size",
                     JS_NewCFunction(ctx, wrap_slider_t_get_prop_dragger_size,
                                     "slider_t_get_prop_dragger_size", 1));
+  JS_SetPropertyStr(
+      ctx, global_obj, "slider_t_get_prop_line_cap",
+      JS_NewCFunction(ctx, wrap_slider_t_get_prop_line_cap, "slider_t_get_prop_line_cap", 1));
+  JS_SetPropertyStr(
+      ctx, global_obj, "slider_t_get_prop_vertical",
+      JS_NewCFunction(ctx, wrap_slider_t_get_prop_vertical, "slider_t_get_prop_vertical", 1));
   JS_SetPropertyStr(ctx, global_obj, "slider_t_get_prop_dragger_adapt_to_icon",
                     JS_NewCFunction(ctx, wrap_slider_t_get_prop_dragger_adapt_to_icon,
                                     "slider_t_get_prop_dragger_adapt_to_icon", 1));
   JS_SetPropertyStr(ctx, global_obj, "slider_t_get_prop_slide_with_bar",
                     JS_NewCFunction(ctx, wrap_slider_t_get_prop_slide_with_bar,
                                     "slider_t_get_prop_slide_with_bar", 1));
-  JS_SetPropertyStr(
-      ctx, global_obj, "slider_t_get_prop_line_cap",
-      JS_NewCFunction(ctx, wrap_slider_t_get_prop_line_cap, "slider_t_get_prop_line_cap", 1));
 
   jsvalue_unref(ctx, global_obj);
 
