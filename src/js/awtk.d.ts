@@ -13040,21 +13040,6 @@ export declare class TSerialWidget extends TWidget {
     get flowcontrol(): number;
     set flowcontrol(v: number);
     /**
-     * 输入流。
-     *
-     */
-    get istream(): any;
-    /**
-     * 输出流。
-     *
-     */
-    get ostream(): any;
-    /**
-     * 输入/出流。
-     *
-     */
-    get iostream(): any;
-    /**
      * 轮询时间（单位：ms）。
      *> 仅在不支持用select等待串口数据的嵌入式设备上有效。
      *

@@ -16562,39 +16562,6 @@ var TSerialWidget = /** @class */ (function (_super) {
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(TSerialWidget.prototype, "istream", {
-        /**
-         * 输入流。
-         *
-         */
-        get: function () {
-            return serial_widget_t_get_prop_istream(this.nativeObj);
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(TSerialWidget.prototype, "ostream", {
-        /**
-         * 输出流。
-         *
-         */
-        get: function () {
-            return serial_widget_t_get_prop_ostream(this.nativeObj);
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(TSerialWidget.prototype, "iostream", {
-        /**
-         * 输入/出流。
-         *
-         */
-        get: function () {
-            return serial_widget_t_get_prop_iostream(this.nativeObj);
-        },
-        enumerable: false,
-        configurable: true
-    });
     Object.defineProperty(TSerialWidget.prototype, "checkInterval", {
         /**
          * 轮询时间（单位：ms）。

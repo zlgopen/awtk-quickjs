@@ -21016,33 +21016,6 @@ jsvalue_t wrap_serial_widget_t_get_prop_flowcontrol(JSContext* ctx, jsvalue_cons
   return jret;
 }
 
-jsvalue_t wrap_serial_widget_t_get_prop_istream(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                                jsvalue_const_t* argv) {
-  jsvalue_t jret = JS_NULL;
-  serial_widget_t* obj = (serial_widget_t*)jsvalue_get_pointer(ctx, argv[0], "serial_widget_t*");
-
-  jret = jsvalue_create_pointer(ctx, obj->istream, "tk_istream_t*");
-  return jret;
-}
-
-jsvalue_t wrap_serial_widget_t_get_prop_ostream(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                                jsvalue_const_t* argv) {
-  jsvalue_t jret = JS_NULL;
-  serial_widget_t* obj = (serial_widget_t*)jsvalue_get_pointer(ctx, argv[0], "serial_widget_t*");
-
-  jret = jsvalue_create_pointer(ctx, obj->ostream, "tk_ostream_t*");
-  return jret;
-}
-
-jsvalue_t wrap_serial_widget_t_get_prop_iostream(JSContext* ctx, jsvalue_const_t this_val, int argc,
-                                                 jsvalue_const_t* argv) {
-  jsvalue_t jret = JS_NULL;
-  serial_widget_t* obj = (serial_widget_t*)jsvalue_get_pointer(ctx, argv[0], "serial_widget_t*");
-
-  jret = jsvalue_create_pointer(ctx, obj->iostream, "tk_iostream_t*");
-  return jret;
-}
-
 jsvalue_t wrap_serial_widget_t_get_prop_check_interval(JSContext* ctx, jsvalue_const_t this_val,
                                                        int argc, jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
@@ -21097,15 +21070,6 @@ ret_t serial_widget_t_init(JSContext* ctx) {
   JS_SetPropertyStr(ctx, global_obj, "serial_widget_t_get_prop_flowcontrol",
                     JS_NewCFunction(ctx, wrap_serial_widget_t_get_prop_flowcontrol,
                                     "serial_widget_t_get_prop_flowcontrol", 1));
-  JS_SetPropertyStr(ctx, global_obj, "serial_widget_t_get_prop_istream",
-                    JS_NewCFunction(ctx, wrap_serial_widget_t_get_prop_istream,
-                                    "serial_widget_t_get_prop_istream", 1));
-  JS_SetPropertyStr(ctx, global_obj, "serial_widget_t_get_prop_ostream",
-                    JS_NewCFunction(ctx, wrap_serial_widget_t_get_prop_ostream,
-                                    "serial_widget_t_get_prop_ostream", 1));
-  JS_SetPropertyStr(ctx, global_obj, "serial_widget_t_get_prop_iostream",
-                    JS_NewCFunction(ctx, wrap_serial_widget_t_get_prop_iostream,
-                                    "serial_widget_t_get_prop_iostream", 1));
   JS_SetPropertyStr(ctx, global_obj, "serial_widget_t_get_prop_check_interval",
                     JS_NewCFunction(ctx, wrap_serial_widget_t_get_prop_check_interval,
                                     "serial_widget_t_get_prop_check_interval", 1));
