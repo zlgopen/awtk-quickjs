@@ -2217,6 +2217,11 @@ export declare enum TEventType {
      */
     MODEL_CHANGE,
     /**
+     * SDL系统事件(system_event_t)。
+     *
+     */
+    SYSTEM,
+    /**
      * event queue其它请求编号起始值。
      *
      */
@@ -2363,39 +2368,6 @@ export declare class TEvent {
      *
      */
     get target(): any;
-}
-/**
- * 字体管理器，负责字体的加载和缓存管理。
- *(如果使用nanovg，字体由nanovg内部管理)
- *
- */
-export declare class TFontManager {
-    nativeObj: any;
-    constructor(nativeObj: any);
-    /**
-     * 卸载指定的字体。
-     *
-     * @param name 字体名，为NULL时使用缺省字体。
-     * @param size 字体的大小(矢量字体指定为0即可)。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    unloadFont(name: string, size: number): TRet;
-    /**
-     * 清除最久没有被使用的缓冲字模。
-     *
-     * @param cache_size 每种字体保留缓存字模的个数。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    shrinkCache(cache_size: number): TRet;
-    /**
-     * 卸载全部字体。
-     *
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    unloadAll(): TRet;
 }
 /**
  * 字模格式常量定义。
@@ -3337,6 +3309,91 @@ export declare enum TKeyCode {
      *
      */
     KEY_CANCEL,
+    /**
+     * TK_KEY_KP_DIVIDE
+     *
+     */
+    KEY_KP_DIVIDE,
+    /**
+     * TK_KEY_KP_MULTIPLY
+     *
+     */
+    KEY_KP_MULTIPLY,
+    /**
+     * TK_KEY_KP_MINUS
+     *
+     */
+    KEY_KP_MINUS,
+    /**
+     * TK_KEY_KP_PLUS
+     *
+     */
+    KEY_KP_PLUS,
+    /**
+     * TK_KEY_KP_ENTER
+     *
+     */
+    KEY_KP_ENTER,
+    /**
+     * TK_KEY_KP_1
+     *
+     */
+    KEY_KP_1,
+    /**
+     * TK_KEY_KP_2
+     *
+     */
+    KEY_KP_2,
+    /**
+     * TK_KEY_KP_3
+     *
+     */
+    KEY_KP_3,
+    /**
+     * TK_KEY_KP_4
+     *
+     */
+    KEY_KP_4,
+    /**
+     * TK_KEY_KP_5
+     *
+     */
+    KEY_KP_5,
+    /**
+     * TK_KEY_KP_6
+     *
+     */
+    KEY_KP_6,
+    /**
+     * TK_KEY_KP_7
+     *
+     */
+    KEY_KP_7,
+    /**
+     * TK_KEY_KP_8
+     *
+     */
+    KEY_KP_8,
+    /**
+     * TK_KEY_KP_9
+     *
+     */
+    KEY_KP_9,
+    /**
+     * TK_KEY_KP_0
+     *
+     */
+    KEY_KP_0,
+    /**
+     * TK_KEY_KP_PERIOD
+     *
+     */
+    KEY_KP_PERIOD,
+    /**
+     * TK_KEY_NUMLOCKCLEAR
+     *
+     */
+    KEY_NUMLOCKCLEAR,
     /**
      * TK_KEY_WHEEL
      *
@@ -5095,6 +5152,11 @@ export declare enum TWidgetProp {
      */
     LOOP,
     /**
+     * 是否正在运行(播放)。
+     *
+     */
+    RUNNING,
+    /**
      * 是否启用自动更正功能。
      *
      */
@@ -5234,6 +5296,11 @@ export declare enum TWidgetProp {
      *
      */
     ENABLE_LONG_PRESS,
+    /**
+     * 是否启用预览。
+     *
+     */
+    ENABLE_PREVIEW,
     /**
      * 是否启用点击穿透。
      *
@@ -6153,6 +6220,18 @@ export declare class TWidget {
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     moveResize(x: number, y: number, w: number, h: number): TRet;
+    /**
+     * 移动控件并调整控件的大小。
+     *
+     * @param x x坐标
+     * @param y y坐标
+     * @param w 宽度
+     * @param h 高度
+     * @param update_layout 是否更新布局
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    moveResizeEx(x: number, y: number, w: number, h: number, update_layout: boolean): TRet;
     /**
      * 获取控件的值。只是对widget\_get\_prop的包装，值的意义由子类控件决定。
      *
@@ -7525,6 +7604,21 @@ export declare class TAssetInfo {
      */
     getName(): string;
     /**
+     * 资源是否在ROM中。
+     *
+     *
+     * @returns 返回 TRUE 为在 ROM 中，返回 FALSE 则不在。
+     */
+    isInRom(): boolean;
+    /**
+     * 设置资源是否在ROM中的标记位。
+     *
+     * @param is_in_rom 资源是否在ROM中。
+     *
+     * @returns 返回 TRUE 为在 ROM 中，返回 FALSE 则不在。
+     */
+    setIsInRom(is_in_rom: boolean): boolean;
+    /**
      * 类型。
      *
      */
@@ -7535,10 +7629,10 @@ export declare class TAssetInfo {
      */
     get subtype(): number;
     /**
-     * 资源是否在ROM中。
+     * 资源标志。
      *
      */
-    get isInRom(): number;
+    get flags(): number;
     /**
      * 大小。
      *
@@ -7550,11 +7644,6 @@ export declare class TAssetInfo {
      *
      */
     get refcount(): number;
-    /**
-     * 名称。
-     *
-     */
-    get name(): string;
 }
 /**
  * 颜色。
@@ -9314,6 +9403,11 @@ export declare class TKeyEvent extends TEvent {
      *
      */
     get capslock(): boolean;
+    /**
+     * numlock键是否按下。
+     *
+     */
+    get numlock(): boolean;
 }
 /**
  * 绘制事件。
@@ -9413,6 +9507,60 @@ export declare class TThemeChangeEvent extends TEvent {
      *
      */
     get name(): string;
+}
+/**
+ * 系统事件。
+ *
+ */
+export declare class TSystemEvent extends TEvent {
+    nativeObj: any;
+    constructor(nativeObj: any);
+    /**
+     * 把event对象转system_event_t对象。主要给脚本语言使用。
+     *
+     * @param event event对象。
+     *
+     * @returns event 对象。
+     */
+    static cast(event: TEvent): TSystemEvent;
+    /**
+     * SDL_Event。
+     *
+     */
+    get sdlEvent(): any;
+}
+/**
+ * 字体管理器，负责字体的加载和缓存管理。
+ *(如果使用nanovg，字体由nanovg内部管理)
+ *
+ */
+export declare class TFontManager extends TEmitter {
+    nativeObj: any;
+    constructor(nativeObj: any);
+    /**
+     * 卸载指定的字体。
+     *
+     * @param name 字体名，为NULL时使用缺省字体。
+     * @param size 字体的大小(矢量字体指定为0即可)。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    unloadFont(name: string, size: number): TRet;
+    /**
+     * 清除最久没有被使用的缓冲字模。
+     *
+     * @param cache_size 每种字体保留缓存字模的个数。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    shrinkCache(cache_size: number): TRet;
+    /**
+     * 卸载全部字体。
+     *
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    unloadAll(): TRet;
 }
 /**
  * 图片控件基类。
@@ -10380,6 +10528,22 @@ export declare class TFileBrowserView extends TWidget {
      */
     setSortBy(sort_by: string): TRet;
     /**
+     * 设置 奇数项样式。
+     *
+     * @param odd_item_style 奇数项样式。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setOddItemStyle(odd_item_style: string): TRet;
+    /**
+     * 设置 偶数项样式。
+     *
+     * @param even_item_style 奇数项样式。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setEvenItemStyle(even_item_style: string): TRet;
+    /**
      * 获取当前路径。
      *
      *
@@ -10446,6 +10610,18 @@ export declare class TFileBrowserView extends TWidget {
      */
     get sortBy(): string;
     set sortBy(v: string);
+    /**
+     * 奇数项样式。
+     *
+     */
+    get oddItemStyle(): string;
+    set oddItemStyle(v: string);
+    /**
+     * 偶数项样式。
+     *
+     */
+    get evenItemStyle(): string;
+    set evenItemStyle(v: string);
 }
 /**
  * 文件/目录选择器
@@ -11230,6 +11406,11 @@ export declare class TCandidates extends TWidget {
      */
     get buttonStyle(): string;
     set buttonStyle(v: string);
+    /**
+     * 是否启用候选字预览。
+     *
+     */
+    get enablePreview(): boolean;
 }
 /**
  * 输入法语言指示器。
@@ -11844,7 +12025,7 @@ export declare class TProgressCircle extends TWidget {
     get lineWidth(): number;
     set lineWidth(v: number);
     /**
-     * 线帽类型(round:圆头，square:方头)。
+     * 线帽类型(round:圆头，square:方头，butt:平头)。
      *
      */
     get lineCap(): string;
@@ -12105,6 +12286,14 @@ export declare class THscrollLabel extends TWidget {
      */
     setEllipses(ellipses: boolean): TRet;
     /**
+     * 设置stop_at_begin。
+     *
+     * @param stop_at_begin 是否在滚动完毕后停在文本结尾。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setStopAtBegin(stop_at_begin: boolean): TRet;
+    /**
      * 设置x偏移(一般无需用户调用)。。
      *
      * @param xoffset x偏移。
@@ -12193,6 +12382,13 @@ export declare class THscrollLabel extends TWidget {
      *
      */
     get textW(): number;
+    /**
+     * 滚动完毕后停在文本开头(缺省FALSE)。
+     *> 注：loop为FALSE时才可用。
+     *
+     */
+    get stopAtBegin(): boolean;
+    set stopAtBegin(v: boolean);
 }
 /**
  * 列表项控件。
@@ -12648,6 +12844,15 @@ export declare class TScrollBar extends TWidget {
      */
     setAnimatorTime(animator_time: number): TRet;
     /**
+     * 通过动画隐藏滚动条。
+     *
+     * @param duration 动画持续时间。
+     * @param delay 动画执行时间。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    hideByOpacityAnimation(duration: number, delay: number): TRet;
+    /**
      * 虚拟宽度或高度。
      *
      */
@@ -12820,6 +13025,14 @@ export declare class TScrollView extends TWidget {
      */
     setSpeedScale(xspeed_scale: number, yspeed_scale: number): TRet;
     /**
+     * 设置滑动到极限时可继续滑动区域的占比。
+     *
+     * @param slide_limit_ratio 滑动到极限时可继续滑动区域的占比。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setSlideLimitRatio(slide_limit_ratio: number): TRet;
+    /**
      * 滚动到指定的偏移量。
      *
      * @param xoffset_end x偏移量。
@@ -12901,6 +13114,12 @@ export declare class TScrollView extends TWidget {
      */
     get recursive(): boolean;
     set recursive(v: boolean);
+    /**
+     * 滑动到极限时可继续滑动区域的占比。
+     *
+     */
+    get slideLimitRatio(): number;
+    set slideLimitRatio(v: number);
 }
 /**
  * 用于串口通信的控件
@@ -13141,6 +13360,44 @@ export declare class TSlideMenu extends TWidget {
      */
     setMinScale(min_scale: number): TRet;
     /**
+     * 设置菜单项之间的间距。
+     *
+     * @param spacer 菜单项之间的间距。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setSpacer(spacer: number): TRet;
+    /**
+     * 设置菜单项的宽度。
+     *
+     * @param menu_w 菜单项的宽度。(后面加上px为像素点，不加px为相对百分比坐标0.0f到1.0f)(空字符串则使用控件高度)
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setMenuW(menu_w: string): TRet;
+    /**
+     * 设置是否动态裁剪菜单项。
+     *
+     * @param clip 是否动态裁剪菜单项。(关闭后，如果显示偶数项，左边会多一项)
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setClip(clip: boolean): TRet;
+    /**
+     * 切换至上一项。
+     *
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    scrollToPrev(): TRet;
+    /**
+     * 切换至下一项。
+     *
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    scrollToNext(): TRet;
+    /**
      * 值。代表当前选中项的索引。
      *
      */
@@ -13158,6 +13415,24 @@ export declare class TSlideMenu extends TWidget {
      */
     get minScale(): number;
     set minScale(v: number);
+    /**
+     * 菜单项之间的间距。
+     *
+     */
+    get spacer(): number;
+    set spacer(v: number);
+    /**
+     * 菜单项的宽度(后面加上px为像素点，不加px为相对百分比坐标0.0f到1.0f)(空字符串则使用控件高度)。
+     *
+     */
+    get menuW(): string;
+    set menuW(v: string);
+    /**
+     * 是否动态裁剪菜单项(默认裁剪，不裁剪时，如果显示偶数项，左边会多一项)。
+     *
+     */
+    get clip(): boolean;
+    set clip(v: boolean);
 }
 /**
  * slide_view的指示器控件。
@@ -13846,6 +14121,22 @@ export declare class TTextSelector extends TWidget {
      */
     setEnableValueAnimator(enable_value_animator: boolean): TRet;
     /**
+     * 设置绘制蒙版的变化趋势。
+     *
+     * @param mask_easing 绘制蒙版的变化趋势。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setMaskEasing(mask_easing: TEasingType): TRet;
+    /**
+     * 设置绘制蒙版的区域占比（范围0~1）。
+     *
+     * @param mask_area_scale 绘制蒙版的区域占比（范围0~1）。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setMaskAreaScale(mask_area_scale: number): TRet;
+    /**
      * 可见的选项数量(只能是1或者3或者5，缺省为5)。
      *
      */
@@ -13899,6 +14190,18 @@ export declare class TTextSelector extends TWidget {
      */
     get enableValueAnimator(): boolean;
     set enableValueAnimator(v: boolean);
+    /**
+     * 绘制蒙版的变化趋势。
+     *
+     */
+    get maskEasing(): TEasingType;
+    set maskEasing(v: TEasingType);
+    /**
+     * 绘制蒙版的区域占比（范围0~1）。
+     *
+     */
+    get maskAreaScale(): number;
+    set maskAreaScale(v: number);
 }
 /**
  * 模拟时钟控件。
@@ -14592,6 +14895,14 @@ export declare class TButton extends TWidget {
      */
     setEnableLongPress(enable_long_press: boolean): TRet;
     /**
+     * 设置是否启用预览。
+     *
+     * @param enable_preview 是否启用预览。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setEnablePreview(enable_preview: boolean): TRet;
+    /**
      * 重复触发EVT\_CLICK事件的时间间隔。
      *
      *为0则不重复触发EVT\_CLICK事件。
@@ -14608,6 +14919,12 @@ export declare class TButton extends TWidget {
      */
     get enableLongPress(): boolean;
     set enableLongPress(v: boolean);
+    /**
+     * 是否启用预览(主要用于软键盘)。
+     *
+     */
+    get enablePreview(): boolean;
+    set enablePreview(v: boolean);
     /**
      * 触发长按事件的时间(ms)
      *
@@ -16018,6 +16335,14 @@ export declare class TPages extends TWidget {
      */
     setActive(index: number): TRet;
     /**
+     * 设置切换界面时是否自动聚焦。
+     *
+     * @param auto_focused 切换界面时是否自动聚焦。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setAutoFocused(auto_focused: boolean): TRet;
+    /**
      * 通过页面的名字设置当前的Page。
      *
      * @param name 当前Page的名字。
@@ -16031,6 +16356,12 @@ export declare class TPages extends TWidget {
      */
     get active(): number;
     set active(v: number);
+    /**
+     * 选择切换界面时是否自动聚焦上一次保存的焦点。（默认为TRUE）
+     *
+     */
+    get autoFocused(): boolean;
+    set autoFocused(v: boolean);
 }
 /**
  * 进度条控件。
@@ -16901,9 +17232,10 @@ export declare class TDialog extends TWindowBase {
      * 模态显示对话框。
      *dialog_modal返回后，dialog对象将在下一个idle函数中回收。
      *也就是在dialog_modal调用完成后仍然可以访问dialog中控件，直到本次事件结束。
+     *调用该函数会使线程进入阻塞状态，需要调用dialog_quit来解除阻塞。
      *
      *
-     * @returns 返回退出码。
+     * @returns 返回退出码，值为dialog_quit函数中传入的参数。
      */
     modal(): TDialogQuitCode;
     /**
@@ -18064,6 +18396,14 @@ export declare class TComboBox extends TEdit {
      */
     setSelectedIndex(index: number): TRet;
     /**
+     * 根据文本设置当前选中的选项。
+     *
+     * @param text 原生(非翻译的文本)。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setSelectedIndexByText(text: string): TRet;
+    /**
      * 设置是否本地化(翻译)选项。
      *
      * @param localize_options 是否本地化(翻译)选项。
@@ -18128,12 +18468,19 @@ export declare class TComboBox extends TEdit {
      */
     hasOptionText(text: string): boolean;
     /**
-     * 获取combo_box的文本。
+     * 获取combo_box的文本(可能是翻译后的文本)。
      *
      *
      * @returns 返回文本。
      */
     getTextValue(): string;
+    /**
+     * 获取combo_box当前选中项目的文本(原生非翻译的文本)。
+     *
+     *
+     * @returns 返回文本。
+     */
+    getTextOfSelected(): string;
     /**
      * 为点击按钮时，要打开窗口的名称。
      *
@@ -18570,6 +18917,14 @@ export declare class TSpinBox extends TEdit {
      */
     setEasyTouchMode(easy_touch_mode: boolean): TRet;
     /**
+     * 设置按钮位置样式。
+     *
+     * @param button_position 按钮位置样式。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setButtonPosition(button_position: string): TRet;
+    /**
      * 设置连击的时间间隔。
      *备注：时间间隔越低，速度越快。
      *
@@ -18589,6 +18944,16 @@ export declare class TSpinBox extends TEdit {
      */
     get easyTouchMode(): boolean;
     set easyTouchMode(v: boolean);
+    /**
+     * 按钮位置样式选择，优先级高于easy_touch_mode，各模式对应样式如下,默认为none。
+     *none：按照easy_touch_mode选择样式
+     *default：inc按钮在右上角，dec按钮在右下角。
+     *left_right：dec按钮在左边，inc按钮在右边。
+     *top_bottom：inc按钮在顶部，dec按钮在底部。
+     *
+     */
+    get buttonPosition(): string;
+    set buttonPosition(v: string);
 }
 /**
  * system\_bar窗口。
@@ -18664,7 +19029,10 @@ export declare class TSystemBar extends TWindowBase {
     static cast(widget: TWidget): TSystemBar;
 }
 /**
- * 可滚动的combo_box控件。
+ * 扩展combo_box控件。支持以下功能：
+ ** 支持滚动。项目比较多时显示滚动条。
+ ** 自动调整弹出窗口的宽度。根据最长文本自动调整弹出窗口的宽度。
+ ** 支持分组显示。如果item的文本以"seperator."开头，视为一个分组开始，其后的文本为分组的标题。比如: "seperator.basic"，会创建一个basic为标题的分组。
  *
  */
 export declare class TComboBoxEx extends TComboBox {

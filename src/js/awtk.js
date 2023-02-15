@@ -15,10 +15,10 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TVpageEvent = exports.TIndicatorDefaultPaint = exports.TExtWidgets = exports.TAppConf = exports.TWidget = exports.TWidgetCursor = exports.TWidgetState = exports.TWindowClosable = exports.TWindowStage = exports.TWidgetType = exports.TWidgetProp = exports.TVgcanvasLineJoin = exports.TVgcanvasLineCap = exports.TVgcanvas = exports.TBitmapFlag = exports.TBitmapFormat = exports.TAppType = exports.TAlignH = exports.TAlignV = exports.TTimer = exports.TTheme = exports.TSystemInfoFlag = exports.TStyle = exports.TStyleId = exports.TLocaleInfo = exports.TKeyCode = exports.TInputMethod = exports.TInputType = exports.TImageManager = exports.TIdle = exports.TGlyphFormat = exports.TFontManager = exports.TEvent = exports.TEventType = exports.TDialogQuitCode = exports.TClipBoard = exports.TClipBoardDataType = exports.TCanvas = exports.TCanvasOffline = exports.TImageDrawType = exports.TBidiType = exports.TGlobal = exports.TValue = exports.TObject = exports.TBitmap = exports.TRect = exports.TRectf = exports.TPointf = exports.TPoint = exports.TEmitter = void 0;
-exports.TListItem = exports.THscrollLabel = exports.TRichText = exports.TRichTextView = exports.TProgressCircle = exports.TMledit = exports.TLineNumber = exports.TLangIndicator = exports.TCandidates = exports.TImageValue = exports.TImageAnimation = exports.TGauge = exports.TGaugePointer = exports.TFileChooser = exports.TFileBrowserView = exports.TDraggable = exports.TColorPicker = exports.TColorComponent = exports.TCanvasWidget = exports.TWindowManager = exports.TWindowBase = exports.TStyleMutable = exports.TImageBase = exports.TThemeChangeEvent = exports.TMultiGestureEvent = exports.TWindowEvent = exports.TPaintEvent = exports.TKeyEvent = exports.TPointerEvent = exports.TOffsetChangeEvent = exports.TValueChangeEvent = exports.TOrientationEvent = exports.TWheelEvent = exports.TModelEvent = exports.TAssetsManager = exports.TValueType = exports.TRet = exports.TTimerManager = exports.TTimeNow = exports.TRlog = exports.TObjectProp = exports.TObjectCmd = exports.TNamedValue = exports.TMIME_TYPE = exports.TIdleManager = exports.TEasingType = exports.TDateTime = exports.TColor = exports.TAssetInfo = exports.TAssetType = void 0;
-exports.TListItemSeperator = exports.TMutableImage = exports.TKeyboard = exports.TGifImage = exports.TWindow = exports.TNativeWindow = exports.TDialog = exports.TView = exports.TTabControl = exports.TTabButton = exports.TTabButtonGroup = exports.TSlider = exports.TRow = exports.TProgressBar = exports.TPages = exports.TLabel = exports.TGroupBox = exports.TGrid = exports.TGridItem = exports.TEdit = exports.TDragger = exports.TDigitClock = exports.TDialogTitle = exports.TDialogClient = exports.TComboBoxItem = exports.TColumn = exports.TColorTile = exports.TClipView = exports.TCheckButton = exports.TButton = exports.TButtonGroup = exports.TAppBar = exports.TCmdExecEvent = exports.TErrorEvent = exports.TDoneEvent = exports.TProgressEvent = exports.TPropChangeEvent = exports.TVpage = exports.TTimerWidget = exports.TTimeClock = exports.TTextSelector = exports.TSwitch = exports.TSlideView = exports.TSlideIndicator = exports.TSlideMenu = exports.TSerialWidget = exports.TScrollView = exports.TScrollBar = exports.TListView = exports.TListViewH = void 0;
-exports.TComboBoxEx = exports.TSystemBar = exports.TSpinBox = exports.TPopup = exports.TOverlay = exports.TImage = exports.TComboBox = exports.TCalibrationWin = exports.TTimerInfo = exports.TObjectDefault = exports.TObjectArray = exports.TIdleInfo = exports.TSvgImage = void 0;
+exports.TAssetType = exports.TVpageEvent = exports.TIndicatorDefaultPaint = exports.TExtWidgets = exports.TAppConf = exports.TWidget = exports.TWidgetCursor = exports.TWidgetState = exports.TWindowClosable = exports.TWindowStage = exports.TWidgetType = exports.TWidgetProp = exports.TVgcanvasLineJoin = exports.TVgcanvasLineCap = exports.TVgcanvas = exports.TBitmapFlag = exports.TBitmapFormat = exports.TAppType = exports.TAlignH = exports.TAlignV = exports.TTimer = exports.TTheme = exports.TSystemInfoFlag = exports.TStyle = exports.TStyleId = exports.TLocaleInfo = exports.TKeyCode = exports.TInputMethod = exports.TInputType = exports.TImageManager = exports.TIdle = exports.TGlyphFormat = exports.TEvent = exports.TEventType = exports.TDialogQuitCode = exports.TClipBoard = exports.TClipBoardDataType = exports.TCanvas = exports.TCanvasOffline = exports.TImageDrawType = exports.TBidiType = exports.TGlobal = exports.TValue = exports.TObject = exports.TBitmap = exports.TRect = exports.TRectf = exports.TPointf = exports.TPoint = exports.TEmitter = void 0;
+exports.THscrollLabel = exports.TRichText = exports.TRichTextView = exports.TProgressCircle = exports.TMledit = exports.TLineNumber = exports.TLangIndicator = exports.TCandidates = exports.TImageValue = exports.TImageAnimation = exports.TGauge = exports.TGaugePointer = exports.TFileChooser = exports.TFileBrowserView = exports.TDraggable = exports.TColorPicker = exports.TColorComponent = exports.TCanvasWidget = exports.TWindowManager = exports.TWindowBase = exports.TStyleMutable = exports.TImageBase = exports.TFontManager = exports.TSystemEvent = exports.TThemeChangeEvent = exports.TMultiGestureEvent = exports.TWindowEvent = exports.TPaintEvent = exports.TKeyEvent = exports.TPointerEvent = exports.TOffsetChangeEvent = exports.TValueChangeEvent = exports.TOrientationEvent = exports.TWheelEvent = exports.TModelEvent = exports.TAssetsManager = exports.TValueType = exports.TRet = exports.TTimerManager = exports.TTimeNow = exports.TRlog = exports.TObjectProp = exports.TObjectCmd = exports.TNamedValue = exports.TMIME_TYPE = exports.TIdleManager = exports.TEasingType = exports.TDateTime = exports.TColor = exports.TAssetInfo = void 0;
+exports.TMutableImage = exports.TKeyboard = exports.TGifImage = exports.TWindow = exports.TNativeWindow = exports.TDialog = exports.TView = exports.TTabControl = exports.TTabButton = exports.TTabButtonGroup = exports.TSlider = exports.TRow = exports.TProgressBar = exports.TPages = exports.TLabel = exports.TGroupBox = exports.TGrid = exports.TGridItem = exports.TEdit = exports.TDragger = exports.TDigitClock = exports.TDialogTitle = exports.TDialogClient = exports.TComboBoxItem = exports.TColumn = exports.TColorTile = exports.TClipView = exports.TCheckButton = exports.TButton = exports.TButtonGroup = exports.TAppBar = exports.TCmdExecEvent = exports.TErrorEvent = exports.TDoneEvent = exports.TProgressEvent = exports.TPropChangeEvent = exports.TVpage = exports.TTimerWidget = exports.TTimeClock = exports.TTextSelector = exports.TSwitch = exports.TSlideView = exports.TSlideIndicator = exports.TSlideMenu = exports.TSerialWidget = exports.TScrollView = exports.TScrollBar = exports.TListView = exports.TListViewH = exports.TListItem = void 0;
+exports.TComboBoxEx = exports.TSystemBar = exports.TSpinBox = exports.TPopup = exports.TOverlay = exports.TImage = exports.TComboBox = exports.TCalibrationWin = exports.TTimerInfo = exports.TObjectDefault = exports.TObjectArray = exports.TIdleInfo = exports.TSvgImage = exports.TListItemSeperator = void 0;
 /**
  * 事件分发器, 用于实现观察者模式。
  *
@@ -2737,6 +2737,11 @@ var TEventType;
      */
     TEventType[TEventType["MODEL_CHANGE"] = EVT_MODEL_CHANGE()] = "MODEL_CHANGE";
     /**
+     * SDL系统事件(system_event_t)。
+     *
+     */
+    TEventType[TEventType["SYSTEM"] = EVT_SYSTEM()] = "SYSTEM";
+    /**
      * event queue其它请求编号起始值。
      *
      */
@@ -2922,49 +2927,6 @@ var TEvent = /** @class */ (function () {
     return TEvent;
 }());
 exports.TEvent = TEvent;
-;
-/**
- * 字体管理器，负责字体的加载和缓存管理。
- *(如果使用nanovg，字体由nanovg内部管理)
- *
- */
-var TFontManager = /** @class */ (function () {
-    function TFontManager(nativeObj) {
-        this.nativeObj = nativeObj;
-    }
-    /**
-     * 卸载指定的字体。
-     *
-     * @param name 字体名，为NULL时使用缺省字体。
-     * @param size 字体的大小(矢量字体指定为0即可)。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TFontManager.prototype.unloadFont = function (name, size) {
-        return font_manager_unload_font(this != null ? (this.nativeObj || this) : null, name, size);
-    };
-    /**
-     * 清除最久没有被使用的缓冲字模。
-     *
-     * @param cache_size 每种字体保留缓存字模的个数。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TFontManager.prototype.shrinkCache = function (cache_size) {
-        return font_manager_shrink_cache(this != null ? (this.nativeObj || this) : null, cache_size);
-    };
-    /**
-     * 卸载全部字体。
-     *
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    TFontManager.prototype.unloadAll = function () {
-        return font_manager_unload_all(this != null ? (this.nativeObj || this) : null);
-    };
-    return TFontManager;
-}());
-exports.TFontManager = TFontManager;
 ;
 /**
  * 字模格式常量定义。
@@ -3954,6 +3916,91 @@ var TKeyCode;
      *
      */
     TKeyCode[TKeyCode["KEY_CANCEL"] = TK_KEY_CANCEL()] = "KEY_CANCEL";
+    /**
+     * TK_KEY_KP_DIVIDE
+     *
+     */
+    TKeyCode[TKeyCode["KEY_KP_DIVIDE"] = TK_KEY_KP_DIVIDE()] = "KEY_KP_DIVIDE";
+    /**
+     * TK_KEY_KP_MULTIPLY
+     *
+     */
+    TKeyCode[TKeyCode["KEY_KP_MULTIPLY"] = TK_KEY_KP_MULTIPLY()] = "KEY_KP_MULTIPLY";
+    /**
+     * TK_KEY_KP_MINUS
+     *
+     */
+    TKeyCode[TKeyCode["KEY_KP_MINUS"] = TK_KEY_KP_MINUS()] = "KEY_KP_MINUS";
+    /**
+     * TK_KEY_KP_PLUS
+     *
+     */
+    TKeyCode[TKeyCode["KEY_KP_PLUS"] = TK_KEY_KP_PLUS()] = "KEY_KP_PLUS";
+    /**
+     * TK_KEY_KP_ENTER
+     *
+     */
+    TKeyCode[TKeyCode["KEY_KP_ENTER"] = TK_KEY_KP_ENTER()] = "KEY_KP_ENTER";
+    /**
+     * TK_KEY_KP_1
+     *
+     */
+    TKeyCode[TKeyCode["KEY_KP_1"] = TK_KEY_KP_1()] = "KEY_KP_1";
+    /**
+     * TK_KEY_KP_2
+     *
+     */
+    TKeyCode[TKeyCode["KEY_KP_2"] = TK_KEY_KP_2()] = "KEY_KP_2";
+    /**
+     * TK_KEY_KP_3
+     *
+     */
+    TKeyCode[TKeyCode["KEY_KP_3"] = TK_KEY_KP_3()] = "KEY_KP_3";
+    /**
+     * TK_KEY_KP_4
+     *
+     */
+    TKeyCode[TKeyCode["KEY_KP_4"] = TK_KEY_KP_4()] = "KEY_KP_4";
+    /**
+     * TK_KEY_KP_5
+     *
+     */
+    TKeyCode[TKeyCode["KEY_KP_5"] = TK_KEY_KP_5()] = "KEY_KP_5";
+    /**
+     * TK_KEY_KP_6
+     *
+     */
+    TKeyCode[TKeyCode["KEY_KP_6"] = TK_KEY_KP_6()] = "KEY_KP_6";
+    /**
+     * TK_KEY_KP_7
+     *
+     */
+    TKeyCode[TKeyCode["KEY_KP_7"] = TK_KEY_KP_7()] = "KEY_KP_7";
+    /**
+     * TK_KEY_KP_8
+     *
+     */
+    TKeyCode[TKeyCode["KEY_KP_8"] = TK_KEY_KP_8()] = "KEY_KP_8";
+    /**
+     * TK_KEY_KP_9
+     *
+     */
+    TKeyCode[TKeyCode["KEY_KP_9"] = TK_KEY_KP_9()] = "KEY_KP_9";
+    /**
+     * TK_KEY_KP_0
+     *
+     */
+    TKeyCode[TKeyCode["KEY_KP_0"] = TK_KEY_KP_0()] = "KEY_KP_0";
+    /**
+     * TK_KEY_KP_PERIOD
+     *
+     */
+    TKeyCode[TKeyCode["KEY_KP_PERIOD"] = TK_KEY_KP_PERIOD()] = "KEY_KP_PERIOD";
+    /**
+     * TK_KEY_NUMLOCKCLEAR
+     *
+     */
+    TKeyCode[TKeyCode["KEY_NUMLOCKCLEAR"] = TK_KEY_NUMLOCKCLEAR()] = "KEY_NUMLOCKCLEAR";
     /**
      * TK_KEY_WHEEL
      *
@@ -5991,6 +6038,11 @@ var TWidgetProp;
      */
     TWidgetProp[TWidgetProp["LOOP"] = WIDGET_PROP_LOOP()] = "LOOP";
     /**
+     * 是否正在运行(播放)。
+     *
+     */
+    TWidgetProp[TWidgetProp["RUNNING"] = WIDGET_PROP_RUNNING()] = "RUNNING";
+    /**
      * 是否启用自动更正功能。
      *
      */
@@ -6130,6 +6182,11 @@ var TWidgetProp;
      *
      */
     TWidgetProp[TWidgetProp["ENABLE_LONG_PRESS"] = WIDGET_PROP_ENABLE_LONG_PRESS()] = "ENABLE_LONG_PRESS";
+    /**
+     * 是否启用预览。
+     *
+     */
+    TWidgetProp[TWidgetProp["ENABLE_PREVIEW"] = WIDGET_PROP_ENABLE_PREVIEW()] = "ENABLE_PREVIEW";
     /**
      * 是否启用点击穿透。
      *
@@ -7090,6 +7147,20 @@ var TWidget = /** @class */ (function () {
      */
     TWidget.prototype.moveResize = function (x, y, w, h) {
         return widget_move_resize(this != null ? (this.nativeObj || this) : null, x, y, w, h);
+    };
+    /**
+     * 移动控件并调整控件的大小。
+     *
+     * @param x x坐标
+     * @param y y坐标
+     * @param w 宽度
+     * @param h 高度
+     * @param update_layout 是否更新布局
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TWidget.prototype.moveResizeEx = function (x, y, w, h, update_layout) {
+        return widget_move_resize_ex(this != null ? (this.nativeObj || this) : null, x, y, w, h, update_layout);
     };
     /**
      * 获取控件的值。只是对widget\_get\_prop的包装，值的意义由子类控件决定。
@@ -8892,6 +8963,25 @@ var TAssetInfo = /** @class */ (function () {
     TAssetInfo.prototype.getName = function () {
         return asset_info_get_name(this != null ? (this.nativeObj || this) : null);
     };
+    /**
+     * 资源是否在ROM中。
+     *
+     *
+     * @returns 返回 TRUE 为在 ROM 中，返回 FALSE 则不在。
+     */
+    TAssetInfo.prototype.isInRom = function () {
+        return asset_info_is_in_rom(this != null ? (this.nativeObj || this) : null);
+    };
+    /**
+     * 设置资源是否在ROM中的标记位。
+     *
+     * @param is_in_rom 资源是否在ROM中。
+     *
+     * @returns 返回 TRUE 为在 ROM 中，返回 FALSE 则不在。
+     */
+    TAssetInfo.prototype.setIsInRom = function (is_in_rom) {
+        return asset_info_set_is_in_rom(this != null ? (this.nativeObj || this) : null, is_in_rom);
+    };
     Object.defineProperty(TAssetInfo.prototype, "type", {
         /**
          * 类型。
@@ -8914,13 +9004,13 @@ var TAssetInfo = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(TAssetInfo.prototype, "isInRom", {
+    Object.defineProperty(TAssetInfo.prototype, "flags", {
         /**
-         * 资源是否在ROM中。
+         * 资源标志。
          *
          */
         get: function () {
-            return asset_info_t_get_prop_is_in_rom(this.nativeObj);
+            return asset_info_t_get_prop_flags(this.nativeObj);
         },
         enumerable: false,
         configurable: true
@@ -8944,17 +9034,6 @@ var TAssetInfo = /** @class */ (function () {
          */
         get: function () {
             return asset_info_t_get_prop_refcount(this.nativeObj);
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(TAssetInfo.prototype, "name", {
-        /**
-         * 名称。
-         *
-         */
-        get: function () {
-            return asset_info_t_get_prop_name(this.nativeObj);
         },
         enumerable: false,
         configurable: true
@@ -11153,6 +11232,17 @@ var TKeyEvent = /** @class */ (function (_super) {
         enumerable: false,
         configurable: true
     });
+    Object.defineProperty(TKeyEvent.prototype, "numlock", {
+        /**
+         * numlock键是否按下。
+         *
+         */
+        get: function () {
+            return key_event_t_get_prop_numlock(this.nativeObj);
+        },
+        enumerable: false,
+        configurable: true
+    });
     return TKeyEvent;
 }(TEvent));
 exports.TKeyEvent = TKeyEvent;
@@ -11325,6 +11415,84 @@ var TThemeChangeEvent = /** @class */ (function (_super) {
     return TThemeChangeEvent;
 }(TEvent));
 exports.TThemeChangeEvent = TThemeChangeEvent;
+;
+/**
+ * 系统事件。
+ *
+ */
+var TSystemEvent = /** @class */ (function (_super) {
+    __extends(TSystemEvent, _super);
+    function TSystemEvent(nativeObj) {
+        return _super.call(this, nativeObj) || this;
+    }
+    /**
+     * 把event对象转system_event_t对象。主要给脚本语言使用。
+     *
+     * @param event event对象。
+     *
+     * @returns event 对象。
+     */
+    TSystemEvent.cast = function (event) {
+        return new TSystemEvent(system_event_cast(event != null ? (event.nativeObj || event) : null));
+    };
+    Object.defineProperty(TSystemEvent.prototype, "sdlEvent", {
+        /**
+         * SDL_Event。
+         *
+         */
+        get: function () {
+            return system_event_t_get_prop_sdl_event(this.nativeObj);
+        },
+        enumerable: false,
+        configurable: true
+    });
+    return TSystemEvent;
+}(TEvent));
+exports.TSystemEvent = TSystemEvent;
+;
+/**
+ * 字体管理器，负责字体的加载和缓存管理。
+ *(如果使用nanovg，字体由nanovg内部管理)
+ *
+ */
+var TFontManager = /** @class */ (function (_super) {
+    __extends(TFontManager, _super);
+    function TFontManager(nativeObj) {
+        return _super.call(this, nativeObj) || this;
+    }
+    /**
+     * 卸载指定的字体。
+     *
+     * @param name 字体名，为NULL时使用缺省字体。
+     * @param size 字体的大小(矢量字体指定为0即可)。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TFontManager.prototype.unloadFont = function (name, size) {
+        return font_manager_unload_font(this != null ? (this.nativeObj || this) : null, name, size);
+    };
+    /**
+     * 清除最久没有被使用的缓冲字模。
+     *
+     * @param cache_size 每种字体保留缓存字模的个数。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TFontManager.prototype.shrinkCache = function (cache_size) {
+        return font_manager_shrink_cache(this != null ? (this.nativeObj || this) : null, cache_size);
+    };
+    /**
+     * 卸载全部字体。
+     *
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TFontManager.prototype.unloadAll = function () {
+        return font_manager_unload_all(this != null ? (this.nativeObj || this) : null);
+    };
+    return TFontManager;
+}(TEmitter));
+exports.TFontManager = TFontManager;
 ;
 /**
  * 图片控件基类。
@@ -12724,6 +12892,26 @@ var TFileBrowserView = /** @class */ (function (_super) {
         return file_browser_view_set_sort_by(this != null ? (this.nativeObj || this) : null, sort_by);
     };
     /**
+     * 设置 奇数项样式。
+     *
+     * @param odd_item_style 奇数项样式。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TFileBrowserView.prototype.setOddItemStyle = function (odd_item_style) {
+        return file_browser_view_set_odd_item_style(this != null ? (this.nativeObj || this) : null, odd_item_style);
+    };
+    /**
+     * 设置 偶数项样式。
+     *
+     * @param even_item_style 奇数项样式。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TFileBrowserView.prototype.setEvenItemStyle = function (even_item_style) {
+        return file_browser_view_set_even_item_style(this != null ? (this.nativeObj || this) : null, even_item_style);
+    };
+    /**
      * 获取当前路径。
      *
      *
@@ -12848,6 +13036,34 @@ var TFileBrowserView = /** @class */ (function (_super) {
         },
         set: function (v) {
             this.setSortBy(v);
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(TFileBrowserView.prototype, "oddItemStyle", {
+        /**
+         * 奇数项样式。
+         *
+         */
+        get: function () {
+            return file_browser_view_t_get_prop_odd_item_style(this.nativeObj);
+        },
+        set: function (v) {
+            this.setOddItemStyle(v);
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(TFileBrowserView.prototype, "evenItemStyle", {
+        /**
+         * 偶数项样式。
+         *
+         */
+        get: function () {
+            return file_browser_view_t_get_prop_even_item_style(this.nativeObj);
+        },
+        set: function (v) {
+            this.setEvenItemStyle(v);
         },
         enumerable: false,
         configurable: true
@@ -13986,6 +14202,17 @@ var TCandidates = /** @class */ (function (_super) {
         enumerable: false,
         configurable: true
     });
+    Object.defineProperty(TCandidates.prototype, "enablePreview", {
+        /**
+         * 是否启用候选字预览。
+         *
+         */
+        get: function () {
+            return candidates_t_get_prop_enable_preview(this.nativeObj);
+        },
+        enumerable: false,
+        configurable: true
+    });
     return TCandidates;
 }(TWidget));
 exports.TCandidates = TCandidates;
@@ -14853,7 +15080,7 @@ var TProgressCircle = /** @class */ (function (_super) {
     });
     Object.defineProperty(TProgressCircle.prototype, "lineCap", {
         /**
-         * 线帽类型(round:圆头，square:方头)。
+         * 线帽类型(round:圆头，square:方头，butt:平头)。
          *
          */
         get: function () {
@@ -15196,6 +15423,16 @@ var THscrollLabel = /** @class */ (function (_super) {
         return hscroll_label_set_ellipses(this != null ? (this.nativeObj || this) : null, ellipses);
     };
     /**
+     * 设置stop_at_begin。
+     *
+     * @param stop_at_begin 是否在滚动完毕后停在文本结尾。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    THscrollLabel.prototype.setStopAtBegin = function (stop_at_begin) {
+        return hscroll_label_set_stop_at_begin(this != null ? (this.nativeObj || this) : null, stop_at_begin);
+    };
+    /**
      * 设置x偏移(一般无需用户调用)。。
      *
      * @param xoffset x偏移。
@@ -15366,6 +15603,21 @@ var THscrollLabel = /** @class */ (function (_super) {
          */
         get: function () {
             return hscroll_label_t_get_prop_text_w(this.nativeObj);
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(THscrollLabel.prototype, "stopAtBegin", {
+        /**
+         * 滚动完毕后停在文本开头(缺省FALSE)。
+         *> 注：loop为FALSE时才可用。
+         *
+         */
+        get: function () {
+            return hscroll_label_t_get_prop_stop_at_begin(this.nativeObj);
+        },
+        set: function (v) {
+            this.setStopAtBegin(v);
         },
         enumerable: false,
         configurable: true
@@ -15944,6 +16196,17 @@ var TScrollBar = /** @class */ (function (_super) {
     TScrollBar.prototype.setAnimatorTime = function (animator_time) {
         return scroll_bar_set_animator_time(this != null ? (this.nativeObj || this) : null, animator_time);
     };
+    /**
+     * 通过动画隐藏滚动条。
+     *
+     * @param duration 动画持续时间。
+     * @param delay 动画执行时间。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TScrollBar.prototype.hideByOpacityAnimation = function (duration, delay) {
+        return scroll_bar_hide_by_opacity_animation(this != null ? (this.nativeObj || this) : null, duration, delay);
+    };
     Object.defineProperty(TScrollBar.prototype, "virtualSize", {
         /**
          * 虚拟宽度或高度。
@@ -16188,6 +16451,16 @@ var TScrollView = /** @class */ (function (_super) {
         return scroll_view_set_speed_scale(this != null ? (this.nativeObj || this) : null, xspeed_scale, yspeed_scale);
     };
     /**
+     * 设置滑动到极限时可继续滑动区域的占比。
+     *
+     * @param slide_limit_ratio 滑动到极限时可继续滑动区域的占比。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TScrollView.prototype.setSlideLimitRatio = function (slide_limit_ratio) {
+        return scroll_view_set_slide_limit_ratio(this != null ? (this.nativeObj || this) : null, slide_limit_ratio);
+    };
+    /**
      * 滚动到指定的偏移量。
      *
      * @param xoffset_end x偏移量。
@@ -16349,6 +16622,20 @@ var TScrollView = /** @class */ (function (_super) {
         },
         set: function (v) {
             this.setRecursive(v);
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(TScrollView.prototype, "slideLimitRatio", {
+        /**
+         * 滑动到极限时可继续滑动区域的占比。
+         *
+         */
+        get: function () {
+            return scroll_view_t_get_prop_slide_limit_ratio(this.nativeObj);
+        },
+        set: function (v) {
+            this.setSlideLimitRatio(v);
         },
         enumerable: false,
         configurable: true
@@ -16686,6 +16973,54 @@ var TSlideMenu = /** @class */ (function (_super) {
     TSlideMenu.prototype.setMinScale = function (min_scale) {
         return slide_menu_set_min_scale(this != null ? (this.nativeObj || this) : null, min_scale);
     };
+    /**
+     * 设置菜单项之间的间距。
+     *
+     * @param spacer 菜单项之间的间距。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TSlideMenu.prototype.setSpacer = function (spacer) {
+        return slide_menu_set_spacer(this != null ? (this.nativeObj || this) : null, spacer);
+    };
+    /**
+     * 设置菜单项的宽度。
+     *
+     * @param menu_w 菜单项的宽度。(后面加上px为像素点，不加px为相对百分比坐标0.0f到1.0f)(空字符串则使用控件高度)
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TSlideMenu.prototype.setMenuW = function (menu_w) {
+        return slide_menu_set_menu_w(this != null ? (this.nativeObj || this) : null, menu_w);
+    };
+    /**
+     * 设置是否动态裁剪菜单项。
+     *
+     * @param clip 是否动态裁剪菜单项。(关闭后，如果显示偶数项，左边会多一项)
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TSlideMenu.prototype.setClip = function (clip) {
+        return slide_menu_set_clip(this != null ? (this.nativeObj || this) : null, clip);
+    };
+    /**
+     * 切换至上一项。
+     *
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TSlideMenu.prototype.scrollToPrev = function () {
+        return slide_menu_scroll_to_prev(this != null ? (this.nativeObj || this) : null);
+    };
+    /**
+     * 切换至下一项。
+     *
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TSlideMenu.prototype.scrollToNext = function () {
+        return slide_menu_scroll_to_next(this != null ? (this.nativeObj || this) : null);
+    };
     Object.defineProperty(TSlideMenu.prototype, "value", {
         /**
          * 值。代表当前选中项的索引。
@@ -16724,6 +17059,48 @@ var TSlideMenu = /** @class */ (function (_super) {
         },
         set: function (v) {
             this.setMinScale(v);
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(TSlideMenu.prototype, "spacer", {
+        /**
+         * 菜单项之间的间距。
+         *
+         */
+        get: function () {
+            return slide_menu_t_get_prop_spacer(this.nativeObj);
+        },
+        set: function (v) {
+            this.setSpacer(v);
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(TSlideMenu.prototype, "menuW", {
+        /**
+         * 菜单项的宽度(后面加上px为像素点，不加px为相对百分比坐标0.0f到1.0f)(空字符串则使用控件高度)。
+         *
+         */
+        get: function () {
+            return slide_menu_t_get_prop_menu_w(this.nativeObj);
+        },
+        set: function (v) {
+            this.setMenuW(v);
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(TSlideMenu.prototype, "clip", {
+        /**
+         * 是否动态裁剪菜单项(默认裁剪，不裁剪时，如果显示偶数项，左边会多一项)。
+         *
+         */
+        get: function () {
+            return slide_menu_t_get_prop_clip(this.nativeObj);
+        },
+        set: function (v) {
+            this.setClip(v);
         },
         enumerable: false,
         configurable: true
@@ -17675,6 +18052,26 @@ var TTextSelector = /** @class */ (function (_super) {
     TTextSelector.prototype.setEnableValueAnimator = function (enable_value_animator) {
         return text_selector_set_enable_value_animator(this != null ? (this.nativeObj || this) : null, enable_value_animator);
     };
+    /**
+     * 设置绘制蒙版的变化趋势。
+     *
+     * @param mask_easing 绘制蒙版的变化趋势。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TTextSelector.prototype.setMaskEasing = function (mask_easing) {
+        return text_selector_set_mask_easing(this != null ? (this.nativeObj || this) : null, mask_easing);
+    };
+    /**
+     * 设置绘制蒙版的区域占比（范围0~1）。
+     *
+     * @param mask_area_scale 绘制蒙版的区域占比（范围0~1）。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TTextSelector.prototype.setMaskAreaScale = function (mask_area_scale) {
+        return text_selector_set_mask_area_scale(this != null ? (this.nativeObj || this) : null, mask_area_scale);
+    };
     Object.defineProperty(TTextSelector.prototype, "visibleNr", {
         /**
          * 可见的选项数量(只能是1或者3或者5，缺省为5)。
@@ -17789,6 +18186,34 @@ var TTextSelector = /** @class */ (function (_super) {
         },
         set: function (v) {
             this.setEnableValueAnimator(v);
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(TTextSelector.prototype, "maskEasing", {
+        /**
+         * 绘制蒙版的变化趋势。
+         *
+         */
+        get: function () {
+            return text_selector_t_get_prop_mask_easing(this.nativeObj);
+        },
+        set: function (v) {
+            this.setMaskEasing(v);
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(TTextSelector.prototype, "maskAreaScale", {
+        /**
+         * 绘制蒙版的区域占比（范围0~1）。
+         *
+         */
+        get: function () {
+            return text_selector_t_get_prop_mask_area_scale(this.nativeObj);
+        },
+        set: function (v) {
+            this.setMaskAreaScale(v);
         },
         enumerable: false,
         configurable: true
@@ -18792,6 +19217,16 @@ var TButton = /** @class */ (function (_super) {
     TButton.prototype.setEnableLongPress = function (enable_long_press) {
         return button_set_enable_long_press(this != null ? (this.nativeObj || this) : null, enable_long_press);
     };
+    /**
+     * 设置是否启用预览。
+     *
+     * @param enable_preview 是否启用预览。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TButton.prototype.setEnablePreview = function (enable_preview) {
+        return button_set_enable_preview(this != null ? (this.nativeObj || this) : null, enable_preview);
+    };
     Object.defineProperty(TButton.prototype, "repeat", {
         /**
          * 重复触发EVT\_CLICK事件的时间间隔。
@@ -18821,6 +19256,20 @@ var TButton = /** @class */ (function (_super) {
         },
         set: function (v) {
             this.setEnableLongPress(v);
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(TButton.prototype, "enablePreview", {
+        /**
+         * 是否启用预览(主要用于软键盘)。
+         *
+         */
+        get: function () {
+            return button_t_get_prop_enable_preview(this.nativeObj);
+        },
+        set: function (v) {
+            this.setEnablePreview(v);
         },
         enumerable: false,
         configurable: true
@@ -20712,6 +21161,16 @@ var TPages = /** @class */ (function (_super) {
         return pages_set_active(this != null ? (this.nativeObj || this) : null, index);
     };
     /**
+     * 设置切换界面时是否自动聚焦。
+     *
+     * @param auto_focused 切换界面时是否自动聚焦。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TPages.prototype.setAutoFocused = function (auto_focused) {
+        return pages_set_auto_focused(this != null ? (this.nativeObj || this) : null, auto_focused);
+    };
+    /**
      * 通过页面的名字设置当前的Page。
      *
      * @param name 当前Page的名字。
@@ -20731,6 +21190,20 @@ var TPages = /** @class */ (function (_super) {
         },
         set: function (v) {
             this.setActive(v);
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(TPages.prototype, "autoFocused", {
+        /**
+         * 选择切换界面时是否自动聚焦上一次保存的焦点。（默认为TRUE）
+         *
+         */
+        get: function () {
+            return pages_t_get_prop_auto_focused(this.nativeObj);
+        },
+        set: function (v) {
+            this.setAutoFocused(v);
         },
         enumerable: false,
         configurable: true
@@ -21907,9 +22380,10 @@ var TDialog = /** @class */ (function (_super) {
      * 模态显示对话框。
      *dialog_modal返回后，dialog对象将在下一个idle函数中回收。
      *也就是在dialog_modal调用完成后仍然可以访问dialog中控件，直到本次事件结束。
+     *调用该函数会使线程进入阻塞状态，需要调用dialog_quit来解除阻塞。
      *
      *
-     * @returns 返回退出码。
+     * @returns 返回退出码，值为dialog_quit函数中传入的参数。
      */
     TDialog.prototype.modal = function () {
         return dialog_modal(this != null ? (this.nativeObj || this) : null);
@@ -23339,6 +23813,16 @@ var TComboBox = /** @class */ (function (_super) {
         return combo_box_set_selected_index(this != null ? (this.nativeObj || this) : null, index);
     };
     /**
+     * 根据文本设置当前选中的选项。
+     *
+     * @param text 原生(非翻译的文本)。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TComboBox.prototype.setSelectedIndexByText = function (text) {
+        return combo_box_set_selected_index_by_text(this != null ? (this.nativeObj || this) : null, text);
+    };
+    /**
      * 设置是否本地化(翻译)选项。
      *
      * @param localize_options 是否本地化(翻译)选项。
@@ -23419,13 +23903,22 @@ var TComboBox = /** @class */ (function (_super) {
         return combo_box_has_option_text(this != null ? (this.nativeObj || this) : null, text);
     };
     /**
-     * 获取combo_box的文本。
+     * 获取combo_box的文本(可能是翻译后的文本)。
      *
      *
      * @returns 返回文本。
      */
     TComboBox.prototype.getTextValue = function () {
         return combo_box_get_text(this != null ? (this.nativeObj || this) : null);
+    };
+    /**
+     * 获取combo_box当前选中项目的文本(原生非翻译的文本)。
+     *
+     *
+     * @returns 返回文本。
+     */
+    TComboBox.prototype.getTextOfSelected = function () {
+        return combo_box_get_text_of_selected(this != null ? (this.nativeObj || this) : null);
     };
     Object.defineProperty(TComboBox.prototype, "openWindow", {
         /**
@@ -24019,6 +24512,16 @@ var TSpinBox = /** @class */ (function (_super) {
         return spin_box_set_easy_touch_mode(this != null ? (this.nativeObj || this) : null, easy_touch_mode);
     };
     /**
+     * 设置按钮位置样式。
+     *
+     * @param button_position 按钮位置样式。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TSpinBox.prototype.setButtonPosition = function (button_position) {
+        return spin_box_set_button_position(this != null ? (this.nativeObj || this) : null, button_position);
+    };
+    /**
      * 设置连击的时间间隔。
      *备注：时间间隔越低，速度越快。
      *
@@ -24044,6 +24547,24 @@ var TSpinBox = /** @class */ (function (_super) {
         },
         set: function (v) {
             this.setEasyTouchMode(v);
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(TSpinBox.prototype, "buttonPosition", {
+        /**
+         * 按钮位置样式选择，优先级高于easy_touch_mode，各模式对应样式如下,默认为none。
+         *none：按照easy_touch_mode选择样式
+         *default：inc按钮在右上角，dec按钮在右下角。
+         *left_right：dec按钮在左边，inc按钮在右边。
+         *top_bottom：inc按钮在顶部，dec按钮在底部。
+         *
+         */
+        get: function () {
+            return spin_box_t_get_prop_button_position(this.nativeObj);
+        },
+        set: function (v) {
+            this.setButtonPosition(v);
         },
         enumerable: false,
         configurable: true
@@ -24135,7 +24656,10 @@ var TSystemBar = /** @class */ (function (_super) {
 exports.TSystemBar = TSystemBar;
 ;
 /**
- * 可滚动的combo_box控件。
+ * 扩展combo_box控件。支持以下功能：
+ ** 支持滚动。项目比较多时显示滚动条。
+ ** 自动调整弹出窗口的宽度。根据最长文本自动调整弹出窗口的宽度。
+ ** 支持分组显示。如果item的文本以"seperator."开头，视为一个分组开始，其后的文本为分组的标题。比如: "seperator.basic"，会创建一个basic为标题的分组。
  *
  */
 var TComboBoxEx = /** @class */ (function (_super) {
