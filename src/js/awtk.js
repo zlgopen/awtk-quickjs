@@ -1514,7 +1514,16 @@ var TValue = /** @class */ (function () {
      * @returns 位图对象。
      */
     TValue.prototype.bitmap = function () {
-        return new TBitmap(value_bitmap(this != null ? (this.nativeObj || this) : null));
+        return value_bitmap(this != null ? (this.nativeObj || this) : null);
+    };
+    /**
+     * 获取类型为矩形区域数据。
+     *
+     *
+     * @returns 返回矩形区域数据。
+     */
+    TValue.prototype.rect = function () {
+        return new TRect(value_rect(this != null ? (this.nativeObj || this) : null));
     };
     return TValue;
 }());
@@ -6437,6 +6446,11 @@ var TWidgetProp;
      *
      */
     TWidgetProp[TWidgetProp["ANIMATE_ANIMATING_TIME"] = WIDGET_PROP_ANIMATE_ANIMATING_TIME()] = "ANIMATE_ANIMATING_TIME";
+    /**
+     * 控件脏矩形区域。
+     *
+     */
+    TWidgetProp[TWidgetProp["DIRTY_RECT"] = WIDGET_PROP_DIRTY_RECT()] = "DIRTY_RECT";
 })(TWidgetProp = exports.TWidgetProp || (exports.TWidgetProp = {}));
 ;
 /**
@@ -8977,7 +8991,7 @@ var TAssetInfo = /** @class */ (function () {
      *
      * @param is_in_rom 资源是否在ROM中。
      *
-     * @returns 返回 TRUE 为在 ROM 中，返回 FALSE 则不在。
+     * @returns 返回RET_OK表示成功，否则表示失败。
      */
     TAssetInfo.prototype.setIsInRom = function (is_in_rom) {
         return asset_info_set_is_in_rom(this != null ? (this.nativeObj || this) : null, is_in_rom);
@@ -10634,6 +10648,11 @@ var TValueType;
      *
      */
     TValueType[TValueType["BITMAP"] = VALUE_TYPE_BITMAP()] = "BITMAP";
+    /**
+     * 矩形类型。
+     *
+     */
+    TValueType[TValueType["RECT"] = VALUE_TYPE_RECT()] = "RECT";
 })(TValueType = exports.TValueType || (exports.TValueType = {}));
 ;
 /**
@@ -10701,7 +10720,7 @@ var TAssetsManager = /** @class */ (function (_super) {
      * @returns 返回资源。
      */
     TAssetsManager.prototype.ref = function (type, name) {
-        return new TAssetInfo(assets_manager_ref(this != null ? (this.nativeObj || this) : null, type, name));
+        return assets_manager_ref(this != null ? (this.nativeObj || this) : null, type, name);
     };
     /**
      * 在资源管理器的缓存中查找指定的资源并引用它，如果缓存中不存在，尝试加载该资源。
@@ -10713,7 +10732,7 @@ var TAssetsManager = /** @class */ (function (_super) {
      * @returns 返回资源。
      */
     TAssetsManager.prototype.refEx = function (type, subtype, name) {
-        return new TAssetInfo(assets_manager_ref_ex(this != null ? (this.nativeObj || this) : null, type, subtype, name));
+        return assets_manager_ref_ex(this != null ? (this.nativeObj || this) : null, type, subtype, name);
     };
     /**
      * 释放指定的资源。

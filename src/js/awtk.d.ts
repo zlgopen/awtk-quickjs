@@ -42,7 +42,7 @@ export declare class TEmitter {
      *
      * @returns 返回id，用于emitter_off。
      */
-    on(etype: TEventType, handler: Function, ctx: any): number;
+    on(etype: number, handler: Function, ctx: any): number;
     /**
      * 注销指定事件的处理函数。
      *
@@ -1132,7 +1132,14 @@ export declare class TValue {
      *
      * @returns 位图对象。
      */
-    bitmap(): TBitmap;
+    bitmap(): any;
+    /**
+     * 获取类型为矩形区域数据。
+     *
+     *
+     * @returns 返回矩形区域数据。
+     */
+    rect(): TRect;
 }
 /**
  * TK全局对象。
@@ -5550,7 +5557,12 @@ export declare enum TWidgetProp {
      * 改变控件属性时附带动画的播放时间。
      *
      */
-    ANIMATE_ANIMATING_TIME
+    ANIMATE_ANIMATING_TIME,
+    /**
+     * 控件脏矩形区域。
+     *
+     */
+    DIRTY_RECT
 }
 /**
  * 控件的类型。
@@ -6729,7 +6741,7 @@ export declare class TWidget {
      *
      * @returns 返回id，用于widget_off。
      */
-    on(type: TEventType, on_event: Function, ctx: any): number;
+    on(type: number, on_event: Function, ctx: any): number;
     /**
      * 注销指定事件的处理函数。
      *
@@ -7615,9 +7627,9 @@ export declare class TAssetInfo {
      *
      * @param is_in_rom 资源是否在ROM中。
      *
-     * @returns 返回 TRUE 为在 ROM 中，返回 FALSE 则不在。
+     * @returns 返回RET_OK表示成功，否则表示失败。
      */
-    setIsInRom(is_in_rom: boolean): boolean;
+    setIsInRom(is_in_rom: boolean): TRet;
     /**
      * 类型。
      *
@@ -9052,7 +9064,12 @@ export declare enum TValueType {
      * 位图类型。
      *
      */
-    BITMAP
+    BITMAP,
+    /**
+     * 矩形类型。
+     *
+     */
+    RECT
 }
 /**
  * 资源管理器。
