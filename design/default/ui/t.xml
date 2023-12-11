@@ -1,0 +1,22 @@
+<window name="MainForm" style:normal:bg_image="" style:normal:bg_color="#00000000">
+  <image name="mainimg" x="0" y="0" w="800" h="480" draw_type="default" image="BackPicA"/>
+  <label name="o3value" x="434" y="122" w="141" h="59" style:normal:font_size="50" style:normal:text_align_h="left" style:focused:text_align_h="left" text="35.1"/>
+  <label name="flowvalue" x="227" y="329" w="82" h="38" style:normal:text_align_h="left" style:normal:font_size="40" text="1.00"/>
+  <label name="dqyvalue" x="94" y="546" w="78" h="35" style:normal:border="none" style:disable:border="none" style:focused:border="none" style:disable:font_size="32" style:normal:text_align_h="left" style:normal:text_color="#FFFFFF" text="101.88"/>
+  <label name="hjwdvalue" x="370" y="547" w="62" h="35" style:normal:border="none" style:disable:border="none" style:focused:border="none" style:disable:font_size="32" style:normal:text_align_h="left" style:normal:text_color="#FFFFFF" text="22.5"/>
+  <digit_clock name="digit_clock" x="507" y="3" w="249" h="27" format="Y-MM-DD hh:mm:ss" style:normal:font_size="32" style:normal:text_color="#FFFFFF"/>
+  <button name="btn_daiji" x="163" y="48" w="122" h="110" style:normal:bg_color="#00000000" style:normal:border="all" style:normal:border_color="#00000000" style:over:border_color="#00000000" style:pressed:bg_color="#00000000" style:over:bg_color="#00000000"/>
+  <label name="danweilab" x="605" y="111" w="171" h="66" style="default" style:normal:bg_color="#00000000" style:normal:text_color="#C40D23" style:normal:text_align_h="left" style:normal:font_size="56" tr_text="μg/m³"/>
+  <image name="image1" x="0" y="420" w="564" h="58" draw_type="default" image="MainBotmPic"/>
+  <label name="flow" x="46" y="432" w="42" h="38" style:normal:text_align_h="left" style:normal:font_size="40" text="95.23"/>
+  <label name="wendu" x="187" y="433" w="45" h="38" style:normal:text_align_h="left" style:normal:font_size="40" text="95.23"/>
+  <label name="xsw" x="303" y="433" w="57" h="38" style:normal:text_align_h="left" style:normal:font_size="40" text="95.23"/>
+  <label name="dqy" x="449" y="433" w="62" h="38" style:normal:text_align_h="left" style:normal:font_size="40" text="95.23"/>
+  <image name="btn_zero" x="587" y="425" w="101" h="46" draw_type="default" image="zeropic" clickable="true"/>
+  <image name="btn_menu" x="726" y="416" w="62" h="60" draw_type="default" image="winhupic" clickable="true"/>
+  <edit min="0" max="1024" step="2" name="O3SetValue" x="434" y="298" w="146" h="45" auto_fix="false" tips="" style:focused:font_size="50" style:normal:font_size="50" input_type="time_full" style:normal:border="all" style:changed:font_size="50" style:over:font_size="50" keyboard="kb_float" style:error:font_size="50" style:empty_over:font_size="50" style:normal:text_color="#000000" style:disable:bg_color="#00000000" style:disable:font_size="50" text="35.1"/>
+  <button name="btn_celiang" x="99" y="186" w="89" h="87" style:normal:bg_color="#00000000" style:normal:border="all" style:normal:border_color="#00000000" style:over:border_color="#00000000" style:pressed:bg_color="#00000000" style:over:bg_color="#00000000"/>
+  <button name="btn_fasheng" x="256" y="186" w="89" h="87" style:normal:bg_color="#00000000" style:normal:border="all" style:normal:border_color="#00000000" style:over:border_color="#00000000" style:pressed:bg_color="#00000000" style:over:bg_color="#00000000"/>
+  <button name="btn_tiaoning" x="180" y="298" w="89" h="87" style:normal:bg_color="#00000000" style:normal:border="all" style:normal:border_color="#00000000" style:over:border_color="#00000000" style:pressed:bg_color="#00000000" style:over:bg_color="#00000000"/>
+  <label name="danweilab" x="601" y="276" w="171" h="70" style="default" style:normal:bg_color="#00000000" style:normal:text_color="#C40D23" style:normal:text_align_h="left" style:normal:font_size="56" tr_text="nmol/mol"/>
+</window>

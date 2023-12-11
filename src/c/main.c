@@ -140,6 +140,10 @@ static ret_t application_init(void) {
 }
 
 static ret_t application_exit(void) {
+  return RET_OK;
+}
+
+static ret_t final_exit(void) {
   awtk_quickjs_deinit(ctx);
 
 #ifdef WITH_QUICKJS_LIBC
@@ -154,6 +158,7 @@ static ret_t application_exit(void) {
 }
 
 #define ON_CMD_LINE(argc, argv) on_cmd_line(argc, argv)
+#define FINAL_EXIT() final_exit()
 
 #include "../../res/assets.inc"
 #include "awtk_main.inc"
