@@ -1405,15 +1405,6 @@ var TValue = /** @class */ (function () {
         return value_equal(this != null ? (this.nativeObj || this) : null, other != null ? (other.nativeObj || other) : null);
     };
     /**
-     * 转换为int的值。
-     *
-     *
-     * @returns 值。
-     */
-    TValue.prototype.int = function () {
-        return value_int(this != null ? (this.nativeObj || this) : null);
-    };
-    /**
      * 设置类型为int的值。
      *
      * @param value 待设置的值。
@@ -6017,6 +6008,11 @@ var TWidgetProp;
      */
     TWidgetProp[TWidgetProp["ELLIPSES"] = WIDGET_PROP_ELLIPSES()] = "ELLIPSES";
     /**
+     * 可见控件在滚动控件中的可见处理方案。（影响 widget_ensure_visible_in_viewport 函数）
+     *
+     */
+    TWidgetProp[TWidgetProp["VISIBLE_REVEAL_IN_SCROLL"] = WIDGET_PROP_VISIBLE_REVEAL_IN_SCROLL()] = "VISIBLE_REVEAL_IN_SCROLL";
+    /**
      * 文本。
      *
      */
@@ -7152,6 +7148,31 @@ var TWidgetState;
      *
      */
     TWidgetState[TWidgetState["FOCUSED_OF_ACTIVE"] = WIDGET_STATE_FOCUSED_OF_ACTIVE()] = "FOCUSED_OF_ACTIVE";
+    /**
+     * 正常状态(选项不确定)。
+     *
+     */
+    TWidgetState[TWidgetState["NORMAL_OF_INDETERMINATE"] = WIDGET_STATE_NORMAL_OF_INDETERMINATE()] = "NORMAL_OF_INDETERMINATE";
+    /**
+     * 指针按下状态(选项不确定)。
+     *
+     */
+    TWidgetState[TWidgetState["PRESSED_OF_INDETERMINATE"] = WIDGET_STATE_PRESSED_OF_INDETERMINATE()] = "PRESSED_OF_INDETERMINATE";
+    /**
+     * 指针悬浮状态(选项不确定)。
+     *
+     */
+    TWidgetState[TWidgetState["OVER_OF_INDETERMINATE"] = WIDGET_STATE_OVER_OF_INDETERMINATE()] = "OVER_OF_INDETERMINATE";
+    /**
+     * 禁用状态(选项不确定)。
+     *
+     */
+    TWidgetState[TWidgetState["DISABLE_OF_INDETERMINATE"] = WIDGET_STATE_DISABLE_OF_INDETERMINATE()] = "DISABLE_OF_INDETERMINATE";
+    /**
+     * 焦点状态(选项不确定)。
+     *
+     */
+    TWidgetState[TWidgetState["FOCUSED_OF_INDETERMINATE"] = WIDGET_STATE_FOCUSED_OF_INDETERMINATE()] = "FOCUSED_OF_INDETERMINATE";
 })(TWidgetState || (exports.TWidgetState = TWidgetState = {}));
 ;
 /**
@@ -12603,6 +12624,15 @@ var TWindowManager = /** @class */ (function (_super) {
         return new TWidget(window_manager_get_top_window(this != null ? (this.nativeObj || this) : null));
     };
     /**
+     * 获取前景窗口。
+     *
+     *
+     * @returns 返回窗口对象。
+     */
+    TWindowManager.prototype.getForegroundWindow = function () {
+        return new TWidget(window_manager_get_foreground_window(this != null ? (this.nativeObj || this) : null));
+    };
+    /**
      * 获取前一个的窗口。
      *
      *
@@ -15211,6 +15241,24 @@ var TMledit = /** @class */ (function (_super) {
         return mledit_get_selected_text(this != null ? (this.nativeObj || this) : null);
     };
     /**
+     * 获取光标所在视觉行号(一行文本可能分多行显示)。
+     *
+     *
+     * @returns 返回光标所在行号。
+     */
+    TMledit.prototype.getCurrentLineIndex = function () {
+        return mledit_get_current_line_index(this != null ? (this.nativeObj || this) : null);
+    };
+    /**
+     * 获取光标所在物理行号。
+     *
+     *
+     * @returns 返回光标所在行号。
+     */
+    TMledit.prototype.getCurrentRowIndex = function () {
+        return mledit_get_current_row_index(this != null ? (this.nativeObj || this) : null);
+    };
+    /**
      * 插入一段文本。
      *
      * @param offset 插入的偏移位置。
@@ -16460,10 +16508,10 @@ exports.TListViewH = TListViewH;
  *备注：list_view 下的 scroll_view 控件不支持遍历所有子控件的效果。
  *
  *下面是针对 scroll_bar_d （桌面版）有效果，scroll_bar_m（移动版）没有效果。
- *如果 floating_scroll_bar 属性为 TRUE 和 auto_hide_scroll_bar 属性为 TRUE，scroll_view 宽默认为 list_view 的 100% 宽，鼠标在 list_view 上滚动条才显示，不在的就自动隐藏，如果 scroll_view 的高比虚拟高要大的话，滚动条变成不可见，scroll_view 宽不会变。
- *如果 floating_scroll_bar 属性为 TRUE 和 auto_hide_scroll_bar 属性为 FALSE ，scroll_view 宽默认为 list_view 的 100% 宽，滚动条不隐藏，如果 scroll_view 的高比虚拟高要大的话，滚动条变成不可见，scroll_view 宽不会变。
- *如果 floating_scroll_bar 属性为 FALSE 和 auto_hide_scroll_bar 属性为 FALSE，如果 scroll_view 的高比虚拟高要大的话，滚动条变成不可用，scroll_view 宽不会变。
- *如果 floating_scroll_bar 属性为 FALSE 和 auto_hide_scroll_bar 属性为 TRUE，如果 scroll_view 的高比虚拟高要大的话，滚动条变成不可见，scroll_view 宽会合并原来滚动条的宽。
+ *如果 floating_scroll_bar 属性为 TRUE 和 auto_hide_scroll_bar 属性为 TRUE， 如果 scroll_view 的高比虚拟高要小的话，鼠标在 list_view 上滚动条才显示，鼠标移开的就自动隐藏，scroll_view 宽为控件宽度。
+ *如果 floating_scroll_bar 属性为 TRUE 和 auto_hide_scroll_bar 属性为 FALSE ，如果 scroll_view 的高比虚拟高要大的话，滚动条变成不可见，如果 scroll_view 的高比虚拟高要小的话，滚动条固定显示（不管鼠标是否悬停），scroll_view 宽为控件宽度。
+ *如果 floating_scroll_bar 属性为 FALSE 和 auto_hide_scroll_bar 属性为 FALSE，如果 scroll_view 的高比虚拟高要大的话，滚动条变成不可用（滚动条固定显示，不管鼠标是否悬停），scroll_view 宽不会变。
+ *如果 floating_scroll_bar 属性为 FALSE 和 auto_hide_scroll_bar 属性为 TRUE，如果 scroll_view 的高比虚拟高要大的话，滚动条变成不可见，scroll_view 宽会合并原来滚动条的宽，如果 scroll_view 的高比虚拟高要小的话，滚动条固定显示（不管鼠标是否悬停），scroll_view 宽会变为 list_view 宽度减去滚动条宽度。
  *
  */
 var TListView = /** @class */ (function (_super) {
@@ -20123,6 +20171,25 @@ var TCheckButton = /** @class */ (function (_super) {
         return check_button_set_value(this != null ? (this.nativeObj || this) : null, value);
     };
     /**
+     * 设置控件的不确定状态。
+     *
+     * @param indeterminate 不确定状态。（该值为TRUE的话，value 值存于不确定状态，该值为FALSE的话，value 值存于确定状态）
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TCheckButton.prototype.setIndeterminate = function (indeterminate) {
+        return check_button_set_indeterminate(this != null ? (this.nativeObj || this) : null, indeterminate);
+    };
+    /**
+     * 获取控件的是否存于不确定状态。
+     *
+     *
+     * @returns 返回控件的是否存于不确定状态。
+     */
+    TCheckButton.prototype.getIndeterminate = function () {
+        return check_button_get_indeterminate(this != null ? (this.nativeObj || this) : null);
+    };
+    /**
      * 转换check_button对象(供脚本语言使用)。
      *
      * @param widget check_button对象。
@@ -22455,6 +22522,16 @@ var TSlider = /** @class */ (function (_super) {
     TSlider.prototype.setVertical = function (vertical) {
         return slider_set_vertical(this != null ? (this.nativeObj || this) : null, vertical);
     };
+    /**
+     * 设置拖拽临界值。
+     *
+     * @param drag_threshold 拖拽临界值。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TSlider.prototype.setDragThreshold = function (drag_threshold) {
+        return slider_set_drag_threshold(this != null ? (this.nativeObj || this) : null, drag_threshold);
+    };
     Object.defineProperty(TSlider.prototype, "value", {
         /**
          * 值。
@@ -22586,6 +22663,20 @@ var TSlider = /** @class */ (function (_super) {
         enumerable: false,
         configurable: true
     });
+    Object.defineProperty(TSlider.prototype, "dragThreshold", {
+        /**
+         * 拖动临界值。
+         *
+         */
+        get: function () {
+            return slider_t_get_prop_drag_threshold(this.nativeObj);
+        },
+        set: function (v) {
+            this.setDragThreshold(v);
+        },
+        enumerable: false,
+        configurable: true
+    });
     return TSlider;
 }(TWidget));
 exports.TSlider = TSlider;
@@ -22662,6 +22753,16 @@ var TTabButtonGroup = /** @class */ (function (_super) {
         return tab_button_group_set_scrollable(this != null ? (this.nativeObj || this) : null, scrollable);
     };
     /**
+     * 设置拖拽 tab_button 控件位置。
+     *
+     * @param drag_child 是否拖拽(缺省FALSE)。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TTabButtonGroup.prototype.setDragChild = function (drag_child) {
+        return tab_button_group_set_drag_child(this != null ? (this.nativeObj || this) : null, drag_child);
+    };
+    /**
      * 转换tab_button_group对象(供脚本语言使用)。
      *
      * @param widget tab_button_group对象。
@@ -22697,6 +22798,22 @@ var TTabButtonGroup = /** @class */ (function (_super) {
         },
         set: function (v) {
             this.setScrollable(v);
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(TTabButtonGroup.prototype, "dragChild", {
+        /**
+         * 是否支持拖拽并且修改 tab_button 控件的位置(缺省FALSE)。
+         *
+         *> 紧凑型排版子控件时才支持滚动，开启该功能后，就不能拖拽滚动了，只能鼠标滚轮滚动了。
+         *
+         */
+        get: function () {
+            return tab_button_group_t_get_prop_drag_child(this.nativeObj);
+        },
+        set: function (v) {
+            this.setDragChild(v);
         },
         enumerable: false,
         configurable: true
@@ -22826,6 +22943,26 @@ var TTabButton = /** @class */ (function (_super) {
         return tab_button_set_active_icon(this != null ? (this.nativeObj || this) : null, name);
     };
     /**
+     * 设置控件的最大宽度。
+     *
+     * @param max_w 最大宽度。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TTabButton.prototype.setMaxW = function (max_w) {
+        return tab_button_set_max_w(this != null ? (this.nativeObj || this) : null, max_w);
+    };
+    /**
+     * 调整控件在父控件中的位置序数。
+     *
+     * @param index 位置序数(大于等于总个数，则放到最后)。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TTabButton.prototype.restack = function (index) {
+        return tab_button_restack(this != null ? (this.nativeObj || this) : null, index);
+    };
+    /**
      * 设置控件动态加载显示UI。
      *
      * @param name 动态加载UI的资源名称。
@@ -22887,6 +23024,20 @@ var TTabButton = /** @class */ (function (_super) {
         },
         set: function (v) {
             this.setIcon(v);
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(TTabButton.prototype, "maxW", {
+        /**
+         * 最大宽度。（缺省值为-1，小于 0 则最大宽度无效）
+         *
+         */
+        get: function () {
+            return tab_button_t_get_prop_max_w(this.nativeObj);
+        },
+        set: function (v) {
+            this.setMaxW(v);
         },
         enumerable: false,
         configurable: true
@@ -24373,6 +24524,16 @@ var TObjectDefault = /** @class */ (function (_super) {
      */
     TObjectDefault.prototype.setKeepPropType = function (keep_prop_type) {
         return object_default_set_keep_prop_type(this != null ? (this.nativeObj || this) : null, keep_prop_type);
+    };
+    /**
+     * 设置属性名是否大小写不敏感。
+     *
+     * @param name_case_insensitive 属性名是否大小写不敏感。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TObjectDefault.prototype.setNameCaseInsensitive = function (name_case_insensitive) {
+        return object_default_set_name_case_insensitive(this != null ? (this.nativeObj || this) : null, name_case_insensitive);
     };
     return TObjectDefault;
 }(TObject));

@@ -1046,13 +1046,6 @@ export declare class TValue {
      */
     equal(other: TValue): boolean;
     /**
-     * 转换为int的值。
-     *
-     *
-     * @returns 值。
-     */
-    int(): number;
-    /**
      * 设置类型为int的值。
      *
      * @param value 待设置的值。
@@ -5104,6 +5097,11 @@ export declare enum TWidgetProp {
      */
     ELLIPSES,
     /**
+     * 可见控件在滚动控件中的可见处理方案。（影响 widget_ensure_visible_in_viewport 函数）
+     *
+     */
+    VISIBLE_REVEAL_IN_SCROLL,
+    /**
      * 文本。
      *
      */
@@ -6230,7 +6228,32 @@ export declare enum TWidgetState {
      * 焦点状态(当前项)。
      *
      */
-    FOCUSED_OF_ACTIVE
+    FOCUSED_OF_ACTIVE,
+    /**
+     * 正常状态(选项不确定)。
+     *
+     */
+    NORMAL_OF_INDETERMINATE,
+    /**
+     * 指针按下状态(选项不确定)。
+     *
+     */
+    PRESSED_OF_INDETERMINATE,
+    /**
+     * 指针悬浮状态(选项不确定)。
+     *
+     */
+    OVER_OF_INDETERMINATE,
+    /**
+     * 禁用状态(选项不确定)。
+     *
+     */
+    DISABLE_OF_INDETERMINATE,
+    /**
+     * 焦点状态(选项不确定)。
+     *
+     */
+    FOCUSED_OF_INDETERMINATE
 }
 /**
  * 控件鼠标光标常量定义。
@@ -10333,6 +10356,13 @@ export declare class TWindowManager extends TWidget {
      */
     getTopWindow(): TWidget;
     /**
+     * 获取前景窗口。
+     *
+     *
+     * @returns 返回窗口对象。
+     */
+    getForegroundWindow(): TWidget;
+    /**
      * 获取前一个的窗口。
      *
      *
@@ -12213,6 +12243,20 @@ export declare class TMledit extends TWidget {
      */
     getSelectedText(): string;
     /**
+     * 获取光标所在视觉行号(一行文本可能分多行显示)。
+     *
+     *
+     * @returns 返回光标所在行号。
+     */
+    getCurrentLineIndex(): number;
+    /**
+     * 获取光标所在物理行号。
+     *
+     *
+     * @returns 返回光标所在行号。
+     */
+    getCurrentRowIndex(): number;
+    /**
      * 插入一段文本。
      *
      * @param offset 插入的偏移位置。
@@ -13057,10 +13101,10 @@ export declare class TListViewH extends TWidget {
  *备注：list_view 下的 scroll_view 控件不支持遍历所有子控件的效果。
  *
  *下面是针对 scroll_bar_d （桌面版）有效果，scroll_bar_m（移动版）没有效果。
- *如果 floating_scroll_bar 属性为 TRUE 和 auto_hide_scroll_bar 属性为 TRUE，scroll_view 宽默认为 list_view 的 100% 宽，鼠标在 list_view 上滚动条才显示，不在的就自动隐藏，如果 scroll_view 的高比虚拟高要大的话，滚动条变成不可见，scroll_view 宽不会变。
- *如果 floating_scroll_bar 属性为 TRUE 和 auto_hide_scroll_bar 属性为 FALSE ，scroll_view 宽默认为 list_view 的 100% 宽，滚动条不隐藏，如果 scroll_view 的高比虚拟高要大的话，滚动条变成不可见，scroll_view 宽不会变。
- *如果 floating_scroll_bar 属性为 FALSE 和 auto_hide_scroll_bar 属性为 FALSE，如果 scroll_view 的高比虚拟高要大的话，滚动条变成不可用，scroll_view 宽不会变。
- *如果 floating_scroll_bar 属性为 FALSE 和 auto_hide_scroll_bar 属性为 TRUE，如果 scroll_view 的高比虚拟高要大的话，滚动条变成不可见，scroll_view 宽会合并原来滚动条的宽。
+ *如果 floating_scroll_bar 属性为 TRUE 和 auto_hide_scroll_bar 属性为 TRUE， 如果 scroll_view 的高比虚拟高要小的话，鼠标在 list_view 上滚动条才显示，鼠标移开的就自动隐藏，scroll_view 宽为控件宽度。
+ *如果 floating_scroll_bar 属性为 TRUE 和 auto_hide_scroll_bar 属性为 FALSE ，如果 scroll_view 的高比虚拟高要大的话，滚动条变成不可见，如果 scroll_view 的高比虚拟高要小的话，滚动条固定显示（不管鼠标是否悬停），scroll_view 宽为控件宽度。
+ *如果 floating_scroll_bar 属性为 FALSE 和 auto_hide_scroll_bar 属性为 FALSE，如果 scroll_view 的高比虚拟高要大的话，滚动条变成不可用（滚动条固定显示，不管鼠标是否悬停），scroll_view 宽不会变。
+ *如果 floating_scroll_bar 属性为 FALSE 和 auto_hide_scroll_bar 属性为 TRUE，如果 scroll_view 的高比虚拟高要大的话，滚动条变成不可见，scroll_view 宽会合并原来滚动条的宽，如果 scroll_view 的高比虚拟高要小的话，滚动条固定显示（不管鼠标是否悬停），scroll_view 宽会变为 list_view 宽度减去滚动条宽度。
  *
  */
 export declare class TListView extends TWidget {
@@ -15576,6 +15620,21 @@ export declare class TCheckButton extends TWidget {
      */
     setValue(value: any): TRet;
     /**
+     * 设置控件的不确定状态。
+     *
+     * @param indeterminate 不确定状态。（该值为TRUE的话，value 值存于不确定状态，该值为FALSE的话，value 值存于确定状态）
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setIndeterminate(indeterminate: boolean): TRet;
+    /**
+     * 获取控件的是否存于不确定状态。
+     *
+     *
+     * @returns 返回控件的是否存于不确定状态。
+     */
+    getIndeterminate(): boolean;
+    /**
      * 转换check_button对象(供脚本语言使用)。
      *
      * @param widget check_button对象。
@@ -17298,6 +17357,14 @@ export declare class TSlider extends TWidget {
      */
     setVertical(vertical: boolean): TRet;
     /**
+     * 设置拖拽临界值。
+     *
+     * @param drag_threshold 拖拽临界值。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setDragThreshold(drag_threshold: number): TRet;
+    /**
      * 值。
      *
      */
@@ -17354,6 +17421,12 @@ export declare class TSlider extends TWidget {
      *
      */
     get slideWithBar(): boolean;
+    /**
+     * 拖动临界值。
+     *
+     */
+    get dragThreshold(): number;
+    set dragThreshold(v: number);
 }
 /**
  * 标签按钮分组控件。
@@ -17419,6 +17492,14 @@ export declare class TTabButtonGroup extends TWidget {
      */
     setScrollable(scrollable: boolean): TRet;
     /**
+     * 设置拖拽 tab_button 控件位置。
+     *
+     * @param drag_child 是否拖拽(缺省FALSE)。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setDragChild(drag_child: boolean): TRet;
+    /**
      * 转换tab_button_group对象(供脚本语言使用)。
      *
      * @param widget tab_button_group对象。
@@ -17440,6 +17521,14 @@ export declare class TTabButtonGroup extends TWidget {
      */
     get scrollable(): boolean;
     set scrollable(v: boolean);
+    /**
+     * 是否支持拖拽并且修改 tab_button 控件的位置(缺省FALSE)。
+     *
+     *> 紧凑型排版子控件时才支持滚动，开启该功能后，就不能拖拽滚动了，只能鼠标滚轮滚动了。
+     *
+     */
+    get dragChild(): boolean;
+    set dragChild(v: boolean);
 }
 /**
  * 标签按钮控件。
@@ -17550,6 +17639,22 @@ export declare class TTabButton extends TWidget {
      */
     setActiveIcon(name: string): TRet;
     /**
+     * 设置控件的最大宽度。
+     *
+     * @param max_w 最大宽度。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setMaxW(max_w: number): TRet;
+    /**
+     * 调整控件在父控件中的位置序数。
+     *
+     * @param index 位置序数(大于等于总个数，则放到最后)。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    restack(index: number): TRet;
+    /**
      * 设置控件动态加载显示UI。
      *
      * @param name 动态加载UI的资源名称。
@@ -17581,6 +17686,12 @@ export declare class TTabButton extends TWidget {
      */
     get icon(): string;
     set icon(v: string);
+    /**
+     * 最大宽度。（缺省值为-1，小于 0 则最大宽度无效）
+     *
+     */
+    get maxW(): number;
+    set maxW(v: number);
 }
 /**
  * 标签控件。
@@ -18787,6 +18898,14 @@ export declare class TObjectDefault extends TObject {
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     setKeepPropType(keep_prop_type: boolean): TRet;
+    /**
+     * 设置属性名是否大小写不敏感。
+     *
+     * @param name_case_insensitive 属性名是否大小写不敏感。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setNameCaseInsensitive(name_case_insensitive: boolean): TRet;
 }
 /**
  * 单个定时器的信息。
