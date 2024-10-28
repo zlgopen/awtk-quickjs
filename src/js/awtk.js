@@ -17,8 +17,8 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TVpageEvent = exports.TIndicatorDefaultPaint = exports.TExtWidgets = exports.TAppConf = exports.TWidget = exports.TWidgetCursor = exports.TWidgetState = exports.TWindowClosable = exports.TWindowStage = exports.TWidgetType = exports.TWidgetProp = exports.TVgcanvasLineJoin = exports.TVgcanvasLineCap = exports.TVgcanvas = exports.TBitmapFlag = exports.TBitmapFormat = exports.TAppType = exports.TAlignH = exports.TAlignV = exports.TTimer = exports.TTheme = exports.TSystemInfoFlag = exports.TStyle = exports.TStyleId = exports.TLocaleInfos = exports.TLocaleInfo = exports.TKeyCode = exports.TInputMethod = exports.TInputType = exports.TImageManager = exports.TIdle = exports.TGlyphFormat = exports.TEvent = exports.TEventType = exports.TDialogQuitCode = exports.TClipBoard = exports.TClipBoardDataType = exports.TCanvas = exports.TCanvasOffline = exports.TImageDrawType = exports.TBidiType = exports.TGlobal = exports.TValue = exports.TObject = exports.TBitmap = exports.TRect = exports.TRectf = exports.TPointf = exports.TPoint = exports.TEmitter = void 0;
 exports.TProgressCircle = exports.TMledit = exports.TLineNumber = exports.TLangIndicator = exports.TCandidates = exports.TImageValue = exports.TImageAnimation = exports.TGauge = exports.TGaugePointer = exports.TFileChooser = exports.TFileBrowserView = exports.TDraggable = exports.TColorPicker = exports.TColorComponent = exports.TCanvasWidget = exports.TWindowManager = exports.TWindowBase = exports.TStyleMutable = exports.TImageBase = exports.TFontManager = exports.TUiLoadEvent = exports.TSystemEvent = exports.TDropFileEvent = exports.TThemeChangeEvent = exports.TMultiGestureEvent = exports.TWindowEvent = exports.TPaintEvent = exports.TKeyEvent = exports.TPointerEvent = exports.TOffsetChangeEvent = exports.TOrientationEvent = exports.TWheelEvent = exports.TModelEvent = exports.TWidgetAnimatorEvent = exports.TAssetsManager = exports.TValueType = exports.TRet = exports.TTimerManager = exports.TTimeNow = exports.TRlog = exports.TObjectProp = exports.TObjectCmd = exports.TNamedValue = exports.TMIME_TYPE = exports.TIdleManager = exports.TEasingType = exports.TDateTime = exports.TColor = exports.TAssetInfo = exports.TAssetType = void 0;
-exports.TDialog = exports.TView = exports.TTabControl = exports.TTabButton = exports.TTabButtonGroup = exports.TSlider = exports.TRow = exports.TProgressBar = exports.TPages = exports.TLabel = exports.TGroupBox = exports.TGrid = exports.TGridItem = exports.TEdit = exports.TDragger = exports.TDigitClock = exports.TDialogTitle = exports.TDialogClient = exports.TComboBoxItem = exports.TColumn = exports.TColorTile = exports.TClipView = exports.TCheckButton = exports.TButton = exports.TButtonGroup = exports.TAppBar = exports.TLogMessageEvent = exports.TValueChangeEvent = exports.TCmdExecEvent = exports.TErrorEvent = exports.TDoneEvent = exports.TProgressEvent = exports.TPropChangeEvent = exports.TVpage = exports.TTimerWidget = exports.TTimeClock = exports.TTextSelector = exports.TSwitch = exports.TSlideView = exports.TSlideIndicator = exports.TSlideMenu = exports.TSerialWidget = exports.TScrollView = exports.TScrollBar = exports.TListView = exports.TListViewH = exports.TListItem = exports.THscrollLabel = exports.TRichText = exports.TRichTextView = void 0;
-exports.TComboBoxEx = exports.TSystemBar = exports.TSpinBox = exports.TPopup = exports.TOverlay = exports.TImage = exports.TComboBox = exports.TCalibrationWin = exports.TTimerInfo = exports.TObjectDefault = exports.TObjectArray = exports.TIdleInfo = exports.TSvgImage = exports.TListItemSeperator = exports.TMutableImage = exports.TKeyboard = exports.TGifImage = exports.TWindow = exports.TNativeWindow = void 0;
+exports.TView = exports.TTabControl = exports.TTabButton = exports.TTabButtonGroup = exports.TSlider = exports.TRow = exports.TProgressBar = exports.TPages = exports.TLabel = exports.TGroupBox = exports.TGrid = exports.TGridItem = exports.TEdit = exports.TDragger = exports.TDigitClock = exports.TDialogTitle = exports.TDialogClient = exports.TComboBoxItem = exports.TColumn = exports.TColorTile = exports.TClipView = exports.TCheckButton = exports.TButton = exports.TButtonGroup = exports.TAppBar = exports.TNamedValueHash = exports.TLogMessageEvent = exports.TValueChangeEvent = exports.TCmdExecEvent = exports.TErrorEvent = exports.TDoneEvent = exports.TProgressEvent = exports.TPropChangeEvent = exports.TVpage = exports.TTimerWidget = exports.TTimeClock = exports.TTextSelector = exports.TSwitch = exports.TSlideView = exports.TSlideIndicator = exports.TSlideMenu = exports.TSerialWidget = exports.TScrollView = exports.TScrollBar = exports.TListView = exports.TListViewH = exports.TListItem = exports.THscrollLabel = exports.TRichText = exports.TRichTextView = void 0;
+exports.TComboBoxEx = exports.TSystemBar = exports.TSpinBox = exports.TPopup = exports.TOverlay = exports.TImage = exports.TComboBox = exports.TCalibrationWin = exports.TTimerInfo = exports.TObjectHash = exports.TObjectDefault = exports.TObjectArray = exports.TIdleInfo = exports.TSvgImage = exports.TListItemSeperator = exports.TMutableImage = exports.TKeyboard = exports.TGifImage = exports.TWindow = exports.TNativeWindow = exports.TDialog = void 0;
 /**
  * 事件分发器, 用于实现观察者模式。
  *
@@ -1111,6 +1111,15 @@ var TObject = /** @class */ (function (_super) {
      */
     TObject.prototype.setPropUint64 = function (name, value) {
         return object_set_prop_uint64(this != null ? (this.nativeObj || this) : null, name, value);
+    };
+    /**
+     * 清除全部属性。
+     *
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TObject.prototype.clearProps = function () {
+        return object_clear_props(this != null ? (this.nativeObj || this) : null);
     };
     Object.defineProperty(TObject.prototype, "refCount", {
         /**
@@ -2907,14 +2916,35 @@ var TEvent = /** @class */ (function () {
         this.nativeObj = nativeObj;
     }
     /**
-     * 将事件名转换成事件的值。
+     * 将事件名转换成事件的类型。
      *
      * @param name 事件名。
      *
-     * @returns 返回事件的值。
+     * @returns 返回事件的类型。
      */
     TEvent.fromName = function (name) {
         return event_from_name(name);
+    };
+    /**
+     * 给事件注册名称。
+     *
+     * @param event_type 事件类型。
+     * @param name 事件名。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TEvent.registerCustomName = function (event_type, name) {
+        return event_register_custom_name(event_type, name);
+    };
+    /**
+     * 注销事件名称。
+     *
+     * @param name 事件名。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TEvent.unregisterCustomName = function (name) {
+        return event_unregister_custom_name(name);
     };
     /**
      * 转换为event对象。
@@ -5049,8 +5079,8 @@ var TVgcanvas = /** @class */ (function () {
      * @param x 原点x坐标。
      * @param y 原点y坐标。
      * @param r 半径。
-     * @param start_angle 起始角度。
-     * @param end_angle 结束角度。
+     * @param start_angle 起始角度（单位：弧度）。
+     * @param end_angle 结束角度（单位：弧度）。
      * @param ccw 是否逆时针。
      *
      * @returns 返回RET_OK表示成功，否则表示失败。
@@ -5135,7 +5165,7 @@ var TVgcanvas = /** @class */ (function () {
     /**
      * 旋转。
      *
-     * @param rad 旋转角度(单位弧度)
+     * @param rad 旋转角度(单位：弧度)
      *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
@@ -11969,6 +11999,25 @@ var TFontManager = /** @class */ (function (_super) {
     function TFontManager(nativeObj) {
         return _super.call(this, nativeObj) || this;
     }
+    /**
+     * 设置是否使用标准字号
+     *
+     * @param is_standard 是否使用标准字号
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TFontManager.prototype.setStandardFontSize = function (is_standard) {
+        return font_manager_set_standard_font_size(this != null ? (this.nativeObj || this) : null, is_standard);
+    };
+    /**
+     * 获取是否使用标准字号
+     *
+     *
+     * @returns 返回TRUE表示使用标准字号，否则表示不是。
+     */
+    TFontManager.prototype.getStandardFontSize = function () {
+        return font_manager_get_standard_font_size(this != null ? (this.nativeObj || this) : null);
+    };
     /**
      * 卸载指定的字体。
      *
@@ -19764,6 +19813,66 @@ var TLogMessageEvent = /** @class */ (function (_super) {
 exports.TLogMessageEvent = TLogMessageEvent;
 ;
 /**
+ * 带有散列值的命名的值。
+ *
+ */
+var TNamedValueHash = /** @class */ (function (_super) {
+    __extends(TNamedValueHash, _super);
+    function TNamedValueHash(nativeObj) {
+        return _super.call(this, nativeObj) || this;
+    }
+    /**
+     * 创建named_value_hash对象。
+     *
+     *
+     * @returns 返回named_value_hash对象。
+     */
+    TNamedValueHash.create = function () {
+        return new TNamedValueHash(named_value_hash_create());
+    };
+    /**
+     * 设置散列值。
+     *
+     * @param name 名称。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TNamedValueHash.prototype.setName = function (name) {
+        return named_value_hash_set_name(this != null ? (this.nativeObj || this) : null, name);
+    };
+    /**
+     * 销毁named_value_hash对象。
+     *
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TNamedValueHash.prototype.destroy = function () {
+        return named_value_hash_destroy(this != null ? (this.nativeObj || this) : null);
+    };
+    /**
+     * 克隆named_value_hash对象。
+     *
+     *
+     * @returns 返回named_value_hash对象。
+     */
+    TNamedValueHash.prototype.clone = function () {
+        return new TNamedValueHash(named_value_hash_clone(this != null ? (this.nativeObj || this) : null));
+    };
+    /**
+     * 获取字符串散列值。
+     *
+     * @param str 字符串。
+     *
+     * @returns 返回散列值。
+     */
+    TNamedValueHash.getHashFromStr = function (str) {
+        return named_value_hash_get_hash_from_str(str);
+    };
+    return TNamedValueHash;
+}(TNamedValue));
+exports.TNamedValueHash = TNamedValueHash;
+;
+/**
  * app_bar控件。
  *
  *一个简单的容器控件，一般在窗口的顶部，用于显示本窗口的状态和信息。
@@ -24538,6 +24647,54 @@ var TObjectDefault = /** @class */ (function (_super) {
     return TObjectDefault;
 }(TObject));
 exports.TObjectDefault = TObjectDefault;
+;
+/**
+ * 对象接口的散列值查询属性的object实现。
+ *
+ *通用当作 map 数据结构使用，内部用有序数组保存所有属性，因此可以快速查找指定名称的属性。
+ *
+ *示例
+ *
+ *
+ *
+ */
+var TObjectHash = /** @class */ (function (_super) {
+    __extends(TObjectHash, _super);
+    function TObjectHash(nativeObj) {
+        return _super.call(this, nativeObj) || this;
+    }
+    /**
+     * 创建对象。
+     *
+     *
+     * @returns 返回object对象。
+     */
+    TObjectHash.create = function () {
+        return new TObjectHash(object_hash_create());
+    };
+    /**
+     * 创建对象。
+     *
+     * @param enable_path 是否支持按路径访问属性。
+     *
+     * @returns 返回object对象。
+     */
+    TObjectHash.createEx = function (enable_path) {
+        return new TObjectHash(object_hash_create_ex(enable_path));
+    };
+    /**
+     * 设置属性值时不改变属性的类型。
+     *
+     * @param keep_prop_type 不改变属性的类型。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TObjectHash.prototype.setKeepPropType = function (keep_prop_type) {
+        return object_hash_set_keep_prop_type(this != null ? (this.nativeObj || this) : null, keep_prop_type);
+    };
+    return TObjectHash;
+}(TObject));
+exports.TObjectHash = TObjectHash;
 ;
 /**
  * 单个定时器的信息。

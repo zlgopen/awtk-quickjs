@@ -80,6 +80,7 @@
 #include "time_clock/time_clock.h"
 #include "timer_widget/timer_widget.h"
 #include "tkc/event.h"
+#include "tkc/named_value_hash.h"
 #include "widgets/app_bar.h"
 #include "widgets/button_group.h"
 #include "widgets/button.h"
@@ -115,6 +116,7 @@
 #include "tkc/idle_info.h"
 #include "tkc/object_array.h"
 #include "tkc/object_default.h"
+#include "tkc/object_hash.h"
 #include "tkc/timer_info.h"
 #include "widgets/calibration_win.h"
 #include "widgets/combo_box.h"
@@ -1506,6 +1508,19 @@ jsvalue_t wrap_object_set_prop_uint64(JSContext* ctx, jsvalue_const_t this_val, 
   return jret;
 }
 
+jsvalue_t wrap_object_clear_props(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                  jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 1) {
+    ret_t ret = (ret_t)0;
+    object_t* obj = (object_t*)jsvalue_get_pointer(ctx, argv[0], "object_t*");
+    ret = (ret_t)object_clear_props(obj);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
 jsvalue_t wrap_object_t_get_prop_ref_count(JSContext* ctx, jsvalue_const_t this_val, int argc,
                                            jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
@@ -1663,6 +1678,8 @@ ret_t object_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_object_get_prop_uint64, "object_get_prop_uint64", 1));
   JS_SetPropertyStr(ctx, global_obj, "object_set_prop_uint64",
                     JS_NewCFunction(ctx, wrap_object_set_prop_uint64, "object_set_prop_uint64", 1));
+  JS_SetPropertyStr(ctx, global_obj, "object_clear_props",
+                    JS_NewCFunction(ctx, wrap_object_clear_props, "object_clear_props", 1));
   JS_SetPropertyStr(
       ctx, global_obj, "object_t_get_prop_ref_count",
       JS_NewCFunction(ctx, wrap_object_t_get_prop_ref_count, "object_t_get_prop_ref_count", 1));
@@ -4149,6 +4166,35 @@ jsvalue_t wrap_event_from_name(JSContext* ctx, jsvalue_const_t this_val, int arg
   return jret;
 }
 
+jsvalue_t wrap_event_register_custom_name(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                          jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 2) {
+    ret_t ret = (ret_t)0;
+    int32_t event_type = (int32_t)jsvalue_get_int_value(ctx, argv[0]);
+    const char* name = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
+    ret = (ret_t)event_register_custom_name(event_type, name);
+    jsvalue_free_str(ctx, name);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_event_unregister_custom_name(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                            jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 1) {
+    ret_t ret = (ret_t)0;
+    const char* name = (const char*)jsvalue_get_utf8_string(ctx, argv[0]);
+    ret = (ret_t)event_unregister_custom_name(name);
+    jsvalue_free_str(ctx, name);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
 jsvalue_t wrap_event_cast(JSContext* ctx, jsvalue_const_t this_val, int argc,
                           jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
@@ -4228,6 +4274,12 @@ ret_t event_t_init(JSContext* ctx) {
   jsvalue_t global_obj = JS_GetGlobalObject(ctx);
   JS_SetPropertyStr(ctx, global_obj, "event_from_name",
                     JS_NewCFunction(ctx, wrap_event_from_name, "event_from_name", 1));
+  JS_SetPropertyStr(
+      ctx, global_obj, "event_register_custom_name",
+      JS_NewCFunction(ctx, wrap_event_register_custom_name, "event_register_custom_name", 1));
+  JS_SetPropertyStr(
+      ctx, global_obj, "event_unregister_custom_name",
+      JS_NewCFunction(ctx, wrap_event_unregister_custom_name, "event_unregister_custom_name", 1));
   JS_SetPropertyStr(ctx, global_obj, "event_cast",
                     JS_NewCFunction(ctx, wrap_event_cast, "event_cast", 1));
   JS_SetPropertyStr(ctx, global_obj, "event_get_type",
@@ -16136,6 +16188,33 @@ ret_t ui_load_event_t_init(JSContext* ctx) {
   return RET_OK;
 }
 
+jsvalue_t wrap_font_manager_set_standard_font_size(JSContext* ctx, jsvalue_const_t this_val,
+                                                   int argc, jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 2) {
+    ret_t ret = (ret_t)0;
+    font_manager_t* fm = (font_manager_t*)jsvalue_get_pointer(ctx, argv[0], "font_manager_t*");
+    bool_t is_standard = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
+    ret = (ret_t)font_manager_set_standard_font_size(fm, is_standard);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_font_manager_get_standard_font_size(JSContext* ctx, jsvalue_const_t this_val,
+                                                   int argc, jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 1) {
+    bool_t ret = (bool_t)0;
+    font_manager_t* fm = (font_manager_t*)jsvalue_get_pointer(ctx, argv[0], "font_manager_t*");
+    ret = (bool_t)font_manager_get_standard_font_size(fm);
+
+    jret = jsvalue_create_bool(ctx, ret);
+  }
+  return jret;
+}
+
 jsvalue_t wrap_font_manager_unload_font(JSContext* ctx, jsvalue_const_t this_val, int argc,
                                         jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
@@ -16181,6 +16260,12 @@ jsvalue_t wrap_font_manager_unload_all(JSContext* ctx, jsvalue_const_t this_val,
 
 ret_t font_manager_t_init(JSContext* ctx) {
   jsvalue_t global_obj = JS_GetGlobalObject(ctx);
+  JS_SetPropertyStr(ctx, global_obj, "font_manager_set_standard_font_size",
+                    JS_NewCFunction(ctx, wrap_font_manager_set_standard_font_size,
+                                    "font_manager_set_standard_font_size", 1));
+  JS_SetPropertyStr(ctx, global_obj, "font_manager_get_standard_font_size",
+                    JS_NewCFunction(ctx, wrap_font_manager_get_standard_font_size,
+                                    "font_manager_get_standard_font_size", 1));
   JS_SetPropertyStr(
       ctx, global_obj, "font_manager_unload_font",
       JS_NewCFunction(ctx, wrap_font_manager_unload_font, "font_manager_unload_font", 1));
@@ -24682,6 +24767,82 @@ ret_t log_message_event_t_init(JSContext* ctx) {
   return RET_OK;
 }
 
+jsvalue_t wrap_named_value_hash_create(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                       jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 0) {
+    named_value_hash_t* ret = NULL;
+    ret = (named_value_hash_t*)named_value_hash_create();
+
+    jret = jsvalue_create_object(ctx, ret, "named_value_hash_t*",
+                                 (tk_destroy_t)named_value_hash_destroy);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_named_value_hash_set_name(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                         jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 2) {
+    ret_t ret = (ret_t)0;
+    named_value_hash_t* nvh =
+        (named_value_hash_t*)jsvalue_get_pointer(ctx, argv[0], "named_value_hash_t*");
+    const char* name = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
+    ret = (ret_t)named_value_hash_set_name(nvh, name);
+    jsvalue_free_str(ctx, name);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+jsvalue_t wrap_named_value_hash_clone(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                      jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 1) {
+    named_value_hash_t* ret = NULL;
+    named_value_hash_t* nvh =
+        (named_value_hash_t*)jsvalue_get_pointer(ctx, argv[0], "named_value_hash_t*");
+    ret = (named_value_hash_t*)named_value_hash_clone(nvh);
+
+    jret = jsvalue_create_pointer(ctx, ret, "named_value_hash_t*");
+  }
+  return jret;
+}
+
+jsvalue_t wrap_named_value_hash_get_hash_from_str(JSContext* ctx, jsvalue_const_t this_val,
+                                                  int argc, jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 1) {
+    uint64_t ret = (uint64_t)0;
+    const char* str = (const char*)jsvalue_get_utf8_string(ctx, argv[0]);
+    ret = (uint64_t)named_value_hash_get_hash_from_str(str);
+    jsvalue_free_str(ctx, str);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+ret_t named_value_hash_t_init(JSContext* ctx) {
+  jsvalue_t global_obj = JS_GetGlobalObject(ctx);
+  JS_SetPropertyStr(
+      ctx, global_obj, "named_value_hash_create",
+      JS_NewCFunction(ctx, wrap_named_value_hash_create, "named_value_hash_create", 1));
+  JS_SetPropertyStr(
+      ctx, global_obj, "named_value_hash_set_name",
+      JS_NewCFunction(ctx, wrap_named_value_hash_set_name, "named_value_hash_set_name", 1));
+  JS_SetPropertyStr(ctx, global_obj, "named_value_hash_clone",
+                    JS_NewCFunction(ctx, wrap_named_value_hash_clone, "named_value_hash_clone", 1));
+  JS_SetPropertyStr(ctx, global_obj, "named_value_hash_get_hash_from_str",
+                    JS_NewCFunction(ctx, wrap_named_value_hash_get_hash_from_str,
+                                    "named_value_hash_get_hash_from_str", 1));
+
+  jsvalue_unref(ctx, global_obj);
+
+  return RET_OK;
+}
+
 jsvalue_t wrap_app_bar_create(JSContext* ctx, jsvalue_const_t this_val, int argc,
                               jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
@@ -29178,6 +29339,60 @@ ret_t object_default_t_init(JSContext* ctx) {
   return RET_OK;
 }
 
+jsvalue_t wrap_object_hash_create(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                  jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 0) {
+    object_t* ret = NULL;
+    ret = (object_t*)object_hash_create();
+
+    jret = jsvalue_create_pointer(ctx, ret, "object_hash_t*");
+  }
+  return jret;
+}
+
+jsvalue_t wrap_object_hash_create_ex(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                     jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 1) {
+    object_t* ret = NULL;
+    bool_t enable_path = (bool_t)jsvalue_get_boolean_value(ctx, argv[0]);
+    ret = (object_t*)object_hash_create_ex(enable_path);
+
+    jret = jsvalue_create_pointer(ctx, ret, "object_hash_t*");
+  }
+  return jret;
+}
+
+jsvalue_t wrap_object_hash_set_keep_prop_type(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                              jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 2) {
+    ret_t ret = (ret_t)0;
+    object_t* obj = (object_t*)jsvalue_get_pointer(ctx, argv[0], "object_t*");
+    bool_t keep_prop_type = (bool_t)jsvalue_get_boolean_value(ctx, argv[1]);
+    ret = (ret_t)object_hash_set_keep_prop_type(obj, keep_prop_type);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
+ret_t object_hash_t_init(JSContext* ctx) {
+  jsvalue_t global_obj = JS_GetGlobalObject(ctx);
+  JS_SetPropertyStr(ctx, global_obj, "object_hash_create",
+                    JS_NewCFunction(ctx, wrap_object_hash_create, "object_hash_create", 1));
+  JS_SetPropertyStr(ctx, global_obj, "object_hash_create_ex",
+                    JS_NewCFunction(ctx, wrap_object_hash_create_ex, "object_hash_create_ex", 1));
+  JS_SetPropertyStr(ctx, global_obj, "object_hash_set_keep_prop_type",
+                    JS_NewCFunction(ctx, wrap_object_hash_set_keep_prop_type,
+                                    "object_hash_set_keep_prop_type", 1));
+
+  jsvalue_unref(ctx, global_obj);
+
+  return RET_OK;
+}
+
 jsvalue_t wrap_timer_info_cast(JSContext* ctx, jsvalue_const_t this_val, int argc,
                                jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
@@ -30361,6 +30576,7 @@ ret_t awtk_js_init(JSContext* ctx) {
   cmd_exec_event_t_init(ctx);
   value_change_event_t_init(ctx);
   log_message_event_t_init(ctx);
+  named_value_hash_t_init(ctx);
   app_bar_t_init(ctx);
   button_group_t_init(ctx);
   button_t_init(ctx);
@@ -30397,6 +30613,7 @@ ret_t awtk_js_init(JSContext* ctx) {
   idle_info_t_init(ctx);
   object_array_t_init(ctx);
   object_default_t_init(ctx);
+  object_hash_t_init(ctx);
   timer_info_t_init(ctx);
   calibration_win_t_init(ctx);
   combo_box_t_init(ctx);

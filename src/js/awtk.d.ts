@@ -824,6 +824,13 @@ export declare class TObject extends TEmitter {
      */
     setPropUint64(name: string, value: any): TRet;
     /**
+     * 清除全部属性。
+     *
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    clearProps(): TRet;
+    /**
      * 引用计数。
      *
      */
@@ -2379,13 +2386,30 @@ export declare class TEvent {
     nativeObj: any;
     constructor(nativeObj: any);
     /**
-     * 将事件名转换成事件的值。
+     * 将事件名转换成事件的类型。
      *
      * @param name 事件名。
      *
-     * @returns 返回事件的值。
+     * @returns 返回事件的类型。
      */
     static fromName(name: string): number;
+    /**
+     * 给事件注册名称。
+     *
+     * @param event_type 事件类型。
+     * @param name 事件名。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    static registerCustomName(event_type: number, name: string): TRet;
+    /**
+     * 注销事件名称。
+     *
+     * @param name 事件名。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    static unregisterCustomName(name: string): TRet;
     /**
      * 转换为event对象。
      *
@@ -4324,8 +4348,8 @@ export declare class TVgcanvas {
      * @param x 原点x坐标。
      * @param y 原点y坐标。
      * @param r 半径。
-     * @param start_angle 起始角度。
-     * @param end_angle 结束角度。
+     * @param start_angle 起始角度（单位：弧度）。
+     * @param end_angle 结束角度（单位：弧度）。
      * @param ccw 是否逆时针。
      *
      * @returns 返回RET_OK表示成功，否则表示失败。
@@ -4396,7 +4420,7 @@ export declare class TVgcanvas {
     /**
      * 旋转。
      *
-     * @param rad 旋转角度(单位弧度)
+     * @param rad 旋转角度(单位：弧度)
      *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
@@ -9954,6 +9978,21 @@ export declare class TFontManager extends TEmitter {
     nativeObj: any;
     constructor(nativeObj: any);
     /**
+     * 设置是否使用标准字号
+     *
+     * @param is_standard 是否使用标准字号
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setStandardFontSize(is_standard: boolean): TRet;
+    /**
+     * 获取是否使用标准字号
+     *
+     *
+     * @returns 返回TRUE表示使用标准字号，否则表示不是。
+     */
+    getStandardFontSize(): boolean;
+    /**
      * 卸载指定的字体。
      *
      * @param name 字体名，为NULL时使用缺省字体。
@@ -15294,6 +15333,51 @@ export declare class TLogMessageEvent extends TEvent {
     static cast(event: TEvent): TLogMessageEvent;
 }
 /**
+ * 带有散列值的命名的值。
+ *
+ */
+export declare class TNamedValueHash extends TNamedValue {
+    nativeObj: any;
+    constructor(nativeObj: any);
+    /**
+     * 创建named_value_hash对象。
+     *
+     *
+     * @returns 返回named_value_hash对象。
+     */
+    static create(): TNamedValueHash;
+    /**
+     * 设置散列值。
+     *
+     * @param name 名称。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setName(name: string): TRet;
+    /**
+     * 销毁named_value_hash对象。
+     *
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    destroy(): TRet;
+    /**
+     * 克隆named_value_hash对象。
+     *
+     *
+     * @returns 返回named_value_hash对象。
+     */
+    clone(): TNamedValueHash;
+    /**
+     * 获取字符串散列值。
+     *
+     * @param str 字符串。
+     *
+     * @returns 返回散列值。
+     */
+    static getHashFromStr(str: string): number;
+}
+/**
  * app_bar控件。
  *
  *一个简单的容器控件，一般在窗口的顶部，用于显示本窗口的状态和信息。
@@ -18906,6 +18990,43 @@ export declare class TObjectDefault extends TObject {
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     setNameCaseInsensitive(name_case_insensitive: boolean): TRet;
+}
+/**
+ * 对象接口的散列值查询属性的object实现。
+ *
+ *通用当作 map 数据结构使用，内部用有序数组保存所有属性，因此可以快速查找指定名称的属性。
+ *
+ *示例
+ *
+ *
+ *
+ */
+export declare class TObjectHash extends TObject {
+    nativeObj: any;
+    constructor(nativeObj: any);
+    /**
+     * 创建对象。
+     *
+     *
+     * @returns 返回object对象。
+     */
+    static create(): TObjectHash;
+    /**
+     * 创建对象。
+     *
+     * @param enable_path 是否支持按路径访问属性。
+     *
+     * @returns 返回object对象。
+     */
+    static createEx(enable_path: boolean): TObjectHash;
+    /**
+     * 设置属性值时不改变属性的类型。
+     *
+     * @param keep_prop_type 不改变属性的类型。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setKeepPropType(keep_prop_type: boolean): TRet;
 }
 /**
  * 单个定时器的信息。
