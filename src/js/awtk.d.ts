@@ -228,6 +228,33 @@ export declare class TBitmap {
      */
     static createEx(w: number, h: number, line_length: number, format: TBitmapFormat): TBitmap;
     /**
+     * 创建图片对象。
+     *
+     * @param w 宽度。
+     * @param h 高度。
+     * @param line_length line_length。
+     * @param format 格式。
+     * @param data 图像数据。
+     * @param should_free_data 是否释放数据。
+     *
+     * @returns 返回bitmap对象。
+     */
+    static createEx2(w: number, h: number, line_length: number, format: TBitmapFormat, data: number, should_free_data: boolean): TBitmap;
+    /**
+     * 创建图片对象。
+     *
+     * @param w 宽度。
+     * @param h 高度。
+     * @param line_length line_length。
+     * @param format 格式。
+     * @param data 图像数据。
+     * @param physical_data_addr 物理地址(部分硬件加速需要)。
+     * @param should_free_data 是否释放数据。
+     *
+     * @returns 返回bitmap对象。
+     */
+    static createEx3(w: number, h: number, line_length: number, format: TBitmapFormat, data: number, physical_data_addr: number, should_free_data: boolean): TBitmap;
+    /**
      * 获取图片一个像素占用的字节数。
      *
      *
@@ -2282,6 +2309,21 @@ export declare enum TEventType {
      *
      */
     UI_LOAD,
+    /**
+     * 触摸按下事件名(touch_event_t)。
+     *
+     */
+    TOUCH_DOWN,
+    /**
+     * 触摸移动事件名(touch_event_t)。
+     *
+     */
+    TOUCH_MOVE,
+    /**
+     * 触摸抬起事件名(touch_event_t)。
+     *
+     */
+    TOUCH_UP,
     /**
      * event queue其它请求编号起始值。
      *
@@ -4410,7 +4452,7 @@ export declare class TVgcanvas {
     /**
      * 设置路径填充实心与否。
      *
-     *>CCW(1)为实心，CW(2)为镂空，设置其他则默认根据非零环绕规则判断(nonzero)。
+     *>设置为FALSE为实心，TRUE为镂空。
      *
      * @param dir 填充方法。
      *
@@ -4479,6 +4521,18 @@ export declare class TVgcanvas {
     clipPath(): TRet;
     /**
      * 矩形裁剪。
+     *备注：
+     *1. 在绘图的时候脏矩形和裁剪区是一样的。
+     *2. 该函数是不合并裁剪区的，所有可能出现裁剪区被扩大导致绘图在脏矩形以外的情况，导致残影的情况。
+     *3. 该函数不支持旋转后调用，会导致裁剪区异常。
+     *........
+     *rect_t r;
+     *rect_t r_save;
+     *r = rectf_init(c->ox, c->oy, widget->w, widget->h);
+     *r_save = *vgcanvas_get_clip_rect(vg);
+     *r = rectf_intersect(&r, &r_save);
+     *vgcanvas_clip_rect(vg, (float_t)r.x, (float_t)r.y, (float_t)r.w, (float_t)r.h);
+     *........
      *
      * @param x x坐标。
      * @param y y坐标。
@@ -4501,9 +4555,11 @@ export declare class TVgcanvas {
     isRectfInClipRect(left: number, top: number, right: number, bottom: number): boolean;
     /**
      * 设置一个与前一个裁剪区做交集的矩形裁剪区。
-     *如果下面这种情况，则不能直接调用 rect_intersect 函数来做矩形交集和 vgcanvas_clip_rect 函数设置裁剪区，而采用本函数做交集。
+     *备注：
+     *1. 如果下面这种情况，则不能直接调用 rect_intersect 函数来做矩形交集和 vgcanvas_clip_rect 函数设置裁剪区，而采用本函数做交集。
      *由于缩放和旋转以及平移会导致 vg 的坐标系和上一个裁剪区的坐标系不同，
      *导致直接使用做交集的话，裁剪区会出错。
+     *2. 该函数不支持旋转后调用，会导致裁剪区异常。
      *
      *```
      *vgcanvas_clip_rect(vg, old_r.x, old_r.y, old_r.w, old_r.h);
@@ -4602,14 +4658,14 @@ export declare class TVgcanvas {
      * 绘制图片。
      *
      * @param img 图片。
-     * @param sx sx
-     * @param sy sy
-     * @param sw sw
-     * @param sh sh
-     * @param dx dx
-     * @param dy dy
-     * @param dw dw
-     * @param dh dh
+     * @param sx 原图区域的 x
+     * @param sy 原图区域的 y
+     * @param sw 原图区域的 w
+     * @param sh 原图区域的 h
+     * @param dx 绘制区域的 x
+     * @param dy 绘制区域的 y
+     * @param dw 绘制区域的 w
+     * @param dh 绘制区域的 h
      *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
@@ -4642,14 +4698,14 @@ export declare class TVgcanvas {
      *绘制图标时会根据屏幕密度进行自动缩放，而绘制普通图片时不会。
      *
      * @param img 图片。
-     * @param sx sx
-     * @param sy sy
-     * @param sw sw
-     * @param sh sh
-     * @param dx dx
-     * @param dy dy
-     * @param dw dw
-     * @param dh dh
+     * @param sx 原图区域的 x
+     * @param sy 原图区域的 y
+     * @param sw 原图区域的 w
+     * @param sh 原图区域的 h
+     * @param dx 绘制区域的 x
+     * @param dy 绘制区域的 y
+     * @param dw 绘制区域的 w
+     * @param dh 绘制区域的 h
      *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
@@ -5498,6 +5554,11 @@ export declare enum TWidgetProp {
      */
     ENABLE_PREVIEW,
     /**
+     * 是否为 accept 状态
+     *
+     */
+    IS_ACCEPT_STATUS,
+    /**
      * 是否启用点击穿透。
      *
      */
@@ -5713,6 +5774,27 @@ export declare enum TWidgetProp {
      */
     MOVE_FOCUS_RIGHT_KEY,
     /**
+     * 窗口中按下 Enter 默认触发单击 button 控件名字。
+     *备注：如果控件接管了 Enter 的话，accept_button 控件是不会进入 focused 风格，例如：设置 accept_return 为 true 或者 widget->vt->return_key_to_activate 为 true
+     *
+     */
+    ACCEPT_BUTTON,
+    /**
+     * 窗口中按下 Esc 默认触发单击 button 控件名字。
+     *
+     */
+    CANCEL_BUTTON,
+    /**
+     * 控件中是否支持 Enter 按钮输入。
+     *
+     */
+    ACCEPT_RETRUN,
+    /**
+     * 控件中是否支持 Tab 按钮输入。
+     *
+     */
+    ACCEPT_TAB,
+    /**
      * 行数。
      *
      */
@@ -5771,7 +5853,17 @@ export declare enum TWidgetProp {
      * 数据校验脚本。
      *
      */
-    VALIDATOR
+    VALIDATOR,
+    /**
+     * 标识是否将当前控件状态同步到子控件中。
+     *
+     */
+    SYNC_STATE_TO_CHILDREN,
+    /**
+     * 标识是否接收父控件的状态同步。
+     *
+     */
+    STATE_FROM_PARENT_SYNC
 }
 /**
  * 控件的类型。
@@ -6902,6 +6994,22 @@ export declare class TWidget {
      */
     setState(state: string): TRet;
     /**
+     * 标识是否将当前控件状态同步到子控件中。
+     *
+     * @param sync_state_to_children 是否将当前控件状态同步到子控件中。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setSyncStateToChildren(sync_state_to_children: boolean): TRet;
+    /**
+     * 标识是否接收父控件的状态同步。
+     *
+     * @param state_from_parent_sync 是否接收父控件的状态同步。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setStateFromParentSync(state_from_parent_sync: boolean): TRet;
+    /**
      * 设置控件的不透明度。
      *
      *>在嵌入式平台，半透明效果会使性能大幅下降，请谨慎使用。
@@ -7486,7 +7594,7 @@ export declare class TWidget {
      */
     setChildrenLayout(params: string): TRet;
     /**
-     * 设置控件自己的布局(缺省布局器)参数(过时，请用widget\_set\_self\_layout)。
+     * 设置控件自己的布局(缺省布局器)参数(建议用widget\_set\_self\_layout)。
      *备注：下一帧才会生效数据
      *
      * @param x x参数。
@@ -7635,7 +7743,7 @@ export declare class TWidget {
      * 是否根据子控件和文本自动调整控件自身大小。
      *
      *> 为true时，最好不要使用 layout 的相关东西，否则可能有冲突。
-     *> 注意：只是调整控件的本身的宽高，不会修改控件本身的位置。
+     *> 注意：只是调整控件的本身的宽高，不会修改控件本身的位置，仅部分控件实现该效果。
      *
      */
     get autoAdjustSize(): boolean;
@@ -7646,6 +7754,18 @@ export declare class TWidget {
      */
     get floating(): boolean;
     set floating(v: boolean);
+    /**
+     * 标识是否将当前控件状态同步到子控件中。
+     *
+     */
+    get syncStateToChildren(): boolean;
+    set syncStateToChildren(v: boolean);
+    /**
+     * 标识是否接收父控件的状态同步。
+     *
+     */
+    get stateFromParentSync(): boolean;
+    set stateFromParentSync(v: boolean);
     /**
      * 不透明度(0-255)，0完全透明，255完全不透明。
      *
@@ -8928,65 +9048,6 @@ export declare enum TMIME_TYPE {
     VIDEO_X_MSVIDEO
 }
 /**
- * 命名的值。
- *
- */
-export declare class TNamedValue {
-    nativeObj: any;
-    constructor(nativeObj: any);
-    /**
-     * 创建named_value对象。
-     *
-     *
-     * @returns 返回named_value对象。
-     */
-    static create(): TNamedValue;
-    /**
-     * 转换为named_value对象(供脚本语言使用)。
-     *
-     * @param nv named_value对象。
-     *
-     * @returns 返回named_value对象。
-     */
-    static cast(nv: TNamedValue): TNamedValue;
-    /**
-     * 设置名称。
-     *
-     * @param name 名称。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    setName(name: string): TRet;
-    /**
-     * 设置值。
-     *
-     * @param value 值。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    setValue(value: TValue): TRet;
-    /**
-     * 获取值对象(主要给脚本语言使用)。
-     *
-     *
-     * @returns 返回值对象。
-     */
-    getValue(): TValue;
-    /**
-     * 销毁named_value对象。
-     *
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    destroy(): TRet;
-    /**
-     * 名称。
-     *
-     */
-    get name(): string;
-    set name(v: string);
-}
-/**
  * 对象常见命令定义
  *
  */
@@ -9715,6 +9776,11 @@ export declare class TPointerEvent extends TEvent {
      *
      */
     get shift(): boolean;
+    /**
+     * 触摸ID。
+     *
+     */
+    get fingerId(): number;
 }
 /**
  * 按键事件。
@@ -9944,6 +10010,47 @@ export declare class TSystemEvent extends TEvent {
     get sdlEvent(): any;
 }
 /**
+ * 多点触摸事件(目前主要对接 SDL_TouchFingerEvent(SDL_FINGERMOTION/SDL_FINGERDOWN/SDL_FINGERUP))。
+ *
+ */
+export declare class TTouchEvent extends TEvent {
+    nativeObj: any;
+    constructor(nativeObj: any);
+    /**
+     * 把event对象转touch_event_t对象。
+     *
+     * @param event event对象。
+     *
+     * @returns event 对象。
+     */
+    static cast(event: TEvent): TTouchEvent;
+    /**
+     * 触摸ID。
+     *
+     */
+    get touchId(): number;
+    /**
+     * 手指ID。
+     *
+     */
+    get fingerId(): number;
+    /**
+     * x坐标(在 0-1 之间，表示与屏幕宽度的比例）。
+     *
+     */
+    get x(): number;
+    /**
+     * y坐标(在 0-1 之间，表示与屏幕高度的比例）。
+     *
+     */
+    get y(): number;
+    /**
+     * 压力。
+     *
+     */
+    get pressure(): number;
+}
+/**
  * UI加载完成事件。
  *
  */
@@ -10158,6 +10265,18 @@ export declare class TImageBase extends TWidget {
     set selected(v: boolean);
 }
 /**
+ * 本地化信息。
+ *locale_info_t 的子类。
+ *提供从 xml 文件中获取本地化信息的功能。
+ *
+ *注意：fallback_tr2 回调已被设置用于从xml文件中获取本地化信息，不可再重复设置，否则将导致功能失效！
+ *
+ */
+export declare class TLocaleInfoXml extends TLocaleInfo {
+    nativeObj: any;
+    constructor(nativeObj: any);
+}
+/**
  * 可变的style(可实时修改并生效，主要用于在designer中被编辑的控件，或者一些特殊控件)。
  *
  *style\_mutable也对style\_const进行了包装，当用户没修改某个值时，便从style\_const中获取。
@@ -10340,6 +10459,16 @@ export declare class TWindowBase extends TWidget {
      *
      */
     get moveFocusRightKey(): string;
+    /**
+     * 窗口中按下 Enter 按钮默认触发单击 button 控件名字
+     *
+     */
+    get acceptButton(): string;
+    /**
+     * 窗口中按下 Esc 按钮默认触发单击 button 控件名字
+     *
+     */
+    get cancelButton(): string;
     /**
      * 小应用程序(applet)的名称。
      *
@@ -11874,6 +12003,14 @@ export declare class TCandidates extends TWidget {
      */
     setAutoHide(auto_hide: boolean): TRet;
     /**
+     * 设置可见候选词个数。
+     *
+     * @param visible_num 可见个数。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setVisibleNum(visible_num: number): TRet;
+    /**
      * 设置按钮的style名称。
      *
      * @param button_style 按钮的style名称。
@@ -11891,7 +12028,7 @@ export declare class TCandidates extends TWidget {
     get pre(): boolean;
     set pre(v: boolean);
     /**
-     * 是否启用用数字选择候选字。比如按下1选择第1个候选字，按下2选择第2个候选字。
+     * 是否启用用数字选择候选字。比如按下1选择第1个候选字，按下2选择第2个候选字。(需在keyboard中设置grab_keys="true"方可生效)
      *
      */
     get selectByNum(): boolean;
@@ -11913,6 +12050,12 @@ export declare class TCandidates extends TWidget {
      *
      */
     get enablePreview(): boolean;
+    /**
+     * 候选字可见个数。
+     *
+     */
+    get visibleNum(): number;
+    set visibleNum(v: number);
 }
 /**
  * 输入法语言指示器。
@@ -12230,14 +12373,6 @@ export declare class TMledit extends TWidget {
      */
     getCursor(): number;
     /**
-     * 设置编辑器滚动速度。
-     *
-     * @param scroll_line 滚动行数。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    setScrollLine(scroll_line: number): TRet;
-    /**
      * 设置编辑器滚动到指定偏移位置。
      *
      * @param offset 偏移位置。
@@ -12343,12 +12478,6 @@ export declare class TMledit extends TWidget {
     get maxChars(): number;
     set maxChars(v: number);
     /**
-     * 鼠标一次滚动行数。
-     *
-     */
-    get scrollLine(): number;
-    set scrollLine(v: number);
-    /**
      * 是否启用覆盖行。
      *
      */
@@ -12389,6 +12518,16 @@ export declare class TMledit extends TWidget {
      */
     get closeImWhenBlured(): boolean;
     set closeImWhenBlured(v: boolean);
+    /**
+     * 是否支持 Enter 按钮输入。
+     *
+     */
+    get acceptReturn(): boolean;
+    /**
+     * 是否支持 Tab 按钮输入。
+     *
+     */
+    get acceptTab(): boolean;
 }
 /**
  * 进度圆环控件。
@@ -12696,7 +12835,7 @@ export declare class TRichText extends TWidget {
      */
     get lineGap(): number;
     /**
-     * 标识控件是否允许上下拖动。
+     * 标识控件是否允许上下拖动。(需满足文字的高度大于控件的高度)
      *
      */
     get yslidable(): boolean;
@@ -13232,11 +13371,14 @@ export declare class TListView extends TWidget {
      */
     get floatingScrollBar(): boolean;
     set floatingScrollBar(v: boolean);
+    /**
+     * 列表项的宽度。如果 item_width 0，所有列表项使用该宽度，否则使用让列表项的宽度等于scroll_view的宽度。
+     *
+     */
+    get itemWidth(): number;
 }
 /**
  * 滚动条控件。
- *
- *> 目前只支持垂直滚动。
  *
  *scroll\_bar\_t是[widget\_t](widget_t.md)的子类控件，widget\_t的函数均适用于scroll\_bar\_t控件。
  *
@@ -13690,7 +13832,7 @@ export declare class TScrollView extends TWidget {
     get moveToPage(): boolean;
     set moveToPage(v: boolean);
     /**
-     * 是否递归查找全部子控件。
+     * 是否递归查找全部子控件。(当scroll_view的父控件是list_view_h或list_view时无效)
      *
      */
     get recursive(): boolean;
@@ -14186,7 +14328,7 @@ export declare class TSlideIndicator extends TWidget {
     get value(): number;
     set value(v: number);
     /**
-     * 最大值(缺省为100)。
+     * 最大值(缺省为3)。
      *
      */
     get max(): number;
@@ -14222,12 +14364,12 @@ export declare class TSlideIndicator extends TWidget {
     get size(): number;
     set size(v: number);
     /**
-     * 锚点x坐标。(后面加上px为像素点，不加px为相对百分比坐标0.0f到1.0f)
+     * 锚点x坐标。(后面加上px为像素点，不加px为相对百分取值范围为0.0f到1.0f)
      *
      */
     get anchorX(): string;
     /**
-     * 锚点y坐标。(后面加上px为像素点，不加px为相对百分比坐标0.0f到1.0f)
+     * 锚点y坐标。(后面加上px为像素点，不加px为相对百分取值范围为0.0f到1.0f)
      *
      */
     get anchorY(): string;
@@ -14507,7 +14649,7 @@ export declare class TSwitch extends TWidget {
     get value(): boolean;
     set value(v: boolean);
     /**
-     * 当开关处于关闭时，图片偏移相对于图片宽度的比例(缺省为1/3)。
+     * 主要用于当开关处于关闭时，图片偏移相对于图片宽度的比例(缺省为1/3)。
      *
      */
     get maxXoffsetRatio(): number;
@@ -15333,21 +15475,29 @@ export declare class TLogMessageEvent extends TEvent {
     static cast(event: TEvent): TLogMessageEvent;
 }
 /**
- * 带有散列值的命名的值。
+ * 命名的值。
  *
  */
-export declare class TNamedValueHash extends TNamedValue {
+export declare class TNamedValue extends TValue {
     nativeObj: any;
     constructor(nativeObj: any);
     /**
-     * 创建named_value_hash对象。
+     * 创建named_value对象。
      *
      *
-     * @returns 返回named_value_hash对象。
+     * @returns 返回named_value对象。
      */
-    static create(): TNamedValueHash;
+    static create(): TNamedValue;
     /**
-     * 设置散列值。
+     * 转换为named_value对象(供脚本语言使用)。
+     *
+     * @param nv named_value对象。
+     *
+     * @returns 返回named_value对象。
+     */
+    static cast(nv: TNamedValue): TNamedValue;
+    /**
+     * 设置名称。
      *
      * @param name 名称。
      *
@@ -15355,27 +15505,33 @@ export declare class TNamedValueHash extends TNamedValue {
      */
     setName(name: string): TRet;
     /**
-     * 销毁named_value_hash对象。
+     * 设置值。
+     *
+     * @param value 值。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setValue(value: TValue): TRet;
+    /**
+     * 获取值对象(主要给脚本语言使用)。
+     *
+     *
+     * @returns 返回值对象。
+     */
+    getValue(): TValue;
+    /**
+     * 销毁named_value对象。
      *
      *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     destroy(): TRet;
     /**
-     * 克隆named_value_hash对象。
+     * 名称。
      *
-     *
-     * @returns 返回named_value_hash对象。
      */
-    clone(): TNamedValueHash;
-    /**
-     * 获取字符串散列值。
-     *
-     * @param str 字符串。
-     *
-     * @returns 返回散列值。
-     */
-    static getHashFromStr(str: string): number;
+    get name(): string;
+    set name(v: string);
 }
 /**
  * app_bar控件。
@@ -15608,16 +15764,21 @@ export declare class TButton extends TWidget {
     get enablePreview(): boolean;
     set enablePreview(v: boolean);
     /**
-     * 触发长按事件的时间(毫秒)
+     * 是否为 accept 状态
      *
      */
-    get longPressTime(): number;
-    set longPressTime(v: number);
+    get isAcceptStatus(): boolean;
     /**
      * 当前是否按下。
      *
      */
     get pressed(): boolean;
+    /**
+     * 触发长按事件的时间(毫秒)
+     *
+     */
+    get longPressTime(): number;
+    set longPressTime(v: number);
 }
 /**
  * 勾选按钮控件(单选/多选)。
@@ -16792,16 +16953,16 @@ export declare class TGrid extends TWidget {
      * 各列的参数。
      *各列的参数之间用英文的分号(;)分隔，每列参数的格式为：
      *
-     *col(w=?,left_margin=?,right_margin=?,top_maorgin=?,bottom_margin=?)
+     *col(w=?,left_margin=?,right_margin=?,top_margin=?,bottom_margin=?)
      *
-     ** w 为列的宽度(必须存在)。取值在(0-1]区间时，视为grid控件宽度的比例，否则为像素宽度。
-     *(如果为负数，将计算结果加上控件的宽度)
-     ** left_margin(可选，可缩写为l) 该列左边的边距。
-     ** right_margin(可选，可缩写为r) 该列右边的边距。
-     ** top_margin(可选，可缩写为t) 该列顶部的边距。
-     ** bottom_margin(可选，可缩写为b) 该列底部的边距。
-     ** margin(可选，可缩写为m) 同时指定上面4个边距。
-     ** fill_available(可选，可缩写为f) 填充剩余宽度(只有一列可以指定)。
+     ** w 为列的宽度（必须存在）。取值在 (0-1] 区间时，视为 grid 控件宽度的比例，否则为像素宽度。
+     *（如果为负数，将计算结果加上控件的宽度）
+     ** left_margin（可选，可缩写为 l）该列左边的边距。
+     ** right_margin（可选，可缩写为 r）该列右边的边距。
+     ** top_margin（可选，可缩写为 t）该列顶部的边距。
+     ** bottom_margin（可选，可缩写为 b）该列底部的边距。
+     ** margin（可选，可缩写为 m）同时指定上面 4 个边距。
+     ** fill_available（可选，可缩写为f）填充剩余宽度（只有一列可以指定）。
      *
      */
     get columnsDefinition(): string;
@@ -17104,7 +17265,7 @@ export declare class TPages extends TWidget {
      */
     setActiveByName(name: string): TRet;
     /**
-     * 当前活跃的page。(需要用到 MVVM 数据绑定请设置 value 属性)
+     * 当前活跃的page。(起始值从0开始。需要用到 MVVM 数据绑定请设置 value 属性)
      *
      */
     get active(): number;
@@ -17246,7 +17407,7 @@ export declare class TProgressBar extends TWidget {
     get max(): number;
     set max(v: number);
     /**
-     * 数值到字符串转换时的格式，缺省为"%d"。
+     * 数值到字符串转换时的格式，缺省为"%d%%"。
      *
      */
     get format(): string;
@@ -17584,6 +17745,14 @@ export declare class TTabButtonGroup extends TWidget {
      */
     setDragChild(drag_child: boolean): TRet;
     /**
+     * 设置删除 tab_button_group 控件中的 tab_button 控件和对应页。
+     *
+     * @param index tab_button 的序号。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    removeIndex(index: number): TRet;
+    /**
      * 转换tab_button_group对象(供脚本语言使用)。
      *
      * @param widget tab_button_group对象。
@@ -17887,7 +18056,7 @@ export declare class TView extends TWidget {
      */
     static cast(widget: TWidget): TView;
     /**
-     * 缺省获得焦点的子控件(可用控件名或类型)。
+     * 缺省获得焦点的子控件(可用控件名或类型)。(该属性废弃。)
      *
      *> view作为pages/slideview的直接子控件才需要设置。
      *> 正常情况下，一个窗口只能指定一个初始焦点。
@@ -17937,7 +18106,7 @@ export declare class TView extends TWidget {
  *</dialog>
  *```
  *
- *打开非模态对话框时，其用法与普通窗口一样。打开非模态对话框时，还需要调用dialog\_modal。
+ *打开非模态对话框时，其用法与普通窗口一样。打开模态对话框时，还需要调用dialog\_modal。
  *
  *
  *
@@ -18197,6 +18366,17 @@ export declare class TNativeWindow extends TObject {
      */
     showBorder(show: boolean): TRet;
     /**
+     * 设置hitTest。
+     *
+     * @param x x坐标。
+     * @param y y坐标。
+     * @param w w宽度。
+     * @param h h高度。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setWindowHitTest(x: number, y: number, w: number, h: number): TRet;
+    /**
      * 是否全屏。
      *
      * @param fullscreen 是否全屏。
@@ -18351,6 +18531,80 @@ export declare class TWindow extends TWindowBase {
      */
     get fullscreen(): boolean;
     set fullscreen(v: boolean);
+}
+/**
+ * 扩展edit控件。支持以下功能：
+ ** 支持搜索建议功能。
+ *
+ */
+export declare class TEditEx extends TEdit {
+    nativeObj: any;
+    constructor(nativeObj: any);
+    /**
+     * 创建edit_ex对象
+     *
+     * @param parent 父控件
+     * @param x x坐标
+     * @param y y坐标
+     * @param w 宽度
+     * @param h 高度
+     *
+     * @returns 对象。
+     */
+    static create(parent: TWidget, x: number, y: number, w: number, h: number): TEditEx;
+    /**
+     * 设置输入建议词源。
+     *> EVT_VALUE_CHANGED 事件请求词源更新，new_value 为 edit 输入内容。
+     *
+     * @param suggest_words 输入建议词源。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setSuggestWords(suggest_words: TObject): TRet;
+    /**
+     * 设置输入建议词的项格式。
+     *
+     * @param formats 输入建议词的项格式。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setSuggestWordsItemFormats(formats: string): TRet;
+    /**
+     * 最终输入到edit控件的文本的属性名。
+     *> 设置了 suggest_words_item_formats 才会被用到。
+     *
+     * @param name 最终输入到edit控件的文本的属性名。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setSuggestWordsInputName(name: string): TRet;
+    /**
+     * 转换为edit对象(供脚本语言使用)。
+     *
+     * @param widget edit_ex对象。
+     *
+     * @returns edit对象。
+     */
+    static cast(widget: TWidget): TEditEx;
+    /**
+     * 输入建议词。
+     *
+     */
+    get suggestWords(): TObject;
+    set suggestWords(v: TObject);
+    /**
+     * 输入建议词的项格式。
+     *
+     */
+    get suggestWordsItemFormats(): string;
+    set suggestWordsItemFormats(v: string);
+    /**
+     * 最终输入到edit控件的文本的属性名。
+     *> 设置了 suggest_words_item_formats 才会被用到。
+     *
+     */
+    get suggestWordsInputName(): string;
+    set suggestWordsInputName(v: string);
 }
 /**
  * GIF图片控件。
@@ -18836,6 +19090,51 @@ export declare class TIdleInfo extends TObject {
     get id(): number;
 }
 /**
+ * 带有散列值的命名的值。
+ *
+ */
+export declare class TNamedValueHash extends TNamedValue {
+    nativeObj: any;
+    constructor(nativeObj: any);
+    /**
+     * 创建named_value_hash对象。
+     *
+     *
+     * @returns 返回named_value_hash对象。
+     */
+    static create(): TNamedValueHash;
+    /**
+     * 设置散列值。
+     *
+     * @param name 名称。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setName(name: string): TRet;
+    /**
+     * 销毁named_value_hash对象。
+     *
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    destroy(): TRet;
+    /**
+     * 克隆named_value_hash对象。
+     *
+     *
+     * @returns 返回named_value_hash对象。
+     */
+    clone(): TNamedValueHash;
+    /**
+     * 获取字符串散列值。
+     *
+     * @param str 字符串。
+     *
+     * @returns 返回散列值。
+     */
+    static getHashFromStr(str: string): number;
+}
+/**
  * 简单的动态数组，内部存放value对象。
  *
  *访问时属性名称为：
@@ -19027,6 +19326,14 @@ export declare class TObjectHash extends TObject {
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     setKeepPropType(keep_prop_type: boolean): TRet;
+    /**
+     * 设置是否保持属性间的顺序。
+     *
+     * @param keep_props_order 保持属性间的顺序。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setKeepPropsOrder(keep_props_order: boolean): TRet;
 }
 /**
  * 单个定时器的信息。
