@@ -228,33 +228,6 @@ export declare class TBitmap {
      */
     static createEx(w: number, h: number, line_length: number, format: TBitmapFormat): TBitmap;
     /**
-     * 创建图片对象。
-     *
-     * @param w 宽度。
-     * @param h 高度。
-     * @param line_length line_length。
-     * @param format 格式。
-     * @param data 图像数据。
-     * @param should_free_data 是否释放数据。
-     *
-     * @returns 返回bitmap对象。
-     */
-    static createEx2(w: number, h: number, line_length: number, format: TBitmapFormat, data: number, should_free_data: boolean): TBitmap;
-    /**
-     * 创建图片对象。
-     *
-     * @param w 宽度。
-     * @param h 高度。
-     * @param line_length line_length。
-     * @param format 格式。
-     * @param data 图像数据。
-     * @param physical_data_addr 物理地址(部分硬件加速需要)。
-     * @param should_free_data 是否释放数据。
-     *
-     * @returns 返回bitmap对象。
-     */
-    static createEx3(w: number, h: number, line_length: number, format: TBitmapFormat, data: number, physical_data_addr: number, should_free_data: boolean): TBitmap;
-    /**
      * 获取图片一个像素占用的字节数。
      *
      *
@@ -2570,14 +2543,6 @@ export declare class TIdle {
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     static remove(idle_id: number): TRet;
-    /**
-     * 根据上下文删除所有对应的idle。
-     *
-     * @param ctx idle回调函数的上下文
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    static removeAllByCtx(ctx: any): TRet;
 }
 /**
  * 图片管理器。负责加载，解码和缓存图片。
@@ -4055,14 +4020,6 @@ export declare class TTimer {
      */
     static remove(timer_id: number): TRet;
     /**
-     * 根据上下文删除所有对应的timer。
-     *
-     * @param ctx timer回调函数的上下文。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    static removeAllByCtx(ctx: any): TRet;
-    /**
      * 重置指定的timer，重置之后定时器重新开始计时。
      *
      * @param timer_id timerID。
@@ -4282,6 +4239,27 @@ export declare enum TBitmapFlag {
     GPU_FBO_TEXTURE
 }
 /**
+ * 填充规则。
+ *
+ */
+export declare enum TVgcanvasFillMode {
+    /**
+     * 全部填充。（部分vg渲染引擎可能不支持，会退化为非零规则填充）
+     *
+     */
+    ALL_FILL,
+    /**
+     * 非零规则填充。
+     *
+     */
+    NON_ZERO,
+    /**
+     * 奇偶规则填充。
+     *
+     */
+    EVEN_ODD
+}
+/**
  * 矢量图画布抽象基类。
  *
  *具体实现时可以使用agg，nanovg, cairo和skia等方式。
@@ -4450,15 +4428,13 @@ export declare class TVgcanvas {
      */
     closePath(): TRet;
     /**
-     * 设置路径填充实心与否。
+     * 设置填充规则。
      *
-     *>设置为FALSE为实心，TRUE为镂空。
-     *
-     * @param dir 填充方法。
+     * @param fill_mode 填充规则。
      *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
-    pathWinding(dir: boolean): TRet;
+    setFillMode(fill_mode: TVgcanvasFillMode): TRet;
     /**
      * 旋转。
      *
@@ -7192,15 +7168,6 @@ export declare class TWidget {
      */
     getPropStr(name: string, defval: string): string;
     /**
-     * 设置指针格式的属性。
-     *
-     * @param name 属性的名称。
-     * @param v 属性的值。
-     *
-     * @returns 返回RET_OK表示成功，否则表示失败。
-     */
-    setPropPointer(name: string, v: any): TRet;
-    /**
      * 获取指针格式的属性。
      *
      * @param name 属性的名称。
@@ -9131,6 +9098,27 @@ export declare enum TObjectProp {
      *
      */
     SELECTED_INDEX
+}
+/**
+ * 对象生命周期的定义。如果需要保存对象的实例，如何决定对象的生命周期。
+ *
+ */
+export declare enum TObjectLife {
+    /**
+     * 不关心对象的生命周期(假设对象的生命周期长于当前的上下文)。
+     *
+     */
+    NONE,
+    /**
+     * 拥有对象的生命周期。当前上下文开始时，*不会* 增加对象的引用计数。当前上下文结束时，自动减少(unref)对象引用计数。
+     *
+     */
+    OWN,
+    /**
+     * 持有对象的生命周期。当前上下文开始时，增加对象的引用计数。当前上下文结束时，自动减少(unref)对象引用计数。
+     *
+     */
+    HOLD
 }
 /**
  * 循环记录日志(支持多线程访问)。
@@ -13681,6 +13669,13 @@ export declare class TScrollView extends TWidget {
      */
     setVirtualH(h: number): TRet;
     /**
+     * 修复偏移量。
+     *
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    fixOffset(): TRet;
+    /**
      * 设置是否允许x方向滑动。
      *
      * @param xslidable 是否允许滑动。
@@ -17159,6 +17154,7 @@ export declare class TLabel extends TWidget {
     /**
      * 显示字符的个数(小于0时全部显示)。
      *主要用于动态改变显示字符的个数，来实现类似[拨号中...]的动画效果。
+     *> 和换行是冲突的，换行后，该属性不生效
      *
      */
     get length(): number;
@@ -17667,7 +17663,7 @@ export declare class TSlider extends TWidget {
      */
     get slideWithBar(): boolean;
     /**
-     * 拖动临界值。
+     * 进入拖动状态的拖动临界值。
      *
      */
     get dragThreshold(): number;
