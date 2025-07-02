@@ -11253,6 +11253,22 @@ jsvalue_t wrap_widget_get_prop_str(JSContext* ctx, jsvalue_const_t this_val, int
   return jret;
 }
 
+jsvalue_t wrap_widget_set_prop_pointer(JSContext* ctx, jsvalue_const_t this_val, int argc,
+                                       jsvalue_const_t* argv) {
+  jsvalue_t jret = JS_NULL;
+  if (argc >= 3) {
+    ret_t ret = (ret_t)0;
+    widget_t* widget = (widget_t*)jsvalue_get_pointer(ctx, argv[0], "widget_t*");
+    const char* name = (const char*)jsvalue_get_utf8_string(ctx, argv[1]);
+    void* v = (void*)jsvalue_get_pointer(ctx, argv[2], "void*");
+    ret = (ret_t)widget_set_prop_pointer(widget, name, v);
+    jsvalue_free_str(ctx, name);
+
+    jret = jsvalue_create_int(ctx, ret);
+  }
+  return jret;
+}
+
 jsvalue_t wrap_widget_get_prop_pointer(JSContext* ctx, jsvalue_const_t this_val, int argc,
                                        jsvalue_const_t* argv) {
   jsvalue_t jret = JS_NULL;
@@ -12390,6 +12406,9 @@ ret_t widget_t_init(JSContext* ctx) {
                     JS_NewCFunction(ctx, wrap_widget_set_prop_str, "widget_set_prop_str", 1));
   JS_SetPropertyStr(ctx, global_obj, "widget_get_prop_str",
                     JS_NewCFunction(ctx, wrap_widget_get_prop_str, "widget_get_prop_str", 1));
+  JS_SetPropertyStr(
+      ctx, global_obj, "widget_set_prop_pointer",
+      JS_NewCFunction(ctx, wrap_widget_set_prop_pointer, "widget_set_prop_pointer", 1));
   JS_SetPropertyStr(
       ctx, global_obj, "widget_get_prop_pointer",
       JS_NewCFunction(ctx, wrap_widget_get_prop_pointer, "widget_get_prop_pointer", 1));

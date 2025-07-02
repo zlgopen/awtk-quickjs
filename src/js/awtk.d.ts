@@ -7168,6 +7168,15 @@ export declare class TWidget {
      */
     getPropStr(name: string, defval: string): string;
     /**
+     * 设置指针格式的属性。
+     *
+     * @param name 属性的名称。
+     * @param v 属性的值。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setPropPointer(name: string, v: any): TRet;
+    /**
      * 获取指针格式的属性。
      *
      * @param name 属性的名称。
