@@ -831,16 +831,16 @@ export declare class TObject extends TEmitter {
      */
     clearProps(): TRet;
     /**
-     * 引用计数。
-     *
-     */
-    get refCount(): number;
-    /**
      * 对象的名称。
      *
      */
     get name(): string;
     set name(v: string);
+    /**
+     * 引用计数。
+     *
+     */
+    get refCount(): number;
 }
 /**
  * 一个通用数据类型，用来存放整数、浮点数、字符串和其它对象。
@@ -1052,6 +1052,14 @@ export declare class TValue {
      * @returns 为空值返回TRUE，否则返回FALSE。
      */
     equal(other: TValue): boolean;
+    /**
+     * 比较两个value。
+     *
+     * @param other value对象。
+     *
+     * @returns 小于返回-1，等于返回0，大于返回1。
+     */
+    compare(other: TValue): number;
     /**
      * 设置类型为int的值。
      *
@@ -1818,16 +1826,6 @@ export declare enum TEventType {
      */
     POINTER_UP_BEFORE_CHILDREN,
     /**
-     * 滚轮事件名(wheel_event_t)。
-     *
-     */
-    WHEEL,
-    /**
-     * 鼠标滚轮事件名，在子控件处理之前触发(wheel_event_t)。
-     *
-     */
-    WHEEL_BEFORE_CHILDREN,
-    /**
      * 取消前一个指针按下事件名(pointer_event_t)。
      *
      */
@@ -1837,6 +1835,16 @@ export declare enum TEventType {
      *
      */
     CONTEXT_MENU,
+    /**
+     * 鼠标额外按键按下事件名(pointer_event_t)。
+     *
+     */
+    MOUSE_EXTRA_BUTTON_DOWN,
+    /**
+     * 鼠标额外按键抬起事件名(pointer_event_t)。
+     *
+     */
+    MOUSE_EXTRA_BUTTON_UP,
     /**
      * 指针进入事件名(pointer_event_t)。
      *
@@ -1862,6 +1870,16 @@ export declare enum TEventType {
      *
      */
     DOUBLE_CLICK,
+    /**
+     * 滚轮事件名(wheel_event_t)。
+     *
+     */
+    WHEEL,
+    /**
+     * 鼠标滚轮事件名，在子控件处理之前触发(wheel_event_t)。
+     *
+     */
+    WHEEL_BEFORE_CHILDREN,
     /**
      * 得到焦点事件名(event_t)。
      *
@@ -2007,12 +2025,15 @@ export declare enum TEventType {
     /**
      * 窗口被切换到后台事件(event_t)。
      *打开新窗口时，当前窗口被切换到后台时，对当前窗口触发本事件。
+     *或者切换窗口时，对切换到后台的窗口触发本事件。
      *
      */
     WINDOW_TO_BACKGROUND,
     /**
      * 窗口被切换到前台事件(event_t)。
      *关闭当前窗口时，前一个窗口被切换到前台时，对前一个窗口触发本事件。
+     *或者切换窗口时，对切换到前台的窗口触发本事件。
+     *打开窗口时不会触发本事件。
      *
      */
     WINDOW_TO_FOREGROUND,
@@ -4052,6 +4073,16 @@ export declare class TTimer {
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     static modify(timer_id: number, duration: number): TRet;
+    /**
+     * 修改指定的timer的duration，修改之后定时器重新开始计时。
+     *
+     * @param timer_id timerID。
+     * @param duration 新的时间(毫秒)。
+     * @param reset_timer 修改后是否重新计时。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    static modifyEx(timer_id: number, duration: number, reset_timer: boolean): TRet;
 }
 /**
  * 垂直对齐的常量定义。
@@ -4262,7 +4293,7 @@ export declare enum TVgcanvasFillMode {
 /**
  * 矢量图画布抽象基类。
  *
- *具体实现时可以使用agg，nanovg, cairo和skia等方式。
+ *具体实现时可以使用nanovg, cairo和skia等方式。
  *
  *cairo和skia体积太大，不适合嵌入式平台，但在PC平台也是一种选择。
  *
@@ -4270,9 +4301,7 @@ export declare enum TVgcanvasFillMode {
  *
  *我们对nanovg进行了一些改进:
  *
- ** 可以用agg/agge实现软件渲染(暂时不支持文本绘制)。
- *
- ** 可以用bgfx使用DirectX(Windows平台)和Metal(iOS)平台硬件加速。
+ ** 可以用agge实现软件渲染(暂时不支持文本绘制)。
  *
  *
  *
@@ -6639,6 +6668,36 @@ export declare class TWidget {
      */
     animateValueTo(value: any, duration: number): TRet;
     /**
+     * 设置控件的属性(以动画形式变化到指定的值)。
+     *
+     * @param name 属性名称。
+     * @param value 值。
+     * @param duration 动画持续时间(毫秒)。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    animatePropFloatTo(name: string, value: any, duration: number): TRet;
+    /**
+     * 设置控件的位置(以动画形式变化到指定的位置)。
+     *
+     * @param x x坐标。
+     * @param y y坐标。
+     * @param duration 动画持续时间(毫秒)。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    animatePositionTo(x: number, y: number, duration: number): TRet;
+    /**
+     * 设置控件的大小(以动画形式变化到指定的大小)。
+     *
+     * @param w 宽度。
+     * @param h 高度。
+     * @param duration 动画持续时间(毫秒)。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    animateSizeTo(w: number, h: number, duration: number): TRet;
+    /**
      * 查询指定的style是否存在。
      *
      * @param style_name style的名称（如果为 NULL，则默认为 default）。
@@ -7325,6 +7384,20 @@ export declare class TWidget {
      */
     isAlwaysOnTop(): boolean;
     /**
+     * 检查控件弹出对话框控件是否是挂起状态。
+     *
+     *
+     * @returns 返回FALSE表示不是，否则表示是。
+     */
+    isSuspendDialog(): boolean;
+    /**
+     * 检查控件弹出窗口控件是否是挂起状态。
+     *
+     *
+     * @returns 返回FALSE表示不是，否则表示是。
+     */
+    isSuspendPopup(): boolean;
+    /**
      * 检查控件弹出对话框控件是否已经打开了（而非挂起状态）。
      *
      *
@@ -7437,6 +7510,13 @@ export declare class TWidget {
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     destroyAsync(): TRet;
+    /**
+     * 增加控件的引用计数。
+     *
+     *
+     * @returns 返回控件对象。
+     */
+    ref(): TWidget;
     /**
      * 减少控件的引用计数。引用计数为0时销毁控件。
      *
@@ -7902,6 +7982,141 @@ export declare class TAppConf {
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     static remove(key: string): TRet;
+}
+/**
+ * 工具类。
+ *
+ */
+export declare class TConfUtils {
+    /**
+     * 加载配置文件到对象中。
+     *
+     * @param obj object对象。
+     * @param url 配置文件路径。
+     * @param type 配置文件类型, 如果为NULL，则自动检测。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    static objectLoadConf(obj: TObject, url: string, type: string): TRet;
+}
+/**
+ * 属性。
+ *
+ */
+export declare enum TEditExProp {
+    /**
+     * 多行编辑。
+     *
+     */
+    MULTILINE,
+    /**
+     * 输入建议词。
+     *
+     */
+    SUGGEST_WORDS,
+    /**
+     * 输入建议词相关ui属性。
+     *eg:
+     *```xml
+     *<edit_ex suggest_words_ui_props.popup.theme="number"/>
+     *```
+     *
+     */
+    SUGGEST_WORDS_UI_PROPS,
+    /**
+     * 奇数项的样式。
+     *eg:
+     *```xml
+     *<edit_ex suggest_words_ui_props.list_view.item_odd_style="odd"/>
+     *```
+     *
+     *style:
+     *```xml
+     *<combo_box_item>
+     *<style name="odd">
+     *</style>
+     *</combo_box_item>
+     *```
+     *
+     */
+    SUGGEST_WORDS_ITEM_ODD_STYLE,
+    /**
+     * 偶数项的样式。
+     *eg:
+     *```xml
+     *<edit_ex suggest_words_ui_props.list_view.item_even_style="even"/>
+     *```
+     *
+     *style:
+     *```xml
+     *<combo_box_item>
+     *<style name="even">
+     *</style>
+     *</combo_box_item>
+     *```
+     *
+     */
+    SUGGEST_WORDS_ITEM_EVEN_STYLE,
+    /**
+     * 分隔线的样式。
+     *eg:
+     *```xml
+     *<edit_ex suggest_words_ui_props.list_view.item_separate_style="separate"/>
+     *```
+     *
+     *style:
+     *```xml
+     *<view>
+     *<style name="separate">
+     *</style>
+     *</view>
+     *```
+     *
+     */
+    SUGGEST_WORDS_ITEM_SEPARATE_STYLE,
+    /**
+     * 最终输入到edit控件的文本的属性名。
+     *> 设置了 suggest_words_item_formats 才会被用到。
+     *
+     */
+    SUGGEST_WORDS_INPUT_NAME,
+    /**
+     * 是否选中输入建议词。
+     *
+     */
+    IS_SELECT_SUGGEST_WORD,
+    /**
+     * 项格式。
+     *> 格式说明：
+     ** 1. {}里包含一个格式的内容，格式与格式间用;相隔，格式为：格式名可忽略{内容}
+     ** 2. 格式内容由控件组成，控件格式为：控件类型默认为label(控件属性)[子控件]
+     ** 3. 控件可用分隔为,或|，如果使用|则自动生成分隔线。
+     ** 4. 控件可变属性前有$符号，属性会替换为输入建议词里的属性，如{(text=$title)}，label控件的属性text会替换为输入关键词里的title属性。
+     ** 完整格式参考：
+     **   格式名{控件1类型(控件属性)[子控件1类型(子控件1属性),(类型为label的子控件2属性)]|(类型为label的控件2属性)};格式名2{...}
+     *eg:
+     *```xml
+     *<edit_ex suggest_words_item_formats="{view(w=20%)[image(w=20,image=$img),(text=$INPUT,w=-20,m=5)]|(text=$desc,w=80%)}"/>
+     *```
+     *
+     */
+    SUGGEST_WORDS_ITEM_FORMATS
+}
+/**
+ * 属性。
+ *
+ */
+export declare enum TEditExSuggestWordsProp {
+    /**
+     * 建议词源属性：使用的格式名。
+     *eg:
+     *```xml
+     *<edit_ex suggest_words_item_formats="{view(w=20%)[image(w=20,image=$img),(text=$INPUT,w=-20,m=5)]|(text=$desc,w=80%)};A{(text=$INPUT,w=20%,m=5)|(text=$desc,w=80%)}"/>
+     *```
+     *
+     *
+     */
+    FORMAT_NAME
 }
 /**
  * 扩展控件。
@@ -8419,7 +8634,7 @@ export declare enum TEasingType {
      */
     SIN_OUT,
     /**
-     * EASING_SIN_OUT
+     * EASING_SIN_INOUT
      *
      */
     SIN_INOUT,
@@ -8506,6 +8721,53 @@ export declare enum TEasingType {
 export declare class TIdleManager {
     nativeObj: any;
     constructor(nativeObj: any);
+}
+/**
+ * LOG的级别。
+ *
+ */
+export declare enum TTkLogLevel {
+    /**
+     * DEBUG
+     *
+     */
+    DEBUG,
+    /**
+     * INFO
+     *
+     */
+    INFO,
+    /**
+     * WARN
+     *
+     */
+    WARN,
+    /**
+     * ERROR
+     *
+     */
+    ERROR
+}
+/**
+ * log。
+ *
+ */
+export declare class TLog {
+    /**
+     * 获取log的级别。
+     *
+     *
+     * @returns 返回log的级别。
+     */
+    static getLogLevel(): TTkLogLevel;
+    /**
+     * 设置log的级别。
+     *
+     * @param log_level log的级别。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    static setLogLevel(log_level: TTkLogLevel): TRet;
 }
 /**
  * MIME_TYPE。
@@ -9024,6 +9286,27 @@ export declare enum TMIME_TYPE {
     VIDEO_X_MSVIDEO
 }
 /**
+ * 对象生命周期的定义。如果需要保存对象的实例，如何决定对象的生命周期。
+ *
+ */
+export declare enum TObjectLife {
+    /**
+     * 不关心对象的生命周期(假设对象的生命周期长于当前的上下文)。
+     *
+     */
+    NONE,
+    /**
+     * 拥有对象的生命周期。当前上下文开始时，*不会* 增加对象的引用计数。当前上下文结束时，自动减少(unref)对象引用计数。
+     *
+     */
+    OWN,
+    /**
+     * 持有对象的生命周期。当前上下文开始时，增加对象的引用计数。当前上下文结束时，自动减少(unref)对象引用计数。
+     *
+     */
+    HOLD
+}
+/**
  * 对象常见命令定义
  *
  */
@@ -9085,7 +9368,17 @@ export declare enum TObjectCmd {
      *>参数为属性的名称或路径。
      *
      */
-    EDIT
+    EDIT,
+    /**
+     * 执行
+     *
+     */
+    EXEC,
+    /**
+     * 撤销
+     *
+     */
+    UNDO
 }
 /**
  * 对象常见属性定义
@@ -9098,6 +9391,16 @@ export declare enum TObjectProp {
      */
     SIZE,
     /**
+     * 是否禁用按路径访问属性。
+     *
+     */
+    DISABLE_PATH,
+    /**
+     * 是否保持属性间的顺序。
+     *
+     */
+    KEEP_PROPS_ORDER,
+    /**
      * 属性是否勾选。
      *
      */
@@ -9107,27 +9410,6 @@ export declare enum TObjectProp {
      *
      */
     SELECTED_INDEX
-}
-/**
- * 对象生命周期的定义。如果需要保存对象的实例，如何决定对象的生命周期。
- *
- */
-export declare enum TObjectLife {
-    /**
-     * 不关心对象的生命周期(假设对象的生命周期长于当前的上下文)。
-     *
-     */
-    NONE,
-    /**
-     * 拥有对象的生命周期。当前上下文开始时，*不会* 增加对象的引用计数。当前上下文结束时，自动减少(unref)对象引用计数。
-     *
-     */
-    OWN,
-    /**
-     * 持有对象的生命周期。当前上下文开始时，增加对象的引用计数。当前上下文结束时，自动减少(unref)对象引用计数。
-     *
-     */
-    HOLD
 }
 /**
  * 循环记录日志(支持多线程访问)。
@@ -12428,6 +12710,44 @@ export declare class TMledit extends TWidget {
      */
     getCurrentRowIndex(): number;
     /**
+     * 获取当前显示部分的起始视觉行号(一行文本可能分多行显示)。
+     *
+     *
+     * @returns 返回行号。
+     */
+    getStartLineIndex(): number;
+    /**
+     * 获取当前显示部分的起始物理行号。
+     *
+     *
+     * @returns 返回行号。
+     */
+    getStartRowIndex(): number;
+    /**
+     * 获取指定偏移所在的视觉行号(一行文本可能分多行显示)。
+     *
+     * @param offset 偏移。
+     *
+     * @returns 返回行号，不在范围内则返回-1。
+     */
+    getLineAt(offset: number): number;
+    /**
+     * 获取指定偏移所在的物理行号。
+     *
+     * @param offset 偏移。
+     *
+     * @returns 返回行号，不在范围内则返回-1。
+     */
+    getRowAt(offset: number): number;
+    /**
+     * 获取指定视觉行号所在的物理行号。
+     *
+     * @param line 视觉行号。
+     *
+     * @returns 返回物理行号，不在范围内则返回-1。
+     */
+    getRowOfLine(line: number): number;
+    /**
      * 插入一段文本。
      *
      * @param offset 插入的偏移位置。
@@ -12525,6 +12845,11 @@ export declare class TMledit extends TWidget {
      *
      */
     get acceptTab(): boolean;
+    /**
+     * 是否根据文本自动调整控件自身高度。
+     *
+     */
+    get autoAdjustHeight(): boolean;
 }
 /**
  * 进度圆环控件。
@@ -12819,6 +13144,14 @@ export declare class TRichText extends TWidget {
      */
     setYslidable(yslidable: boolean): TRet;
     /**
+     * 设置是否只允许在单词之间自动换行。
+     *
+     * @param word_wrap 是否只允许在单词之间自动换行。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setWordWrap(word_wrap: boolean): TRet;
+    /**
      * 转换为rich_text对象(供脚本语言使用)。
      *
      * @param widget rich_text对象。
@@ -12837,6 +13170,12 @@ export declare class TRichText extends TWidget {
      */
     get yslidable(): boolean;
     set yslidable(v: boolean);
+    /**
+     * 是否只允许在单词之间自动换行(默认TRUE)。
+     *
+     */
+    get wordWrap(): boolean;
+    set wordWrap(v: boolean);
 }
 /**
  * 可水平滚动的文本控件，方便实现长文本滚动。
@@ -13560,6 +13899,14 @@ export declare class TScrollBar extends TWidget {
      */
     setScrollDelta(scroll_delta: number): TRet;
     /**
+     * 设置每次鼠标滚动行数(仅对desktop风格的滚动条有效)。
+     *
+     * @param scroll_rows 每次鼠标滚动行数。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setScrollRows(scroll_rows: number): TRet;
+    /**
      * 虚拟宽度或高度。
      *
      */
@@ -13588,6 +13935,12 @@ export declare class TScrollBar extends TWidget {
     get scrollDelta(): number;
     set scrollDelta(v: number);
     /**
+     * 每次鼠标滚动行数。（与 scroll_delta 互斥，缺省值为0，0 则使用 scroll_delta）
+     *
+     */
+    get scrollRows(): number;
+    set scrollRows(v: number);
+    /**
      * 滚动时是否启用动画。
      *
      */
@@ -13599,11 +13952,16 @@ export declare class TScrollBar extends TWidget {
     get autoHide(): boolean;
     set autoHide(v: boolean);
     /**
-     * 设置鼠标滚轮是否滚动(仅对desktop风格的滚动条有效)（垂直滚动条缺省值为TRUE，水平滚动条缺省值为FALSE）。
+     * 设置鼠标滚轮是否滚动。
      *
      */
     get wheelScroll(): boolean;
     set wheelScroll(v: boolean);
+    /**
+     * 滚轮辅助键(仅对desktop风格的滚动条有效)（垂直滚动条缺省值为空，水平滚动条缺省值为shift）。
+     *
+     */
+    get wheelModifierKey(): string;
 }
 /**
  * 滚动视图。
@@ -13770,7 +14128,7 @@ export declare class TScrollView extends TWidget {
      */
     scrollTo(xoffset_end: number, yoffset_end: number, duration: number): TRet;
     /**
-     * 滚动到指定的偏移量。
+     * 在当前偏移量基础上滚动指定偏移量。
      *
      * @param xoffset_delta x偏移量。
      * @param yoffset_delta y偏移量。
@@ -13779,6 +14137,26 @@ export declare class TScrollView extends TWidget {
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     scrollDeltaTo(xoffset_delta: number, yoffset_delta: number, duration: number): TRet;
+    /**
+     * 是否使用虚拟宽度，默认否。
+     *
+     */
+    get useVirtualW(): boolean;
+    /**
+     * 是否使用滚动视图宽度，默认否。
+     *
+     */
+    get useWidgetW(): boolean;
+    /**
+     * 是否使用虚拟高度，默认否。
+     *
+     */
+    get useVirtualH(): boolean;
+    /**
+     * 是否使用滚动视图高度，默认否。
+     *
+     */
+    get useWidgetH(): boolean;
     /**
      * 虚拟宽度。
      *
@@ -15538,6 +15916,152 @@ export declare class TNamedValue extends TValue {
     set name(v: string);
 }
 /**
+ * 设置元素事件。
+ *
+ */
+export declare class TObjectFifoSetEvent extends TEvent {
+    nativeObj: any;
+    constructor(nativeObj: any);
+    /**
+     * 设置元素时的指定位置。
+     *
+     */
+    get index(): number;
+    /**
+     * 设置元素的个数。
+     *
+     */
+    get nr(): number;
+    /**
+     * 设置数据。
+     *
+     */
+    get data(): any;
+}
+/**
+ * 追加元素事件。
+ *
+ */
+export declare class TObjectFifoPushEvent extends TEvent {
+    nativeObj: any;
+    constructor(nativeObj: any);
+    /**
+     * 追加元素的个数。
+     *
+     */
+    get nr(): number;
+    /**
+     * 追加数据。
+     *
+     */
+    get data(): any;
+}
+/**
+ * 在头部插入元素事件。
+ *
+ */
+export declare class TObjectFifoPushHeadEvent extends TEvent {
+    nativeObj: any;
+    constructor(nativeObj: any);
+    /**
+     * 插入元素的个数。
+     *
+     */
+    get nr(): number;
+    /**
+     * 插入数据。
+     *
+     */
+    get data(): any;
+}
+/**
+ * 弹出元素事件。
+ *
+ */
+export declare class TObjectFifoPopEvent extends TEvent {
+    nativeObj: any;
+    constructor(nativeObj: any);
+    /**
+     * 弹出元素的个数。
+     *
+     */
+    get nr(): number;
+}
+/**
+ * 从末尾弹出元素事件。
+ *
+ */
+export declare class TObjectFifoPopTailEvent extends TEvent {
+    nativeObj: any;
+    constructor(nativeObj: any);
+    /**
+     * 弹出元素的个数。
+     *
+     */
+    get nr(): number;
+}
+/**
+ * 值改变事件。
+ *
+ */
+export declare class TObjectFifoValueChangeEvent extends TEvent {
+    nativeObj: any;
+    constructor(nativeObj: any);
+    /**
+     * 把event对象转object_fifo_event_set_t对象，主要给脚本语言使用。
+     *
+     * @param event event对象。
+     *
+     * @returns event对象。
+     */
+    static objectFifoSetEventCast(event: TEvent): TObjectFifoValueChangeEvent;
+    /**
+     * 把event对象转object_fifo_push_event_t对象，主要给脚本语言使用。
+     *
+     * @param event event对象。
+     *
+     * @returns event对象。
+     */
+    static objectFifoPushEventCast(event: TEvent): TObjectFifoValueChangeEvent;
+    /**
+     * 把event对象转object_fifo_push_head_event_t对象，主要给脚本语言使用。
+     *
+     * @param event event对象。
+     *
+     * @returns event对象。
+     */
+    static objectFifoPushHeadEventCast(event: TEvent): TObjectFifoValueChangeEvent;
+    /**
+     * 把event对象转object_fifo_pop_event_t对象，主要给脚本语言使用。
+     *
+     * @param event event对象。
+     *
+     * @returns event对象。
+     */
+    static objectFifoPopEventCast(event: TEvent): TObjectFifoValueChangeEvent;
+    /**
+     * 把event对象转object_fifo_pop_tail_event_t对象，主要给脚本语言使用。
+     *
+     * @param event event对象。
+     *
+     * @returns event对象。
+     */
+    static objectFifoPopTailEventCast(event: TEvent): TObjectFifoValueChangeEvent;
+    /**
+     * 把event对象转object_fifo_value_change_event_t对象，主要给脚本语言使用。
+     *
+     * @param event event对象。
+     *
+     * @returns event对象。
+     */
+    static cast(event: TEvent): TObjectFifoValueChangeEvent;
+    /**
+     * 具体的事件类型。
+     *
+     */
+    get type(): number;
+}
+/**
  * app_bar控件。
  *
  *一个简单的容器控件，一般在窗口的顶部，用于显示本窗口的状态和信息。
@@ -16496,6 +17020,13 @@ export declare class TEdit extends TWidget {
      */
     getInt(): number;
     /**
+     * 获取int64类型的值。
+     *
+     *
+     * @returns 返回int的值。
+     */
+    getInt64(): number;
+    /**
      * 获取double类型的值。
      *
      *
@@ -17126,9 +17657,9 @@ export declare class TLabel extends TWidget {
      */
     setLineWrap(line_wrap: boolean): TRet;
     /**
-     * 设置是否允许整个单词换行。(需要开启自动换行才有效果)
+     * 设置是否只允许在单词之间自动换行(需要开启自动换行才有效果)。
      *
-     * @param word_wrap 是否允许整个单词换行。
+     * @param word_wrap 是否只允许在单词之间自动换行。
      *
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
@@ -17163,7 +17694,6 @@ export declare class TLabel extends TWidget {
     /**
      * 显示字符的个数(小于0时全部显示)。
      *主要用于动态改变显示字符的个数，来实现类似[拨号中...]的动画效果。
-     *> 和换行是冲突的，换行后，该属性不生效
      *
      */
     get length(): number;
@@ -17175,7 +17705,7 @@ export declare class TLabel extends TWidget {
     get lineWrap(): boolean;
     set lineWrap(v: boolean);
     /**
-     * 是否允许整个单词换行(默认FALSE)。
+     * 是否只允许在单词之间自动换行(默认FALSE)。
      *> 需要开启自动换行才有效果
      *
      */
@@ -18078,9 +18608,7 @@ export declare class TView extends TWidget {
  *
  *如果dialog有透明或半透效果则不支持窗口动画。
  *
- *> 由于浏览器中无法实现主循环嵌套，因此无法实现模态对话框。
- *如果希望自己写的AWTK应用程序可以在浏览器(包括各种小程序)中运行或演示，
- *请避免使用模态对话框。
+ *> 由于浏览器中无法实现主循环嵌套，dialog_modal() 不会阻塞等待返回值，而是立即返回。如果业务逻辑依赖模态对话框的返回值，在浏览器中会失效。
  *
  *对话框通常由对话框标题和对话框客户区两部分组成：
  *
@@ -18217,6 +18745,8 @@ export declare class TDialog extends TWindowBase {
      *dialog_modal返回后，dialog对象将在下一个idle函数中回收。
      *也就是在dialog_modal调用完成后仍然可以访问dialog中控件，直到本次事件结束。
      *调用该函数会使线程进入阻塞状态，需要调用dialog_quit来解除阻塞。
+     *> 建议尽量少用模态对话框，特别不要多级嵌套模态对话框，部分平台(如WEB)不支持模态对话框。
+     *> AWTK本身是不能操作对话框后面的窗口的，相当于是模态的，只是事件是异步的，传统模态对话框都是可以用非模态对话框实现的。
      *
      *
      * @returns 返回退出码，值为dialog_quit函数中传入的参数。
@@ -18540,6 +19070,7 @@ export declare class TWindow extends TWindowBase {
 /**
  * 扩展edit控件。支持以下功能：
  ** 支持搜索建议功能。
+ ** 支持多行编辑功能。
  *
  */
 export declare class TEditEx extends TEdit {
@@ -18557,6 +19088,15 @@ export declare class TEditEx extends TEdit {
      * @returns 对象。
      */
     static create(parent: TWidget, x: number, y: number, w: number, h: number): TEditEx;
+    /**
+     * 设置多行编辑。
+     *> 与搜索建议功能互斥。
+     *
+     * @param multiline 是否多行编辑。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setMultiline(multiline: boolean): TRet;
     /**
      * 设置输入建议词源。
      *> EVT_VALUE_CHANGED 事件请求词源更新，new_value 为 edit 输入内容。
@@ -18584,6 +19124,14 @@ export declare class TEditEx extends TEdit {
      */
     setSuggestWordsInputName(name: string): TRet;
     /**
+     * 请求刷新显示建议词窗口。
+     *> suggest_words 为空时关闭窗口。
+     *
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    updateSuggestWordsPopup(): TRet;
+    /**
      * 转换为edit对象(供脚本语言使用)。
      *
      * @param widget edit_ex对象。
@@ -18610,6 +19158,18 @@ export declare class TEditEx extends TEdit {
      */
     get suggestWordsInputName(): string;
     set suggestWordsInputName(v: string);
+    /**
+     * 是否选中输入建议词。
+     *
+     */
+    get isSelectSuggestWord(): boolean;
+    /**
+     * 多行编辑。
+     *> 与搜索建议功能互斥。
+     *
+     */
+    get multiline(): boolean;
+    set multiline(v: boolean);
 }
 /**
  * GIF图片控件。
@@ -18699,6 +19259,14 @@ export declare class TGifImage extends TImageBase {
      */
     setLoop(loop: number): TRet;
     /**
+     * 设置是否使用部分加载模式。
+     *
+     * @param part_buffer_load_mode 循环播放次数。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setPartBufferLoadMode(part_buffer_load_mode: boolean): TRet;
+    /**
      * 转换为gif_image对象(供脚本语言使用)。
      *
      * @param widget gif_image对象。
@@ -18712,6 +19280,12 @@ export declare class TGifImage extends TImageBase {
      */
     get loop(): number;
     set loop(v: number);
+    /**
+     * 边加载边播放模式。（比较耗费性能，但占用内存较小）
+     *
+     */
+    get partBufferLoadMode(): boolean;
+    set partBufferLoadMode(v: boolean);
 }
 /**
  * 软键盘。
@@ -19331,6 +19905,14 @@ export declare class TObjectHash extends TObject {
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     setKeepPropType(keep_prop_type: boolean): TRet;
+    /**
+     * 设置属性名是否大小写不敏感。
+     *
+     * @param name_case_insensitive 属性名是否大小写不敏感。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setNameCaseInsensitive(name_case_insensitive: boolean): TRet;
     /**
      * 设置是否保持属性间的顺序。
      *
