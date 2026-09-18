@@ -15,7 +15,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TEditExProp = exports.TConfUtils = exports.TAppConf = exports.TWidget = exports.TWidgetCursor = exports.TWidgetState = exports.TWindowClosable = exports.TWindowStage = exports.TWidgetType = exports.TWidgetProp = exports.TVgcanvasLineJoin = exports.TVgcanvasLineCap = exports.TVgcanvas = exports.TVgcanvasFillMode = exports.TBitmapFlag = exports.TBitmapFormat = exports.TAppType = exports.TAlignH = exports.TAlignV = exports.TTimer = exports.TTheme = exports.TSystemInfoFlag = exports.TStyle = exports.TStyleId = exports.TLocaleInfos = exports.TLocaleInfo = exports.TKeyCode = exports.TInputMethod = exports.TInputType = exports.TImageManager = exports.TIdle = exports.TGlyphFormat = exports.TEvent = exports.TEventType = exports.TDialogQuitCode = exports.TClipBoard = exports.TClipBoardDataType = exports.TCanvas = exports.TCanvasOffline = exports.TImageDrawType = exports.TBidiType = exports.TGlobal = exports.TValue = exports.TObject = exports.TBitmap = exports.TRect = exports.TRectf = exports.TPointf = exports.TPoint = exports.TEmitter = void 0;
+exports.TEditExProp = exports.TConfUtils = exports.TAppConf = exports.TWidget = exports.TWidgetCursor = exports.TWidgetState = exports.TWindowClosable = exports.TWindowStage = exports.TWidgetType = exports.TWidgetProp = exports.TVgcanvasLineJoin = exports.TVgcanvasLineCap = exports.TVgcanvas = exports.TVgcanvasFillMode = exports.TBitmapFlag = exports.TBitmapFormat = exports.TAppType = exports.TAlignH = exports.TAlignV = exports.TTimer = exports.TTheme = exports.TSystemInfoFlag = exports.TStyle = exports.TStyleId = exports.TLocaleInfos = exports.TLocaleInfo = exports.TKeyCode = exports.TInputMethod = exports.TInputType = exports.TImageManager = exports.TIdle = exports.TGlyphFormat = exports.TFontBidiType = exports.TEvent = exports.TEventType = exports.TDialogQuitCode = exports.TClipBoard = exports.TClipBoardDataType = exports.TCanvas = exports.TCanvasOffline = exports.TImageDrawType = exports.TGlobal = exports.TValue = exports.TObject = exports.TBitmap = exports.TRect = exports.TRectf = exports.TPointf = exports.TPoint = exports.TEmitter = void 0;
 exports.TGaugePointer = exports.TFileChooser = exports.TFileBrowserView = exports.TDraggable = exports.TColorPicker = exports.TColorComponent = exports.TCanvasWidget = exports.TWindowManager = exports.TWindowBase = exports.TStyleMutable = exports.TLocaleInfoXml = exports.TImageBase = exports.TFontManager = exports.TUiLoadEvent = exports.TTouchEvent = exports.TSystemEvent = exports.TDropFileEvent = exports.TThemeChangeEvent = exports.TMultiGestureEvent = exports.TWindowEvent = exports.TPaintEvent = exports.TKeyEvent = exports.TPointerEvent = exports.TOffsetChangeEvent = exports.TOrientationEvent = exports.TWheelEvent = exports.TModelEvent = exports.TWidgetAnimatorEvent = exports.TAssetsManager = exports.TValueType = exports.TRet = exports.TTimerManager = exports.TTimeNow = exports.TRlog = exports.TObjectProp = exports.TObjectCmd = exports.TObjectLife = exports.TMIME_TYPE = exports.TLog = exports.TTkLogLevel = exports.TIdleManager = exports.TEasingType = exports.TDateTime = exports.TColor = exports.TAssetInfo = exports.TAssetType = exports.TVpageEvent = exports.TIndicatorDefaultPaint = exports.TExtWidgets = exports.TEditExSuggestWordsProp = void 0;
 exports.TDigitClock = exports.TDialogTitle = exports.TDialogClient = exports.TComboBoxItem = exports.TColumn = exports.TColorTile = exports.TClipView = exports.TCheckButton = exports.TButton = exports.TButtonGroup = exports.TAppBar = exports.TObjectFifoValueChangeEvent = exports.TObjectFifoPopTailEvent = exports.TObjectFifoPopEvent = exports.TObjectFifoPushHeadEvent = exports.TObjectFifoPushEvent = exports.TObjectFifoSetEvent = exports.TNamedValue = exports.TLogMessageEvent = exports.TValueChangeEvent = exports.TCmdExecEvent = exports.TErrorEvent = exports.TDoneEvent = exports.TProgressEvent = exports.TPropChangeEvent = exports.TVpage = exports.TTimerWidget = exports.TTimeClock = exports.TTextSelector = exports.TSwitch = exports.TSlideView = exports.TSlideIndicator = exports.TSlideMenu = exports.TSerialWidget = exports.TScrollView = exports.TScrollBar = exports.TListView = exports.TListViewH = exports.TListItem = exports.THscrollLabel = exports.TRichText = exports.TRichTextView = exports.TProgressCircle = exports.TMledit = exports.TLineNumber = exports.TLangIndicator = exports.TCandidates = exports.TImageValue = exports.TImageAnimation = exports.TGauge = void 0;
 exports.TComboBoxEx = exports.TSystemBar = exports.TSpinBox = exports.TPopup = exports.TOverlay = exports.TImage = exports.TComboBox = exports.TCalibrationWin = exports.TTimerInfo = exports.TObjectHash = exports.TObjectDefault = exports.TObjectArray = exports.TNamedValueHash = exports.TIdleInfo = exports.TSvgImage = exports.TListItemSeperator = exports.TMutableImage = exports.TKeyboard = exports.TGifImage = exports.TEditEx = exports.TWindow = exports.TNativeWindow = exports.TDialog = exports.TView = exports.TTabControl = exports.TTabButton = exports.TTabButtonGroup = exports.TSlider = exports.TRow = exports.TProgressBar = exports.TPages = exports.TLabel = exports.TGroupBox = exports.TGrid = exports.TGridItem = exports.TEdit = exports.TDragger = void 0;
@@ -1651,49 +1651,6 @@ var TGlobal = /** @class */ (function () {
 exports.TGlobal = TGlobal;
 ;
 /**
- * bidi 类型常量定义。
- *
- */
-var TBidiType;
-(function (TBidiType) {
-    /**
-     * 自动检查。
-     *
-     */
-    TBidiType[TBidiType["AUTO"] = BIDI_TYPE_AUTO()] = "AUTO";
-    /**
-     * Left-To-Right letter。
-     *
-     */
-    TBidiType[TBidiType["LTR"] = BIDI_TYPE_LTR()] = "LTR";
-    /**
-     * Right-To-Left letter。
-     *
-     */
-    TBidiType[TBidiType["RTL"] = BIDI_TYPE_RTL()] = "RTL";
-    /**
-     * Left-To-Right letter Override。
-     *
-     */
-    TBidiType[TBidiType["LRO"] = BIDI_TYPE_LRO()] = "LRO";
-    /**
-     * Right-To-Left letter Override。
-     *
-     */
-    TBidiType[TBidiType["RLO"] = BIDI_TYPE_RLO()] = "RLO";
-    /**
-     * Weak Left To Right paragraph。
-     *
-     */
-    TBidiType[TBidiType["WLTR"] = BIDI_TYPE_WLTR()] = "WLTR";
-    /**
-     * Weak Right To Left paragraph。
-     *
-     */
-    TBidiType[TBidiType["WRTL"] = BIDI_TYPE_WRTL()] = "WRTL";
-})(TBidiType || (exports.TBidiType = TBidiType = {}));
-;
-/**
  * 图片绘制方法常量定义。
  *
  */
@@ -3075,6 +3032,49 @@ var TEvent = /** @class */ (function () {
     return TEvent;
 }());
 exports.TEvent = TEvent;
+;
+/**
+ * 字库 bidi 类型常量定义。
+ *
+ */
+var TFontBidiType;
+(function (TFontBidiType) {
+    /**
+     * 自动检查。
+     *
+     */
+    TFontBidiType[TFontBidiType["AUTO"] = FONT_BIDI_TYPE_AUTO()] = "AUTO";
+    /**
+     * Left-To-Right letter。
+     *
+     */
+    TFontBidiType[TFontBidiType["LTR"] = FONT_BIDI_TYPE_LTR()] = "LTR";
+    /**
+     * Right-To-Left letter。
+     *
+     */
+    TFontBidiType[TFontBidiType["RTL"] = FONT_BIDI_TYPE_RTL()] = "RTL";
+    /**
+     * Left-To-Right letter Override。
+     *
+     */
+    TFontBidiType[TFontBidiType["LRO"] = FONT_BIDI_TYPE_LRO()] = "LRO";
+    /**
+     * Right-To-Left letter Override。
+     *
+     */
+    TFontBidiType[TFontBidiType["RLO"] = FONT_BIDI_TYPE_RLO()] = "RLO";
+    /**
+     * Weak Left To Right paragraph。
+     *
+     */
+    TFontBidiType[TFontBidiType["WLTR"] = FONT_BIDI_TYPE_WLTR()] = "WLTR";
+    /**
+     * Weak Right To Left paragraph。
+     *
+     */
+    TFontBidiType[TFontBidiType["WRTL"] = FONT_BIDI_TYPE_WRTL()] = "WRTL";
+})(TFontBidiType || (exports.TFontBidiType = TFontBidiType = {}));
 ;
 /**
  * 字模格式常量定义。
@@ -5433,6 +5433,21 @@ var TVgcanvas = /** @class */ (function () {
         return vgcanvas_fill_text(this != null ? (this.nativeObj || this) : null, text, x, y, max_width);
     };
     /**
+     * 绘制文本。
+     *
+     * @param glyphs 字模列表对象。
+     * @param start 字模开始序号。
+     * @param len 字模长度。
+     * @param x x坐标。
+     * @param y y坐标。
+     * @param max_width 最大宽度。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TVgcanvas.prototype.fillTextByGlyphs = function (glyphs, start, len, x, y, max_width) {
+        return vgcanvas_fill_text_by_glyphs(this != null ? (this.nativeObj || this) : null, glyphs, start, len, x, y, max_width);
+    };
+    /**
      * 测量文本的宽度。
      *
      * @param text text
@@ -5945,6 +5960,11 @@ var TWidgetProp;
      *
      */
     TWidgetProp[TWidgetProp["BIDI"] = WIDGET_PROP_BIDI()] = "BIDI";
+    /**
+     * 是否整形（harfbuzz模式下默认开启）。
+     *
+     */
+    TWidgetProp[TWidgetProp["SHAPING"] = WIDGET_PROP_SHAPING()] = "SHAPING";
     /**
      * Canvas。
      *
@@ -19166,6 +19186,20 @@ var TSlideView = /** @class */ (function (_super) {
         enumerable: false,
         configurable: true
     });
+    Object.defineProperty(TSlideView.prototype, "active", {
+        /**
+         * 当前活跃的page。
+         *
+         */
+        get: function () {
+            return slide_view_t_get_prop_active(this.nativeObj);
+        },
+        set: function (v) {
+            this.setActive(v);
+        },
+        enumerable: false,
+        configurable: true
+    });
     return TSlideView;
 }(TWidget));
 exports.TSlideView = TSlideView;
@@ -22335,6 +22369,16 @@ var TEdit = /** @class */ (function (_super) {
     TEdit.prototype.setFocusNextWhenEnter = function (focus_next_when_enter) {
         return edit_set_focus_next_when_enter(this != null ? (this.nativeObj || this) : null, focus_next_when_enter);
     };
+    /**
+     * 设置编辑器是否在失去焦点时滚动回开头。
+     *
+     * @param scroll_to_begin_on_blur 是否在失去焦点时滚动回开头。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TEdit.prototype.setScrollToBeginOnBlur = function (scroll_to_begin_on_blur) {
+        return edit_set_scroll_to_begin_on_blur(this != null ? (this.nativeObj || this) : null, scroll_to_begin_on_blur);
+    };
     Object.defineProperty(TEdit.prototype, "tips", {
         /**
          * 输入提示。
@@ -22572,6 +22616,20 @@ var TEdit = /** @class */ (function (_super) {
         },
         set: function (v) {
             this.setFocusNextWhenEnter(v);
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(TEdit.prototype, "scrollToBeginOnBlur", {
+        /**
+         * 失去焦点时是否滚动回开头(默认 FALSE)
+         *
+         */
+        get: function () {
+            return edit_t_get_prop_scroll_to_begin_on_blur(this.nativeObj);
+        },
+        set: function (v) {
+            this.setScrollToBeginOnBlur(v);
         },
         enumerable: false,
         configurable: true

@@ -1236,47 +1236,6 @@ export declare class TGlobal {
     static isPointerPressed(): boolean;
 }
 /**
- * bidi 类型常量定义。
- *
- */
-export declare enum TBidiType {
-    /**
-     * 自动检查。
-     *
-     */
-    AUTO,
-    /**
-     * Left-To-Right letter。
-     *
-     */
-    LTR,
-    /**
-     * Right-To-Left letter。
-     *
-     */
-    RTL,
-    /**
-     * Left-To-Right letter Override。
-     *
-     */
-    LRO,
-    /**
-     * Right-To-Left letter Override。
-     *
-     */
-    RLO,
-    /**
-     * Weak Left To Right paragraph。
-     *
-     */
-    WLTR,
-    /**
-     * Weak Right To Left paragraph。
-     *
-     */
-    WRTL
-}
-/**
  * 图片绘制方法常量定义。
  *
  */
@@ -2502,6 +2461,47 @@ export declare class TEvent {
      *
      */
     get target(): any;
+}
+/**
+ * 字库 bidi 类型常量定义。
+ *
+ */
+export declare enum TFontBidiType {
+    /**
+     * 自动检查。
+     *
+     */
+    AUTO,
+    /**
+     * Left-To-Right letter。
+     *
+     */
+    LTR,
+    /**
+     * Right-To-Left letter。
+     *
+     */
+    RTL,
+    /**
+     * Left-To-Right letter Override。
+     *
+     */
+    LRO,
+    /**
+     * Right-To-Left letter Override。
+     *
+     */
+    RLO,
+    /**
+     * Weak Left To Right paragraph。
+     *
+     */
+    WLTR,
+    /**
+     * Weak Right To Left paragraph。
+     *
+     */
+    WRTL
 }
 /**
  * 字模格式常量定义。
@@ -4652,6 +4652,19 @@ export declare class TVgcanvas {
      */
     fillText(text: string, x: number, y: number, max_width: number): TRet;
     /**
+     * 绘制文本。
+     *
+     * @param glyphs 字模列表对象。
+     * @param start 字模开始序号。
+     * @param len 字模长度。
+     * @param x x坐标。
+     * @param y y坐标。
+     * @param max_width 最大宽度。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    fillTextByGlyphs(glyphs: any, start: number, len: number, x: number, y: number, max_width: number): TRet;
+    /**
      * 测量文本的宽度。
      *
      * @param text text
@@ -5026,6 +5039,11 @@ export declare enum TWidgetProp {
      *
      */
     BIDI,
+    /**
+     * 是否整形（harfbuzz模式下默认开启）。
+     *
+     */
+    SHAPING,
     /**
      * Canvas。
      *
@@ -14959,6 +14977,12 @@ export declare class TSlideView extends TWidget {
      */
     get animatingTime(): number;
     set animatingTime(v: number);
+    /**
+     * 当前活跃的page。
+     *
+     */
+    get active(): number;
+    set active(v: number);
 }
 /**
  * 开关控件。
@@ -17235,6 +17259,14 @@ export declare class TEdit extends TWidget {
      */
     setFocusNextWhenEnter(focus_next_when_enter: boolean): TRet;
     /**
+     * 设置编辑器是否在失去焦点时滚动回开头。
+     *
+     * @param scroll_to_begin_on_blur 是否在失去焦点时滚动回开头。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    setScrollToBeginOnBlur(scroll_to_begin_on_blur: boolean): TRet;
+    /**
      * 输入提示。
      *
      */
@@ -17347,6 +17379,12 @@ export declare class TEdit extends TWidget {
      */
     get focusNextWhenEnter(): boolean;
     set focusNextWhenEnter(v: boolean);
+    /**
+     * 失去焦点时是否滚动回开头(默认 FALSE)
+     *
+     */
+    get scrollToBeginOnBlur(): boolean;
+    set scrollToBeginOnBlur(v: boolean);
 }
 /**
  * grid_item。一个简单的容器控件，一般作为grid的子控件。
