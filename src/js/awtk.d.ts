@@ -2564,6 +2564,15 @@ export declare class TIdle {
      * @returns 返回RET_OK表示成功，否则表示失败。
      */
     static remove(idle_id: number): TRet;
+    /**
+     * 删除指定的idle。
+     *
+     * @param compare idle_info_t比较函数。
+     * @param ctx 比较函数的上下文。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    static removeEx(compare: any, ctx: any): TRet;
 }
 /**
  * 图片管理器。负责加载，解码和缓存图片。

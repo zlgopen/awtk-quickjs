@@ -3145,6 +3145,17 @@ var TIdle = /** @class */ (function () {
     TIdle.remove = function (idle_id) {
         return idle_remove(idle_id);
     };
+    /**
+     * 删除指定的idle。
+     *
+     * @param compare idle_info_t比较函数。
+     * @param ctx 比较函数的上下文。
+     *
+     * @returns 返回RET_OK表示成功，否则表示失败。
+     */
+    TIdle.removeEx = function (compare, ctx) {
+        return idle_remove_ex(compare, ctx);
+    };
     return TIdle;
 }());
 exports.TIdle = TIdle;
